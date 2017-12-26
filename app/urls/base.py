@@ -23,6 +23,7 @@ handler403 = 'app.urls.error.permission_denied_view'
 handler400 = 'app.urls.error.bad_request_view'
 
 urlpatterns = [
+    path('', include('src.base.urls')),
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api/auth/', include('rest_framework.urls', 
