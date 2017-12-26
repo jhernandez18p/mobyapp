@@ -1,5 +1,7 @@
 import os
 
+from decouple import config
+
 # Site ID
 SITE_ID = 1
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -7,9 +9,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'mlj$&f!=hmtj_s(6kh@vykr$@t!gyh(27)4h1qh0-#9*6&(i#7'
+SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = []
 # Application definition
 DJANGO_APPS = (

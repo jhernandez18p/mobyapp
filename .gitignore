@@ -104,7 +104,6 @@ ENV/
 media/*
 
 # Exclude
-.env
 /*.pyc
 /*/*.pyc
 /*/*/*.pyc
