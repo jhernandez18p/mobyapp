@@ -64,16 +64,28 @@ TEMPLATES = [
     },
 ]
 # Database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(os.path.join(BASE_DIR,'databases'), 'local.sqlite3'),
-    },
-    'frontend':{
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(os.path.join(BASE_DIR,'databases'), 'frontend.sqlite3'),
+if config('DEBUG'):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(os.path.join(BASE_DIR,'databases'), 'local.sqlite3'),
+        },
+        'frontend':{
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(os.path.join(BASE_DIR,'databases'), 'frontend.sqlite3'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': config('DB_ENGINE'),
+            'USER': config('DB_NAME'),
+            'PASSWORD': config('DB_USER'),
+            'HOST': config('DB_USER_PASSWORD'),
+            'PORT': config('DB_PORT'),
+        }
+    }
 # Security Conf
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
