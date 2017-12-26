@@ -101,7 +101,7 @@ ENV/
 
 
 # Media repo
-/media/*
+media/*
 
 # Exclude
 .env
