@@ -1,0 +1,336 @@
+{% extends 'base/index.html' %}{% load staticfiles %}
+
+{% block css %}
+
+<style>
+    /*
+    Removes white gap between slides - chagnge to base color of slide images
+    */
+    .carousel {
+        background:#007aeb;
+    }
+
+    /*
+    Forces image to be 100% width and not max width of 100%
+    */
+    .carousel-item .img-fluid {
+        width:100%;
+    }
+
+
+    /* 
+    anchors are inline so you need ot make them block to go full width
+    */
+    .carousel-item a {
+        display: block;
+        width:100%;
+    }
+
+    /* 
+    Fixing the height
+    */
+    .carousel,
+    .item,
+    .active {
+        height: 800px;
+        width: auto;
+    }
+
+    .carousel-inner {
+        height: 100%;
+    }
+
+    /* 
+    Swiper
+    */
+    .swiper-container {
+      width: 100%;
+      height: 100%;
+    }
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      /* Center slide text vertically */
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+    }
+
+</style>
+{% endblock %}
+
+{% block full_screen %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row" id="carousel">
+        <div class="carousel slide carousel-fade" data-ride="carousel" data-interval="8000">
+            <ol class="carousel-indicators">
+                <li data-target="#carousel" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel" data-slide-to="1"></li>
+                <li data-target="#carousel" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                <div class="carousel-item active">
+        
+                    <picture>
+                        <source srcset="https://images.pexels.com/photos/262367/pexels-photo-262367.jpeg?w=2000&h=860&auto=compress&cs=tinysrgb"
+                            media="(min-width: 1400px)">
+                        <source srcset="https://images.pexels.com/photos/262367/pexels-photo-262367.jpeg?w=1400&h=860&auto=compress&cs=tinysrgb"
+                            media="(min-width: 769px)">
+                        <source srcset="https://images.pexels.com/photos/262367/pexels-photo-262367.jpeg?w=800&h=860&auto=compress&cs=tinysrgb" media="(min-width: 577px)">
+                        <img srcset="https://images.pexels.com/photos/262367/pexels-photo-262367.jpeg?w=600&h=860&auto=compress&cs=tinysrgb" alt="responsive image"
+                            class="d-block img-fluid">
+                    </picture>
+        
+                    <div class="carousel-caption">
+                        <div>
+                            <h2>Nuestros Servicios</h2>
+                            <p>CORTE, CANTEO, PERFORACIÓN, RANURADO, FRESADO, ARMADO, DESPACHO</p>
+                            <a class="btn btn-sm btn-outline-secondary">Ver más</a>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="carousel-item">
+        
+                    <picture>
+                        <source srcset="https://images.pexels.com/photos/262367/pexels-photo-262367.jpeg?w=2000&h=860&auto=compress&cs=tinysrgb"
+                            media="(min-width: 1400px)">
+                        <source srcset="https://images.pexels.com/photos/262367/pexels-photo-262367.jpeg?w=1400&h=860&auto=compress&cs=tinysrgb"
+                            media="(min-width: 769px)">
+                        <source srcset="https://images.pexels.com/photos/262367/pexels-photo-262367.jpeg?w=800&h=860&auto=compress&cs=tinysrgb" media="(min-width: 577px)">
+                        <img srcset="https://images.pexels.com/photos/262367/pexels-photo-262367.jpeg?w=600&h=860&auto=compress&cs=tinysrgb" alt="responsive image"
+                            class="d-block img-fluid">
+                    </picture>
+        
+        
+                    <div class="carousel-caption justify-content-center align-items-center">
+                        <div>
+                            <h2>Nuestros productos</h2>
+                            <p>HERRAJES, MELAMINA, GRANITO</p>
+                            <a class="btn btn-sm btn-outline-secondary">Ver más</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.carousel-item -->
+                <div class="carousel-item">
+        
+                    <picture>
+                        <source srcset="https://images.pexels.com/photos/262367/pexels-photo-262367.jpeg?w=2000&h=860&auto=compress&cs=tinysrgb"
+                            media="(min-width: 1400px)">
+                        <source srcset="https://images.pexels.com/photos/262367/pexels-photo-262367.jpeg?w=1400&h=860&auto=compress&cs=tinysrgb"
+                            media="(min-width: 769px)">
+                        <source srcset="https://images.pexels.com/photos/262367/pexels-photo-262367.jpeg?w=800&h=860&auto=compress&cs=tinysrgb" media="(min-width: 577px)">
+                        <img srcset="https://images.pexels.com/photos/262367/pexels-photo-262367.jpeg?w=600&h=860&auto=compress&cs=tinysrgb" alt="responsive image"
+                            class="d-block img-fluid">
+                    </picture>
+        
+        
+                    <div class="carousel-caption justify-content-center align-items-center">
+                        <div>
+                            <h2>Promo del mes</h2>
+                            <p>Promo por inicio de año, lleva tus herrajes a un 30% de descuento</p>
+                            <a class="btn btn-sm btn-outline-secondary">Ver más</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+    <div class="row" id="cards">
+        <div class="col-sm">
+            <div class="card bg-dark text-white">
+                <img class="card-img" src="https://images.pexels.com/photos/609768/pexels-photo-609768.jpeg?w=940&h=650&auto=compress&cs=tinysrgb" alt="Card image">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Card title</h5>
+                    <a href="{% url 'services' %}" class="btn btn-info btn-sm">Ver más</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card bg-dark text-white">
+                <img class="card-img" src="https://images.pexels.com/photos/609768/pexels-photo-609768.jpeg?w=940&h=650&auto=compress&cs=tinysrgb" alt="Card image">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Card title</h5>
+                    <a href="{% url 'products' %}" class="btn btn-info btn-sm">Ver más</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="providers">
+        <div class="col-12">
+            <div class="owl-carousel owl-theme">
+                <img class="owl-lazy" data-src="https://placehold.it/350x250&text=1" data-src-retina="https://placehold.it/350x250&text=1-retina" alt="">
+                <img class="owl-lazy" data-src="https://placehold.it/350x250&text=2" data-src-retina="https://placehold.it/350x250&text=2-retina" alt="">
+                <img class="owl-lazy" data-src="https://placehold.it/350x250&text=3" alt="">
+                <img class="owl-lazy" data-src="https://placehold.it/350x250&text=4" alt="">
+                <img class="owl-lazy" data-src="https://placehold.it/350x250&text=5" alt="">
+                <img class="owl-lazy" data-src="https://placehold.it/350x250&text=6" alt="">
+                <img class="owl-lazy" data-src="https://placehold.it/350x250&text=7" alt="">
+                <img class="owl-lazy" data-src="https://placehold.it/350x250&text=8" alt="">
+                <img class="owl-lazy" data-src="https://placehold.it/350x250&text=9" alt="">
+                <img class="owl-lazy" data-src="https://placehold.it/350x250&text=10" alt="">
+                <img class="owl-lazy" data-src="https://placehold.it/350x250&text=11" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="row" id="blog">
+        <div class="col-4">
+            <div class="card shadow">
+                <div class="view overlay hm-white-slight">
+                    <img src="https://mdbootstrap.com/img/Photos/Others/food.jpg" class="img-fluid" alt="">
+                    <a>
+                        <div class="mask"></div>
+                    </a>
+                </div>
+                <a class="btn-floating btn-action">
+                    <i class="material-icons">chevron_right</i>
+                </a>
+                <div class="card-body">
+                    <h4 class="card-title">Esto es un post</h4>
+                    <hr>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+                <div class="card-data">
+                <ul>
+                    <li>
+                        <i class="material-icons">access_time</i> 03/01/{% now 'Y' %}</li>
+                    <li>
+                            <i class="material-icons">comment</i>12
+                    </li>
+                </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card shadow">
+                <div class="view overlay hm-white-slight">
+                    <img src="https://mdbootstrap.com/img/Photos/Others/food.jpg" class="img-fluid" alt="">
+                    <a>
+                        <div class="mask"></div>
+                    </a>
+                </div>
+                <a class="btn-floating btn-action">
+                    <i class="material-icons">chevron_right</i>
+                </a>
+                <div class="card-body">
+                    <h4 class="card-title">Esto es un post</h4>
+                    <hr>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+                <div class="card-data">
+                <ul>
+                    <li>
+                        <i class="material-icons">access_time</i> 02/01/{% now 'Y' %}</li>
+                    <li>
+                            <i class="material-icons">comment</i>12
+                    </li>
+                </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="card shadow">
+                <div class="view overlay hm-white-slight">
+                    <img src="https://mdbootstrap.com/img/Photos/Others/food.jpg" class="img-fluid" alt="">
+                    <a>
+                        <div class="mask"></div>
+                    </a>
+                </div>
+                <a class="btn-floating btn-action">
+                    <i class="material-icons">chevron_right</i>
+                </a>
+                <div class="card-body">
+                    <h4 class="card-title">Esto es un post</h4>
+                    <hr>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+                <div class="card-data">
+                <ul>
+                    <li>
+                        <i class="material-icons">access_time</i> 01/01/{% now 'Y' %}</li>
+                    <li>
+                            <i class="material-icons">comment</i>12
+                    </li>
+                </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="newsletter">
+        <div class="col-12 text-center">
+            <div class="card gradient">
+                <div class="card-body">
+                    <h5 class="card-title display-4">Unete al boletin de noticias</h5>
+                    <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+                    <div class="input-group mb-6">
+                        <input type="text" class="form-control" placeholder="su-nombre@su-correo.com" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-dark" type="button">Enviar <i class="material-icons">send</i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+
+<script>
+    $(document).ready(function(){
+        var owl = $('.owl-carousel');
+        owl.owlCarousel({
+            items: 6,
+            loop: true,
+            margin: 10,
+            autoplay: true,
+            autoplayTimeout: 3000,
+            autoplayHoverPause: true,
+            lazyLoad:true,
+            dots:false,
+            responsiveClass:true,
+            responsive:{
+                0:{
+                    items:2,
+                    nav:false
+                },
+                600:{
+                    items:3,
+                    nav:false
+                },
+                1000:{
+                    items:6,
+                    nav:false,
+                    loop:false
+                }
+            }
+        });
+        
+    });
+</script>
+{% endblock %}

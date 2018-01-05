@@ -1,18 +1,22 @@
 import os
-
 from decouple import config
 
 # Site ID
 SITE_ID = 1
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
+# See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
+
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
-ALLOWED_HOSTS = ['159.89.242.198','moby.dev2tech.xyz','127.0.0.1']
+DEBUG = True
+
+ALLOWED_HOSTS = []
+
 # Application definition
 DJANGO_APPS = (
     'django.contrib.admin',
@@ -24,16 +28,20 @@ DJANGO_APPS = (
     'django.contrib.sites',
     'django.contrib.flatpages',
     'django.contrib.sitemaps',
+    'django.contrib.humanize',
 )
+
 LOCAL_APPS = (
     'src.base',
-    'src.intra',
+    'src.user',
 )
+
 THIRD_PARTY_APPS = (
     'rest_framework',
 )
+
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
-# Middleware SetUp
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -42,15 +50,18 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 ]
-# Site conf
+
 ROOT_URLCONF = 'app.urls.base'
+
 WSGI_APPLICATION = 'app.wsgi.application'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.abspath(os.path.join(os.path.join(BASE_DIR, os.pardir), 'templates')),],
+        'DIRS':  [
+            os.path.abspath(os.path.join(os.path.join(BASE_DIR,os.pardir), 'templates')),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -58,41 +69,21 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                # 'app.settings.custom_context_processors.menu',
+                'app.settings.custom_context_processors.site',
+                'app.settings.custom_context_processors.menu',
+                'app.settings.custom_context_processors.sessions',
             ],
         },
     },
 ]
-# Database
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(os.path.join(BASE_DIR,'databases'), 'local.sqlite3'),
-        },
-        'frontend':{
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(os.path.join(BASE_DIR,'databases'), 'frontend.sqlite3'),
-        }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(os.path.join(BASE_DIR, 'dbs'), 'db.sqlite3'),
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': config('DB_NAME'),
-            'USER': config('DB_USER'),
-            'PASSWORD': config('DB_USER_PASSWORD'),
-            'HOST': config('DB_HOST'),
-            'PORT': config('DB_PORT'),
-        }
-    }
-# Security Conf
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'app.settings.EmailBackend.EmailBackend',
-)
-# Password validation
-# https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
+}
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -108,14 +99,57 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'app.settings.EmailBackend.EmailBackend',
+]
 
-# Internationalization
-# https://docs.djangoproject.com/en/2.0/topics/i18n/
-LANGUAGE_CODE = 'es-pa'
+LANGUAGE_CODE = 'es-PA'
+
 # TIME_ZONE = 'UTC'
+
 USE_I18N = True
+
 USE_L10N = True
+
 USE_TZ = True
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.abspath(os.path.join(os.path.join(BASE_DIR,os.pardir), 'media'))
+
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    os.path.abspath(os.path.join(os.path.join(BASE_DIR,os.pardir), 'staticfiles')),
+)
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+EMAIL_HOST = config('EMAIL_HOST')
+
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+
+EMAIL_PORT = config('EMAIL_PORT')
+
+EMAIL_USE_SSL = config('EMAIL_USE_SSL')
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# LOGIN_URL = 'board'
+
+# LOGIN_REDIRECT_URL = '/board/'
+
+SITE_URL = 'http://www.dev2tech.xyz'
+
+LOGOUT_REDIRECT_URL = SITE_URL
+
+SESSION_COOKIE_AGE = 43200
+
+SESSION_COOKIE_NAME = 'session'
+
 # Django Rest Framework Setup
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -124,25 +158,3 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 10
 }
-# Email Conf.
-# EMAIL_HOST = config("EMAIL_HOST",)
-# EMAIL_PORT = config("EMAIL_PORT", cast=int)
-# EMAIL_HOST_USER = config("EMAIL_HOST_USER",)
-# EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD",)
-# EMAIL_USE_SSL = config("EMAIL_USE_SSL", cast=bool)
-LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = 'https://www.moby-group.com/'
-SESSION_COOKIE_AGE = 43200
-SESSION_COOKIE_NAME = 'session'
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-# Media Configuration
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.abspath(os.path.join(os.path.join(BASE_DIR, os.pardir), 'media'))
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.0/howto/static-files/
-STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.abspath(os.path.join(os.path.join(BASE_DIR, os.pardir), 'staticfiles')),
-)
-# STATIC_ROOT = os.path.abspath(os.path.join(os.path.join(BASE_DIR,os.pardir),'staticfiles'))

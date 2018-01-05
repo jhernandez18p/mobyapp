@@ -1,0 +1,107 @@
+body {display: flex;min-height: 100vh;flex-direction: column;}
+section {flex: 1;}
+@media only screen and (max-width: 768px) {
+    .content {
+        width: 100%;
+    }
+}
+.btn{min-width: 95px !important;}
+.card-img-overlay {
+    position: absolute;
+    top: 60%;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+}
+#providers {background-color: #d9d9d9; padding-top: 45px; padding-bottom: 45px;}
+#cards{padding-top: 45px !important;padding-bottom: 45px !important;} .card{border: none !important; border-radius: 0 !important;}
+.text-footer,.text-footer i {font-size: 80% !important;}
+.logo-text {font-family: 'Sarina', cursive;}#menuLogo{max-height: 40px;}
+.gradient{background: #314755;}
+/* Navbar */
+.navbar-custom .navbar-brand,.navbar-custom .navbar-brand:hover,.navbar-custom .navbar-text {color: rgb(104, 104, 103);}.navbar-custom .navbar-nav .nav-link {color: rgb(104, 104, 103);}.navbar-custom .nav-item.active .nav-link,.navbar-custom .nav-item:hover .nav-link {color: rgb(202,177,115);}.navbar {height: 47px;}
+/* Carousel */
+.CarouselMain {width: 100%;height: 100%;margin: 0;padding: 0;}#myCarousel {height: 300px;margin-top: 25px;overflow: hidden;}#myCarousel div {position: absolute;transition: transform 1s, left 1s, opacity 1s, z-index 0s;opacity: 1;}#myCarousel div img {width: 250px;transition: width 1s;}#myCarousel div.hideLeft {opacity: 0;transform: translateY(50%) translateX(-50%);}#myCarousel div.hideLeft img {width: 100px;}#myCarousel div.hideRight {opacity: 0;transform: translateY(50%) translateX(-50%);}#myCarousel div.hideRight img {width: 100px;}#myCarousel div.prev {z-index: 5;left: 30%;transform: translateY(50px) translateX(-50%);}#myCarousel div.prev img {width: 150px;}#myCarousel div.prevLeftSecond {z-index: 4;left: 15%;transform: translateY(50%) translateX(-50%);opacity: 0.7;}#myCarousel div.prevLeftSecond img {width: 100px;}#myCarousel div.selected {z-index: 10;left: 50%;transform: translateY(0px) translateX(-50%);}#myCarousel div.next {z-index: 5;left: 70%;transform: translateY(50px) translateX(-50%);}#myCarousel div.next img {width: 150px;}#myCarousel div.nextRightSecond {z-index: 4;left: 85%;transform: translateY(50%) translateX(-50%);opacity: 0.7;}#myCarousel div.nextRightSecond img {width: 100px;}.CarouselButtons {position: absolute  ;margin-left: auto;margin-right: auto;left: 0;right: 0;z-index: 99999;}/* .CarouselButtons #prev,.CarouselButtons #next,  {} */
+/* Colores */
+.midnight-blue-bg{background-color: #2c3e50;}
+.wet-asphalt-bg{background-color: #34495e;}
+/* Height */
+.h-100h{height:100vh;}.h-90h{height:90vh;}.h-80h{height:80vh;}.h-70h{height:70vh;}.h-60h{height:60vh;}.h-50h{height:50vh;}.h-40h{height:40vh;}.h-30h{height:30vh;}.h-20h{height:20vh;}.h-10h{height:10vh;}
+
+#blog{
+    padding-top: 45px;padding-bottom: 45px;
+}
+.card .btn-action {
+    margin: -23px 20px -23px auto;
+    background-color: rgb(104, 104, 103);
+    height: 47px;
+    width: 47px;
+    line-height: 0;
+}
+.btn-floating {
+    z-index: 1;
+    overflow: hidden;
+    width: 47px;
+    height: 47px;
+    padding: 0;
+    border-radius: 50%;
+    background-color: #a6c;
+    -webkit-transition: .3s;
+    transition: .3s;
+}
+.card .btn-action .material-icons {
+    margin-top: 2px;
+    margin-left: 2px;
+}
+.card .btn-action .material-icons {
+    font-size: 35px;
+}
+.btn-floating i {
+    width: inherit;
+    font-size: 1.25rem;
+    line-height: 44px;
+    text-align: center;
+}
+.btn-floating, .btn-floating i {
+    display: inline-block;
+    color: #fff;
+}
+.shadow{
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+}
+.card .card-data {
+    background-color: rgb(104, 104, 103);
+    color: #fff;
+    text-align: center;
+    height: auto;
+    padding: 10px;
+}
+.card .card-data ul {
+    margin-bottom: 0;
+    font-size: .9rem;
+}
+.card .card-data ul li, .card .card-review ul li {
+    display: inline;
+}
+.card .card-data ul li i{
+    font-size: 14px;
+    color: #fff
+}
+
+/* 
+Newsletter
+*/
+#newsletter .card{
+    padding-top:90px;
+    padding-bottom: 90px;
+    margin-top: 5px;
+    margin-bottom: 45px;
+}
+#newsletter .input-group{
+    width: 450px;
+    text-align: center;
+    margin: 0 auto;
+}
+#newsletter .input-group .btn i{font-size: 14px;}
