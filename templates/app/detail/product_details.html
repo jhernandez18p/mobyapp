@@ -1,0 +1,33 @@
+{% extends 'app/base/index.html' %}{% load staticfiles %}
+
+{% block css %}
+<style>
+    section{margin-top: 45px;}
+    .breadcrumb{margin-top: 25px;background-color: rgba(0, 0, 0, 0)}
+</style>
+{% endblock %}
+
+{% block full_screen %}
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'front:products' %}">Productos</a></li>
+                <li class="breadcrumb-item">Categoría</li>
+                <li class="breadcrumb-item"><a href="{% url 'front:products' %}{{cat}}/">{{cat|title }}</a></li>
+                <li class="breadcrumb-item active">{{object.art_des | title}}</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+{% endblock %}

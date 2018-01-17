@@ -6,6 +6,10 @@
     .paralsec {
         background-image: url("{% static 'base/img/pexels-photo-317355.jpeg' %}");
     }
+    #carousel .carousel-inner img {
+        width: 100%;
+        max-height: 85%;
+    }
 </style>
 {% endblock %}
 
@@ -16,8 +20,8 @@
 {% block content %}
 
 <div class="container-fluid">
-    <div class="row" id="carousel h-80h">
-        <div class="carousel slide carousel-fade" data-ride="carousel" data-interval="8000">
+    <div class="row" id="h-80h">
+        <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="8000">
             <ol class="carousel-indicators">
                 <li data-target="#carousel" data-slide-to="0" class="active"></li>
                 <li data-target="#carousel" data-slide-to="1"></li>
@@ -89,11 +93,11 @@
                     </div>
                 </div>
             </div>
-            <a class="carousel-control-prev" role="button" data-slide="prev">
+            <a class="carousel-control-prev" role="button" data-slide="prev"  href="#carousel">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>
             </a>
-            <a class="carousel-control-next" role="button" data-slide="next">
+            <a class="carousel-control-next" role="button" data-slide="next"  href="#carousel">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
             </a>
@@ -104,8 +108,8 @@
             <div class="card bg-dark text-white">
                 <img class="card-img" src="{% static 'base/img/pexels-photo-609768.jpeg' %}" alt="Card image">
                 <div class="card-img-overlay">
-                    <h5 class="card-title">Card title</h5>
-                    <a href="{% url 'front:services' %}" class="btn btn-info btn-sm">Ver más</a>
+                    <h5 class="card-title">Nuestros Servicios</h5>
+                    <a href="{% url 'front:services' %}" class="btn btn-link text-light btn-sm">Ver más</a>
                 </div>
             </div>
         </div>
@@ -113,8 +117,8 @@
             <div class="card bg-dark text-white">
                 <img class="card-img" src="{% static 'base/img/pexels-photo-609768.jpeg' %}" alt="Card image">
                 <div class="card-img-overlay">
-                    <h5 class="card-title">Card title</h5>
-                    <a href="{% url 'front:products' %}" class="btn btn-info btn-sm">Ver más</a>
+                    <h5 class="card-title">Nuestros productos</h5>
+                    <a href="{% url 'front:products' %}" class="btn btn-link text-light btn-sm">Ver más</a>
                 </div>
             </div>
         </div>
