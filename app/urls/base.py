@@ -24,8 +24,10 @@ handler403 = 'app.urls.views.permission_denied_view'
 handler400 = 'app.urls.views.bad_request_view'
 
 urlpatterns = [
-    path('', include('src.base.urls')),
-    path('admin/', admin.site.urls),
+    path('', include('src.base.urls', namespace='front')),
+    path('intra/', include('src.intra.urls', namespace='intra')),
+    path('auth/', include('src.user.urls',namespace='auth')),
+    path('adminsite/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api/auth/', include('rest_framework.urls', 
         namespace='rest_framework')),
@@ -43,4 +45,4 @@ if settings.DEBUG:
     ]
 
 admin.site.site_title = 'Dev2tech CMS'
-admin.site.site_header = 'CMS'
+admin.site.site_header = 'CMS Moby Supply'

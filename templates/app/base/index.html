@@ -1,0 +1,27 @@
+<!DOCTYPE html>{% load staticfiles %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% include 'app/base/head.html' %}
+    <title>{{SITE_TITLE}} - {{SITE_URL}}</title>
+    {% block css %}{% endblock %}
+</head>
+<body>
+    <header>
+        {% block full_screen %}{% endblock %}
+        {% include 'app/base/nav.html' %}
+    </header>
+    <section>{% block content %}{% endblock %}</section>
+    <footer>
+        {% include 'app/base/footer.html' %}
+    </footer>
+    <script src="{% static 'base/js/jquery-3.2.1.slim.min.js' %}"></script>
+    <script src="{% static 'base/js/popper.min.js' %}"></script>
+    <script src="{% static 'base/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'base/js/app.min.js' %}"></script>
+    <script src="{% static 'base/js/owl/owl.carousel.min.js' %}"></script>
+    {% block js %}{% endblock %}
+</body>
+</html>

@@ -4,23 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    {% include 'base/head.html' %}
-    <title>{{SITE_TITLE}} - {{SITE_URL}}</title>
+    {% include 'intra/base/head.html' %}
+    <title>{{SITE_URL}}- {{SITE_TITLE}}</title>
     {% block styles %}{% endblock %}
 </head>
 <body>
     <header>
         {% block full_screen %}{% endblock %}
-        {% include 'base/nav.html' %}
+        {% include 'intra/base/nav.html' %}
     </header>
     <section>{% block content %}{% endblock %}</section>
     <footer>
-        {% include 'base/footer.html' %}
+        {% include 'intra/base/footer.html' %}
     </footer>
     <script src="{% static 'base/js/jquery-3.2.1.slim.min.js' %}"></script>
     <script src="{% static 'base/js/popper.min.js' %}"></script>
     <script src="{% static 'base/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'base/js/app.min.js' %}"></script>
+    <script src="{% static 'intra/js/app.js' %}"></script>
     <script src="{% static 'base/js/owl/owl.carousel.min.js' %}"></script>
     {% block js %}{% endblock %}
 </body>

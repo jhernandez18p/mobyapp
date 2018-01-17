@@ -1,71 +1,11 @@
-{% extends 'base/index.html' %}{% load staticfiles %}
+{% extends 'app/base/index.html' %}{% load staticfiles %}
 
 {% block css %}
 
 <style>
-    /*
-    Removes white gap between slides - chagnge to base color of slide images
-    */
-    .carousel {
-        background:#007aeb;
+    .paralsec {
+        background-image: url("{% static 'base/img/pexels-photo-317355.jpeg' %}");
     }
-
-    /*
-    Forces image to be 100% width and not max width of 100%
-    */
-    .carousel-item .img-fluid {
-        width:100%;
-    }
-
-
-    /* 
-    anchors are inline so you need ot make them block to go full width
-    */
-    .carousel-item a {
-        display: block;
-        width:100%;
-    }
-
-    /* 
-    Fixing the height
-    */
-    .carousel,
-    .item,
-    .active {
-        height: 800px;
-        width: auto;
-    }
-
-    .carousel-inner {
-        height: 100%;
-    }
-
-    /* 
-    Swiper
-    */
-    .swiper-container {
-      width: 100%;
-      height: 100%;
-    }
-    .swiper-slide {
-      text-align: center;
-      font-size: 18px;
-      background: #fff;
-      /* Center slide text vertically */
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: -webkit-flex;
-      display: flex;
-      -webkit-box-pack: center;
-      -ms-flex-pack: center;
-      -webkit-justify-content: center;
-      justify-content: center;
-      -webkit-box-align: center;
-      -ms-flex-align: center;
-      -webkit-align-items: center;
-      align-items: center;
-    }
-
 </style>
 {% endblock %}
 
@@ -76,7 +16,7 @@
 {% block content %}
 
 <div class="container-fluid">
-    <div class="row" id="carousel">
+    <div class="row" id="carousel h-80h">
         <div class="carousel slide carousel-fade" data-ride="carousel" data-interval="8000">
             <ol class="carousel-indicators">
                 <li data-target="#carousel" data-slide-to="0" class="active"></li>
@@ -87,12 +27,12 @@
                 <div class="carousel-item active">
         
                     <picture>
-                        <source srcset="https://images.pexels.com/photos/262367/pexels-photo-262367.jpeg?w=2000&h=860&auto=compress&cs=tinysrgb"
+                        <source srcset="{% static 'base/img/pexels-photo-262367.jpeg' %}"
                             media="(min-width: 1400px)">
-                        <source srcset="https://images.pexels.com/photos/262367/pexels-photo-262367.jpeg?w=1400&h=860&auto=compress&cs=tinysrgb"
+                        <source srcset="{% static 'base/img/pexels-photo-262367.jpeg' %}"
                             media="(min-width: 769px)">
-                        <source srcset="https://images.pexels.com/photos/262367/pexels-photo-262367.jpeg?w=800&h=860&auto=compress&cs=tinysrgb" media="(min-width: 577px)">
-                        <img srcset="https://images.pexels.com/photos/262367/pexels-photo-262367.jpeg?w=600&h=860&auto=compress&cs=tinysrgb" alt="responsive image"
+                        <source srcset="{% static 'base/img/pexels-photo-262367.jpeg' %}" media="(min-width: 577px)">
+                        <img srcset="{% static 'base/img/pexels-photo-262367.jpeg' %}" alt="responsive image"
                             class="d-block img-fluid">
                     </picture>
         
@@ -108,12 +48,12 @@
                 <div class="carousel-item">
         
                     <picture>
-                        <source srcset="https://images.pexels.com/photos/262367/pexels-photo-262367.jpeg?w=2000&h=860&auto=compress&cs=tinysrgb"
+                        <source srcset="{% static 'base/img/pexels-photo-262367.jpeg' %}"
                             media="(min-width: 1400px)">
-                        <source srcset="https://images.pexels.com/photos/262367/pexels-photo-262367.jpeg?w=1400&h=860&auto=compress&cs=tinysrgb"
+                        <source srcset="{% static 'base/img/pexels-photo-262367.jpeg' %}"
                             media="(min-width: 769px)">
-                        <source srcset="https://images.pexels.com/photos/262367/pexels-photo-262367.jpeg?w=800&h=860&auto=compress&cs=tinysrgb" media="(min-width: 577px)">
-                        <img srcset="https://images.pexels.com/photos/262367/pexels-photo-262367.jpeg?w=600&h=860&auto=compress&cs=tinysrgb" alt="responsive image"
+                        <source srcset="{% static 'base/img/pexels-photo-262367.jpeg' %}" media="(min-width: 577px)">
+                        <img srcset="{% static 'base/img/pexels-photo-262367.jpeg' %}" alt="responsive image"
                             class="d-block img-fluid">
                     </picture>
         
@@ -130,12 +70,12 @@
                 <div class="carousel-item">
         
                     <picture>
-                        <source srcset="https://images.pexels.com/photos/262367/pexels-photo-262367.jpeg?w=2000&h=860&auto=compress&cs=tinysrgb"
+                        <source srcset="{% static 'base/img/pexels-photo-262367.jpeg' %}"
                             media="(min-width: 1400px)">
-                        <source srcset="https://images.pexels.com/photos/262367/pexels-photo-262367.jpeg?w=1400&h=860&auto=compress&cs=tinysrgb"
+                        <source srcset="{% static 'base/img/pexels-photo-262367.jpeg' %}"
                             media="(min-width: 769px)">
-                        <source srcset="https://images.pexels.com/photos/262367/pexels-photo-262367.jpeg?w=800&h=860&auto=compress&cs=tinysrgb" media="(min-width: 577px)">
-                        <img srcset="https://images.pexels.com/photos/262367/pexels-photo-262367.jpeg?w=600&h=860&auto=compress&cs=tinysrgb" alt="responsive image"
+                        <source srcset="{% static 'base/img/pexels-photo-262367.jpeg' %}" media="(min-width: 577px)">
+                        <img srcset="{% static 'base/img/pexels-photo-262367.jpeg' %}" alt="responsive image"
                             class="d-block img-fluid">
                     </picture>
         
@@ -149,11 +89,11 @@
                     </div>
                 </div>
             </div>
-            <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+            <a class="carousel-control-prev" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>
             </a>
-            <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+            <a class="carousel-control-next" role="button" data-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
             </a>
@@ -162,19 +102,19 @@
     <div class="row" id="cards">
         <div class="col-sm">
             <div class="card bg-dark text-white">
-                <img class="card-img" src="https://images.pexels.com/photos/609768/pexels-photo-609768.jpeg?w=940&h=650&auto=compress&cs=tinysrgb" alt="Card image">
+                <img class="card-img" src="{% static 'base/img/pexels-photo-609768.jpeg' %}" alt="Card image">
                 <div class="card-img-overlay">
                     <h5 class="card-title">Card title</h5>
-                    <a href="{% url 'services' %}" class="btn btn-info btn-sm">Ver más</a>
+                    <a href="{% url 'front:services' %}" class="btn btn-info btn-sm">Ver más</a>
                 </div>
             </div>
         </div>
         <div class="col-sm">
             <div class="card bg-dark text-white">
-                <img class="card-img" src="https://images.pexels.com/photos/609768/pexels-photo-609768.jpeg?w=940&h=650&auto=compress&cs=tinysrgb" alt="Card image">
+                <img class="card-img" src="{% static 'base/img/pexels-photo-609768.jpeg' %}" alt="Card image">
                 <div class="card-img-overlay">
                     <h5 class="card-title">Card title</h5>
-                    <a href="{% url 'products' %}" class="btn btn-info btn-sm">Ver más</a>
+                    <a href="{% url 'front:products' %}" class="btn btn-info btn-sm">Ver más</a>
                 </div>
             </div>
         </div>
@@ -182,17 +122,13 @@
     <div class="row" id="providers">
         <div class="col-12">
             <div class="owl-carousel owl-theme">
-                <img class="owl-lazy" data-src="https://placehold.it/350x250&text=1" data-src-retina="https://placehold.it/350x250&text=1-retina" alt="">
-                <img class="owl-lazy" data-src="https://placehold.it/350x250&text=2" data-src-retina="https://placehold.it/350x250&text=2-retina" alt="">
-                <img class="owl-lazy" data-src="https://placehold.it/350x250&text=3" alt="">
-                <img class="owl-lazy" data-src="https://placehold.it/350x250&text=4" alt="">
-                <img class="owl-lazy" data-src="https://placehold.it/350x250&text=5" alt="">
-                <img class="owl-lazy" data-src="https://placehold.it/350x250&text=6" alt="">
-                <img class="owl-lazy" data-src="https://placehold.it/350x250&text=7" alt="">
-                <img class="owl-lazy" data-src="https://placehold.it/350x250&text=8" alt="">
-                <img class="owl-lazy" data-src="https://placehold.it/350x250&text=9" alt="">
-                <img class="owl-lazy" data-src="https://placehold.it/350x250&text=10" alt="">
-                <img class="owl-lazy" data-src="https://placehold.it/350x250&text=11" alt="">
+                <img class="owl-lazy" data-src="https://placehold.it/350x250&text=350x250" data-src-retina="https://placehold.it/350x250&text=350x250-retina" alt="">
+                <img class="owl-lazy" data-src="https://img.archilovers.com/people/thumb2_ARTURO-SALICE-SPA-a9df4414-log1.gif" alt="">
+                <img class="owl-lazy" data-src="https://placehold.it/350x250&text=350x250" data-src-retina="https://placehold.it/350x250&text=350x250-retina" alt="">
+                <img class="owl-lazy" data-src="http://aafloors.ca/wp-content/uploads/2017/04/0-3-1200x862.jpg" alt="">
+                <img class="owl-lazy" data-src="https://placehold.it/350x250&text=350x250" data-src-retina="https://placehold.it/350x250&text=350x250-retina" alt="">
+                <img class="owl-lazy" data-src="https://alaiplasticsolutions.com/wp-content/uploads/2015/10/logo-alai-150x75.png" alt="">
+                <img class="owl-lazy" data-src="https://placehold.it/350x250&text=350x250" data-src-retina="https://placehold.it/350x250&text=350x250-retina" alt="">
             </div>
         </div>
     </div>
@@ -200,12 +136,12 @@
         <div class="col-4">
             <div class="card shadow">
                 <div class="view overlay hm-white-slight">
-                    <img src="https://mdbootstrap.com/img/Photos/Others/food.jpg" class="img-fluid" alt="">
+                    <img src="{% static 'base/img/food.jpg' %}" class="img-fluid" alt="">
                     <a>
                         <div class="mask"></div>
                     </a>
                 </div>
-                <a class="btn-floating btn-action">
+                <a class="btn-floating btn-action" href="{% url 'front:blog' %}new_post_1/">
                     <i class="material-icons">chevron_right</i>
                 </a>
                 <div class="card-body">
@@ -216,7 +152,7 @@
                 <div class="card-data">
                 <ul>
                     <li>
-                        <i class="material-icons">access_time</i> 03/01/{% now 'Y' %}</li>
+                        <i class="material-icons">access_time</i> 01/01/{% now 'Y' %}</li>
                     <li>
                             <i class="material-icons">comment</i>12
                     </li>
@@ -227,12 +163,12 @@
         <div class="col-4">
             <div class="card shadow">
                 <div class="view overlay hm-white-slight">
-                    <img src="https://mdbootstrap.com/img/Photos/Others/food.jpg" class="img-fluid" alt="">
+                    <img src="{% static 'base/img/food.jpg' %}" class="img-fluid" alt="">
                     <a>
                         <div class="mask"></div>
                     </a>
                 </div>
-                <a class="btn-floating btn-action">
+                <a class="btn-floating btn-action" href="{% url 'front:blog' %}new_post_2/">
                     <i class="material-icons">chevron_right</i>
                 </a>
                 <div class="card-body">
@@ -243,7 +179,7 @@
                 <div class="card-data">
                 <ul>
                     <li>
-                        <i class="material-icons">access_time</i> 02/01/{% now 'Y' %}</li>
+                        <i class="material-icons">access_time</i> 01/01/{% now 'Y' %}</li>
                     <li>
                             <i class="material-icons">comment</i>12
                     </li>
@@ -254,12 +190,12 @@
         <div class="col-4">
             <div class="card shadow">
                 <div class="view overlay hm-white-slight">
-                    <img src="https://mdbootstrap.com/img/Photos/Others/food.jpg" class="img-fluid" alt="">
+                    <img src="{% static 'base/img/food.jpg' %}" class="img-fluid" alt="">
                     <a>
                         <div class="mask"></div>
                     </a>
                 </div>
-                <a class="btn-floating btn-action">
+                <a class="btn-floating btn-action" href="{% url 'front:blog' %}new_post_3/">
                     <i class="material-icons">chevron_right</i>
                 </a>
                 <div class="card-body">
@@ -281,10 +217,10 @@
     </div>
     <div class="row" id="newsletter">
         <div class="col-12 text-center">
-            <div class="card gradient">
+            <div class="card paral paralsec">
                 <div class="card-body">
-                    <h5 class="card-title display-4">Unete al boletin de noticias</h5>
-                    <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+                    <h5 class="card-title display-4">Boletin de noticias</h5>
+                    <p class="card-text">Manténgase actualizado con las noticias y publicaciones.</p>
                     <div class="input-group mb-6">
                         <input type="text" class="form-control" placeholder="su-nombre@su-correo.com" aria-label="Recipient's username" aria-describedby="basic-addon2">
                         <div class="input-group-append">

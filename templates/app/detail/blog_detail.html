@@ -1,0 +1,135 @@
+{% extends 'app/base/index.html' %}{% load staticfiles %}
+
+{% block css %}
+<style>
+    .paralsec {
+        background-image: url("{{object.background}}");
+    }
+    .paral p {color:rgba(255, 255, 255, 0.8);}
+    .paral h5 {color: rgba(255, 255, 255, 0.8);}
+    .mbr-figure img{max-height: 150px;}
+    .content-1, .content-2, .content-4, .content-5 {
+        background: #fff;
+        padding-bottom: 0.1rem;
+    }
+    .cta-3 {
+        color: #fff;
+        padding: 7rem 0;
+    }
+    .coments{
+        padding: 7rem 0;
+    }
+    .coment_body{
+        padding: 2rem 0;
+    }
+</style>
+{% endblock %}
+
+{% block full_screen %}
+
+{% endblock %}
+
+{% block content %}
+<div class="container_fluid">
+    <div class="row" id="newsletter">
+        <div class="col-12 text-center">
+            <div class="card paral paralsec">
+                <div class="card-body">
+                    <h5 class="card-title display-4">{{object.title}}</h5>
+                    <p class="card-text">{{object.sub_title}}.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row content-4">
+        <div class="container">
+            <div class="row justify-center mt-5">
+                <div class="col-md-6 pl-5 pr-5 text-center">
+                    <img class="mb-4 img-fluid" src="{{object.img}}">
+                </div>
+                <div class="col-md-6 text-left">
+                    <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2>
+                    <p class="lead mt-4 mb-5">Integer libero nunc, elementum eu venenatis sed, molestie non tortor. Duis suscipit pulvinar justo. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </p>
+                    
+                    <div class="row">
+                        <div class="col-md-6 col-feature mb-4">
+                            <h4 class="mb-3">{{object.title}}</h4>
+                            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                        </div>
+                        <div class="col-md-6 col-feature mb-4">
+                            <h4 class="mb-3">{{object.sub_title}}</h4>
+                            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-dark">
+        <div class="container">
+            {% if user.is_autenticated %}
+                <p>User {{user.username}}</p>
+            {% else %}
+            <div class="cta-3 text-center justify-center">
+                <div class="container">
+                    <h2 class="mb-4">Debe registrate o iniciar sesión para comentar en esta publicación</h2>
+                    <!-- <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
+                    <a class="btn btn-lg btn-success mt-5" href="{% url 'auth:login' %}">Iniciar Sesión</a>
+                    <a class="btn btn-lg btn-primary mt-5" href="{% url 'auth:register' %}">Registrarse</a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row justify-content-md-center coments">
+        <div class="col-md-7 col-testimonial">
+            <div class="row coment_body">
+                <div class="col-3 text-center">
+                    <img class="rounded-circle" src="https://api.adorable.io/avatars/90/abott@adorable.png">
+                </div>
+                <div class="col-9">
+                    <p class="quote-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse cursus."</p>
+                    <p><span class="quote-author">Jonathan Smith</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7 col-testimonial">
+            <div class="row coment_body">
+                <div class="col-3 text-center">
+                    <img class="rounded-circle" src="https://api.adorable.io/avatars/90/abott@adorable.png">
+                </div>
+                <div class="col-9">
+                    <p class="quote-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse cursus."</p>
+                    <p><span class="quote-author">Jane Donovan</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7 col-testimonial">
+            <div class="row coment_body">
+                <div class="col-3 text-center">
+                    <img class="rounded-circle" src="https://api.adorable.io/avatars/90/abott@adorable.png">
+                </div>
+                <div class="col-9">
+                    <p class="quote-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse cursus."</p>
+                    <p><span class="quote-author">Sam Davidson</span></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7 col-testimonial">
+            <div class="row coment_body">
+                <div class="col-3 text-center">
+                    <img class="rounded-circle" src="https://api.adorable.io/avatars/90/abott@adorable.png">
+                </div>
+                <div class="col-9">
+                    <p class="quote-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse cursus."</p>
+                    <p><span class="quote-author">Kelly Johnson</span></p>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+{% endblock %}

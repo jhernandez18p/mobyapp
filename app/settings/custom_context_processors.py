@@ -1,7 +1,7 @@
 def site(request):
     # Site info preprocessor 
     context = {}
-    context['SITE_TITLE'] = ''
+    context['SITE_TITLE'] = 'Moby Group'
     context['SITE_URL'] = ''
     return context
 

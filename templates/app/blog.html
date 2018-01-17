@@ -1,6 +1,9 @@
-{% extends 'base/index.html' %}{% load staticfiles %}
+{% extends 'app/base/index.html' %}{% load staticfiles %}
 
 {% block css %}
+<style>
+    .posts{padding-top: 3rem;padding-bottom: 3rem;}
+</style>
 {% endblock %}
 
 {% block full_screen %}
@@ -8,6 +11,26 @@
 {% endblock %}
 
 {% block content %}
+    {% for object in objects %}
+        <div class="container posts">
+            <div class="row justify-center mt-5">
+                <div class="col-md-6 pl-5 pr-5 text-center">
+                    <img class="mb-4 img-fluid" src="{% static 'base/img/food.jpg' %}">
+                </div>
+                <div class="col-md-6 text-left">
+                    <h3>Esto es un post</h3>
+                    <p class="mt-4 mb-4">Integer libero nunc, elementum eu venenatis sed, molestie non tortor. Duis suscipit pulvinar justo. Orci varius
+                        natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec semper purus ex. Curabitur
+                        non rutrum libero. Fusce lacus tortor, elementum ac gravida vitae, egestasr.</p>
+        
+                    <p>
+                        <a class="btn btn-outline-secondary" href="{% url 'front:blog' %}new_post_{{forloop.counter}}/" role="button">Leer más</a>
+                    </p>
+        
+                </div>
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}
 
 {% block js %}

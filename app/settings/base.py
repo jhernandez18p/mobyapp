@@ -15,7 +15,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['moby.dev2tech.xyz']
+ALLOWED_HOSTS = ['localhost','moby.dev2tech.xyz']
 
 # Application definition
 DJANGO_APPS = (
@@ -29,15 +29,20 @@ DJANGO_APPS = (
     'django.contrib.flatpages',
     'django.contrib.sitemaps',
     'django.contrib.humanize',
+    'django.contrib.redirects',
 )
 
 LOCAL_APPS = (
     'src.base',
+    'src.blog',
+    'src.intra',
     'src.user',
 )
 
 THIRD_PARTY_APPS = (
     'rest_framework',
+    'ckeditor',
+    'widget_tweaks',
 )
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
@@ -50,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
 ]
 
 ROOT_URLCONF = 'app.urls.base'
@@ -122,7 +128,9 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     os.path.abspath(os.path.join(os.path.join(BASE_DIR,os.pardir), 'staticfiles')),
+
 )
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
@@ -138,9 +146,9 @@ EMAIL_USE_SSL = config('EMAIL_USE_SSL')
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-# LOGIN_URL = 'board'
+LOGIN_URL = '/auth/login/'
 
-# LOGIN_REDIRECT_URL = '/board/'
+LOGIN_REDIRECT_URL = '/intra/'
 
 SITE_URL = 'http://www.dev2tech.xyz'
 

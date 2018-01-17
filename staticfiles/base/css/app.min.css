@@ -1,3 +1,4 @@
+{% load staticfiles %}
 body {display: flex;min-height: 100vh;flex-direction: column;}
 section {flex: 1;}
 @media only screen and (max-width: 768px) {
@@ -6,15 +7,8 @@ section {flex: 1;}
     }
 }
 .btn{min-width: 95px !important;}
-.card-img-overlay {
-    position: absolute;
-    top: 60%;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    padding: 1rem;
-}
-#providers {background-color: #d9d9d9; padding-top: 45px; padding-bottom: 45px;}
+.card-img-overlay {position: absolute;top: 60%;right: 0;bottom: 0;left: 0;padding: 1rem;}
+#providers {background-color: #ffffff; padding-top: 45px; padding-bottom: 45px;}
 #cards{padding-top: 45px !important;padding-bottom: 45px !important;} .card{border: none !important; border-radius: 0 !important;}
 .text-footer,.text-footer i {font-size: 80% !important;}
 .logo-text {font-family: 'Sarina', cursive;}#menuLogo{max-height: 40px;}
@@ -29,79 +23,48 @@ section {flex: 1;}
 /* Height */
 .h-100h{height:100vh;}.h-90h{height:90vh;}.h-80h{height:80vh;}.h-70h{height:70vh;}.h-60h{height:60vh;}.h-50h{height:50vh;}.h-40h{height:40vh;}.h-30h{height:30vh;}.h-20h{height:20vh;}.h-10h{height:10vh;}
 
-#blog{
-    padding-top: 45px;padding-bottom: 45px;
-}
-.card .btn-action {
-    margin: -23px 20px -23px auto;
-    background-color: rgb(104, 104, 103);
-    height: 47px;
-    width: 47px;
-    line-height: 0;
-}
-.btn-floating {
-    z-index: 1;
-    overflow: hidden;
-    width: 47px;
-    height: 47px;
-    padding: 0;
-    border-radius: 50%;
-    background-color: #a6c;
-    -webkit-transition: .3s;
-    transition: .3s;
-}
-.card .btn-action .material-icons {
-    margin-top: 2px;
-    margin-left: 2px;
-}
-.card .btn-action .material-icons {
-    font-size: 35px;
-}
-.btn-floating i {
-    width: inherit;
-    font-size: 1.25rem;
-    line-height: 44px;
-    text-align: center;
-}
-.btn-floating, .btn-floating i {
-    display: inline-block;
-    color: #fff;
-}
-.shadow{
-    -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
-}
-.card .card-data {
-    background-color: rgb(104, 104, 103);
-    color: #fff;
-    text-align: center;
-    height: auto;
-    padding: 10px;
-}
-.card .card-data ul {
-    margin-bottom: 0;
-    font-size: .9rem;
-}
-.card .card-data ul li, .card .card-review ul li {
-    display: inline;
-}
-.card .card-data ul li i{
-    font-size: 14px;
-    color: #fff
-}
+#blog{padding-top: 45px;padding-bottom: 45px;}
+.card .btn-action {margin: -23px 20px -23px auto;background-color: rgb(104, 104, 103);height: 47px;width: 47px;line-height: 0;}
+.btn-floating {z-index: 1;overflow: hidden;width: 47px;height: 47px;padding: 0;border-radius: 50%;background-color: #a6c;-webkit-transition: .3s;transition: .3s;}
+.card .btn-action .material-icons {margin-top: 2px;margin-left: 2px;}
+.card .btn-action .material-icons {font-size: 35px;}
+.btn-floating i {width: inherit;font-size: 1.25rem;line-height: 44px;text-align: center;}
+.btn-floating, .btn-floating i {display: inline-block;color: #fff;}
+.shadow{-webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);}
+.card .card-data {background-color: rgb(104, 104, 103);color: #fff;text-align: center;height: auto;padding: 10px;}
+.card .card-data ul {margin-bottom: 0;font-size: .9rem;}
+.card .card-data ul li, .card .card-review ul li {display: inline;}
+.card .card-data ul li i{font-size: 14px;color: #fff}
 
 /* 
 Newsletter
 */
-#newsletter .card{
-    padding-top:90px;
-    padding-bottom: 90px;
-    margin-top: 5px;
-    margin-bottom: 45px;
-}
-#newsletter .input-group{
-    width: 450px;
-    text-align: center;
-    margin: 0 auto;
-}
+#newsletter .card{padding-top:90px;padding-bottom: 90px;margin-top: 5px;margin-bottom: 45px;}
+#newsletter .input-group{width: 450px;text-align: center;margin: 0 auto;}
 #newsletter .input-group .btn i{font-size: 14px;}
+
+/* Parallax */
+.paral {
+    min-height: 400px;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: 50% 50%;
+}
+/* Paragraph for Parallax Section */ 
+.paral p {
+    font-size: 24px;
+    color:rgba(0, 0, 0, 0.8);
+    text-align: center;
+    line-height: 60px;
+}
+     
+/* Heading for Parallax Section */ 
+.paral h5 {
+    color: rgba(0, 0, 0, 0.8);
+    font-size: 60px;
+    text-align: center;
+    padding-top: 40px;
+    line-height: 100px;
+}
+
+/* Image for Parallax Section */ 

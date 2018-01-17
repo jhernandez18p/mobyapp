@@ -13,17 +13,17 @@ class EmailBackend(object):
             user = UserModel.objects.get(email=username)
         except UserMode.DoesNotExist:
             return None
+        if getattr(user, 'is_active', False) and  user.check_password(password):
+            # send_mail(
+            #             'User Login',
+            #             'Here is the message.',
+            #             username,
+            #             [username],
+            #             fail_silently=False,
+            #         )
+            return user
         else:
-            if getattr(user, 'is_active', False) and  user.check_password(password):
-                # send_mail(
-                #             'User Login',
-                #             'Here is the message.',
-                #             username,
-                #             [username],
-                #             fail_silently=False,
-                #         )
-                return user
-        return None
+            return None
 
     def get_user(self, user_id):
         try:
