@@ -2,7 +2,7 @@
 
 {% block css %}
 <style>
-    .posts{padding-top: 3rem;padding-bottom: 3rem;}
+    .posts{padding-top: 125px;padding-bottom: 3rem;}
 </style>
 {% endblock %}
 
@@ -11,26 +11,34 @@
 {% endblock %}
 
 {% block content %}
-    {% for object in objects %}
-        <div class="container posts">
-            <div class="row justify-center mt-5">
-                <div class="col-md-6 pl-5 pr-5 text-center">
-                    <img class="mb-4 img-fluid" src="{% static 'base/img/food.jpg' %}">
+<div class="container posts">
+    <div class="row" id="blog">
+        {% for object in objects %}
+        <div class="col-sm-4">
+            <div class="item">
+                <div class="header">
+                    <img class="mb-4 img-fluid" src="{{object.img}}">
                 </div>
-                <div class="col-md-6 text-left">
-                    <h3>Esto es un post</h3>
-                    <p class="mt-4 mb-4">Integer libero nunc, elementum eu venenatis sed, molestie non tortor. Duis suscipit pulvinar justo. Orci varius
-                        natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec semper purus ex. Curabitur
-                        non rutrum libero. Fusce lacus tortor, elementum ac gravida vitae, egestasr.</p>
-        
-                    <p>
-                        <a class="btn btn-outline-secondary" href="{% url 'front:blog' %}new_post_{{forloop.counter}}/" role="button">Leer más</a>
+                <div class="body">
+                    <h3>
+                        <a href="{% url 'blog:blog_detail' object.slug %}" class="text-dark">
+                            {{object.title}}
+                        </a>
+                    </h3>
+                    <p class="mt-4 mb-4">
+                        {{object.text|truncatewords:8 }}
                     </p>
-        
+                </div>
+                <div class="footer">
+                    <a class="btn btn-link text-dark float-right" href="{% url 'blog:blog_detail' object.slug %}" role="button">
+                        <i class="material-icons">launch</i>Leer más
+                    </a>
                 </div>
             </div>
         </div>
-    {% endfor %}
+        {% endfor%}
+    </div>
+</div>
 {% endblock %}
 
 {% block js %}

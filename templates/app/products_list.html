@@ -2,18 +2,19 @@
 
 {% block css %}
 <style>
-    section{margin-top: 45px;}
     .breadcrumb{margin-top: 25px;background-color: rgba(0, 0, 0, 0)}
     .pagination{
         margin-top: 45px; margin-bottom: 45px;
     }
     .item{
-        background: #e2e1e01f;
+        background: #fff;
         box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
         padding-top: 15px;
         padding-left: 10px;
         padding-bottom: 10px;
         padding-right: 10px;
+        margin-bottom: 22.5px;
+        border-radius: 5px;
     }
     .item img{
         text-align: center
@@ -30,8 +31,8 @@
     <div class="row">
         <div class="col-md-12">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{% url 'front:products' %}">Productos</a></li>
-                <li class="breadcrumb-item">Categoría</li>
+                <li class="breadcrumb-item"><a href="{% url 'sales:home' %}">Productos</a></li>
+                <li class="breadcrumb-item active">Categoría</li>
                 <li class="breadcrumb-item active">{{cat|title }}</li>
             </ol>
         </div>
@@ -91,19 +92,19 @@
                     {% for object in objects %}
                         <div class="col-sm-4">
                             <div class="item">
-                                <a href="{% url 'front:products' %}{{cat|lower}}/new_product/">
-                                    <img src="{% static 'base/img/' %}{{cat|lower}}.jpg" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
+                                <a href="{% url 'sales:home' %}detalle/new_product/">
+                                    <img src="https://picsum.photos/400/200" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
                                 </a>
                                 <div class="info">
                                     <h5>
-                                        <a href="{% url 'front:products' %}{{cat|lower}}/new_product/" class="text-dark">
+                                        <a href="{% url 'sales:home' %}detalle/new_product/" class="text-dark">
                                             {{cat|title}}
                                         </a>
                                     </h5>
                                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                                     <div class="clearfix">
                                         <p class="badge badge-info float-left">
-                                            <a href="{% url 'front:products' %}{{cat|lower}}/" class="text-light">{{cat|lower}}</a>
+                                            <a href="{% url 'sales:home' %}{{cat|lower}}/" class="text-light">{{cat|lower}}</a>
                                         </p>
                                         <h5 class="float-right">$290</h5>
                                     </div>

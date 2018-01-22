@@ -2,7 +2,6 @@
 
 {% block css %}
 <style>
-    section{margin-top: 45px;}
     .breadcrumb{margin-top: 25px;background-color: rgba(0, 0, 0, 0)}
 </style>
 {% endblock %}
@@ -16,9 +15,9 @@
     <div class="row">
         <div class="col-md-12">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{% url 'front:products' %}">Productos</a></li>
-                <li class="breadcrumb-item">Categoría</li>
-                <li class="breadcrumb-item"><a href="{% url 'front:products' %}{{cat}}/">{{cat|title }}</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'sales:home' %}">Productos</a></li>
+                <li class="breadcrumb-item active">Categoría</li>
+                <li class="breadcrumb-item"><a href="{% url 'sales:home' %}{{cat}}/">{{cat|title }}</a></li>
                 <li class="breadcrumb-item active">{{object.art_des | title}}</li>
             </ol>
         </div>

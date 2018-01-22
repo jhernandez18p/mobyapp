@@ -3,6 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.shortcuts import render
 from django.views.generic import ListView, FormView, TemplateView, RedirectView
+from django.http import HttpResponseRedirect
 
 # Authentication imports
 from django.contrib.auth import login, logout
@@ -16,9 +17,17 @@ class Login(FormView):
     template_name = 'auth/form.html'
     success_url =  reverse_lazy("intra:home")
 
+
     def dispatch(self, request, *args, **kwargs):
+        url = self.get('next')
+        print(self.get('url'))
         if request.user.is_authenticated:
-            return HttpResponseRedirect(self.get_success_url())
+            if url != '':
+                success_url = url
+                return HttpResponseRedirect(self.get_success_url())
+            else:
+                success_url =  reverse_lazy("intra:home")
+                return HttpResponseRedirect(self.get_success_url())
         else:
             return super(Login, self).dispatch(request, *args, **kwargs)
 

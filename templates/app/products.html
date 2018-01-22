@@ -6,27 +6,27 @@
     /* 
     .categories 
     */
-    .categories header{ margin: 2rem;}
+    .container header{ margin: 2rem; padding-bottom: 45px;}
     .categories .item {
         min-height: 200px;
         background-color: #f5f5f5;
-        padding: 20px;
+        /* padding: 20px; */
         background-position: top right !important;
         background-size: auto 100%;
         background-repeat: no-repeat;
     }
     .categories a {
-    display: block;
-    color: rgb(240, 240, 240);
-    text-decoration: none;
-}
+        display: block;
+        color: rgb(240, 240, 240);
+        text-decoration: none;
+    }
     .categories .item span {
         color: #e7e4e4;
         font-weight: 300;
         display: block;
     }
 
-    #demo{margin-top: 90px;}
+    #demo{margin-top: 125px;box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);}
     #demo .carousel-inner img {
         min-width: 110%;
         max-height: 400px;
@@ -34,6 +34,17 @@
 
     .paralsec {
         background-image: url("https://static.pexels.com/photos/569163/pexels-photo-569163.jpeg");
+    }
+    .item{
+        background: #e2e1e01f;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        padding-left: 10px;
+        padding-bottom: 10px;
+        padding-right: 10px;
+        margin-bottom: 45px;
+    }
+    .item img{
+        text-align: center
     }
 </style>
 {% endblock %}
@@ -57,7 +68,7 @@
                     <div class="carousel-caption">
                         <h3>Promo 01</h3>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                        <a href="{% url 'front:products' %}melaminas/" class="btn btn-link text-white">Ver más</a>
+                        <a href="{% url 'sales:home' %}melaminas/" class="btn btn-link text-white">Ver más</a>
                     </div>
                 </div>
                 <div class="carousel-item">
@@ -65,7 +76,7 @@
                     <div class="carousel-caption">
                         <h3>Promo 02</h3>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                        <a href="{% url 'front:products' %}herrajes/" class="btn btn-link text-white">Ver más</a>
+                        <a href="{% url 'sales:home' %}herrajes/" class="btn btn-link text-white">Ver más</a>
                     </div>
                 </div>
                 <div class="carousel-item">
@@ -73,7 +84,7 @@
                     <div class="carousel-caption">
                         <h3>Promo 03</h3>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                        <a href="{% url 'front:products' %}granito/" class="btn btn-link text-white">Ver más</a>
+                        <a href="{% url 'sales:home' %}granito/" class="btn btn-link text-white">Ver más</a>
                     </div>
                 </div>
             </div>
@@ -85,59 +96,83 @@
             </a>
         </div>
     </div>
-</div>
-<div class="categories">
-    <div class="container">
+    <div class="categories">
         <header class="text-center">
             <h2 class="text-uppercase">
-                Nuestros productos
+                Categorías
             </h2>
         </header>
         <div class="row text-left">
-            <div class="col-sm-3">
-                <a href="{% url 'front:products' %}herrajes/">
+            <div class="col-sm-3 card-shadow">
+                <a href="{% url 'sales:home' %}herrajes/">
                     <div style="background-image: url({% static 'base/img/herrajes.jpg' %});" class="item d-flex align-items-end">
                         <div class="content">
-                            <h3 class="h5">HERRAJES</h3>
-                            <!-- <span>New Collection</span> -->
+                            <h3 class="h5">Herrajes</h3>
                         </div>
                     </div>
                 </a>
             </div>
-            <div class="col-sm-3">
-                <a href="{% url 'front:products' %}melaminas/">
+            <div class="col-sm-3 card-shadow">
+                <a href="{% url 'sales:home' %}melaminas/">
                     <div style="background-image: url({% static 'base/img/melaminas.jpg' %});" class="item d-flex align-items-end">
                         <div class="content">
-                            <h3 class="h5">MELAMINA</h3>
-                            <!-- <span>New Collection</span> -->
+                            <h3 class="h5">Melaminas</h3>
                         </div>
                     </div>
                 </a>
             </div>
-            <div class="col-sm-3">
-                <a href="{% url 'front:products' %}granito/">
+            <div class="col-sm-3 card-shadow">
+                <a href="{% url 'sales:home' %}granito/">
                     <div style="background-image: url({% static 'base/img/granito.jpg' %});" class="item d-flex align-items-end">
                         <div class="content">
-                            <h3 class="h5">GRANITO</h3>
-                            <!-- <span>New Collection</span> -->
+                            <h3 class="h5">Granito</h3>
                         </div>
                     </div>
                 </a>
             </div>
-            <div class="col-sm-3">
-                <a href="{% url 'front:products' %}tiradores/">
+            <div class="col-sm-3 card-shadow">
+                <a href="{% url 'sales:home' %}tiradores/">
                     <div style="background-image: url({% static 'base/img/tiradores.jpg' %});" class="item d-flex align-items-end">
                         <div class="content">
-                            <h3 class="h5">TIRADORES</h3>
-                            <!-- <span>Sale of 20%</span> -->
+                            <h3 class="h5">Tiradores</h3>
                         </div>
                     </div>
                 </a>
             </div>
         </div>
     </div>
-</div>
-<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <header class="text-center">
+                <h2 class="text-uppercase">
+                    Ultimos productos
+                </h2>
+            </header>
+        </div>
+        {% for object in objects %}
+            <div class="col-sm-4">
+                <div class="item">
+                    <a href="{% url 'sales:home' %}detalle/new_product/">
+                        <img src="https://picsum.photos/400/200" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
+                    </a>
+                    <div class="info">
+                        <h5>
+                            <a href="{% url 'sales:home' %}detalle/new_product/" class="text-dark">
+                                {{cat|title}}
+                            </a>
+                        </h5>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                        <div class="clearfix">
+                            <!-- <p class="badge badge-info float-left">
+                                <a href="{% url 'sales:home' %}{{cat|lower}}/" class="text-light">{{cat|lower}}</a>
+                            </p> -->
+                            <h5 class="float-right">$290</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
     <div class="row" id="newsletter">
         <div class="col-12 text-center text-white">
             <div class="card gradient">

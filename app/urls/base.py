@@ -25,6 +25,8 @@ handler400 = 'app.urls.views.bad_request_view'
 
 urlpatterns = [
     path('', include('src.base.urls', namespace='front')),
+    path('blog/', include('src.blog.urls', namespace='blog')),
+    path('productos/', include('src.ventas.urls', namespace='sales')),
     path('intra/', include('src.intra.urls', namespace='intra')),
     path('auth/', include('src.user.urls',namespace='auth')),
     path('adminsite/', admin.site.urls),

@@ -1,5 +1,7 @@
 import os
 from decouple import config
+from django.contrib.messages import constants as message_constants
+from django.contrib.messages import constants as messages
 
 # Site ID
 SITE_ID = 1
@@ -15,7 +17,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','moby.dev2tech.xyz']
+ALLOWED_HOSTS = ['localhost','moby.dev2tech.xyz','*']
 
 # Application definition
 DJANGO_APPS = (
@@ -37,6 +39,7 @@ LOCAL_APPS = (
     'src.blog',
     'src.intra',
     'src.user',
+    'src.ventas',
 )
 
 THIRD_PARTY_APPS = (
@@ -165,4 +168,14 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 10
+}
+
+MESSAGE_LEVEL = message_constants.INFO
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-info',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
 }
