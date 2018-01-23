@@ -129,10 +129,12 @@ MEDIA_ROOT = os.path.abspath(os.path.join(os.path.join(BASE_DIR,os.pardir), 'med
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
-    os.path.abspath(os.path.join(os.path.join(BASE_DIR,os.pardir), 'staticfiles')),
+# STATICFILES_DIRS = (
+#     os.path.abspath(os.path.join(os.path.join(BASE_DIR,os.pardir), 'staticfiles')),
+# )
 
-)
+STATIC_ROOT = os.path.abspath(os.path.join(os.path.join(BASE_DIR,os.pardir), 'staticfiles')),
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
