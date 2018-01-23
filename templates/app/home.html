@@ -190,23 +190,6 @@
             
         </div>
     </div>
-    <div class="row" id="providers">
-        <div class="col-sm-12">
-            <div class="text-header">
-                <p class="h1 text-center mb-5">Nuestras marcas</p>
-            </div>
-        </div>
-        <div class="col-12">
-            <div class="owl-carousel owl-theme">
-                <img class="owl-lazy" data-src="https://picsum.photos/350/250" data-src-retina="https://picsum.photos/350/250-retina" alt="">
-                <img class="owl-lazy" data-src="https://img.archilovers.com/people/thumb2_ARTURO-SALICE-SPA-a9df4414-log1.gif" alt="">
-                <img class="owl-lazy" data-src="https://picsum.photos/350/250" data-src-retina="https://picsum.photos/350/250-retina" alt="">
-                <img class="owl-lazy" data-src="http://aafloors.ca/wp-content/uploads/2017/04/0-3-1200x862.jpg" alt="">
-                <img class="owl-lazy" data-src="https://picsum.photos/350/250" data-src-retina="https://picsum.photos/350/250-retina" alt="">
-                <img class="owl-lazy" data-src="https://alaiplasticsolutions.com/wp-content/uploads/2015/10/logo-alai-150x75.png" alt="">
-            </div>
-        </div>
-    </div>
 </div>
 <div class="container">
     <div class="row" id="blog">
@@ -265,35 +248,6 @@
 {% block js %}
 
 <script>
-    $(document).ready(function(){
-        var owl = $('.owl-carousel');
-        owl.owlCarousel({
-            items: 6,
-            loop: true,
-            margin: 10,
-            autoplay: true,
-            autoplayTimeout: 3000,
-            autoplayHoverPause: true,
-            lazyLoad:true,
-            dots:false,
-            responsiveClass:true,
-            responsive:{
-                0:{
-                    items:2,
-                    nav:false
-                },
-                600:{
-                    items:3,
-                    nav:false
-                },
-                1000:{
-                    items:6,
-                    nav:false,
-                    loop:true
-                }
-            }
-        });
-        
-    });
+
 </script>
 {% endblock %}

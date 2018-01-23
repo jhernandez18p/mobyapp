@@ -17,7 +17,12 @@
         border-radius: 5px;
     }
     .item img{
-        text-align: center
+        text-align: center;
+    }
+    .accordion-body{
+        position: sticky;
+        top: 85px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     }
 </style>
 {% endblock %}
@@ -38,91 +43,95 @@
         </div>
     </div>
     <div class="row">
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div id="accordion">
-                    
-                            <div class="card">
-                                <div class="card-header">
-                                    <a class="card-link" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                        Filtro #1
-                                    </a>
-                                </div>
-                                <div id="collapseOne" class="collapse show">
-                                    <div class="card-body">
-                                        Lorem ipsum..
-                                    </div>
-                                </div>
-                            </div>
-                    
-                            <div class="card">
-                                <div class="card-header">
-                                    <a class="collapsed card-link" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                                        Filtro #2
-                                    </a>
-                                </div>
-                                <div id="collapseTwo" class="collapse">
-                                    <div class="card-body">
-                                        Lorem ipsum..
-                                    </div>
-                                </div>
-                            </div>
-                    
-                            <div class="card">
-                                <div class="card-header">
-                                    <a class="collapsed card-link" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                                        Filtro #3
-                                    </a>
-                                </div>
-                                <div id="collapseThree" class="collapse">
-                                    <div class="card-body">
-                                        Lorem ipsum..
-                                    </div>
-                                </div>
-                            </div>
-                    
+        <div class="col-sm-3 ">
+            <div class="accordion-body" id="accordion">
+        
+                <div class="card">
+                    <div class="card-header">
+                        <a class="card-link" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                            Filtro #1
+                        </a>
+                    </div>
+                    <div id="collapseOne" class="collapse show">
+                        <div class="card-body">
+                            Lorem ipsum..
                         </div>
                     </div>
                 </div>
+        
+                <div class="card">
+                    <div class="card-header">
+                        <a class="collapsed card-link" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                            Filtro #2
+                        </a>
+                    </div>
+                    <div id="collapseTwo" class="collapse">
+                        <div class="card-body">
+                            Lorem ipsum..
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="card">
+                    <div class="card-header">
+                        <a class="collapsed card-link" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                            Filtro #3
+                        </a>
+                    </div>
+                    <div id="collapseThree" class="collapse">
+                        <div class="card-body">
+                            Lorem ipsum..
+                        </div>
+                    </div>
+                </div>
+        
             </div>
-            <div class="col-sm-9">
-                <div class="row">
-                    {% for object in objects %}
-                        <div class="col-sm-4">
-                            <div class="item">
-                                <a href="{% url 'sales:home' %}detalle/new_product/">
-                                    <img src="https://picsum.photos/400/200" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
-                                </a>
-                                <div class="info">
-                                    <h5>
-                                        <a href="{% url 'sales:home' %}detalle/new_product/" class="text-dark">
-                                            {{cat|title}}
-                                        </a>
-                                    </h5>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                                    <div class="clearfix">
-                                        <p class="badge badge-info float-left">
-                                            <a href="{% url 'sales:home' %}{{cat|lower}}/" class="text-light">{{cat|lower}}</a>
-                                        </p>
-                                        <h5 class="float-right">$290</h5>
-                                    </div>
+        </div>
+        <div class="col-sm-9">
+            <div class="row">
+                {% for object in objects %}
+                    <div class="col-sm-4">
+                        <div class="item">
+                            <a href="{% url 'sales:home' %}detalle/new_product/">
+                                <img src="https://picsum.photos/400/200" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
+                            </a>
+                            <div class="info">
+                                <h5>
+                                    <a href="{% url 'sales:home' %}detalle/new_product/" class="text-dark">
+                                        {{cat|title}}
+                                    </a>
+                                </h5>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                                <div class="clearfix">
+                                    <p class="badge badge-info float-left">
+                                        <a href="{% url 'sales:home' %}departamento/{{cat|lower}}/" class="text-light">{{cat|lower}}</a>
+                                    </p>
+                                    <h5 class="float-right">$290</h5>
                                 </div>
                             </div>
                         </div>
-                    {% endfor %}
-                </div>
+                    </div>
+                {% endfor %}
             </div>
-            <div class="col-sm-4 mx-auto">
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="{% url 'auth:login' %}">2</a></li>
-                    <li class="page-item"><a class="page-link" href="{% url 'auth:login' %}">3</a></li>
-                    <li class="page-item"><a class="page-link" href="{% url 'auth:login' %}">Siguiente</a></li>
-                </ul>
-            </div>
+        </div>
+        <div class="col-sm-4 mx-auto">
+            {% if is_authenticated %}
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="">2</a></li>
+                <li class="page-item"><a class="page-link" href="">3</a></li>
+                <li class="page-item"><a class="page-link" href="">Siguiente</a></li>
+            </ul>
+            {% else %}
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'auth:login' %}">2</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'auth:login' %}">3</a></li>
+                <li class="page-item"><a class="page-link" href="{% url 'auth:login' %}">Siguiente</a></li>
+            </ul>
+            {% endif %}
         </div>
     </div>
 </div>

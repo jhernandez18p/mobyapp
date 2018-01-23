@@ -209,6 +209,20 @@ class Home(ListView):
         return context
 
 
+class Departments(ListView):
+    # model =
+    # context_object_name = 'boards'
+    queryset = ''
+    template_name = 'app/products.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['SITE_URL'] = 'Departamentos'
+        context['objects'] = {}
+        return context
+
 def Products_List(request, cat):
     template = 'app/products_list.html'
     context = {}
@@ -668,7 +682,7 @@ def Products_Detail(request, slug):
         'prec_vta4':'12.42',
         'prec_vta5':'9.2',
         'tipo':'V',
-        'picture':'/static/base/img/art.png',
+        'picture':'/static/base/img/logo.png',
     }
     return render(request, template, context)
 

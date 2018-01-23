@@ -2,7 +2,8 @@
 
 {% block css %}
 <style>
-    .breadcrumb{margin-top: 25px;background-color: rgba(0, 0, 0, 0)}
+    #breadcrumb{margin-top: 125px;}
+    .breadcrumb{background-color: rgba(0, 0, 0, 0)}
 </style>
 {% endblock %}
 
@@ -12,19 +13,32 @@
 
 {% block content %}
 <div class="container">
-    <div class="row">
+    <div class="row" id="breadcrumb">
         <div class="col-md-12">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{% url 'sales:home' %}">Productos</a></li>
-                <li class="breadcrumb-item active">Categoría</li>
-                <li class="breadcrumb-item"><a href="{% url 'sales:home' %}{{cat}}/">{{cat|title }}</a></li>
+                <li class="breadcrumb-item active">Departamento</li>
+                <li class="breadcrumb-item"><a href="{% url 'sales:home' %}departamento/{{cat}}/">{{cat|title }}</a></li>
                 <li class="breadcrumb-item active">{{object.art_des | title}}</li>
             </ol>
         </div>
     </div>
     <div class="row">
-        
+        <div class="col-sm-12">
+            {% if object.picture %}
+            <img src="{{object.picture.url}}" alt="{{object.name}}">
+            {% else %}
+            <p>no hay imagen para mostrar</p>
+            {% endif %}
+        </div>
+        <div class="col-sm-12">
+            <h1>
+                {{object.title}}
+            </h1>
+            <p>{{object.art_des}}</p>
+        </div>
     </div>
+    {{object}}
 </div>
 {% endblock %}
 
