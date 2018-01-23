@@ -228,7 +228,7 @@ def Products_List(request, cat):
     context = {}
     category = cat
     
-    context['SITE_URL'] = 'Categoría %s' % (category)
+    context['SITE_URL'] = 'Departamento %s' % (category)
     context['cat'] = '%s' % (category)
     context['objects'] = {
         1:{
