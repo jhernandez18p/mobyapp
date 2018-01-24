@@ -12,6 +12,14 @@ class Position(models.Model):
         return self.name
 
 
+class Pages(models.Model):
+    name = models.CharField(max_length=144, blank=True)
+    description = RichTextField(blank=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Widget(models.Model):
     name = models.CharField(max_length=144, blank=True)
     description = RichTextField(blank=True)

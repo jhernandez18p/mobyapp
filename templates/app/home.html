@@ -10,6 +10,28 @@
         width: 100%;
         max-height: 85%;
     }
+    #about{
+        background-color: rgb(243, 243, 243);
+    }
+    #about .img{
+        padding: 45px 0 45px 45px;
+        margin-right: -25px;
+    }
+    #about .img img{
+        height: 350px;
+    }
+    #about .card{
+        margin-left: -50px
+    }
+    /* #cat .img{
+        height: 350px;
+        margin: 0;
+    }
+    
+    #cat .img img{
+        height: 450px;
+        width: 100%;
+    } */
 </style>
 {% endblock %}
 
@@ -103,6 +125,26 @@
             </a>
         </div>
     </div>
+    <div class="row align-items-center" id="about">
+        <div class="col col-6">
+            <div class="img float-right">
+                <img src="https://kin.co.nz/media/images/Homepage_wendy3.original.jpg" alt="">
+            </div>
+        </div>
+        <div class="col col-6">
+            <div class="card text-dark mb-3" style="max-width: 28rem;">
+                <div class="card-body">
+                    <p>
+                        <span class="h3">
+                            Moby Panamá, S.A.
+                        </span> 
+                        <br> fue fundada en Panamá en el año 2011 estructurada en forma sociedad
+                        anónima.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="container">
     <div class="row" id="cards">
@@ -127,65 +169,76 @@
     </div>
 </div>
 <div class="container-fluid">
-    <div class="row h-30h" id="cat">
-        <div class="bg-dark col-sm-6 text-center text-middle text-white overflow-hidden ">
+
+    <div class="row align-items-center bg-dark" id="cat">
+        <div class="col-sm-6 text-center text-middle text-white overflow-hidden ">
             <div class="my-3 py-3">
+                <div class="img">
+                    <img class="img-fluid" src="https://static.pexels.com/photos/74204/tokina-tiltshift-samyang-nikon-74204.jpeg" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 text-center text-middle overflow-hidden text-white">
+            <div class="my-3 p-3">
                 <h2 class="display-5">Melaminas</h2>
-            </div>
-        </div>
-        <div class="bg-dark col-sm-6 text-center text-middle overflow-hidden text-white">
-            <div class="my-3 p-3">
-                <h2 class="display-5">Another headline</h2>
                 <p class="lead">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate dolores ipsa, eos mollitia tempore aliquid repudiandae placeat ratione molestias, perspiciatis nobis consequatur ex voluptate unde minus quae repellendus. Ab.
                 </p>
             </div>
         </div>
     </div>
-    <div class="row h-30h" id="cat">
-        <div class="bg-light col-sm-6 text-center text-middle overflow-hidden text-dark">
+
+    <div class="row align-items-center bg-ligth" id="cat">
+        <div class="col-sm-6 text-center text-middle overflow-hidden text-dark">
             <div class="my-3 p-3">
-                <h2 class="display-5">Another headline</h2>
-                <p class="lead">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate dolores ipsa, eos mollitia tempore aliquid repudiandae placeat ratione molestias, perspiciatis nobis consequatur ex voluptate unde minus quae repellendus. Ab.
-                </p>
-            </div>
-        </div>
-        <div class="bg-light col-sm-6 text-center text-middle text-dark overflow-hidden ">
-            <div class="my-3 py-3">
                 <h2 class="display-5">Tiradores</h2>
+                <p class="lead">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate dolores ipsa, eos mollitia tempore aliquid repudiandae placeat ratione molestias, perspiciatis nobis consequatur ex voluptate unde minus quae repellendus. Ab.
+                </p>
+            </div>
+        </div>
+        <div class="col-sm-6 text-center text-middle text-dark overflow-hidden ">
+            <div class="my-3 py-3">
+                <div class="img">
+                    <img class="img-fluid" src="https://static.pexels.com/photos/74204/tokina-tiltshift-samyang-nikon-74204.jpeg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row align-items-center bg-dark" id="cat">
+        <div class="col-sm-6 text-center text-middle text-white overflow-hidden ">
+            <div class="my-3 py-3">
+                <div class="img">
+                    <img class="img-fluid" src="https://static.pexels.com/photos/74204/tokina-tiltshift-samyang-nikon-74204.jpeg" alt="">
+                </div>
             </div>
             
         </div>
-    </div>
-    <div class="row h-30h" id="cat">
-        <div class="bg-dark col-sm-6 text-center text-middle text-white overflow-hidden ">
-            <div class="my-3 py-3">
+        <div class="col-sm-6 text-center text-middle overflow-hidden text-white">
+            <div class="my-3 p-3">
                 <h2 class="display-5">Granito</h2>
-            </div>
-            
-        </div>
-        <div class="bg-dark col-sm-6 text-center text-middle overflow-hidden text-white">
-            <div class="my-3 p-3">
-                <h2 class="display-5">Another headline</h2>
                 <p class="lead">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate dolores ipsa, eos mollitia tempore aliquid repudiandae placeat ratione molestias, perspiciatis nobis consequatur ex voluptate unde minus quae repellendus. Ab.
                 </p>
             </div>
         </div>
     </div>
-    <div class="row h-30h" id="cat">
-        <div class="bg-light col-sm-6 text-center text-middle overflow-hidden text-dark">
+
+    <div class="row align-items-center bg-light" id="cat">
+        <div class="col-sm-6 text-center text-middle overflow-hidden text-dark">
             <div class="my-3 p-3">
-                <h2 class="display-5">Another headline</h2>
+                <h2 class="display-5">Herrajes</h2>
                 <p class="lead">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate dolores ipsa, eos mollitia tempore aliquid repudiandae placeat ratione molestias, perspiciatis nobis consequatur ex voluptate unde minus quae repellendus. Ab.
                 </p>
             </div>
         </div>
-        <div class="bg-light col-sm-6 text-center text-middle text-dark overflow-hidden ">
+        <div class="col-sm-6 text-center text-middle text-dark overflow-hidden ">
             <div class="my-3 py-3">
-                <h2 class="display-5">Herrajes</h2>
+                <div class="img">
+                    <img class="img-fluid" src="https://static.pexels.com/photos/74204/tokina-tiltshift-samyang-nikon-74204.jpeg" alt="">
+                </div>
             </div>
             
         </div>
@@ -199,7 +252,7 @@
             </div>
         </div>
         {% for object in blog_post %}
-        <div class="col-sm-4">
+        <div class="col-sm-4 col-xs-12 align-self-center">
             <div class="item">
                 <div class="header">
                     <img class="mb-4 img-fluid" src="{{object.img}}">
@@ -226,7 +279,7 @@
 </div>
 <div class="container-fluid">
     <div class="row" id="newsletter">
-        <div class="col-12 text-center">
+        <div class="col-sm-12 text-center">
             <div class="card paral paralsec">
                 <div class="card-body">
                     <h5 class="card-title display-4">Boletin de noticias</h5>
