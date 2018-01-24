@@ -4,7 +4,8 @@
 
 <style>
     .paralsec {
-        background-image: url("{% static 'base/img/pexels-photo-317355.jpeg' %}");
+        /* background-image: url("{% static 'base/img/pexels-photo-317355.jpeg' %}"); */
+        background-image: url("https://static.pexels.com/photos/313776/pexels-photo-313776.jpeg");
     }
     #carousel .carousel-inner img {
         width: 100%;
@@ -32,6 +33,7 @@
         height: 450px;
         width: 100%;
     } */
+    #carousel-header .carousel {width: 100%;}
 </style>
 {% endblock %}
 
@@ -42,7 +44,7 @@
 {% block content %}
 
 <div class="container-fluid">
-    <div class="row" id="h-80h">
+    <div class="row" id="h-80h carousel-header">
         <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="8000">
             <ol class="carousel-indicators">
                 <li data-target="#carousel" data-slide-to="0" class="active"></li>
@@ -137,7 +139,7 @@
             <div class="card text-dark mb-3" style="max-width: 28rem;">
                 <div class="card-body">
                     <p>
-                        <span class="h3">
+                        <span class="h3 moby-text-h-1">
                             Moby Panamá, S.A.
                         </span> 
                         <br> fue fundada en Panamá en el año 2011 estructurada en forma sociedad
@@ -248,46 +250,51 @@
     <div class="row" id="blog">
         <div class="col-sm-12">
             <div class="text-header">
-                <p class="h1 text-center">Últimas entradas del blog</p>
+                <p class="h1 text-center moby-text-h-2">Últimas entradas del blog</p>
             </div>
         </div>
         {% for object in blog_post %}
-        <div class="col-sm-4 col-xs-12 align-self-center">
-            <div class="item">
-                <div class="header">
-                    <img class="mb-4 img-fluid" src="{{object.img}}">
-                </div>
-                <div class="body">
-                    <h3>
-                        <a href="{% url 'blog:blog_detail' object.slug %}" class="text-dark">
-                            {{object.title}}
+            <div class="col-sm-4 col-xs-12 align-self-center">
+                <div class="item">
+                    <div class="header">
+                        <img class="mb-4 img-fluid" src="{{object.img}}">
+                    </div>
+                    <div class="body">
+                        <h3>
+                            <a href="{% url 'blog:blog_detail' object.slug %}" class="text-dark">
+                                {{object.title}}
+                            </a>
+                        </h3>
+                        <p class="mt-4 mb-4">
+                            {{object.text|truncatewords:8 }}
+                        </p>
+                    </div>
+                    <div class="footer">
+                        <a class="btn btn-link text-dark float-right" href="{% url 'blog:blog_detail' object.slug %}" role="button">
+                            <i class="material-icons">launch</i>Leer más
                         </a>
-                    </h3>
-                    <p class="mt-4 mb-4">
-                        {{object.text|truncatewords:8 }}
-                    </p>
-                </div>
-                <div class="footer">
-                    <a class="btn btn-link text-dark float-right" href="{% url 'blog:blog_detail' object.slug %}" role="button">
-                        <i class="material-icons">launch</i>Leer más
-                    </a>
+                    </div>
                 </div>
             </div>
-        </div>
         {% endfor%}
     </div>
 </div>
-<div class="container-fluid">
-    <div class="row" id="newsletter">
-        <div class="col-sm-12 text-center">
-            <div class="card paral paralsec">
-                <div class="card-body">
-                    <h5 class="card-title display-4">Boletin de noticias</h5>
-                    <p class="card-text">Manténgase actualizado con las noticias y publicaciones.</p>
-                    <div class="input-group mb-6">
-                        <input type="text" class="form-control" placeholder="su-nombre@su-correo.com" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-dark" type="button">Enviar <i class="material-icons">send</i></button>
+
+<div id="newsletter">
+    <div class="text-center">
+        <div class="card paral paralsec">
+            <div class="card-body">
+                <h5 class="card-title display-4 text-white">Boletin de noticias</h5>
+                <p class="card-text text-white">Manténgase actualizado con las noticias y publicaciones.</p>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-sm-6">
+                            <div class="input-group mb-6">
+                                <input type="text" class="form-control" placeholder="su-nombre@su-correo.com" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <div class="input-group-append ml-3">
+                                    <button class="btn btn-outline-light" type="button">Enviar <i class="material-icons">send</i></button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
