@@ -47,6 +47,13 @@
     .item img{
         text-align: center
     }
+    .item .price{
+        margin-right: 0px;
+        margin-bottom: 0px;
+        background-color: #8a7e5f;
+        padding: 5px 20px 0px 20px;
+        color: #FFF;
+    }
 </style>
 {% endblock %}
 
@@ -167,7 +174,9 @@
                             <!-- <p class="badge badge-info float-left">
                                 <a href="{% url 'sales:home' %}{{cat|lower}}/" class="text-light">{{cat|lower}}</a>
                             </p> -->
-                            <h5 class="float-right">$290</h5>
+                            <div class="price float-right">
+                                <h5 class="">$290</h5>
+                            </div>
                         </div>
                     </div>
                 </div>

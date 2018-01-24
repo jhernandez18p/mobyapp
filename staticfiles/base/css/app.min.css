@@ -1,5 +1,12 @@
 {% load staticfiles %}
-body {display: flex;min-height: 100vh;flex-direction: column;background-color: rgba(104, 104, 103,0.040);}
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    /* background-color: rgba(104, 104, 103,0.040); */
+    background-color: rgba(154, 135, 0, 0.12);
+}
+.bg-light{background-color: #FFF}
 section {flex: 1;}
 @media only screen and (max-width: 768px) {
     .content {
