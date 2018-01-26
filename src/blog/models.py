@@ -17,56 +17,6 @@ from ckeditor.fields import RichTextField
 from src.utils.libs import (upload_location,get_read_time,count_words)
 
 
-class CommentManager(models.Manager):
-    def all(self):
-        qs = super(CommentManager, self).filter(parent=None)
-        return qs
-
-    def filter_by_instance(self, instance):
-        content_type = ContentType.objects.get_for_model(instance.__class__)
-        obj_id = instance.id
-        qs = super(CommentManager, self).filter(content_type=content_type, object_id= obj_id).filter(parent=None)
-        return qs
-
-
-class Comment(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE,)
-    content = RichTextField()
-    parent = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE,)
-    approved = models.BooleanField(default=False)
-    timestamp = models.DateTimeField(auto_now_add=True)
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    content_object = GenericForeignKey('content_type', 'object_id')
-    object_id = models.PositiveIntegerField()
-
-    objects = CommentManager()
-
-    class Meta:
-        ordering = ['-timestamp']
-        verbose_name = 'Comentario'
-        verbose_name_plural = 'Comentarios'
-
-    def __str__(self):
-        return str(self.author)
-
-    def get_absolute_url(self):
-        return reverse("comments:thread", kwargs={"id": self.id})
-
-    def get_delete_url(self):
-        return reverse("comments:delete", kwargs={"id": self.id})
-        
-    def children(self): #replies
-        return Comment.objects.filter(parent=self)
-
-    @property
-    def is_parent(self):
-        if self.parent is not None:
-            return False
-        return True
-
-
-#Post.objects.all()
-#Post.objects.create(user=user, title="Some time")
 
 class PostManager(models.Manager):
     def active(self, *args, **kwargs):
@@ -158,3 +108,56 @@ def pre_save_post_receiver(sender, instance, *args, **kwargs):
 
 
 pre_save.connect(pre_save_post_receiver, sender=Post)
+
+
+class CommentManager(models.Manager):
+    def all(self):
+        qs = super(CommentManager, self).filter(parent=None)
+        return qs
+
+    def filter_by_instance(self, instance):
+        content_type = ContentType.objects.get_for_model(instance.__class__)
+        obj_id = instance.id
+        qs = super(CommentManager, self).filter(content_type=content_type, object_id= obj_id).filter(parent=None)
+        return qs
+
+
+class Comment(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE,)
+    content = RichTextField()
+    parent = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE,)
+    approved = models.BooleanField(default=False)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE,null=True)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    content_object = GenericForeignKey('content_type', 'object_id')
+    object_id = models.PositiveIntegerField()
+
+    objects = CommentManager()
+
+    class Meta:
+        ordering = ['-timestamp']
+        verbose_name = 'Comentario'
+        verbose_name_plural = 'Comentarios'
+
+    def __str__(self):
+        return str(self.author)
+
+    def get_absolute_url(self):
+        return reverse("comments:thread", kwargs={"id": self.id})
+
+    def get_delete_url(self):
+        return reverse("comments:delete", kwargs={"id": self.id})
+        
+    def children(self): #replies
+        return Comment.objects.filter(parent=self)
+
+    @property
+    def is_parent(self):
+        if self.parent is not None:
+            return False
+        return True
+
+
+#Post.objects.all()
+#Post.objects.create(user=user, title="Some time")

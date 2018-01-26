@@ -32,6 +32,7 @@ DJANGO_APPS = (
     'django.contrib.sitemaps',
     'django.contrib.humanize',
     'django.contrib.redirects',
+    # 'django.contrib.gis',
 )
 
 LOCAL_APPS = (
@@ -45,6 +46,7 @@ LOCAL_APPS = (
 THIRD_PARTY_APPS = (
     'rest_framework',
     'ckeditor',
+    'import_export',
     'widget_tweaks',
 )
 
@@ -59,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'app.urls.base'
@@ -117,6 +120,7 @@ LANGUAGE_CODE = 'es-PA'
 
 # TIME_ZONE = 'UTC'
 
+
 USE_I18N = True
 
 USE_L10N = True
@@ -158,7 +162,7 @@ LOGIN_URL = '/auth/login/'
 
 LOGIN_REDIRECT_URL = '/intra/'
 
-SITE_URL = 'http://www.dev2tech.xyz'
+SITE_URL = 'http://www.moby-group.com'
 
 LOGOUT_REDIRECT_URL = SITE_URL
 
@@ -184,3 +188,5 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True

@@ -1,6 +1,10 @@
 from django.shortcuts import render
+from django.http import JsonResponse
+from django.views import View
 from django.views.generic import ListView, DetailView
 
+from .models import (Article, Photo)
+from .forms import PhotoForm
 # Create your views here.
 
 class Home(ListView):
@@ -13,8 +17,11 @@ class Home(ListView):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
+        articles = Article.objects.all()
+        if len(articles)>=1:
+            context['products'] = articles[0:9]
         context['SITE_URL'] = 'Nuestros productos'
-        context['objects'] = {
+        context['products_test'] = {
             1:{
                 'co_art':'113120',
                 'art_des':'CUBIERTERO LINEA TEN DE 450 MM',
@@ -686,3 +693,16 @@ def Products_Detail(request, slug):
     }
     return render(request, template, context)
 
+class BasicUploadView(View):
+    def get(self, request):
+        photos_list = Photo.objects.all()
+        return render(self.request, 'photos/basic_upload/index.html', {'photos': photos_list})
+
+    def post(self, request):
+        form = PhotoForm(self.request.POST, self.request.FILES)
+        if form.is_valid():
+            photo = form.save()
+            data = {'is_valid': True, 'name': photo.file.name, 'url': photo.file.url}
+        else:
+            data = {'is_valid': False}
+        return JsonResponse(data)

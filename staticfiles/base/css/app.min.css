@@ -18,7 +18,6 @@ section {flex: 1;}
 .bg-dark {background-color: #887c5c!important;}
 .bg-light{background-color: #FFF}
 .btn{min-width: 95px !important;}
-.card-img-overlay {position: absolute;top: 60%;right: 0;bottom: 0;left: 0;padding: 1rem;}
 #providers {padding-top: 45px; padding-bottom: 45px;}
 #providers img{ background-color: #FFF;}
 #cards{padding-top: 45px !important;padding-bottom: 45px !important;} .card{border: none !important; border-radius: 0 !important;}
@@ -126,3 +125,106 @@ Newsletter
     padding-top: 15px; 
     padding-bottom: 45px; 
 }
+
+
+/* .collapse .show {
+    display: block;
+    background-color: #FFF;
+    width: 80%;
+    height: 104vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+@media (max-width: 576px) {
+    .navbar-nav-custom-1 {
+        position: absolute;
+        left: 25px;
+        top: 30%;
+    }
+    .navbar-nav-custom-2 {
+        top: 90%;
+        right: unset;
+        flex-direction: row;
+        font-size: unset;
+    }
+} */
+
+
+.nav-slider.toggling {
+    transition: transform 0.35s, opacity 0.35s;
+  }
+  
+  .navbar-toggler {
+    float: left;
+  }
+  
+  @media (max-width: 543px) {
+    .nav-slider {
+      opacity: 0;
+      position: fixed;
+      z-index: 200;
+      background-color: #f1f1f1;
+    }
+    .nav-slider .navbar-nav {
+      margin-left: 30px;
+      margin-top: 20px;
+    }
+    .nav-slider .navbar-nav .nav-item {
+      float: none;
+    }
+    .nav-slider .navbar-nav .nav-item .nav-link {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    .nav-slider .navbar-nav .nav-item + .nav-item {
+      margin-left: 0;
+    }
+  
+    body.has-active-menu {
+      overflow: hidden;
+    }
+  
+    .nav-mask {
+      position: fixed;
+      z-index: 100;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      width: 0;
+      height: 0;
+      background: rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transition: opacity 0.25s, width 0s 0.25s, height 0s 0.25s;
+    }
+  
+    .has-active-menu .nav-mask {
+      width: 100%;
+      height: 100%;
+      opacity: 1;
+      transition: opacity 0.25s;
+    }
+  
+    /* next */
+    .nav-slider {
+      width: 100%;
+      height: 100%;
+      overflow-y: scroll;
+      top: 0;
+      left: 0;
+      transform: translateX(-100%);
+    }
+  
+    .has-active-menu .nav-slider {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  @media (min-width: 320px) and (max-width: 543px) {
+    .nav-slider {
+      width: 300px;
+      transform: translateX(-300px);
+    }
+  }
+  
