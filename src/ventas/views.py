@@ -699,13 +699,13 @@ class DepartmentDetail(ListView):
     # model =
     # context_object_name = 'boards'
     queryset = ''
-    template_name = 'app/departments.html'
+    template_name = 'app/detail/departments_detail.html'
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
-        context['SITE_URL'] = 'Departamentos'
+        context['SITE_URL'] = 'Detalles de Departamentos'
         context['objects'] = {}
         return context
 
@@ -714,13 +714,13 @@ class Providers(ListView):
     # model =
     # context_object_name = 'boards'
     queryset = ''
-    template_name = 'app/departments.html'
+    template_name = 'app/providers.html'
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
-        context['SITE_URL'] = 'Departamentos'
+        context['SITE_URL'] = 'Proveedores'
         context['objects'] = {}
         return context
 
@@ -729,12 +729,12 @@ class ProvidersDetails(ListView):
     # model =
     # context_object_name = 'boards'
     queryset = ''
-    template_name = 'app/departments.html'
+    template_name = 'app/detail/provider_details.html'
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
-        context['SITE_URL'] = 'Departamentos'
+        context['SITE_URL'] = 'Detalles de proveedor'
         context['objects'] = {}
         return context

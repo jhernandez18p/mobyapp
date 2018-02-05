@@ -2,7 +2,7 @@
 
 {% block css %}
 <style>
-    #breadcrumb{margin-top: 125px;}
+    #breadcrumb{margin-top: 120px;}
     .breadcrumb{background-color: rgba(0, 0, 0, 0)}
 </style>
 {% endblock %}
@@ -16,30 +16,33 @@
     <div class="row" id="breadcrumb">
         <div class="col-md-12">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{% url 'sales:home' %}">Productos</a></li>
-                <li class="breadcrumb-item active">Departamento</li>
-                <li class="breadcrumb-item"><a href="{% url 'sales:home' %}departamento/{{cat}}/">{{cat|title }}</a></li>
-                <li class="breadcrumb-item active">{{object.art_des | title}}</li>
+                <li class="breadcrumb-item"><a href="{% url 'services:home' %}">Departamento</a></li>
+                <li class="breadcrumb-item">{{object.name}}</li>
             </ol>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12">
             {% if object.picture %}
-            <img src="{{object.picture.url}}" alt="{{object.name}}">
+                <img src="{{object.picture.url}}" alt="{{object.name}}">
             {% else %}
-            <p>no hay imagen para mostrar</p>
+                <p>no hay imagen para mostrar</p>
             {% endif %}
         </div>
         <div class="col-sm-12">
             <h1>
                 {{object.title}}
             </h1>
-            <p>{{object.art_des}}</p>
+            <div class="service-body">
+                {{object.content|safe}}
+            </div>
         </div>
     </div>
 </div>
 {% endblock %}
 
 {% block js %}
+<script>
+    $('.service-body img').addClass('img-fluid')
+</script>
 {% endblock %}
