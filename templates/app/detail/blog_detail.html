@@ -5,7 +5,7 @@
     .paralsec {
         background-image: url("{{object.background}}");
     }
-    #newsletter .card{margin-bottom: 0;}
+    #newsletter .card{margin-bottom: 0;margin-right: -15px;margin-left: -15px;margin-top: 45px;}
     .paral p {color:rgba(255, 255, 255, 0.8);}
     .paral h5 {color: rgba(255, 255, 255, 0.8);}
     .mbr-figure img{max-height: 150px;}
@@ -18,7 +18,8 @@
         padding: 7rem 0;
     }
     .coments{
-        padding: 7rem 0;
+        margin-top: 45px;
+        margin-bottom: 45px;
     }
     .coment_body{
         padding: 2rem 0;
@@ -31,6 +32,19 @@
     }
     .blog-commets-share span a .material-icons{
         font-size: 18px;
+    }
+    .-body{
+        padding-top: 45px;
+        padding-bottom: 45px;
+    }
+    .row{
+        margin-left: 0;
+        margin-right: 0;    
+    }
+    @media (max-width: 767px){
+        .coment_body img{
+            width: 70px;
+        }
     }
 </style>
 {% endblock %}
@@ -52,8 +66,11 @@
             </div>
         </div>
     </div>
-    <div class="row content-4">
-        <div class="container">
+</div>
+
+<div class="bg-light">
+    <div class="container">
+        <div class="row content-4">
             <div class="row justify-center mt-5">
                 <div class="col-md-6 pl-5 pr-5 text-center">
                     <img class="mb-4 img-fluid" src="{{object.img}}">
@@ -76,10 +93,27 @@
             </div>
         </div>
     </div>
-    <div class="row bg-dark">
-        <div class="container">
-            {% if user.is_autenticated %}
-                <p>User {{user.username}}</p>
+</div>
+
+<div class="bg-dark">
+    <div class="container">
+        <div class="row justify-content-md-center -body">
+            {% if user.is_authenticated %}
+                <div class="col-12">
+                    <p class="h2 text-white text-center">Dejar un comentario</p>
+                </div>
+                <div class="col-12 col-sm-7">
+                    <form action="">
+                        <div class="form-group">
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Escriba su comentario"></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-success btn-lg">
+                                Publicar
+                            </button>
+                        </div>
+                    </form>
+                </div>
             {% else %}
             <div class="cta-3 text-center justify-center">
                 <div class="container">
@@ -92,116 +126,25 @@
             {% endif %}
         </div>
     </div>
+</div>
+
+<div class="container">
     <div class="row justify-content-md-center coments">
         <div class="col-md-7 col-testimonial">
             <div class="row coment_body">
-                <div class="col-3 text-center">
-                    <img class="" src="https://api.adorable.io/avatars/170/abott@adorable.png">
+                <div class="col-3 col-sm-5 text-center">
+                    <img class="" src="https://api.adorable.io/avatars/150/abott@adorable.png">
                 </div>
-                <div class="col-9">
-                    <p class="quote-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse cursus."</p>
-                    <div class="footer">
-
-                        <p><span class="quote-author">Jonathan Smith</span></p>
-                        <p class="blog-commets-share">
-                            <span>
-                                <a href="#" class="btn btn-link float-right">
-                                    <i class="material-icons">access_time</i> Hace 29 segundos
-                                </a>
-                            </span>
-                            <span>
-                                <a href="#" class="btn btn-link float-right">
-                                    <i class="material-icons">favorite</i>
-                                    12
-                                </a>
-                            </span>
-                        </p>
+                <div class="col-9 col-sm-7">
+                    <div class="comment-body">
+                        <p class="quote-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse cursus."</p>
+                        <div class="footer">
+                            <p><span class="quote-author">Jonathan Smith</span></p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-7 col-testimonial">
-            <div class="row coment_body">
-                <div class="col-3 text-center">
-                    <img class="" src="https://api.adorable.io/avatars/170/abott@adorable.png">
-                </div>
-                <div class="col-9">
-                    <p class="quote-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse cursus."</p>
-                    <div class="footer">
-
-                        <p><span class="quote-author">Jane Donovan</span></p>
-                        <p class="blog-commets-share">
-                            <span>
-                                <a href="#" class="btn btn-link float-right">
-                                    <i class="material-icons">access_time</i> Hace 29 segundos
-                                </a>
-                            </span>
-                            <span>
-                                <a href="#" class="btn btn-link float-right">
-                                    <i class="material-icons">favorite</i>
-                                    12
-                                </a>
-                            </span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-7 col-testimonial">
-            <div class="row coment_body">
-                <div class="col-3 text-center">
-                    <img class="" src="https://api.adorable.io/avatars/170/abott@adorable.png">
-                </div>
-                <div class="col-9">
-                    <p class="quote-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse cursus."</p>
-                    <div class="footer">
-
-                        <p><span class="quote-author">Sam Davidson</span></p>
-                        <p class="blog-commets-share">
-                            <span>
-                                <a href="#" class="btn btn-link float-right">
-                                    <i class="material-icons">access_time</i> Hace 29 segundos
-                                </a>
-                            </span>
-                            <span>
-                                <a href="#" class="btn btn-link float-right">
-                                    <i class="material-icons">favorite</i>
-                                    12
-                                </a>
-                            </span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-7 col-testimonial">
-            <div class="row coment_body">
-                <div class="col-3 text-center">
-                    <img class="" src="https://api.adorable.io/avatars/170/abott@adorable.png">
-                </div>
-                <div class="col-9">
-                    <p class="quote-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse cursus."</p>
-                    <div class="footer">
-
-                        <p><span class="quote-author">Kelly Johnson</span></p>
-                        <p class="blog-commets-share">
-                            <span>
-                                <a href="#" class="btn btn-link float-right">
-                                    <i class="material-icons">access_time</i> Hace 29 segundos
-                                </a>
-                            </span>
-                            <span>
-                                <a href="#" class="btn btn-link float-right">
-                                    <i class="material-icons">favorite</i>
-                                    12
-                                </a>
-                            </span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
+        </div>  
     </div>
 </div>
 {% endblock %}

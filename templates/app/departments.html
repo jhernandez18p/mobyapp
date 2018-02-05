@@ -2,8 +2,8 @@
 
 {% block css %}
 <style>
-    #services{margin-top: 120px;}
-    #services .row{
+    #departments{margin-top: 120px;}
+    #departments .row{
         margin-bottom: 45px;
     }
     footer{margin-top: -6px;}
@@ -16,16 +16,16 @@
 
 {% block content %}
 
-<div class="container" id="services">
-    {% if object_list  %}
-        {% for object in object_list  %}
+<div class="container" id="departments">
+    {% if departments %}
+        {% for object in departments %}
             <div class="row align-items-center shadow">
                 <div class="col-12 col-sm-6">
                     <div class="my-3 p-3">
                         <h2 class="display-5">
-                            <!-- <a href="{# url 'services:home' object.slug #}"> -->
-                                {{object.name}}
-                            <!-- </a> -->
+                            <a href="">
+                                Cortes
+                            </a>
                         </h2>
                         <p class="lead">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate dolores ipsa, eos mollitia tempore aliquid repudiandae placeat ratione molestias, perspiciatis nobis consequatur ex voluptate unde minus quae repellendus. Ab.
@@ -35,11 +35,7 @@
                 <div class="col-12 col-sm-6">
                     <div class="serv-img">
                         <div class="img">
-                            {% if object.img %}
-                                <img class="img-fluid" src="/static/base/img/moby-background-04.jpg" alt="{{object.name}}">
-                            {% else %}
-                                <img class="img-fluid" src="/static/base/img/moby-background-04.jpg" alt="services">
-                            {% endif %}
+                            <img class="img-fluid" src="/static/base/img/moby-background-04.jpg" alt="departments">
                         </div>
                     </div>
                 </div>
@@ -50,7 +46,7 @@
             <div class="col-12 col-sm-6">
                 <div class="my-3 p-3">
                     <h2 class="display-5">
-                        <a href="{% url 'services:home' %}" class="">
+                        <a href="{% url 'sales:departments' %}" class="">
                             Cortes
                         </a>
                     </h2>
@@ -62,8 +58,8 @@
             <div class="col-12 col-sm-6">
                 <div class="serv-img">
                     <div class="img">
-                        <a href="{% url 'services:home' %}">
-                            <img class="img-fluid" src="/static/base/img/moby-background-04.jpg" alt="services">
+                        <a href="{% url 'sales:departments' %}">
+                            <img class="img-fluid" src="/static/base/img/moby-background-04.jpg" alt="departments">
                         </a>
                     </div>
                 </div>
@@ -74,7 +70,7 @@
             <div class="col-12 col-sm-6">
                 <div class="my-3 p-3">
                     <h2 class="display-5">
-                        <a href="{% url 'services:home' %}" class="">
+                        <a href="{% url 'sales:departments' %}" class="">
                             Canteo
                         </a>
                     </h2>
@@ -86,8 +82,8 @@
             <div class="col-12 col-sm-6">
                 <div class="serv-img">
                     <div class="img">
-                        <a href="{% url 'services:home' %}">
-                            <img class="img-fluid" src="/static/base/img/moby-background-04.jpg" alt="services">
+                        <a href="{% url 'sales:departments' %}">
+                            <img class="img-fluid" src="/static/base/img/moby-background-04.jpg" alt="departments">
                         </a>
                     </div>
                 </div>
@@ -98,7 +94,7 @@
             <div class="col-12 col-sm-6">
                 <div class="my-3 p-3">
                     <h2 class="display-5">
-                        <a href="{% url 'services:home' %}" class="">
+                        <a href="{% url 'sales:departments' %}" class="">
                             Perforación
                         </a>
                     </h2>
@@ -110,8 +106,8 @@
             <div class="col-12 col-sm-6">
                 <div class="serv-img">
                     <div class="img">
-                        <a href="{% url 'services:home' %}">
-                            <img class="img-fluid" src="/static/base/img/moby-background-04.jpg" alt="services">
+                        <a href="{% url 'sales:departments' %}">
+                            <img class="img-fluid" src="/static/base/img/moby-background-04.jpg" alt="departments">
                         </a>
                     </div>
                 </div>
@@ -122,7 +118,7 @@
             <div class="col-12 col-sm-6">
                 <div class="my-3 p-3">
                     <h2 class="display-5">
-                        <a href="{% url 'services:home' %}" class="">
+                        <a href="{% url 'sales:departments' %}" class="">
                             Ranurado
                         </a>
                     </h2>
@@ -134,8 +130,8 @@
             <div class="col-12 col-sm-6">
                 <div class="serv-img">
                     <div class="img">
-                        <a href="{% url 'services:home' %}">
-                            <img class="img-fluid" src="/static/base/img/moby-background-04.jpg" alt="services">
+                        <a href="{% url 'sales:departments' %}">
+                            <img class="img-fluid" src="/static/base/img/moby-background-04.jpg" alt="departments">
                         </a>
                     </div>
                 </div>
@@ -146,7 +142,7 @@
             <div class="col-12 col-sm-6">
                 <div class="my-3 p-3">
                     <h2 class="display-5">
-                        <a href="{% url 'services:home' %}" class="">
+                        <a href="{% url 'sales:departments' %}" class="">
                             Fresado
                         </a>
                     </h2>
@@ -158,8 +154,8 @@
             <div class="col-12 col-sm-6">
                 <div class="serv-img">
                     <div class="img">
-                        <a href="{% url 'services:home' %}">
-                            <img class="img-fluid" src="/static/base/img/moby-background-04.jpg" alt="services">
+                        <a href="{% url 'sales:departments' %}">
+                            <img class="img-fluid" src="/static/base/img/moby-background-04.jpg" alt="departments">
                         </a>
                     </div>
                 </div>
@@ -171,7 +167,7 @@
             <div class="col-12 col-sm-6">
                 <div class="my-3 p-3">
                     <h2 class="display-5">
-                        <a href="{% url 'services:home' %}" class="">
+                        <a href="{% url 'sales:departments' %}" class="">
                             Armado
                         </a>
                     </h2>
@@ -183,8 +179,8 @@
            <div class="col-12 col-sm-6">
                 <div class="serv-img">
                     <div class="img">
-                        <a href="{% url 'services:home' %}">
-                            <img class="img-fluid" src="/static/base/img/moby-background-04.jpg" alt="services">
+                        <a href="{% url 'sales:departments' %}">
+                            <img class="img-fluid" src="/static/base/img/moby-background-04.jpg" alt="departments">
                         </a>
                     </div>
                 </div>
@@ -195,7 +191,7 @@
             <div class="col-12 col-sm-6">
                 <div class="my-3 p-3">
                     <h2 class="display-5">
-                        <a href="{% url 'services:home' %}" class="">
+                        <a href="{% url 'sales:departments' %}" class="">
                             Fresado
                         </a>
                     </h2>
@@ -207,31 +203,30 @@
             <div class="col-12 col-sm-6">
                 <div class="serv-img">
                     <div class="img">
-                        <a href="{% url 'services:home' %}">
-                            <img class="img-fluid" src="/static/base/img/moby-background-04.jpg" alt="services">
+                        <a href="{% url 'sales:departments' %}">
+                            <img class="img-fluid" src="/static/base/img/moby-background-04.jpg" alt="departments">
                         </a>
                     </div>
                 </div>
             </div>
         </div>
     {% endif %}
-    
 </div>
 
 {% endblock %}
 
 {% block js %}
 <script>
-$('#services .row:nth-child(odd)').addClass('bg-light');
-$('#services .row:nth-child(odd) .col-12').addClass('text-center text-middle overflow-hidden text-dark');
-$('#services .row:nth-child(odd) a').addClass('text-dark');
-$('#services .row:nth-child(odd) .serv-img').css('width','100%');
-$('#services .row:nth-child(even)').addClass('bg-dark');
-$('#services .row:nth-child(even) .col-12').addClass('text-center text-middle overflow-hidden text-white');
-$('#services .row:nth-child(even) a').addClass('text-white');
-$('#services .row:nth-child(even) .serv-img').css('width','100%');
-$('#services .row:nth-child(even) .col-12:nth-child(odd)').addClass('order-first order-sm-12');
-$('#services .row:nth-child(even) .col-12:nth-child(even)').addClass('order-last order-sm-1');
+$('#departments .row:nth-child(odd)').addClass('bg-light');
+$('#departments .row:nth-child(odd) .col-12').addClass('text-center text-middle overflow-hidden text-dark');
+$('#departments .row:nth-child(odd) a').addClass('text-dark');
+$('#departments .row:nth-child(odd) .serv-img').css('width','100%');
+$('#departments .row:nth-child(even)').addClass('bg-dark');
+$('#departments .row:nth-child(even) .col-12').addClass('text-center text-middle overflow-hidden text-white');
+$('#departments .row:nth-child(even) a').addClass('text-white');
+$('#departments .row:nth-child(even) .serv-img').css('width','100%');
+$('#departments .row:nth-child(even) .col-12:nth-child(odd)').addClass('order-first order-sm-12');
+$('#departments .row:nth-child(even) .col-12:nth-child(even)').addClass('order-last order-sm-1');
 
 </script>
 {% endblock %}

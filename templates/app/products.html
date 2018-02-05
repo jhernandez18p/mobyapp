@@ -1,309 +1,348 @@
 {% extends 'app/base/index.html' %}{% load staticfiles %}
-
 {% block css %}
-<style>
-    .categories{margin-top: 45px; margin-bottom: 45px; padding-bottom: 3rem; padding-top: 3rem;}
-    /* 
-    .categories 
-    */
-    .container header{ margin: 2rem; padding-bottom: 45px;}
-    .categories .item {
-        min-height: 200px;
-        background-color: #f5f5f5;
-        /* padding: 20px; */
-        background-position: top right !important;
-        background-size: cover;
-        background-repeat: no-repeat;
-    }
-    .categories a {
-        display: block;
-        color: rgb(240, 240, 240);
-        text-decoration: none;
-    }
-    .categories .item span {
-        color: #e7e4e4;
-        font-weight: 300;
-        display: block;
-    }
+    <link rel="stylesheet" href="{% static 'base/css/owl/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'base/css/owl/owl.theme.default.min.css' %}">
+    <style>
+        .categories{padding-top: 3rem;}
+        /* 
+        .categories 
+        */
+        .container header{ margin: 2rem; padding-bottom: 45px;}
+        .categories .item {
+            min-height: 200px;
+            background-color: #f5f5f5;
+            /* padding: 20px; */
+            background-position: top right !important;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .categories a {
+            display: block;
+            color: rgb(240, 240, 240);
+            text-decoration: none;
+        }
+        .categories .item span {
+            color: #e7e4e4;
+            font-weight: 300;
+            display: block;
+        }
+        .item .content{
+            padding-left: 10px;
+            padding-top: 10px;
+            height: 45px;
+            width: 100%;
+            background-color: #3f4236;
+            box-shadow: -5px 4px black;
+            text-shadow: -4px 3px 3px black;
+        }
 
-    #demo{margin-top: 125px;box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);}
-    #demo .carousel-inner img {
-        min-width: 110%;
-        max-height: 400px;
-    }
+        #demo{margin-top: 125px;box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);}
+        #demo .carousel-inner img {
+            min-width: 110%;
+            max-height: 400px;
+        }
 
-    .paralsec {
-        background-image: url("https://static.pexels.com/photos/569163/pexels-photo-569163.jpeg");
-    }
-    .item{
-        background: #FFF;
-        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-        padding-left: 10px;
-        padding-bottom: 10px;
-        padding-right: 10px;
-        margin-bottom: 45px;
-        padding-top: 10px;
-    }
-    .item img{
-        text-align: center
-    }
-    .item .price{
-        margin-right: 0px;
-        margin-bottom: 0px;
-        background-color: #8a7e5f;
-        padding: 5px 20px 0px 20px;
-        color: #FFF;
-    }
-    #newsletter .card{margin-bottom: 45px;}
-</style>
+        .item{
+            background: #FFF;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+            margin-bottom: 45px;
+        }
+        .item .info{
+            padding-left: 10px;
+            padding-bottom: 10px;
+            padding-right: 10px;
+            padding-top: 10px;
+        }
+        .item img{
+            text-align: center
+        }
+        .item .price{
+            margin-right: 0px;
+            margin-bottom: 0px;
+            background-color: #8a7e5f;
+            padding: 5px 20px 0px 20px;
+            color: #FFF;
+        }
+    </style>
 {% endblock %}
-
 {% block full_screen %}
-
 {% endblock %}
-
 {% block content %}
-<div class="container">
-    <div class="">
-        <div id="demo" class="carousel slide" data-ride="carousel">
-            <ul class="carousel-indicators">
-                <li data-target="#demo" data-slide-to="0" class="active"></li>
-                <li data-target="#demo" data-slide-to="1"></li>
-                <li data-target="#demo" data-slide-to="2"></li>
-            </ul>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="{% static 'base/img/moby-wide-01.jpg' %}" alt="Los Angeles" width="1100" height="500">
-                    <div class="carousel-caption">
-                        <h3>Promo 01</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                        <a href="{% url 'sales:home' %}departamento/melaminas/" class="btn btn-link text-white">Ver más</a>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="{% static 'base/img/moby-wide-01.jpg' %}" alt="Chicago" width="1100" height="500">
-                    <div class="carousel-caption">
-                        <h3>Promo 02</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                        <a href="{% url 'sales:home' %}departamento/herrajes/" class="btn btn-link text-white">Ver más</a>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img src="{% static 'base/img/moby-wide-01.jpg' %}" alt="New York" width="1100" height="500">
-                    <div class="carousel-caption">
-                        <h3>Promo 03</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                        <a href="{% url 'sales:home' %}departamento/granito/" class="btn btn-link text-white">Ver más</a>
-                    </div>
-                </div>
-            </div>
-            <a class="carousel-control-prev" href="#demo" data-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
-            </a>
-            <a class="carousel-control-next" href="#demo" data-slide="next">
-                <span class="carousel-control-next-icon"></span>
-            </a>
-        </div>
-    </div>
-    <div class="categories">
-        <header class="text-center">
-            <h2 class="text-uppercase">
-                Departamentos
-            </h2>
-        </header>
-        <div class="row text-left">
-            {% if departments %}
-                {% for objects in departments %}
-                    <div class="col-sm-3 card-shadow">
-                        <a href="{% url 'sales:home' %}departamento/herrajes/">
-                            <div style="background-image: url({{objects.img.url}});" class="item d-flex align-items-end">
-                                <div class="content">
-                                    <h3 class="h5">{{ objects.name }}</h3>
+        <div class="container">
+            {% if carousel %}
+                <div class="" id="carousel">
+                    <div id="demo" class="carousel slide" data-ride="carousel">
+                        <ul class="carousel-indicators">
+                            {% for object in carousel %}
+                                <li data-target="#{{object.name}}" data-slide-to="{{object.id}}"></li>
+                            {% endfor %}
+                        </ul>
+                        <div class="carousel-inner">
+                            {% for object in carousel %}
+                                <div class="carousel-item">
+                                    <img srcset="{{object.image.url}}" alt="{{object.name}}" width="1100" height="500">
+                                    <div class="carousel-caption">
+                                        <div>
+                                            <h2>{{object.name}}</h2>
+                                            {{object.text}}
+                                            <a class="btn btn-sm btn-outline-secondary" href="{{object.call_to_action_url}}">Ver más</a>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                            {% endfor %}
+                        </div>
+                        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </a>
+                        <a class="carousel-control-next" href="#demo" data-slide="next">
+                            <span class="carousel-control-next-icon"></span>
                         </a>
                     </div>
-                {% endfor %}
+                </div>
             {% else %}
-                <div class="col-sm-3 card-shadow">
-                    <a href="{% url 'sales:home' %}departamento/herrajes/">
-                        <div style="background-image: url({% static 'base/img/herrajes.jpg' %});" class="item d-flex align-items-end">
-                            <div class="content">
-                                <h3 class="h5">Herrajes</h3>
+                <div class="" id="carousel">
+                    <div id="demo" class="carousel slide" data-ride="carousel">
+                        <ul class="carousel-indicators">
+                            <li data-target="#demo" data-slide-to="0" class="active"></li>
+                            <li data-target="#demo" data-slide-to="1"></li>
+                            <li data-target="#demo" data-slide-to="2"></li>
+                        </ul>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="{% static 'base/img/moby-wide-01.jpg' %}" alt="Los Angeles" width="1100" height="500">
+                                <div class="carousel-caption">
+                                    <h3>Promo 01</h3>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                                    <a href="{% url 'sales:home' %}/departamento/melaminas" class="btn btn-link text-white">Ver más</a>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{% static 'base/img/moby-wide-01.jpg' %}" alt="Chicago" width="1100" height="500">
+                                <div class="carousel-caption">
+                                    <h3>Promo 02</h3>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                                    <a href="{% url 'sales:home' %}/departamento/herrajes" class="btn btn-link text-white">Ver más</a>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{% static 'base/img/moby-wide-01.jpg' %}" alt="New York" width="1100" height="500">
+                                <div class="carousel-caption">
+                                    <h3>Promo 03</h3>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                                    <a href="{% url 'sales:home' %}/departamento/granito" class="btn btn-link text-white">Ver más</a>
+                                </div>
                             </div>
                         </div>
-                    </a>
-                </div>
-                <div class="col-sm-3 card-shadow">
-                    <a href="{% url 'sales:home' %}departamento/melaminas/">
-                        <div style="background-image: url({% static 'base/img/melaminas.jpg' %});" class="item d-flex align-items-end">
-                            <div class="content">
-                                <h3 class="h5">Melaminas</h3>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-sm-3 card-shadow">
-                    <a href="{% url 'sales:home' %}departamento/granito/">
-                        <div style="background-image: url({% static 'base/img/granito.jpg' %});" class="item d-flex align-items-end">
-                            <div class="content">
-                                <h3 class="h5">Granito</h3>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-sm-3 card-shadow">
-                    <a href="{% url 'sales:home' %}departamento/tiradores/">
-                        <div style="background-image: url({% static 'base/img/tiradores.jpg' %});" class="item d-flex align-items-end">
-                            <div class="content">
-                                <h3 class="h5">Tiradores</h3>
-                            </div>
-                        </div>
-                    </a>
+                        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </a>
+                        <a class="carousel-control-next" href="#demo" data-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </a>
+                    </div>
                 </div>
             {% endif %}
         </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-12">
-            <header class="text-center">
-                <h2 class="text-uppercase">
-                    Ultimos productos
-                </h2>
-            </header>
-        </div>
-    
-        {% if products %}
-            {% for objects in products %}
-                <div class="col-sm-4">
-                    <div class="item">
-                        <a href="{% url 'sales:home' %}detalle/{{objects.slug}}/">
-                            {% if object.img %}
-                            <img src="{{objects.img.url}}" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
-                            {% else %}
-                            <img src="{% static 'base/img/moby-background-02.jpg' %}" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
-                            {% endif %}
-                        </a>
-                        <div class="info">
-                            <h5>
-                                <a href="{% url 'sales:home' %}detalle/{{objects.slug}}/" class="text-dark">
-                                    {{cat|title}}
-                                </a>
-                            </h5>
-                            <p>{{objects.description}}</p>
-                            <div class="clearfix">
-                                <!-- <p class="badge badge-info float-left">
-                                    <a href="{% url 'sales:home' %}{{cat|lower}}/" class="text-light">{{cat|lower}}</a>
-                                </p> -->
-                                <div class="price float-right">
-                                    <h5 class="">${{objects.price_4}}</h5>
-                                </div>
-                            </div>
-                        </div>
+        <div class="container">
+            <div class="categories">    
+                <div class="row">
+                    <div class="col-sm-12">
+                        <header class="text-center">
+                            <h2 class="text-uppercase">
+                                Departamentos
+                            </h2>
+                        </header>
                     </div>
                 </div>
-            {% endfor %}
-        {% else %}
-            {% for objects in products_test %}
-                <div class="col-sm-4">
-                    <div class="item">
-                        <a href="{% url 'sales:home' %}detalle/new_product/">
-                            <img src="https://picsum.photos/400/200" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
-                        </a>
-                        <div class="info">
-                            <h5>
-                                <a href="{% url 'sales:home' %}detalle/new_product/" class="text-dark">
-                                    {{cat|title}}
+                <div class="row text-left">
+                    {% if departments %}
+                        {% for objects in departments %}
+                            <div class="col-sm-3 card-shadow">
+                                <a href="{% url 'sales:home' %}//departamento/errajes">
+                                    <div style="background-image: url({{objects.img.url}});" class="item d-flex align-items-end">
+                                        <div class="content">
+                                            <h3 class="h5">{{ objects.name }}</h3>
+                                        </div>
+                                    </div>
                                 </a>
-                            </h5>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                            <div class="clearfix">
-                                <!-- <p class="badge badge-info float-left">
-                                    <a href="{% url 'sales:home' %}{{cat|lower}}/" class="text-light">{{cat|lower}}</a>
-                                </p> -->
-                                <div class="price float-right">
-                                    <h5 class="">$290</h5>
-                                </div>
                             </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="col-sm-3 card-shadow">
+                            <a href="{% url 'sales:home' %}/departamento/herrajes">
+                                <div style="background-image: url({% static 'base/img/herrajes.jpg' %});" class="item d-flex align-items-end">
+                                    <div class="content">
+                                        <h3 class="h5">Herrajes</h3>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                    </div>
+                        <div class="col-sm-3 card-shadow">
+                            <a href="{% url 'sales:home' %}/departamento/melaminas">
+                                <div style="background-image: url({% static 'base/img/melaminas.jpg' %});" class="item d-flex align-items-end">
+                                    <div class="content">
+                                        <h3 class="h5">Melaminas</h3>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-sm-3 card-shadow">
+                            <a href="{% url 'sales:home' %}/departamento/granito">
+                                <div style="background-image: url({% static 'base/img/granito.jpg' %});" class="item d-flex align-items-end">
+                                    <div class="content">
+                                        <h3 class="h5">Granito</h3>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-sm-3 card-shadow">
+                            <a href="{% url 'sales:home' %}/departamento/tiradores">
+                                <div style="background-image: url({% static 'base/img/tiradores.jpg' %});" class="item d-flex align-items-end">
+                                    <div class="content">
+                                        <h3 class="h5">Tiradores</h3>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>  
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <header class="text-center">
+                        <h2 class="text-uppercase">
+                            Últimos productos
+                        </h2>
+                    </header>
                 </div>
-            {% endfor %}
-        {% endif %}
-    </div>
-    <div class="row" id="providers">
-        <div class="col-sm-12">
-            <div class="text-header">
-                <p class="h1 text-center mb-5">Nuestras marcas</p>
-            </div>
-        </div>
-        <div class="col-12">
-            <div class="owl-carousel owl-theme">
-                <img class="owl-lazy" data-src="https://picsum.photos/350/250" data-src-retina="https://picsum.photos/350/250-retina" alt="">
-                <img class="owl-lazy" data-src="https://img.archilovers.com/people/thumb2_ARTURO-SALICE-SPA-a9df4414-log1.gif" alt="">
-                <img class="owl-lazy" data-src="https://picsum.photos/350/250" data-src-retina="https://picsum.photos/350/250-retina" alt="">
-                <img class="owl-lazy" data-src="http://aafloors.ca/wp-content/uploads/2017/04/0-3-1200x862.jpg" alt="">
-                <img class="owl-lazy" data-src="https://picsum.photos/350/250" data-src-retina="https://picsum.photos/350/250-retina" alt="">
-                <img class="owl-lazy" data-src="https://alaiplasticsolutions.com/wp-content/uploads/2015/10/logo-alai-150x75.png" alt="">
-            </div>
-        </div>
-    </div>
-    <div class="row" id="newsletter">
-        <div class="col-12 text-center text-white">
-            <div class="card gradient">
-                <div class="card-body">
-                    <h5 class="card-title display-4">Boletin de noticias</h5>
-                    <p class="card-text">Manténgase actualizado con las noticias y publicaciones.</p>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-sm-6">
-                                <div class="input-group mb-6">
-                                    <input type="text" class="form-control" placeholder="su-nombre@su-correo.com" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                    <div class="input-group-append ml-3">
-                                        <button class="btn btn-outline-light" type="button">Enviar <i class="material-icons">send</i></button>
+                {% if products %}
+                    {% for objects in products %}
+                        <div class="col-sm-4">
+                            <div class="item">
+                                <a href="{% url 'sales:home' %}/detalle/{{objects.slug}}">
+                                    {% if object.img %}
+                                    <img src="{{objects.img.url}}" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
+                                    {% else %}
+                                    <img src="{% static 'base/img/moby-background-02.jpg' %}" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
+                                    {% endif %}
+                                </a>
+                                <div class="info">
+                                    <h5>
+                                        <a href="{% url 'sales:home' %}/detalle/{{objects.slug}}/" class="text-dark">
+                                            {{cat|title}}
+                                        </a>
+                                    </h5>
+                                    <p>{{objects.description | safe}}</p>
+                                    <div class="clearfix">
+                                        <!-- <p class="badge badge-info float-left">
+                                            <a href="{% url 'sales:home' %}/{{cat|lower}}" class="text-light">{{cat|lower}}</a>
+                                        </p> -->
+                                        {% if user.is_authenticated %}
+                                        <div class="price float-right">
+                                            <h5 class="">${{objects.price_4}}</h5>
+                                        </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    {% endfor %}
+                {% else %}
+                    {% for objects in products_test %}
+                        <div class="col-sm-4">
+                            <div class="item">
+                                <a href="{% url 'sales:home' %}/detalle/new_product">
+                                    <img src="https://picsum.photos/400/200" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
+                                </a>
+                                <div class="info">
+                                    <h5>
+                                        <a href="{% url 'sales:home' %}/detalle/new_product" class="text-dark">
+                                            {{cat|title}}
+                                        </a>
+                                    </h5>
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                                    <div class="clearfix">
+                                        <!-- <p class="badge badge-info float-left">
+                                            <a href="{% url 'sales:home' %}/{{cat|lower}}/" class="text-light">{{cat|lower}}</a>
+                                        </p> -->
+                                        {% if user.is_authenticated %}
+                                        <div class="price float-right">
+                                            <h5 class="">$290</h5>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="row" id="providers">
+                {% if brands %}
+                    <div class="col-sm-12">
+                        <header class="text-center">
+                            <h2 class="text-uppercase">
+                                Nuestras marcas
+                            </h2>
+                        </header>
                     </div>
-                </div>
+                    <div class="col-12">
+                        <div class="owl-carousel owl-theme">
+                            {% for object in brands %}
+                                <img class="owl-lazy" data-src="{{object.logo}}" alt="{{object.name}}">
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="col-sm-12">
+                        <header class="text-center">
+                            <h2 class="text-uppercase">
+                                Nuestras marcas
+                            </h2>
+                        </header>
+                    </div>
+                    <div class="col-12">
+                        <div class="owl-carousel owl-theme">
+                            <img class="owl-lazy" data-src="https://picsum.photos/350/250" alt="">
+                            <img class="owl-lazy" data-src="https://picsum.photos/350/250" alt="">
+                            <img class="owl-lazy" data-src="https://picsum.photos/350/250" alt="">
+                        </div>
+                    </div>
+                {% endif %}
             </div>
         </div>
-    </div>
-</div>
 {% endblock %}
-
 {% block js %}
-<script>
+    <script src="{% static 'base/js/owl/owl.carousel.min.js' %}"></script>
+    <script>
         $(document).ready(function(){
-        var owl = $('.owl-carousel');
-        owl.owlCarousel({
-            items: 6,
-            loop: true,
-            margin: 10,
-            autoplay: true,
-            autoplayTimeout: 3000,
-            autoplayHoverPause: true,
-            lazyLoad:true,
-            dots:false,
-            responsiveClass:true,
-            responsive:{
-                0:{
-                    items:2,
-                    nav:false
-                },
-                600:{
-                    items:3,
-                    nav:false
-                },
-                1000:{
-                    items:6,
-                    nav:false,
-                    loop:true
+            var owl = $('.owl-carousel');
+            owl.owlCarousel({
+                items: 6,
+                loop: true,
+                margin: 10,
+                autoplay: true,
+                autoplayTimeout: 3000,
+                autoplayHoverPause: true,
+                lazyLoad:true,
+                dots:false,
+                responsiveClass:true,
+                responsive:{
+                    0:{
+                        items:2,
+                        nav:false
+                    },
+                    600:{
+                        items:3,
+                        nav:false
+                    },
+                    1000:{
+                        items:6,
+                        nav:false,
+                        loop:true
+                    }
                 }
-            }
+            });
         });
-        
-    });
-</script>
+    </script>
 {% endblock %}

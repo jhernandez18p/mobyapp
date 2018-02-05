@@ -1,5 +1,4 @@
 from __future__ import unicode_literals
-
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
@@ -10,10 +9,7 @@ from django.db.models.signals import pre_save
 from django.utils import timezone
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
-
-
 from ckeditor.fields import RichTextField
-
 from src.utils.libs import (upload_location,get_read_time,count_words)
 
 class Photo(models.Model):

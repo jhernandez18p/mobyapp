@@ -19,6 +19,7 @@ class Home(ListView):
         if len(departments) >= 1:
             context['departments'] = departments
         
+        context['has_newsletter'] = True
         context['SITE_URL'] = 'Inicio'
         context['url'] = reverse('front:home')
         context['blog_post_test'] = [
@@ -79,6 +80,7 @@ class Services(ListView):
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
         context['SITE_URL'] = 'Nuestros servicios'
+        context['has_newsletter'] = True
         return context
 
 

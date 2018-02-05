@@ -1,0 +1,6 @@
+#carousel .carousel-inner img {width:100%;max-height:85%;}#about .img{padding: 45px 0 45px 45px;margin-right: -25px;}#about .img img{height: 350px;}#about .card{margin-left: -50px}    #carousel {width: 100%;overflow: hidden}.carousel-caption{bottom: 10%;}@media (max-width: 576px) {#cards .card{margin-bottom: 45px;}#about .img{position: relative;padding: unset;margin: 0 -15px;}#about .card{margin-left: 0px;margin-top: -25px;}}#cards .card-img-overlay{position: initial;}#departments .row{margin-bottom: 45px;}#departments .row:nth-last-child(){margin-bottom: 0px;}
+@media only screen and (max-width: 768px) { 
+    #about .img img{
+        height: 350px;
+    }
+}

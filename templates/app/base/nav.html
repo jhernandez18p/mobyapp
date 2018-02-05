@@ -1,5 +1,6 @@
-<nav class="navbar navbar-expand-md navbar-light bg-light navbar-custom fixed-top shadow">{% load staticfiles %}
+<nav class="navbar navbar-expand-md fixed-top navbar-custom shadow navbar-light bg-light">{% load staticfiles %}
     <div class="container">
+
         <a href="{% url 'front:home' %}" class="navbar-brand">
             <img id="menuLogo" src="{{SITE_LOGO}}" alt="{{SITE_TITLE}}">
         </a>
@@ -10,16 +11,14 @@
             <ul class="navbar-nav ml-auto navbar-nav-custom-1 ">
                 <!--  -->
                 {% for item in FRONT_HEADER_MENU %}
-                    <!-- {{item.name}} -->
-                    <li class="nav-item">
-                        <a class="nav-link text-uppercase" href="{{item.url}}">
-                            {% if item.have_icon %}
-                            <i class="material-icons">{{item.name}}</i>
-                            {% else %}
-                                {{item.name}}
-                            {% endif %}
-                        </a>
-                    </li>
+                <!-- {{item.name}} -->
+                <li class="nav-item">
+                    <a class="nav-link text-uppercase" href="{{item.url}}">
+                        {% if item.have_icon %}
+                        <i class="material-icons">{{item.name}}</i>
+                        {% else %} {{item.name}} {% endif %}
+                    </a>
+                </li>
                 {% endfor %}
             </ul>
             <ul class="navbar-nav ml-auto navbar-nav-custom-2 ">
@@ -30,31 +29,31 @@
                     </a>
                 </li>
                 {% if user.is_authenticated %}
-                    <li>
-                        <a href="{% url 'intra:home' %}?next={{ request.path }}">
-                            <i class="material-icons">launch</i>
-                            Panel
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'auth:logout' %}?next={{ request.path }}">
-                            <i class="material-icons">exit_to_app</i>
-                            Salir
-                        </a>
-                    </li>
+                <li>
+                    <a href="{% url 'intra:home' %}?next={{ request.path }}">
+                        <i class="material-icons">launch</i>
+                        Panel
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'auth:logout' %}?next={{ request.path }}">
+                        <i class="material-icons">exit_to_app</i>
+                        Salir
+                    </a>
+                </li>
                 {% else %}
-                    <li>
-                        <a href="{% url 'auth:login' %}?next={{ request.path }}">
-                            <i class="material-icons">account_circle</i>
-                            Inicio de sesión
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'auth:register' %}?next={{ request.path }}">
-                            <i class="material-icons">assignment_ind</i>
-                            Registro
-                        </a>
-                    </li>
+                <li>
+                    <a href="{% url 'auth:login' %}?next={{ request.path }}">
+                        <i class="material-icons">account_circle</i>
+                        Inicio de sesión
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'auth:register' %}?next={{ request.path }}">
+                        <i class="material-icons">assignment_ind</i>
+                        Registro
+                    </a>
+                </li>
                 {% endif %}
             </ul>
         </div>

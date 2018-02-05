@@ -21,6 +21,7 @@ class Home(ListView):
         if len(articles)>=1:
             context['products'] = articles[0:9]
         context['SITE_URL'] = 'Nuestros productos'
+        context['has_newsletter'] = True
         context['products_test'] = {
             1:{
                 'co_art':'113120',
@@ -215,20 +216,6 @@ class Home(ListView):
         }
         return context
 
-
-class Departments(ListView):
-    # model =
-    # context_object_name = 'boards'
-    queryset = ''
-    template_name = 'app/products.html'
-
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super().get_context_data(**kwargs)
-        # Add in a QuerySet of all the books
-        context['SITE_URL'] = 'Departamentos'
-        context['objects'] = {}
-        return context
 
 def Products_List(request, cat):
     template = 'app/products_list.html'
@@ -662,7 +649,6 @@ def Products_List(request, cat):
     }
     return render(request, template, context)
 
-
 def Products_Detail(request, slug):
     template = 'app/detail/product_details.html'
     context = {}
@@ -693,16 +679,62 @@ def Products_Detail(request, slug):
     }
     return render(request, template, context)
 
-class BasicUploadView(View):
-    def get(self, request):
-        photos_list = Photo.objects.all()
-        return render(self.request, 'photos/basic_upload/index.html', {'photos': photos_list})
 
-    def post(self, request):
-        form = PhotoForm(self.request.POST, self.request.FILES)
-        if form.is_valid():
-            photo = form.save()
-            data = {'is_valid': True, 'name': photo.file.name, 'url': photo.file.url}
-        else:
-            data = {'is_valid': False}
-        return JsonResponse(data)
+class Departments(ListView):
+    # model =
+    # context_object_name = 'boards'
+    queryset = ''
+    template_name = 'app/departments.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['SITE_URL'] = 'Departamentos'
+        context['objects'] = {}
+        return context
+
+
+class DepartmentDetail(ListView):
+    # model =
+    # context_object_name = 'boards'
+    queryset = ''
+    template_name = 'app/departments.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['SITE_URL'] = 'Departamentos'
+        context['objects'] = {}
+        return context
+
+
+class Providers(ListView):
+    # model =
+    # context_object_name = 'boards'
+    queryset = ''
+    template_name = 'app/departments.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['SITE_URL'] = 'Departamentos'
+        context['objects'] = {}
+        return context
+
+
+class ProvidersDetails(ListView):
+    # model =
+    # context_object_name = 'boards'
+    queryset = ''
+    template_name = 'app/departments.html'
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        context['SITE_URL'] = 'Departamentos'
+        context['objects'] = {}
+        return context

@@ -101,10 +101,10 @@ def pre_save_post_receiver(sender, instance, *args, **kwargs):
     if not instance.slug:
         instance.slug = create_slug(instance)
 
-    if instance.content:
-        html_string = instance.title
-        read_time_var = str(html_string)
-        instance.read_time = read_time_var
+    # if instance.content:
+    #     html_string = instance.title
+    #     read_time_var = str(html_string)
+    #     instance.read_time = read_time_var
 
 
 pre_save.connect(pre_save_post_receiver, sender=Post)

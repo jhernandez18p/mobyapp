@@ -13,7 +13,7 @@ def menu(request):
     context = {}
     menu = [
         {'name':'inicio','url':reverse('front:home'),'have_icon':False},
-        {'name':'servicios','url':reverse('front:services'),'have_icon':False},
+        {'name':'servicios','url':reverse('services:home'),'have_icon':False},
         {'name':'productos','url':reverse('sales:home'),'have_icon':False},
         {'name':'blog','url':reverse('blog:home'),'have_icon':False},
         {'name':'contacto','url':reverse('front:contact'),'have_icon':False},

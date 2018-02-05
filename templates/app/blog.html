@@ -16,30 +16,36 @@
 {% block content %}
 <div class="container posts">
     <div class="row" id="blog">
-        {% for object in objects %}
-        <div class="col-sm-4">
-            <div class="item">
-                <div class="header">
-                    <img class="mb-4 img-fluid" src="{{object.img}}">
+        {% if objects_list %}
+            {% for object in objects_list %}
+                <div class="col-sm-4">
+                    <div class="item">
+                        <div class="header">
+                            <img class="mb-4 img-fluid" src="{{object.img}}">
+                        </div>
+                        <div class="body">
+                            <h3>
+                                <a href="{% url 'blog:blog_detail' object.slug %}" class="text-dark">
+                                    {{object.title}}
+                                </a>
+                            </h3>
+                            <p class="mt-4 mb-4">
+                                {{object.text|truncatewords:8 }}
+                            </p>
+                        </div>
+                        <div class="footer">
+                            <a class="btn btn-link text-dark float-right" href="{% url 'blog:blog_detail' object.slug %}" role="button">
+                                <i class="material-icons">launch</i>Leer más
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div class="body">
-                    <h3>
-                        <a href="{% url 'blog:blog_detail' object.slug %}" class="text-dark">
-                            {{object.title}}
-                        </a>
-                    </h3>
-                    <p class="mt-4 mb-4">
-                        {{object.text|truncatewords:8 }}
-                    </p>
-                </div>
-                <div class="footer">
-                    <a class="btn btn-link text-dark float-right" href="{% url 'blog:blog_detail' object.slug %}" role="button">
-                        <i class="material-icons">launch</i>Leer más
-                    </a>
-                </div>
-            </div>
-        </div>
-        {% endfor%}
+            {% endfor%}
+        {% else %}
+
+                
+
+        {% endif %}
     </div>
 </div>
 {% endblock %}

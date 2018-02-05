@@ -10,7 +10,6 @@ from .views import (
 app_name = 'front'
 urlpatterns = [
     path('', Home.as_view(), name='home'),
-    path('servicios/', Services.as_view(), name='services'),
-    path('contacto/', Contact.as_view(), name='contact'),
-    path('busqueda/', Search.as_view(), name='search'),
+    path('contacto', Contact.as_view(), name='contact'),
+    path('busqueda', Search.as_view(), name='search'),
 ]

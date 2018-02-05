@@ -2,18 +2,21 @@ from django.urls import (path, re_path, include)
 from .views import (
     Home,
     Departments,
+    DepartmentDetail,
     Products_List,
     Products_Detail,
-    BasicUploadView,
+    Providers,
+    ProvidersDetails,
 )
 
 app_name = 'sales'
 urlpatterns = [
     path('', Home.as_view(), name='home'),
-    path('detalle/<slug:slug>/', Products_Detail, name='product_detail'),
-    path('departamentos/', Departments, name='departments'),
-    path('departamento/<str:cat>/', Products_List, name='department_list'),
-    path('proveedores/', Departments, name='providers'),
-    path('proveedor/<str:prov>/', Departments, name='provider_detail'),
-    path('subirfotos/', BasicUploadView.as_view(), name='basic_upload'),
+    path('/detalle/<slug:slug>', Products_Detail, name='product_detail'),
+    
+    path('/departamentos', Departments.as_view(), name='departments'),
+    path('/departamento/<str:cat>', DepartmentDetail.as_view(), name='department_detail'),
+
+    path('/proveedores', Providers.as_view(), name='providers'),
+    path('/proveedor/<str:prov>', ProvidersDetails.as_view(), name='provider_detail'),
 ]

@@ -12,6 +12,7 @@ class Home(ListView):
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
         context['SITE_URL'] = 'Ultimas noticias'
+        context['has_newsletter'] = True
         context['objects'] = [
             {
                 'title':'Esto es un post',

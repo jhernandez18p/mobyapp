@@ -1,60 +1,53 @@
 {% extends 'app/base/index.html' %}{% load staticfiles %}
 
 {% block css %}
-<style>
-.contact-1, .contact-2 {
-    padding-top: 20vh;
-    padding-bottom: 5rem;
-}
-</style>
-
-<link rel="stylesheet" href="{% static 'base/css/fontawesome.min.css' %}">
+    <style>
+        .contact-1, .contact-2 {
+            padding-top: 20vh;
+            padding-bottom: 5rem;
+        }
+    </style>
 {% endblock %}
-
 {% block full_screen %}
-
 {% endblock %}
-
 {% block content %}
-<div class="contact-2">
-    <div class="container">
-        <div class="row contact-details">
-            <div class="col-sm-8 text-center text-md-left mb-4">
-                <h3>Contáctanos y responderemos tus solicitudes</h3>
-                <form class="contact-form mt-4">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <input type="text" class="form-control mb-4" placeholder="John Doe" value="Nombre">
-                        </div>
-                        <div class="col-md-5">
-                            <input type="text" class="form-control mb-4" placeholder="Email address" value="Email">
-                        </div>
-                        <br>
+        <div class="contact-2">
+            <div class="container">
+                <div class="row contact-details">
+                    <div class="col-sm-8 text-center text-md-left mb-4">
+                        <h3>Contáctanos y responderemos tus solicitudes</h3>
+                        <form class="contact-form mt-4">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <input type="text" class="form-control mb-4" placeholder="John Doe" value="Nombre">
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="text" class="form-control mb-4" placeholder="Email address" value="Email">
+                                </div>
+                                <br>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <textarea class="form-control mb-4" rows="3">Mensaje</textarea>
+                                    <br>
+                                    <button type="submit" class="btn btn-primary btn-lg mb-4">Enviar mensaje</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                    <div class="row">
-                        <div class="col-md-10">
-                            <textarea class="form-control mb-4" rows="3">Mensaje</textarea>
-                            <br>
-                            <button type="submit" class="btn btn-primary btn-lg mb-4">Enviar mensaje</button>
-                        </div>
+                    <div class="col-sm-4 text-center text-md-left">
+                        <h3>Contacto</h3>
+                        <h4 class="pt-4">Email</h4>
+                        <p>info@moby-group.com</p>
+                        <h4 class="pt-2">Teléfono</h4>
+                        <p>+(507)) 6266 7545</p>
+                        <h4 class="pt-2">Dirección</h4>
+                        <p>Av España, 12 de octuble
+                            <br>Panmá</p>
                     </div>
-                </form>
-            </div>
-            <div class="col-sm-4 text-center text-md-left">
-                <h3>Contacto</h3>
-                <h4 class="pt-4">Email</h4>
-                <p>info@moby-group.com</p>
-                <h4 class="pt-2">Teléfono</h4>
-                <p>+(507)) 6266 7545</p>
-                <h4 class="pt-2">Dirección</h4>
-                <p>Av España, 12 de octuble<br>Panmá</p>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-
-
 {% endblock %}
-
 {% block js %}
 {% endblock %}

@@ -1,11 +1,11 @@
 from django.urls import (path, re_path, include)
 from .views import (
     Home,
-    Blog_Detail,
+    ServiceDetail,
 )
 
-app_name = 'blog'
+app_name = 'services'
 urlpatterns = [
     path('', Home.as_view(), name='home'),
-    path('/<slug:slug>', Blog_Detail, name='blog_detail'),
+    # path('/<slug:slug>', ServiceDetail.as_view(), name='home'),
 ]
