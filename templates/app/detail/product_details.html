@@ -18,7 +18,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{% url 'sales:home' %}">Productos</a></li>
                 <li class="breadcrumb-item active">Departamento</li>
-                <li class="breadcrumb-item"><a href="{% url 'sales:home' %}departamento/{{cat}}/">{{cat|title }}</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'sales:home' %}/departamento/{{cat}}">{{cat|title }}</a></li>
                 <li class="breadcrumb-item active">{{object.art_des | title}}</li>
             </ol>
         </div>
