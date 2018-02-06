@@ -66,7 +66,6 @@ section {flex: 1;}
 .h-30h{height:30vh;}
 .h-20h{height:20vh;}
 .h-10h{height:10vh;}
-#blog{padding-top: 45px;padding-bottom: 45px;}
 .card .btn-action {margin: -23px 20px -23px auto;background-color: rgb(104, 104, 103);height: 47px;width: 47px;line-height: 0;}
 .btn-floating {z-index: 1;overflow: hidden;width: 47px;height: 47px;padding: 0;border-radius: 50%;background-color: #a6c;-webkit-transition: .3s;transition: .3s;}
 .card .btn-action .material-icons {margin-top: 2px;margin-left: 2px;}
@@ -83,12 +82,14 @@ section {flex: 1;}
 .card .card-data ul li i{font-size: 14px;color: #fff}
 /* Newsletter*/
 #newsletter .card{padding-bottom: 90px;margin-top: 5px;}
-*/#newsletter .input-group .btn i{font-size: 14px;}
+#newsletter .input-group .btn i{font-size: 14px;}
 /* Parallax */
 .paral {min-height: 400px;background-attachment: fixed;background-size: cover;background-position: 50% 50%;}
 .paral p {font-size: 24px;color:rgba(0, 0, 0, 0.8);text-align: center;line-height: 60px;}
 .paral h5 {color: rgba(0, 0, 0, 0.8);font-size: 60px;text-align: center;padding-top: 150px;line-height: 100px;}
-/* Image for Parallax Section */ /* Blog */#blog {    padding-top: 80px; }
+/* Image for Parallax Section */
+/* Blog */
+#blog { padding-top: 45px;padding-bottom: 45px;}
 #blog .item{background-color: #fff;overflow: hidden; box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);margin-bottom: 45px;}
 #blog .item .body {background-color: #fff;margin-top: -55px;padding-left: 15px;padding-right: 15px;padding-bottom: 10px;z-index: 999;position: relative;margin-left: 15px;margin-right: 15px;}
 #blog .item .footer{    background-color: rgba(169, 169, 169, 0.05);    height: 40px;}

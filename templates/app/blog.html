@@ -2,7 +2,10 @@
 
 {% block css %}
 <style>
-    .posts{padding-top: 125px;padding-bottom: 3rem;}
+    #blog{
+        padding-top: 125px !important;
+        background-color:unset;
+    }
     .item{
         margin-bottom: 45px;
     }
@@ -14,7 +17,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="container posts">
+<div class="container">
     <div class="row" id="blog">
         {% if objects_list %}
             {% for object in objects_list %}
@@ -43,7 +46,28 @@
             {% endfor%}
         {% else %}
 
-                
+            <div class="col-sm-4">
+                <div class="item">
+                    <div class="header">
+                        <img class="mb-4 img-fluid" src="{{object.img}}">
+                    </div>
+                    <div class="body">
+                        <h3>
+                            <a href="{% url 'blog:blog_detail' object.slug %}" class="text-dark">
+                                {{object.title}}
+                            </a>
+                        </h3>
+                        <p class="mt-4 mb-4">
+                            {{object.text|truncatewords:8 }}
+                        </p>
+                    </div>
+                    <div class="footer">
+                        <a class="btn btn-link text-dark float-right" href="{% url 'blog:blog_detail' object.slug %}" role="button">
+                            <i class="material-icons">launch</i>Leer más
+                        </a>
+                    </div>
+                </div>
+            </div>
 
         {% endif %}
     </div>

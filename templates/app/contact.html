@@ -3,14 +3,25 @@
 {% block css %}
     <style>
         .contact-1, .contact-2 {
-            padding-top: 20vh;
+            padding-top: 45px;;
             padding-bottom: 5rem;
+        }
+        #map {
+            margin-top: 75px;
+            height: 35vh;
+            margin-right: -16px;
+            margin-left: -16px;
         }
     </style>
 {% endblock %}
 {% block full_screen %}
 {% endblock %}
 {% block content %}
+        <div class="container-fluid">
+            <div id="map">
+
+            </div>
+        </div>
         <div class="contact-2">
             <div class="container">
                 <div class="row contact-details">
@@ -50,4 +61,16 @@
         </div>
 {% endblock %}
 {% block js %}
+    <script>
+        var map;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: -34.397, lng: 150.644},
+                contrils:false,
+                zoom: 8
+            });
+        }
+      </script>
+      <script src="https://maps.googleapis.com/maps/api/js?keyAIzaSyAhCDxW6c801fDGedxTA_PnQuYy5n2anAw&callback=initMap"
+      async defer></script>
 {% endblock %}

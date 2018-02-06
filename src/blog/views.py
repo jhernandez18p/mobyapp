@@ -13,7 +13,7 @@ class Home(ListView):
         # Add in a QuerySet of all the books
         context['SITE_URL'] = 'Ultimas noticias'
         context['has_newsletter'] = True
-        context['objects'] = [
+        context['objects_list'] = [
             {
                 'title':'Esto es un post',
                 'sub_title':'New post 01',
