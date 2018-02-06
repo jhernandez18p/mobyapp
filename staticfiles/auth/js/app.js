@@ -35,3 +35,4 @@ function updateGradient()
     }
 }
 setInterval(updateGradient,20);
+

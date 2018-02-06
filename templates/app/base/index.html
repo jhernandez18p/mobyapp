@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">{% include 'app/base/head.html' %}
     <title>{{SITE_TITLE}} - {{SITE_URL}}</title>{% block css %}{% endblock %}
     <script src="{% static 'base/js/jquery-3.2.1.slim.min.js' %}"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-83370429-7"></script>
 </head>
 <body>
     <header>
@@ -20,6 +22,7 @@
     <script src="{% static 'base/js/popper.min.js' %}"></script>
     <script src="{% static 'base/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'base/js/app.min.js' %}"></script>
+    <script src="{% static 'base/js/analytics.js' %}"></script>
     {% block js %}{% endblock %}
 </body>
 </html>
