@@ -7,55 +7,108 @@
         <button class="navbar-toggler float-right" type="button" data-toggle="collapse" data-target="#navbar9">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="navbar-collapse collapse" id="navbar9">
-            <ul class="navbar-nav ml-auto navbar-nav-custom-1 ">
-                <!--  -->
-                {% for item in FRONT_HEADER_MENU %}
-                <!-- {{item.name}} -->
-                <li class="nav-item">
-                    <a class="nav-link text-uppercase" href="{{item.url}}">
-                        {% if item.have_icon %}
-                        <i class="material-icons">{{item.name}}</i>
-                        {% else %} {{item.name}} {% endif %}
-                    </a>
-                </li>
-                {% endfor %}
-            </ul>
-            <ul class="navbar-nav ml-auto navbar-nav-custom-2 ">
-                <li>
-                    <a href="{% url 'front:contact' %}">
-                        <i class="material-icons">phone</i>
-                        <span>+(507) 397 9180</span>
-                    </a>
-                </li>
-                {% if user.is_authenticated %}
-                <li>
-                    <a href="{% url 'intra:home' %}?next={{ request.path }}">
-                        <i class="material-icons">launch</i>
-                        Panel
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'auth:logout' %}?next={{ request.path }}">
-                        <i class="material-icons">exit_to_app</i>
-                        Salir
-                    </a>
-                </li>
-                {% else %}
-                <li>
-                    <a href="{% url 'auth:login' %}?next={{ request.path }}">
-                        <i class="material-icons">account_circle</i>
-                        Inicio de sesión
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'auth:register' %}?next={{ request.path }}">
-                        <i class="material-icons">assignment_ind</i>
-                        Registro
-                    </a>
-                </li>
-                {% endif %}
-            </ul>
-        </div>
+        <div class="navbar-collapse">
+                <ul class="navbar-nav ml-auto navbar-nav-custom-1 ">
+                    <!--  -->
+                    {% for item in FRONT_HEADER_MENU %}
+                    <!-- {{item.name}} -->
+                    <li class="nav-item">
+                        <a class="nav-link text-uppercase" href="{{item.url}}">
+                            {% if item.have_icon %}
+                            <i class="material-icons">{{item.name}}</i>
+                            {% else %} {{item.name}} {% endif %}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <ul class="navbar-nav ml-auto navbar-nav-custom-2 ">
+                    <li>
+                        <a href="{% url 'front:contact' %}">
+                            <i class="material-icons">phone</i>
+                            <span>+(507) 397 9180</span>
+                        </a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'intra:home' %}?next={{ request.path }}">
+                            <i class="material-icons">launch</i>
+                            Panel
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'auth:logout' %}?next={{ request.path }}">
+                            <i class="material-icons">exit_to_app</i>
+                            Salir
+                        </a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="{% url 'auth:login' %}?next={{ request.path }}">
+                            <i class="material-icons">account_circle</i>
+                            Inicio de sesión
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'auth:register' %}?next={{ request.path }}">
+                            <i class="material-icons">assignment_ind</i>
+                            Registro
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
     </div>
 </nav>
+<div class="navbar-collapse collapse" id="navbar9">
+    <button type="button" class="close" aria-label="Close" data-toggle="collapse" data-target="#navbar9">
+        <span class="close-btn" aria-hidden="true">&times;</span>
+    </button>
+    <ul class="navbar-nav ml-auto navbar-nav-custom-1 ">
+        <!--  -->
+        {% for item in FRONT_HEADER_MENU %}
+        <!-- {{item.name}} -->
+        <li class="nav-item">
+            <a class="nav-link text-uppercase" href="{{item.url}}">
+                {% if item.have_icon %}
+                <i class="material-icons">{{item.name}}</i>
+                {% else %} {{item.name}} {% endif %}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+    <ul class="navbar-nav ml-auto navbar-nav-custom-2 ">
+        <li>
+            <a href="{% url 'front:contact' %}">
+                <i class="material-icons">phone</i>
+                <span>+(507) 397 9180</span>
+            </a>
+        </li>
+        {% if user.is_authenticated %}
+        <li>
+            <a href="{% url 'intra:home' %}?next={{ request.path }}">
+                <i class="material-icons">launch</i>
+                Panel
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'auth:logout' %}?next={{ request.path }}">
+                <i class="material-icons">exit_to_app</i>
+                Salir
+            </a>
+        </li>
+        {% else %}
+        <li>
+            <a href="{% url 'auth:login' %}?next={{ request.path }}">
+                <i class="material-icons">account_circle</i>
+                Inicio de sesión
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'auth:register' %}?next={{ request.path }}">
+                <i class="material-icons">assignment_ind</i>
+                Registro
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+</div>
