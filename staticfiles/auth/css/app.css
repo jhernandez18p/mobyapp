@@ -1,4 +1,10 @@
 body {display: flex;min-height: 100vh;flex-direction: column;}
 section {flex: 1;height: 100vh;}
 
+#auth{height: 100vh;}
 #gradient{background: #314755;}
+.card-header{background-color: unset}
+
+@media only screen and (max-width: 760px) {
+    #auth{margin-bottom: 45px; margin-top: 45px;}
+}

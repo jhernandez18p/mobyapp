@@ -1,7 +1,5 @@
 {% extends 'app/base/index.html' %}{% load staticfiles %}
 {% block css %}
-<style>
-</style>
 <link rel="stylesheet" href="{% static 'base/css/home.css' %}">
 {% endblock %}
 {% block full_screen %}
@@ -9,7 +7,7 @@
 {% block content %}
             <div class="container-fluid">
                 {% if carousel %}
-                    <div class="row d-none d-sm-block" id="carousel-header">
+                    <div class="d-none d-sm-block" id="carousel-header">
                         <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="8000">
                             <ol class="carousel-indicators">
                                 {% for object in carousel %}
@@ -46,7 +44,7 @@
                         </div>
                     </div>
                 {% else %}
-                    <div class="row d-none d-sm-block" id="h-80h carousel-header">
+                    <div class="d-none d-sm-block" id="carousel-header">
                         <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="8000">
                             <ol class="carousel-indicators">
                                 <li data-target="#carousel" data-slide-to="0" class="active"></li>
@@ -56,7 +54,7 @@
                             <div class="carousel-inner" role="listbox">
                                 <div class="carousel-item active">
                                     <picture>
-                                        <img srcset="{% static 'base/img/moby-background-02.jpg' %}" alt="Algo"
+                                        <img srcset="{% static 'base/img/moby-background-02.png' %}" alt="Algo"
                                             class="d-block img-fluid">
                                     </picture>
                                     <div class="carousel-caption">
@@ -67,9 +65,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="carousel-item">
+                                <!-- <div class="carousel-item">
                                     <picture>
-                                        <img srcset="{% static 'base/img/moby-background-02.jpg' %}" alt="responsive image"
+                                        <img srcset="{% static 'base/img/moby-background-02.png' %}" alt="responsive image"
                                             class="d-block img-fluid">
                                     </picture>
                                     <div class="carousel-caption justify-content-center align-items-center">
@@ -82,7 +80,7 @@
                                 </div>
                                 <div class="carousel-item">
                                     <picture>
-                                        <img srcset="{% static 'base/img/moby-background-02.jpg' %}" alt="responsive image"
+                                        <img srcset="{% static 'base/img/moby-background-02.png' %}" alt="responsive image"
                                             class="d-block img-fluid">
                                     </picture>
                                     <div class="carousel-caption justify-content-center align-items-center">
@@ -92,7 +90,7 @@
                                             <a class="btn btn-sm btn-outline-secondary">Ver más</a>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             <a class="carousel-control-prev" role="button" data-slide="prev"  href="#carousel">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -151,7 +149,7 @@
                     <div class="row align-items-center" id="about">
                         <div class="col-md-6 col-12">
                             <div class="img float-right">
-                                <img src="/static/base/img/woman.jpg" alt="{{SITE_TITLE}}">
+                                <img src="/static/base/img/woman.png" alt="{{SITE_TITLE}}">
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-12">
@@ -171,7 +169,7 @@
                     <div class="row" id="cards">
                         <div class="col-sm-6 col-12">
                             <div class="card text-center text-middle shadow">
-                                <img class="card-img" src="{% static 'base/img/moby-background-03.jpg' %}" alt="Card image">
+                                <img class="card-img" src="{% static 'base/img/moby-background-03.png' %}" alt="Card image">
                                 <div class="card-img-overlay">
                                     <h5 class="card-title">Nuestros Servicios</h5>
                                     <a href="{% url 'services:home' %}" class="btn btn-link text-dark btn-sm">Ver más</a>
@@ -180,7 +178,7 @@
                         </div>
                         <div class="col-sm-6 col-12">
                             <div class="card text-center text-middle shadow">
-                                <img class="card-img" src="{% static 'base/img/moby-background-04.jpg' %}" alt="Card image">
+                                <img class="card-img" src="{% static 'base/img/moby-background-04.png' %}" alt="Card image">
                                 <div class="card-img-overlay">
                                     <h5 class="card-title">Nuestros productos</h5>
                                     <a href="{% url 'sales:home' %}" class="btn btn-link text-dark btn-sm">Ver más</a>
@@ -224,7 +222,7 @@
                         <div class="col-12 col-sm-6 order-last">
                             <div class="my-3 py-3">
                                 <div class="img">
-                                    <img class="img-fluid" src="/static/base/img/moby-background-01.jpg" alt="Departamentos">
+                                    <img class="img-fluid" src="/static/base/img/moby-background-01.png" alt="Departamentos">
                                 </div>
                             </div>
                         </div>
@@ -241,7 +239,7 @@
                         <div class="col-12 col-sm-6">
                             <div class="my-3 py-3">
                                 <div class="img">
-                                    <img class="img-fluid" src="/static/base/img/moby-background-01.jpg" alt="">
+                                    <img class="img-fluid" src="/static/base/img/moby-background-01.png" alt="">
                                 </div>
                             </div>
                         </div>
@@ -258,7 +256,7 @@
                         <div class="col-12 col-sm-6">
                             <div class="my-3 py-3">
                                 <div class="img">
-                                    <img class="img-fluid" src="/static/base/img/moby-background-01.jpg" alt="Departamentos">
+                                    <img class="img-fluid" src="/static/base/img/moby-background-01.png" alt="Departamentos">
                                 </div>
                             </div>
                         </div>
@@ -275,7 +273,7 @@
                         <div class="col-12 col-sm-6">
                             <div class="my-3 py-3">
                                 <div class="img">
-                                    <img class="img-fluid" src="/static/base/img/moby-background-01.jpg" alt="Departamentos">
+                                    <img class="img-fluid" src="/static/base/img/moby-background-01.png" alt="Departamentos">
                                 </div>
                             </div>
                         </div>
