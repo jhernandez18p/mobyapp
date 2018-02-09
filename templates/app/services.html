@@ -23,23 +23,26 @@
                 <div class="col-12 col-sm-6">
                     <div class="my-3 p-3">
                         <h2 class="display-5">
-                            <!-- <a href="{# url 'services:home' object.slug #}"> -->
+                            <a href="{{object.get_absolute_url}}">
                                 {{object.name}}
-                            <!-- </a> -->
+                            </a>
                         </h2>
                         <p class="lead">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate dolores ipsa, eos mollitia tempore aliquid repudiandae placeat ratione molestias, perspiciatis nobis consequatur ex voluptate unde minus quae repellendus. Ab.
                         </p>
+                        <a href="{{object.get_absolute_url}}" type="button" class="btn btn-outline-default waves-effect">Ver más</a>
                     </div>
                 </div>
                 <div class="col-12 col-sm-6">
                     <div class="serv-img">
                         <div class="img">
-                            {% if object.img %}
-                                <img class="img-fluid" src="/static/base/img/moby-background-04.png" alt="{{object.name}}">
+                            <a href="{{object.get_absolute_url}}">
+                            {% if object.background %}
+                                <img class="img-fluid" src="{{object.background.url}}" alt="{{object.name}}">
                             {% else %}
                                 <img class="img-fluid" src="/static/base/img/moby-background-04.png" alt="services">
                             {% endif %}
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -225,13 +228,13 @@
 $('#services .row:nth-child(odd)').addClass('bg-light');
 $('#services .row:nth-child(odd) .col-12').addClass('text-center text-middle overflow-hidden text-dark');
 $('#services .row:nth-child(odd) a').addClass('text-dark');
-$('#services .row:nth-child(odd) .serv-img').css('width','100%');
 $('#services .row:nth-child(even)').addClass('bg-dark');
 $('#services .row:nth-child(even) .col-12').addClass('text-center text-middle overflow-hidden text-white');
 $('#services .row:nth-child(even) a').addClass('text-white');
-$('#services .row:nth-child(even) .serv-img').css('width','100%');
 $('#services .row:nth-child(even) .col-12:nth-child(odd)').addClass('order-first order-sm-12');
 $('#services .row:nth-child(even) .col-12:nth-child(even)').addClass('order-last order-sm-1');
+$('#services .row .img').css('margin-left','-16px');
+$('#services .row .img').css('margin-right','-16px');
 
 </script>
 {% endblock %}

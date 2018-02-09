@@ -6,4 +6,4 @@ from django.utils.translation import gettext_lazy as _
 
 class SitesConfig(AppConfig):
     name = 'src.blog'
-    verbose_name = _("Blog")
+    verbose_name = _("Modulo de Blog")

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from django.urls import reverse
 
+from src.base.models import (Site)
 from src.blog.models import (Comment, Post)
 from src.ventas.models import (Department)
 
@@ -15,6 +16,9 @@ class Home(ListView):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
+        info_site = Site.objects.all()
+        if info_site.exists():
+            context['info_site'] = info_site[0]
         departments = Department.objects.all()
         if len(departments) >= 1:
             context['departments'] = departments

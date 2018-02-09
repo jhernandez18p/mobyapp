@@ -1,7 +1,7 @@
 from urllib.parse import urlparse
 from django.conf import settings
 
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.utils.encoding import force_text
@@ -18,9 +18,10 @@ from django.views.decorators.csrf import csrf_protect
 # Authentication imports
 from django.contrib.auth import REDIRECT_FIELD_NAME, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.http import JsonResponse
 
 from django.urls import reverse_lazy
-
+from .forms import SignUpForm
 
 
 class Login(FormView):
@@ -81,7 +82,7 @@ class Login(FormView):
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
         context['SITE_URL'] = 'Iniciar Sesión'
-        context['form_name'] = 'Formulario de Inicio de Sesión'
+        context['form_name'] = 'Inicio de Sesión'
         context['form_button'] = 'Inicar Sesión'
         return context
 
@@ -100,45 +101,26 @@ class Logout(RedirectView):
         context['SITE_URL'] = 'Salir'
         return context
 
-class Register(FormView):
-    
-    form_class = UserCreationForm
-    template_name = 'auth/form.html'
-    success_url =  reverse_lazy("intra:home")
-
-
-    @method_decorator(csrf_protect)
-    def dispatch(self, request, *args, **kwargs):
-        url_next = request.GET.get('next')
-        if request.user.is_authenticated:
-            if url_next:
-                return HttpResponseRedirect(url_next)
-            else:
-                return HttpResponseRedirect(self.get_success_url())
-        else:
-            return super(Register, self).dispatch(request, *args, **kwargs)
-
-
-    def get_success_url(self):
-        if self.success_url:
-            redirect_to = self.request.GET.get('next')
-        else:
-            redirect_to = self.success_url
-
-        return redirect_to
-
-    def form_valid(self, form):
-        Register(self.request, form.get_user())
-        return super(Register, self).form_valid(form)
-
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super().get_context_data(**kwargs)
-        # Add in a QuerySet of all the books
+def Register(request):
+    template = 'auth/form.html'
+    context = {}
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('/')
+    else:
+        form = SignUpForm
+        # return render(request, 'signup.html', {'form': form})
+        context['form'] = form
         context['SITE_URL'] = 'Registrarse'
-        context['form_name'] = 'Formulario de Registro'
+        context['form_name'] = 'Registro de usuario'
         context['form_button'] = 'Registrarse'
-        return context
+        return render(request,template,context)
 
 
 def activate(request, uidb64, token):
@@ -156,3 +138,9 @@ def activate(request, uidb64, token):
         return redirect('home')
     else:
         return render(request, 'account_activation_invalid.html')
+
+
+def modal_cookie(request):
+    username = request.GET.get('username', None)
+
+    return JsonResponse(data)

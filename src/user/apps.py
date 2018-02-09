@@ -6,4 +6,4 @@ from django.utils.translation import gettext_lazy as _
 
 class UserConfig(AppConfig):
     name = 'src.user'
-    verbose_name = _("User")
+    verbose_name = _("Modulo de Usuarios")

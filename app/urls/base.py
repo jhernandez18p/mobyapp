@@ -2,8 +2,10 @@ from django.conf import settings
 from django.contrib import admin
 from django.contrib.flatpages import views as flats
 from django.contrib.flatpages.sitemaps import FlatPageSitemap
+from django.contrib.flatpages import views
 from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path, re_path
+from django.conf.urls.static import static
 from django.views.static import serve
 
 from src.base import views as base_views
@@ -25,6 +27,7 @@ handler400 = 'app.urls.views.bad_request_view'
 
 urlpatterns = [
     path('', include('src.base.urls', namespace='front')),
+    path('social-ligin/', include('social_django.urls', namespace='social')),
     path('blog', include('src.blog.urls', namespace='blog')),
     path('servicios', include('src.services.urls', namespace='services')),
     path('productos', include('src.ventas.urls', namespace='sales')),
@@ -32,12 +35,13 @@ urlpatterns = [
     path('auth', include('src.user.urls',namespace='auth')),
     path('adminsite/', admin.site.urls),
     path('api', include(router.urls)),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     path('api/auth', include('rest_framework.urls', 
         namespace='rest_framework')),
     path('sitemap.xml', sitemap,
         {'sitemaps': sitemaps},
         name='django.contrib.sitemaps.views.sitemap'),
-    path('<path:url>', flats.flatpage),
+    path('<path:url>/', views.flatpage),
 ]
 
 if settings.DEBUG:

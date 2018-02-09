@@ -1,5 +1,8 @@
 from django.apps import AppConfig
+from django.db.models.signals import post_migrate
+from django.utils.translation import gettext_lazy as _
 
 
 class VentasConfig(AppConfig):
-    name = 'ventas'
+    name = 'src.ventas'
+    verbose_name = _("Modulo de Ventas")

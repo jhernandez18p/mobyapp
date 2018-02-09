@@ -15,7 +15,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = ['localhost','moby.dev2tech.xyz','*']
 
@@ -39,6 +39,7 @@ LOCAL_APPS = (
     'src.base',
     'src.blog',
     'src.intra',
+    'src.gallery',
     'src.services',
     'src.user',
     'src.ventas',
@@ -47,11 +48,14 @@ LOCAL_APPS = (
 THIRD_PARTY_APPS = (
     'rest_framework',
     'ckeditor',
+    'ckeditor_uploader',
     'import_export',
     'widget_tweaks',
+    'social_django',
 )
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -63,6 +67,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'app.urls.base'
@@ -85,6 +90,8 @@ TEMPLATES = [
                 'app.settings.custom_context_processors.site',
                 'app.settings.custom_context_processors.menu',
                 'app.settings.custom_context_processors.sessions',
+                'social_django.context_processors.backends',  # <--
+                'social_django.context_processors.login_redirect', # <--
             ],
         },
     },
@@ -113,6 +120,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = [
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend',
     'app.settings.EmailBackend.EmailBackend',
 ]
@@ -130,7 +140,7 @@ USE_TZ = True
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = os.path.abspath(os.path.join(os.path.join(BASE_DIR,os.pardir), 'media'))
+MEDIA_ROOT = os.path.join(os.path.join(BASE_DIR,os.pardir), 'media')
 
 STATIC_URL = '/static/'
 
@@ -138,6 +148,7 @@ STATIC_URL = '/static/'
 if config('STATIC_ROOT', cast=bool) == True:
     STATIC_ROOT = os.path.abspath(os.path.join(os.path.join(BASE_DIR,os.pardir), 'staticfiles'))
 else:
+    BASE_URL = 'http://127.0.0.1:8000'
     STATICFILES_DIRS = (
         os.path.abspath(os.path.join(os.path.join(BASE_DIR,os.pardir), 'staticfiles')),
     )
@@ -196,13 +207,13 @@ APPEND_SLASH = False
 
 CKEDITOR_CONFIGS = {
     'default': {
-        'skin': 'moono',
+        'skin': 'Moono-Lisa',
         # 'skin': 'office2013',
         'toolbar_Basic': [
             ['Source', '-', 'Bold', 'Italic']
         ],
         'toolbar_YourCustomToolbarConfig': [
-            {'name': 'document', 'items': ['Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates']},
+            {'name': 'document', 'items': ['Source', '-', 'Save', 'Print', '-', 'Templates']},
             {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
             {'name': 'editing', 'items': ['Find', 'Replace', '-', 'SelectAll']},
             {'name': 'forms',
@@ -217,8 +228,7 @@ CKEDITOR_CONFIGS = {
                        'Language']},
             {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
             {'name': 'insert',
-             'items': ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe']},
-            '/',
+             'items': ['Image', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe']},
             {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
             {'name': 'colors', 'items': ['TextColor', 'BGColor']},
             {'name': 'tools', 'items': ['Maximize', 'ShowBlocks']},
@@ -228,6 +238,7 @@ CKEDITOR_CONFIGS = {
                 # put the name of your editor.ui.addButton here
                 'Preview',
                 'Maximize',
+                'uploadfile',
 
             ]},
         ],
@@ -258,3 +269,7 @@ CKEDITOR_CONFIGS = {
         ]),
     }
 }
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'
+

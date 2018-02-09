@@ -2,7 +2,11 @@
 
 {% block css %}
 <style>
-    #breadcrumb{margin-top: 120px;}
+    .paralsec {
+        margin-top: 75px;
+        background-image: url("{{object.background.url}}");
+    }
+    .card .card-body h5 {font-size: 5rem;margin-top: 50px;}
     .breadcrumb{background-color: rgba(0, 0, 0, 0)}
 </style>
 {% endblock %}
@@ -12,24 +16,32 @@
 {% endblock %}
 
 {% block content %}
+<div class="card paral paralsec view">
+    <div class="card-body hm-brown-strong">
+        <h5 class="card-title display-4">{{object.name}}</h5>
+    </div>
+</div>
 <div class="container">
     <div class="row" id="breadcrumb">
-        <div class="col-md-12">
+        <div class="col-12">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{% url 'services:home' %}">Servicios</a></li>
                 <li class="breadcrumb-item">{{object.name}}</li>
             </ol>
         </div>
     </div>
+
     <div class="row">
-        <div class="col-sm-12">
-            {% if object.picture %}
-                <img src="{{object.picture.url}}" alt="{{object.name}}">
+        <div class="col-12 col-sm-6">
+            {% if object.image %}
+            <div class="img">
+                <img class="img-fluid" src="{{object.image.url}}" alt="{{object.name}}">
+            </div>
             {% else %}
                 <p>no hay imagen para mostrar</p>
             {% endif %}
         </div>
-        <div class="col-sm-12">
+        <div class="col-sm-12 col-sm-6">
             <h1>
                 {{object.title}}
             </h1>

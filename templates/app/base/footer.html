@@ -7,7 +7,7 @@
                 <div class="text-center">
                     <div class="card paral paralsec">
                         <div class="card-body">
-                            <h5 class="card-title display-4 text-white">Boletin de noticias</h5>
+                            <h5 class="card-title text-white">Boletin de noticias</h5>
                             <p class="card-text text-white">Manténgase actualizado con las noticias y publicaciones.</p>
                             <div class="container">
                                 <div class="row justify-content-center">
@@ -15,7 +15,7 @@
                                         <div class="input-group mb-6">
                                             <input type="text" class="form-control" placeholder="su-nombre@su-correo.com" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                             <div class="input-group-append ml-3">
-                                                <button class="btn btn-outline-light" type="button">Enviar
+                                                <button class="btn btn-outline-success waves-effect" type="button">Enviar
                                                     <i class="material-icons">send</i>
                                                 </button>
                                             </div>
@@ -29,100 +29,103 @@
             </div>
         {% endif %}
 
-            <div class="bg-footer">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <div class="header">
-                                <p class="h2 text-white">Moby Supply</p>
-                            </div>
-                            <div class="body text-white">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur officia expedita ad nemo, quidem natus
-                                    reiciendis aspernatur doloribus, dolorum cum neque necessitatibus magnam sit, rem sequi temporibus.
-                                    Quod, libero labore.
-                                </p>
-                            </div>
+        <div class="bg-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="header">
+                            <p class="h2 text-white">Moby Supply</p>
                         </div>
-                        <hr>
-                        <div class="col-12 col-md-6 col-lg-4">
-                            <div class="header">
-                                <p class="h2 text-white">Sitios de interés</p>
-                            </div>
-                            <div class="list">
-                                <ul class="navbar-nav ml-auto">
-                                    {% for page in flatpages %}
-                                    <li>
-                                        <a href="{{ page.url }}">{{ page.title }}</a>
-                                    </li>
-                                    {% endfor %}
-                                    <li class="nav-item">
-                                        <a class="nav-link text-uppercase text-white" href="#">¿Quienes somos?</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-uppercase text-white" href="#">Preguntas Frecuentes</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-uppercase text-white" href="#">Terminos y condiciones</a>
-                                    </li>
-                                </ul>
-                            </div>
+                        <div class="body text-white">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur officia expedita ad nemo, quidem natus
+                                reiciendis aspernatur doloribus, dolorum cum neque necessitatibus magnam sit, rem sequi temporibus.
+                                Quod, libero labore.
+                            </p>
                         </div>
-                        <hr>
-                        <div class="col-12 col-lg-4 ">
-                            <div class="header">
-                                <p class="h2 text-white">Síguenos</p>
-                            </div>
+                    </div>
+                    <hr>
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="header">
+                            <p class="h2 text-white">Sitios de interés</p>
+                        </div>
+                        <div class="list">
                             <ul class="navbar-nav ml-auto">
-                                {% if social_media %} {% for object in social_media %}
+                                {% for page in flatpages %}
+                                <li>
+                                    <a href="{{ page.url }}">{{ page.title }}</a>
+                                </li>
+                                {% endfor %}
                                 <li class="nav-item">
-                                    <a class="nav-link text-white" href="{{object.url}}">
-                                        <span>
-                                            <img src="/static/base/img/{{object.icon}}" alt="{{object.title}}">
-                                        </span>
-                                        <span>
-                                            /{{object.name}}
-                                        </span>
-                                    </a>
+                                    <a class="nav-link text-uppercase text-white" href="#">¿Quienes somos?</a>
                                 </li>
-                                {% endfor %} {% else %}
-                                <li class="nav-item social-nav">
-                                    <a class="nav-link text-white" href="#">
-                                        <span>
-                                            <img src="/static/base/img/instagram.png" alt="Instagram Moby Supply">
-                                        </span>
-                                        <span class="visible-md">
-                                            /mobysupply
-                                        </span>
-                                    </a>
+                                <li class="nav-item">
+                                    <a class="nav-link text-uppercase text-white" href="#">Preguntas Frecuentes</a>
                                 </li>
-                                <li class="nav-item social-nav">
-                                    <a class="nav-link text-white" href="#">
-                                        <span>
-                                            <img src="/static/base/img/facebook.png" alt="facebook Moby Supply">
-                                        </span>
-                                        <span class="visible-md">
-                                            /mobysupply
-                                        </span>
-                                    </a>
+                                <li class="nav-item">
+                                    <a class="nav-link text-uppercase text-white" href="#">Terminos y condiciones</a>
                                 </li>
-                                <li class="nav-item social-nav">
-                                    <a class="nav-link text-white" href="#">
-                                        <span>
-                                            <img src="/static/base/img/twitter.png" alt="twitter Moby Supply">
-                                        </span>
-                                        <span class="visible-md">
-                                            /mobysupply
-                                        </span>
-                                    </a>
-                                </li>
-                                {% endif %}
                             </ul>
                         </div>
                     </div>
                     <hr>
+                    <div class="col-12 col-lg-4 ">
+                        <div class="header">
+                            <p class="h2 text-white">Síguenos</p>
+                        </div>
+                        <ul class="navbar-nav ml-auto">
+                            {% if social_media %} {% for object in social_media %}
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{object.url}}">
+                                    <span>
+                                        <img src="/static/base/img/{{object.icon}}.png" alt="{{object.title}}">
+                                    </span>
+                                    <span>
+                                        /{{object.name}}
+                                    </span>
+                                </a>
+                            </li>
+                            {% endfor %} {% else %}
+                            <li class="nav-item social-nav">
+                                <a class="nav-link text-white" href="#">
+                                    <span>
+                                        <img src="/static/base/img/instagram.png" alt="Instagram Moby Supply">
+                                    </span>
+                                    <span class="visible-md">
+                                        /mobysupply
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="nav-item social-nav">
+                                <a class="nav-link text-white" href="#">
+                                    <span>
+                                        <img src="/static/base/img/facebook.png" alt="facebook Moby Supply">
+                                    </span>
+                                    <span class="visible-md">
+                                        /mobysupply
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="nav-item social-nav">
+                                <a class="nav-link text-white" href="#">
+                                    <span>
+                                        <img src="/static/base/img/twitter.png" alt="twitter Moby Supply">
+                                    </span>
+                                    <span class="visible-md">
+                                        /mobysupply
+                                    </span>
+                                </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-footer-dark">
+                <div class="container">
+                    <hr>
                     <div class="row">
                         <div class="col-12 col-sm-6">
-                            <div style="height: 35px;">
+                            <div>
                                 <div class="h-100 align-middle">
                                     <p class="font-weight-light text-light text-footer">
                                         A Moby Group company
@@ -134,3 +137,20 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div data-bfmodal="jYy" class="modal fade bottom modal-content-clickable show" id="modalCookie" tabindex="-1" role="dialog"
+            aria-labelledby="myModalLabel" data-backdrop="false" style="display: block; padding-right: 17px;">
+            <div class="modal-dialog modal-frame modal-bottom modal-notify modal-info" role="document">
+                <div class="modal-content">
+                    <div class="modal-body py-1 rgba-black-strong">
+                        <div class="row d-flex justify-content-center align-items-center">
+                            <p class="pt-3 pr-2 text-white">Hacemos uso de <span>cookies</span> para mejorar la experiencia de uso en la pagina.</p>
+                            <a href="/cookie-policy"
+                                type="button" class="btn btn-outline-white btn-md" target="_blank">Ver más</a>
+                            <button id="cookieModalOK" type="button" class="btn btn-outline-white btn-md" >Ok, gracias</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

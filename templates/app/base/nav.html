@@ -23,18 +23,20 @@
                 </ul>
                 <ul class="navbar-nav ml-auto navbar-nav-custom-2 ">
                     <li>
-                        <a href="{% url 'front:contact' %}">
+                        <a href="{% url 'front:contact' %}" class="">
                             <i class="material-icons">phone</i>
-                            <span>+(507) 397 9180</span>
+                            <span>+(507) 800 MOBY</span>
                         </a>
                     </li>
                     {% if user.is_authenticated %}
-                    <li>
-                        <a href="{% url 'intra:home' %}?next={{ request.path }}">
-                            <i class="material-icons">launch</i>
-                            Panel
-                        </a>
-                    </li>
+                        {% if user.is_staff %}
+                            <li>
+                                <a href="{% url 'intra:home' %}?next={{ request.path }}">
+                                    <i class="material-icons">launch</i>
+                                    Panel
+                                </a>
+                            </li>
+                        {% endif %}
                     <li>
                         <a href="{% url 'auth:logout' %}?next={{ request.path }}">
                             <i class="material-icons">exit_to_app</i>

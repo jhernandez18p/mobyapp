@@ -6,5 +6,5 @@ from django.utils.translation import gettext_lazy as _
 
 class SitesConfig(AppConfig):
     name = 'src.base'
-    verbose_name = _("Frontend")
+    verbose_name = _("Modulo de Frontend")
     
