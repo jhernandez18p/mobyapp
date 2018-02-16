@@ -81,8 +81,8 @@ class Post(models.Model):
 
     class Meta:
         ordering = ["-created_at", "-updated"]
-        verbose_name = 'Post'
-        verbose_name_plural = 'Posts'
+        verbose_name = 'Articulo'
+        verbose_name_plural = 'Articulos'
 
 
 def create_slug(instance, new_slug=None):

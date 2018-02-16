@@ -24,12 +24,40 @@
             Bienvenidos al blog de <span>{{SITE_TITLE}}</span> aqui encontraras contenido informativo.
             esperamos sea de tu agrado.
         </p>
-        {% if objects_list %}
-        {% for object in objects_list %}
+        {% if object_list %}
+            {% for object in object_list %}
+                <div class="row bg-light py-5 shadow mb-5">
+                    <div class=" col-lg-5 col-xl-4 mb-4 align-self-center">
+                        <div class="view overlay hm-white-slight ">
+                            <a href="{{object.get_absolute_url}}">
+                            {% if object.img %}
+                                <img class="mb-4 img-fluid" src="{{object.img.url}}" alt="{{object.title}}">
+                            {% else %}
+                                <img class="mb-4 img-fluid" src="/static/base/img/moby-background-01.png" alt="{{object.title}}">
+                            {% endif %}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
+                        <h3 class="mb-3 font-bold dark-grey-text">
+                            <strong>{{object.title}}</strong>
+                        </h3>
+                        <p class="grey-text">
+                            {{object.text|safe|truncatewords:50}}
+                        </p>
+                        <p>Escrito por 
+                            <a class="font-bold dark-grey-text">{{object.author}}</a>, {{object.created_at}}
+                        </p>
+                        <a href="{{object.get_absolute_url}}" class="btn btn-outline-dark btn-md">Leer más</a>
+                    </div>
+                </div>
+
+            {% endfor %}
+        {% else %}
             <div class="row ">
                 <div class="col-lg-5 col-xl-4 mb-4">
                     <div class="view overlay hm-white-slight rounded z-depth-1-half">
-                        <img src="{{object.img}}" class="img-fluid" alt="{{object.title}}">
+                        <img src="https://mdbootstrap.com/img/Photos/Others/images/49.jpg" class="img-fluid" alt="First sample image">
                         <a>
                             <div class="mask"></div>
                         </a>
@@ -37,84 +65,59 @@
                 </div>
                 <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
                     <h3 class="mb-3 font-bold dark-grey-text">
-                        <strong>{{object.title}}</strong>
+                        <strong>This is title of the news</strong>
                     </h3>
-                    <p class="grey-text">
-                        {{object.subtitle}}
-                    </p>
-                    <p>Escrito por 
-                        <a class="font-bold dark-grey-text">{{object.author}}</a>, 26/08/2018
-                    </p>
-                    <a href="{{object.get_absolute_url}}" class="btn btn-primary btn-md">Leer más</a>
-                </div>
-            </div>
-            <hr class="mb-5">
-            {% endfor %}
-        {% else %}
-        <div class="row ">
-            <div class="col-lg-5 col-xl-4 mb-4">
-                <div class="view overlay hm-white-slight rounded z-depth-1-half">
-                    <img src="https://mdbootstrap.com/img/Photos/Others/images/49.jpg" class="img-fluid" alt="First sample image">
-                    <a>
-                        <div class="mask"></div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
-                <h3 class="mb-3 font-bold dark-grey-text">
-                    <strong>This is title of the news</strong>
-                </h3>
-                <p class="grey-text">Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat
-                    facere possimus, omnis voluptas assumenda est, omnis dolor repellendus et aut officiis debitis aut rerum.</p>
-                    <p>by
-                        <a class="font-bold dark-grey-text">Jessica Clark</a>, 26/08/2018</p>
-                        <a class="btn btn-primary btn-md">Leer más</a>
+                    <p class="grey-text">Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat
+                        facere possimus, omnis voluptas assumenda est, omnis dolor repellendus et aut officiis debitis aut rerum.</p>
+                        <p>by
+                            <a class="font-bold dark-grey-text">Jessica Clark</a>, 26/08/2018</p>
+                            <a class="btn btn-primary btn-md">Leer más</a>
+                        </div>
+                    </div>
+        
+                    <div class="row mt-3">
+                        <div class="col-lg-5 col-xl-4 mb-4">
+                    <div class="view overlay hm-white-slight rounded z-depth-1">
+                        <img src="https://mdbootstrap.com/img/Photos/Others/images/31.jpg" class="img-fluid" alt="Second sample image">
+                        <a>
+                            <div class="mask"></div>
+                        </a>
                     </div>
                 </div>
-                <hr class="mb-5">
-                <div class="row mt-3">
-                    <div class="col-lg-5 col-xl-4 mb-4">
-                <div class="view overlay hm-white-slight rounded z-depth-1">
-                    <img src="https://mdbootstrap.com/img/Photos/Others/images/31.jpg" class="img-fluid" alt="Second sample image">
-                    <a>
-                        <div class="mask"></div>
-                    </a>
+                <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
+                    <h3 class="mb-3 font-bold dark-grey-text">
+                        <strong>This is title of the news</strong>
+                    </h3>
+                    <p class="grey-text">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque
+                        corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident et dolorum fuga.</p>
+                        <p>by
+                            <a class="font-bold dark-grey-text">Jessica Clark</a>, 24/08/2018</p>
+                    <a class="btn btn-primary btn-md">Leer más</a>
                 </div>
-            </div>
-            <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
-                <h3 class="mb-3 font-bold dark-grey-text">
-                    <strong>This is title of the news</strong>
-                </h3>
-                <p class="grey-text">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque
-                    corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident et dolorum fuga.</p>
-                    <p>by
-                        <a class="font-bold dark-grey-text">Jessica Clark</a>, 24/08/2018</p>
-                <a class="btn btn-primary btn-md">Leer más</a>
-            </div>
-        </div>    
-        <hr class="mb-5">
-        <div class="row">
-            <div class="col-lg-5 col-xl-4 mb-4">
-                <div class="view overlay hm-white-slight rounded z-depth-1">
-                    <img src="https://mdbootstrap.com/img/Photos/Others/images/52.jpg" class="img-fluid" alt="Third sample image">
-                    <a>
-                        <div class="mask"></div>
-                    </a>
+            </div>    
+
+            <div class="row">
+                <div class="col-lg-5 col-xl-4 mb-4">
+                    <div class="view overlay hm-white-slight rounded z-depth-1">
+                        <img src="https://mdbootstrap.com/img/Photos/Others/images/52.jpg" class="img-fluid" alt="Third sample image">
+                        <a>
+                            <div class="mask"></div>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
-                <h3 class="mb-3 font-bold dark-grey-text">
-                    <strong>This is title of the news</strong>
-                </h3>
-                <p class="grey-text">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
-                    eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-                    consectetur.</p>
-                    <p>by
-                        <a class="font-bold dark-grey-text">Jessica Clark</a>, 21/08/2018</p>
-                <a class="btn btn-primary btn-md">Leer más</a>
+                <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
+                    <h3 class="mb-3 font-bold dark-grey-text">
+                        <strong>This is title of the news</strong>
+                    </h3>
+                    <p class="grey-text">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
+                        eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
+                        consectetur.</p>
+                        <p>by
+                            <a class="font-bold dark-grey-text">Jessica Clark</a>, 21/08/2018</p>
+                    <a class="btn btn-primary btn-md">Leer más</a>
+                </div>
             </div>
         </div>
-    </div>
     {% endif %}
     <div class="row justify-content-center">
         <div class="col-3">

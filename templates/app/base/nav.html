@@ -31,7 +31,7 @@
                     {% if user.is_authenticated %}
                         {% if user.is_staff %}
                             <li>
-                                <a href="{% url 'intra:home' %}?next={{ request.path }}">
+                                <a href="{% url 'front:home' %}?next={{ request.path }}">
                                     <i class="material-icons">launch</i>
                                     Panel
                                 </a>

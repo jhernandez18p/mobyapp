@@ -98,9 +98,17 @@ TEMPLATES = [
 ]
 
 DATABASES = {
-    'default': {
+    'frontend': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(os.path.join(BASE_DIR, 'dbs'), 'db.sqlite3'),
+    },
+    'default': {
+        'ENGINE': config('DB_ENGINE'),
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_USER_PASSWORD'),
+        'PORT': config('DB_PORT'),
+        'HOST': config('DB_HOST'),
     }
 }
 

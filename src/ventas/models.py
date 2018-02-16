@@ -94,14 +94,20 @@ class Department(models.Model): # For web use
     description = RichTextField(blank=True)
     img = models.ImageField(upload_to='', blank=True)
     background = models.ImageField(upload_to='', blank=True)
+    slug = models.CharField(max_length=144, blank=True)
 
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name = 'Categoría web'
-        verbose_name_plural = 'Categorías web'
+        verbose_name = 'Departamento'
+        verbose_name_plural = 'Departamentos'
 
+
+    def get_absolute_url(self):
+        return reverse('sales:department_detail', kwargs={'slug': self.name.lower()})
+
+    
 
 class Category(models.Model): # Business Logic art. cat.
     name = models.CharField(max_length=144, blank=True)
@@ -174,9 +180,25 @@ def create_slug(instance, new_slug=None):
         return create_slug(instance, new_slug=new_slug)
     return slug
 
+def create_departemet_slug(instance, new_slug=None):
+    slug = slugify(instance.name)
+    if new_slug is not None:
+        slug = new_slug
+    qs = Department.objects.filter(slug=slug).order_by("-id")
+    exists = qs.exists()
+    if exists:
+        new_slug = "%s-%s" %(slug, qs.first().id)
+        return create_slug(instance, new_slug=new_slug)
+    return slug
+
 def pre_save_article_receiver(sender, instance, *args, **kwargs):
     if not instance.slug:
         instance.slug = create_slug(instance)
 
+def pre_save_department_receiver(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = create_departemet_slug(instance)
 
+
+pre_save.connect(pre_save_department_receiver, sender=Department)
 pre_save.connect(pre_save_article_receiver, sender=Article)

@@ -66,8 +66,15 @@ def menu(request):
         {'name':'productos','url':reverse('sales:home'),'have_icon':False},
         {'name':'blog','url':reverse('blog:home'),'have_icon':False},
         {'name':'contacto','url':reverse('front:contact'),'have_icon':False},
-        {'name':'search','url':reverse('front:search'),'have_icon':True}
+        # {'name':'search','url':reverse('front:search'),'have_icon':True}
     ]
+
+    if 'cookie_modal' in request.COOKIES:
+        context['cookie_modal'] = False
+    else:
+        context['cookie_modal'] = True
+        
+
     context['FRONT_HEADER_MENU'] = menu
     return context
 

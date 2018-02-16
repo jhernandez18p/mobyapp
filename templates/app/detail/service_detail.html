@@ -4,10 +4,18 @@
 <style>
     .paralsec {
         margin-top: 75px;
-        background-image: url("{{object.background.url}}");
+        {% if object.img %}
+            background-image: url("{{object.background.url}}");
+        {% else %}
+            background-image: url("/static/base/img/moby-background-01.png");
+        {% endif %}
     }
     .card .card-body h5 {font-size: 5rem;margin-top: 50px;}
     .breadcrumb{background-color: rgba(0, 0, 0, 0)}
+    #our_work img{
+        max-height: 200px;
+        width: 100%;
+    }
 </style>
 {% endblock %}
 
@@ -16,9 +24,8 @@
 {% endblock %}
 
 {% block content %}
-<div class="card paral paralsec view">
-    <div class="card-body hm-brown-strong">
-        <h5 class="card-title display-4">{{object.name}}</h5>
+<div class="card paral paralsec view hm-black-slight">
+    <div class="card-body mask">
     </div>
 </div>
 <div class="container">
@@ -32,82 +39,40 @@
     </div>
 
     <div class="row">
-        <div class="col-12 col-sm-6">
-            {% if object.image %}
-            <div class="img">
-                <img class="img-fluid" src="{{object.image.url}}" alt="{{object.name}}">
-            </div>
-            {% else %}
-                <p>no hay imagen para mostrar</p>
-            {% endif %}
-        </div>
         <div class="col-sm-12 col-sm-6">
             <h1>
                 {{object.title}}
             </h1>
+            <hr class="special-color-dark mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
             <div class="service-body">
                 {{object.content|safe}}
             </div>
         </div>
     </div>
-
-    <div class="row">
-        
-        <div class="col-md-12">
-            <div id="mdb-lightbox-ui"></div>
-            <div class="mdb-lightbox">
-                <figure class="col-md-4">
-                    <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(145).jpg" data-size="1600x1067">
-                        <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(145).jpg" alt="placeholder" class="img-fluid">
-                    </a>
-                </figure>
-                <figure class="col-md-4">
-                    <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(150).jpg" data-size="1600x1067">
-                        <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(150).jpg" alt="placeholder" class="img-fluid" />
-                    </a>
-                </figure>
-                <figure class="col-md-4">
-                    <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(152).jpg" data-size="1600x1067">
-                        <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(152).jpg" alt="placeholder" class="img-fluid" />
-                    </a>
-                </figure>
-                <figure class="col-md-4">
-                    <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(42).jpg" data-size="1600x1067">
-                        <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(42).jpg" alt="placeholder" class="img-fluid" />
-                    </a>
-                </figure>
-                <figure class="col-md-4">
-                    <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(151).jpg" data-size="1600x1067">
-                        <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(151).jpg" alt="placeholder" class="img-fluid" />
-                    </a>
-                </figure>
-                <figure class="col-md-4">
-                    <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(40).jpg" data-size="1600x1067">
-                        <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(40).jpg" alt="placeholder" class="img-fluid" />
-                    </a>
-                </figure>
-                <figure class="col-md-4">
-                    <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(148).jpg" data-size="1600x1067">
-                        <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(148).jpg" alt="placeholder" class="img-fluid" />
-                    </a>
-                </figure>
-                <figure class="col-md-4">
-                    <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(147).jpg" data-size="1600x1067">
-                        <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(147).jpg" alt="placeholder" class="img-fluid" />
-                    </a>
-                </figure>
-                <figure class="col-md-4">
-                    <a href="https://mdbootstrap.com/img/Photos/Lightbox/Original/img%20(149).jpg" data-size="1600x1067">
-                        <img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(149).jpg" alt="placeholder" class="img-fluid" />
-                    </a>
-                </figure>
+    
+    {% if has_images %}
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <div id="mdb-lightbox-ui">
+                    <h3>
+                        Nuestro trabajo
+                    </h3>
+                    <hr class="special-color-dark mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                </div>
+                <div class="mdb-lightbox">
+                    {% for object in images %}
+                        <figure class="col-md-4" id="our_work">
+                            <img src="{{object.image.url}}" alt="placeholder" class="img-fluid">
+                        </figure>
+                    {% endfor %}
+                </div>
             </div>
         </div>
-    </div>
+    {% endif %}
 
     <div class="row align-items-center my-5">
-        <div class="col-2"></div>
-        <div class="col-8 align-self-center p-5 bg-white">
+        <div class="col-sm-2"></div>
+        <div class="col-12 col-sm-8 align-self-center p-5 bg-white">
             <form>
                 <p class="h5 text-center mb-4">Solicita nuestro servicio de {{object.name}}</p>
                 <div class="md-form">

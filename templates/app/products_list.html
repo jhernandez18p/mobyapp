@@ -6,21 +6,35 @@
     .pagination{
         margin-top: 45px; margin-bottom: 45px;
     }
-    .item{
-        background: #fff;
-        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    .item .content{
+        padding-left: 10px;
         padding-top: 10px;
+        height: 45px;
+        width: 100%;
+        background-color: #3f4236;
+        box-shadow: -5px 4px black;
+        text-shadow: -4px 3px 3px black;
+    }
+    .item{
+        background: #FFF;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        margin-bottom: 45px;
+    }
+    .item .info{
         padding-left: 10px;
         padding-bottom: 10px;
         padding-right: 10px;
-        margin-bottom: 22.5px;
-        border-radius: 5px;
+        padding-top: 10px;
     }
     .item img{
-        text-align: center;
+        text-align: center
     }
-    .item .info{
-        padding-top: -10px;
+    .item .price{
+        margin-right: 0px;
+        margin-bottom: 0px;
+        background-color: #8a7e5f;
+        padding: 5px 20px 0px 20px;
+        color: #FFF;
     }
     .accordion-body{
         position: sticky;
@@ -94,48 +108,112 @@
             <div class="row">
                 {% for object in objects %}
                     <div class="col-sm-4">
-                        <div class="item">
-                            <a href="{% url 'sales:home' %}detalle/new_product/">
-                                <img src="https://picsum.photos/250/250" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
-                            </a>
-                            <div class="info">
-                                <h5>
-                                    <a href="{% url 'sales:home' %}detalle/new_product/" class="text-dark">
-                                        {{cat|title}}
-                                    </a>
-                                </h5>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                                <div class="clearfix">
-                                    <p class="badge badge-info float-left">
-                                        <a href="{% url 'sales:home' %}departamento/{{cat|lower}}/" class="text-light">{{cat|lower}}</a>
-                                    </p>
-                                    <h5 class="float-right">$290</h5>
+                            <div class="item">
+                                <a href="{% url 'sales:home' %}/detalle/{{objects.slug}}">
+                                    {% if object.img %}
+                                    <img src="{{objects.img.url}}" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
+                                    {% else %}
+                                    <img src="{% static 'base/img/moby-background-02.png' %}" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
+                                    {% endif %}
+                                </a>
+                                <div class="info">
+                                    <h5>
+                                        <a href="{% url 'sales:home' %}/detalle/{{objects.slug}}/" class="text-dark">
+                                            {{cat|title}}
+                                        </a>
+                                    </h5>
+                                    <p>{{objects.description | safe}}</p>
+                                    <div class="clearfix">
+                                        <!-- <p class="badge badge-info float-left">
+                                            <a href="{% url 'sales:home' %}/{{cat|lower}}" class="text-light">{{cat|lower}}</a>
+                                        </p> -->
+                                        {% if user.is_authenticated %}
+                                        <div class="price float-right">
+                                            <h5 class="">${{objects.price_4}}</h5>
+                                        </div>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        
                     </div>
                 {% endfor %}
             </div>
         </div>
-        <div class="col-sm-4 mx-auto">
+    </div>
+    </div class="row">
+        {# if is_paginated #}
+        <div class="col-sm-3 mx-auto">
             {% if is_authenticated %}
-            <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="">2</a></li>
-                <li class="page-item"><a class="page-link" href="">3</a></li>
-                <li class="page-item"><a class="page-link" href="">Siguiente</a></li>
-            </ul>
+                <nav>
+                    <ul class="pagination pg-teal">
+                        {# if page_obj.has_previous #}
+                        <li class="page-item">
+                            <a class="page-link" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        {# else #}
+                        {# endif #}
+                        <li class="page-item active">
+                            <a class="page-link">1</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link">2</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link">3</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link">4</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link">5</a>
+                        </li>       
+                        <li class="page-item">
+                            <a class="page-link" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             {% else %}
-            <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="{% url 'auth:login' %}">2</a></li>
-                <li class="page-item"><a class="page-link" href="{% url 'auth:login' %}">3</a></li>
-                <li class="page-item"><a class="page-link" href="{% url 'auth:login' %}">Siguiente</a></li>
-            </ul>
+            <nav>
+                <ul class="pagination pg-teal">
+                    <li class="page-item">
+                        <a class="page-link" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <li class="page-item active">
+                        <a class="page-link">1</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link">2</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link">3</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link">4</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link">5</a>
+                    </li>       
+                    <li class="page-item">
+                        <a class="page-link" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
             {% endif %}
         </div>
+        {# endif #}
     </div>
 </div>
 {% endblock %}

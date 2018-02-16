@@ -13,10 +13,10 @@ from .models import (
 from src.ventas.resources import ArticleResource
 # Register your models here.
 
-admin.site.register(Line)
-admin.site.register(SubLine)
-admin.site.register(Type)
-admin.site.register(Color)
+# admin.site.register(Line)
+# admin.site.register(SubLine)
+# admin.site.register(Type)
+# admin.site.register(Color)
 admin.site.register(Provider)
 admin.site.register(Department)
 admin.site.register(Category)

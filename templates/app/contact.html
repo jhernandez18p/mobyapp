@@ -1,13 +1,11 @@
-{% extends 'app/base/index.html' %}{% load staticfiles %}
+{% extends 'app/base/index.html' %}{% load staticfiles %}{% load widget_tweaks %}
 
 {% block css %}
     <style>
         #contact{
             margin-top: 75px;
         }
-        #contact .row{
-            /* height: 80vh; */
-        }
+        #col-map{padding: 0 !important}
         .contact-1, .contact-2 {
             padding-top: 45px;
             margin-left: 15%;
@@ -17,8 +15,7 @@
         #map {
             min-height: 1px;
             height: 80vh;
-            margin-right: -15px;
-            margin-left: -16px;
+            width: 100%
         }
     </style>
 {% endblock %}
@@ -27,30 +24,35 @@
 {% block content %}
         <div class="container-fluid" id="contact">
             <div class="row">
-                <div class="col-12 col-md-6 d-flex align-items-stretch bg-light">
+                <div class="col-12 col-md-4 d-flex align-items-stretch bg-light">
                     <div class="contact-2 my-3 py-5">
-                        <form>
+                        <form action="{% url 'front:contact' %}" method="post">
+                            {% csrf_token %}
                             <p class="h5 text-center my-4">Contáctanos</p>
-                            <div class="md-form">
-                                <i class="fa fa-user prefix grey-text"></i>
-                                <input type="text" id="form3" class="form-control">
-                                <label for="form3">Nombre</label>
-                            </div>
-                            <div class="md-form">
-                                <i class="fa fa-envelope prefix grey-text"></i>
-                                <input type="text" id="form2" class="form-control">
-                                <label for="form2">Correo electronico</label>
-                            </div>
-                            <div class="md-form">
-                                <i class="fa fa-tag prefix grey-text"></i>
-                                <input type="text" id="form32" class="form-control">
-                                <label for="form34">Asunto</label>
-                            </div>
-                            <div class="md-form">
-                                <i class="fa fa-pencil prefix grey-text"></i>
-                                <textarea type="text" id="form8" class="md-textarea" style="height: 100px"></textarea>
-                                <label for="form8">Mensaje</label>
-                            </div>
+                            {% for field in form %}
+                                <div class="md-form">
+                                    {% if form.is_bound %}
+                                    {% if field.errors %}
+                                    {% render_field field class="form-control is-invalid" %}
+                                    {% for error in field.errors %}
+                                    <div class="invalid-feedback">
+                                        {{ error |safe }}
+                                    </div>
+                                    {% endfor %}
+                                    {% else %}
+                                    {% render_field field class="form-control is-valid" %}
+                                    {% endif %}
+                                    {% else %}
+                                    {% render_field field class="form-control" %}
+                                    {% endif %} 
+                                    {% if field.help_text %}
+                                    <small class="form-text text-muted">
+                                        {{ field.help_text |safe}}
+                                    </small>
+                                    {% endif %}
+                                    {{ field.label_tag | safe  }}
+                                </div>
+                            {% endfor %}
                             <div class="text-center">
                                 <button class="btn btn-success">Enviar
                                     <i class="fa fa-paper-plane-o ml-1"></i>
@@ -58,34 +60,30 @@
                             </div>
                         </form>
                         <div class="row text-center my-5">
-                            <div class="col-md-4">
-                                <a class="btn-floating success-color waves-effect waves-light">
+                            <div class="col-4">
+                                <button type="buttom" class="btn-floating success-color waves-effect waves-light" data-toggle="tooltip" data-html="true"
+                                data-placement="top" title="Ernesto T. Lefevre, diagonal a Waikiki, Panama Panamá <br>Ciudad de Panamá">
                                     <i class="fa fa-map-marker"></i>
-                                </a>
-                                <p>Ernesto T. Lefevre, diagonal a Waikiki, Panama Panamá</p>
-                                <p>Ciudad de Panamá</p>
+                                </button>
                             </div>
                             
-                            <div class="col-md-4">
-                                <a class="btn-floating success-color waves-effect waves-light">
+                            <div class="col-4">
+                                <button type="buttom" class="btn-floating success-color waves-effect waves-light" data-toggle="tooltip" data-html="true"
+                                    data-placement="top" title="+(507)-800-MOBY <br>+(507)-800-6629 <br>Lun - Vie, 8:00 am - 5:00 pm">
                                     <i class="fa fa-phone"></i>
-                                </a>
-                                <p>+ 507 800 MOBY</p>
-                                <p>+ 507 800 6629</p>
-                                <p>Lun - Vie, 8:00 am - 5:00 pm</p>
+                                </button>
                             </div>
                             
-                            <div class="col-md-4">
-                                <a class="btn-floating success-color waves-effect waves-light">
+                            <div class="col-4">
+                                <button type="buttom" class="btn-floating success-color waves-effect waves-light" data-toggle="tooltip" data-html="true"
+                                data-placement="top" title="info@moby-group.com <br>sale@moby-group.com">
                                     <i class="fa fa-envelope"></i>
-                                </a>
-                                <p>info@moby-group.com</p>
-                                <p>sale@moby-group.com</p>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-6 d-flex align-items-stretch">
+                <div class="col-12 col-md-8 d-flex align-items-stretch" id="col-map">
                     <div id="map"></div>
                 </div>
             </div>
@@ -115,7 +113,33 @@
                 }
             });
         }
-      </script>
-      <script src="https://maps.googleapis.com/maps/api/js?keyAIzaSyAhCDxW6c801fDGedxTA_PnQuYy5n2anAw&callback=initMap"
-      async defer></script>
+        $(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQB-2SW3e1kvlQ3V3JgAd0b8Wjn33KzgY&callback=initMap"
+    async defer></script>
 {% endblock %}
+
+
+    <!-- 
+<div class="md-form">
+<i class="fa fa-user prefix grey-text"></i>
+<input type="text" id="form3" class="form-control">
+<label for="form3">Nombre</label>
+</div>
+<div class="md-form">
+<i class="fa fa-envelope prefix grey-text"></i>
+<input type="text" id="form2" class="form-control">
+<label for="form2">Correo electronico</label>
+</div>
+<div class="md-form">
+<i class="fa fa-tag prefix grey-text"></i>
+<input type="text" id="form32" class="form-control">
+<label for="form34">Asunto</label>
+</div>
+<div class="md-form">
+<i class="fa fa-pencil prefix grey-text"></i>
+<textarea type="text" id="form8" class="md-textarea" style="height: 100px"></textarea>
+<label for="form8">Mensaje</label>
+</div> -->

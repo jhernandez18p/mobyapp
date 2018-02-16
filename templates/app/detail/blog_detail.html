@@ -3,7 +3,11 @@
 {% block css %}
 <style>
     .paralsec {
-        background-image: url("{{object.background}}");
+        {% if object.img %}
+            background-image: url("{{object.background.url}}");
+        {% else %}
+            background-image: url("/static/base/img/moby-background-01.png");
+        {% endif %}
     }
     #newsletter .card{margin-bottom: 0;margin-right: -15px;margin-left: -15px;margin-top: 45px;}
     .paral p {color:rgba(255, 255, 255, 0.8);}
@@ -77,22 +81,14 @@
         <div class="row content-4">
             <div class="row justify-center mt-5">
                 <div class="col-md-6 pl-5 pr-5 text-center">
-                    <img class="mb-4 img-fluid wow fadein" src="{{object.img}}">
+                    {% if object.img %}
+                        <img class="mb-4 img-fluid" src="{{object.img.url}}" alt="{{object.title}}">
+                    {% else %}
+                        <img class="mb-4 img-fluid" src="/static/base/img/moby-background-01.png" alt="{{object.title}}">
+                    {% endif %}
                 </div>
                 <div class="col-md-6 text-left">
-                    <h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2>
-                    <p class="lead mt-4 mb-5">Integer libero nunc, elementum eu venenatis sed, molestie non tortor. Duis suscipit pulvinar justo. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </p>
-                    
-                    <div class="row">
-                        <div class="col-md-6 col-feature mb-4">
-                            <h4 class="mb-3">{{object.title}}</h4>
-                            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-                        </div>
-                        <div class="col-md-6 col-feature mb-4">
-                            <h4 class="mb-3">{{object.sub_title}}</h4>
-                            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-                        </div>
-                    </div>
+                    {{object.text|safe}}
                 </div>
             </div>
         </div>
@@ -133,30 +129,37 @@
     </div>
 </div>
 
-<div class="container">
-    <div class="row justify-content-md-center coments">
-        <div class="col-md-7 col-testimonial">
-            <div class="row coment_body">
-                <div class="col-3 col-sm-5 text-center">
-                    <img class="" src="https://api.adorable.io/avatars/150/abott@adorable.png">
-                </div>
-                <div class="col-9 col-sm-7">
-                    <div class="comment-body">
-                        <p class="quote-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse cursus."</p>
-                        <div class="footer">
-                            <p><span class="quote-author">Jonathan Smith</span></p>
+{% if has_comments %}
+
+    <div class="container">
+        {% for object in comments %}
+            <div class="row justify-content-md-center coments">
+                <div class="col-md-7 col-testimonial">
+                    <div class="row coment_body">
+                        <div class="col-3 col-sm-5 text-center">
+                            <img class="" src="https://api.adorable.io/avatars/150/abott@adorable.png">
+                        </div>
+                        <div class="col-9 col-sm-7">
+                            <div class="comment-body">
+                                <p class="quote-text">
+                                    {{object.content|safe}}
+                                </p>
+                                <div class="footer">
+                                    <p><span class="quote-author">{{object.author}}</span></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </div>  
             </div>
-        </div>  
+        {% endfor %}
     </div>
-</div>
+{% endif %}
 {% endblock %}
 
 {% block js %}
 <script>
-    new WOW().init();
-    $( ".wow" ).addClass( "fadeInUp" );
+    // new WOW().init();
+    // $( ".wow" ).addClass( "fadeInUp" );
 </script>
 {% endblock %}

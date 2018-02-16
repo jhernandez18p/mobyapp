@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">{% include 'app/base/head.html' %}
     <title>{{SITE_TITLE}} - {{SITE_URL}}</title>{% block css %}{% endblock %}
-    <script src="{% static 'base/js/jquery-3.2.1.slim.min.js' %}"></script>
+    <script src="{% static 'base/js/jquery-3.2.1.min.js' %}"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-83370429-7"></script>
 </head>
@@ -13,7 +13,7 @@
     <header>
         {% block full_screen %}{% endblock %}{% include 'app/base/nav.html' %}
     </header>
-    <section>
+    <section id="top-section">
         {% block content %}{% endblock %}
     </section>
     <footer>

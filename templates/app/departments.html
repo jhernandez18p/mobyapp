@@ -17,122 +17,74 @@
 {% block content %}
 
 <div class="container" id="departments">
-    {% if departments %}
-        {% for object in departments %}
-            <div class="row align-items-center shadow">
-                <div class="col-12 col-sm-6">
-                    <div class="my-3 p-3">
-                        <h2 class="display-5">
-                            <a href="">
-                                Cortes
-                            </a>
-                        </h2>
-                        <p class="lead">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate dolores ipsa, eos mollitia tempore aliquid repudiandae placeat ratione molestias, perspiciatis nobis consequatur ex voluptate unde minus quae repellendus. Ab.
-                        </p>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6">
-                    <div class="serv-img">
-                        <div class="img">
-                            <img class="img-fluid" src="/static/base/img/moby-background-04.png" alt="departments">
+    {% if object_list %}
+        {% for object in object_list %}
+            <div class="col-md-12 mb-r">
+                <div class="card card-image" style="background-image: url({{object.background.url}});">
+                    <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                        <div>
+                            <h3 class="card-title py-3 font-bold"><strong>{{object.name}}</strong></h3>
+                            <p class="pb-3">
+                                {{object.description|safe}}
+                            </p>
+                            <a class="btn btn-outline-white" href="{{object.get_absolute_url}}"><i class="fa fa-clone left"></i> Ver más</a>
                         </div>
                     </div>
                 </div>
             </div>
         {% endfor %}
     {% else %}
-        <div class="row align-items-center shadow">
-            <div class="col-12 col-sm-6">
-                <div class="my-3 p-3">
-                    <h2 class="display-5">
-                        <a href="{% url 'sales:departments' %}" class="">
-                            Laminas
-                        </a>
-                    </h2>
-                    <p class="lead">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate dolores ipsa, eos mollitia tempore aliquid repudiandae placeat ratione molestias, perspiciatis nobis consequatur ex voluptate unde minus quae repellendus. Ab.
-                    </p>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6">
-                <div class="serv-img">
-                    <div class="img">
-                        <a href="{% url 'sales:departments' %}">
-                            <img class="img-fluid" src="/static/base/img/moby-background-04.png" alt="departments">
-                        </a>
+    <div class="col-md-12 mb-r">
+            <div class="card card-image" style="background-image: url(https://mdbootstrap.com/img/Photos/Others/img%20%2832%29.jpg);">
+                <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                    <div>
+                        <h3 class="card-title py-3 font-bold"><strong>Titulo</strong></h3>
+                        <p class="pb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat fugiat, laboriosam, voluptatem,
+                            optio vero odio nam sit officia accusamus minus error nisi architecto nulla ipsum dignissimos.
+                            Odit sed qui, dolorum!</p>
+                        <a class="btn btn-outline-white"><i class="fa fa-clone left"></i> Ver más</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row align-items-center shadow">
-            <div class="col-12 col-sm-6">
-                <div class="my-3 p-3">
-                    <h2 class="display-5">
-                        <a href="{% url 'sales:departments' %}" class="">
-                            Cantos
-                        </a>
-                    </h2>
-                    <p class="lead">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate dolores ipsa, eos mollitia tempore aliquid repudiandae placeat ratione molestias, perspiciatis nobis consequatur ex voluptate unde minus quae repellendus. Ab.
-                    </p>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6">
-                <div class="serv-img">
-                    <div class="img">
-                        <a href="{% url 'sales:departments' %}">
-                            <img class="img-fluid" src="/static/base/img/moby-background-04.png" alt="departments">
-                        </a>
+        <div class="col-md-12 mb-r">
+            <div class="card card-image" style="background-image: url(https://mdbootstrap.com/img/Photos/Others/img%20%2832%29.jpg);">
+                <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                    <div>
+                        <h3 class="card-title py-3 font-bold"><strong>Titulo</strong></h3>
+                        <p class="pb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat fugiat, laboriosam, voluptatem,
+                            optio vero odio nam sit officia accusamus minus error nisi architecto nulla ipsum dignissimos.
+                            Odit sed qui, dolorum!</p>
+                        <a class="btn btn-outline-white"><i class="fa fa-clone left"></i> Ver más</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row align-items-center shadow">
-            <div class="col-12 col-sm-6">
-                <div class="my-3 p-3">
-                    <h2 class="display-5">
-                        <a href="{% url 'sales:departments' %}" class="">
-                            Sobres
-                        </a>
-                    </h2>
-                    <p class="lead">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate dolores ipsa, eos mollitia tempore aliquid repudiandae placeat ratione molestias, perspiciatis nobis consequatur ex voluptate unde minus quae repellendus. Ab.
-                    </p>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6">
-                <div class="serv-img">
-                    <div class="img">
-                        <a href="{% url 'sales:departments' %}">
-                            <img class="img-fluid" src="/static/base/img/moby-background-04.png" alt="departments">
-                        </a>
+        <div class="col-md-12 mb-r">
+            <div class="card card-image" style="background-image: url(https://mdbootstrap.com/img/Photos/Others/img%20%2832%29.jpg);">
+                <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                    <div>
+                        <h3 class="card-title py-3 font-bold"><strong>Titulo</strong></h3>
+                        <p class="pb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat fugiat, laboriosam, voluptatem,
+                            optio vero odio nam sit officia accusamus minus error nisi architecto nulla ipsum dignissimos.
+                            Odit sed qui, dolorum!</p>
+                        <a class="btn btn-outline-white"><i class="fa fa-clone left"></i> Ver más</a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row align-items-center shadow">
-            <div class="col-12 col-sm-6">
-                <div class="my-3 p-3">
-                    <h2 class="display-5">
-                        <a href="{% url 'sales:departments' %}" class="">
-                            Herrajes
-                        </a>
-                    </h2>
-                    <p class="lead">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate dolores ipsa, eos mollitia tempore aliquid repudiandae placeat ratione molestias, perspiciatis nobis consequatur ex voluptate unde minus quae repellendus. Ab.
-                    </p>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6">
-                <div class="serv-img">
-                    <div class="img">
-                        <a href="{% url 'sales:departments' %}">
-                            <img class="img-fluid" src="/static/base/img/moby-background-04.png" alt="departments">
-                        </a>
+        <div class="col-md-12 mb-r">
+            <div class="card card-image" style="background-image: url(https://mdbootstrap.com/img/Photos/Others/img%20%2832%29.jpg);">
+                <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                    <div>
+                        <h3 class="card-title py-3 font-bold"><strong>Titulo</strong></h3>
+                        <p class="pb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat fugiat, laboriosam, voluptatem,
+                            optio vero odio nam sit officia accusamus minus error nisi architecto nulla ipsum dignissimos.
+                            Odit sed qui, dolorum!</p>
+                        <a class="btn btn-outline-white"><i class="fa fa-clone left"></i> Ver más</a>
                     </div>
                 </div>
             </div>
@@ -146,15 +98,7 @@
 {% block js %}
 <script>
 $('#departments .row:nth-child(odd)').addClass('bg-light');
-$('#departments .row:nth-child(odd) .col-12').addClass('text-center text-middle overflow-hidden text-dark');
-$('#departments .row:nth-child(odd) a').addClass('text-dark');
-$('#departments .row:nth-child(odd) .serv-img').css('width','100%');
-$('#departments .row:nth-child(even)').addClass('bg-dark');
-$('#departments .row:nth-child(even) .col-12').addClass('text-center text-middle overflow-hidden text-white');
-$('#departments .row:nth-child(even) a').addClass('text-white');
-$('#departments .row:nth-child(even) .serv-img').css('width','100%');
-$('#departments .row:nth-child(even) .col-12:nth-child(odd)').addClass('order-first order-sm-12');
-$('#departments .row:nth-child(even) .col-12:nth-child(even)').addClass('order-last order-sm-1');
+
 
 </script>
 {% endblock %}

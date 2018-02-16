@@ -38,7 +38,7 @@ class Carousel(models.Model):
     name = models.CharField(max_length=144, blank=True)
     description = RichTextField(blank=True)
     page = models.ForeignKey(Pages, default=1, on_delete=models.CASCADE,blank=True)
-    Position = models.ForeignKey(Position, default=1, on_delete=models.CASCADE,blank=True)
+    position = models.ForeignKey(Position, default=1, on_delete=models.CASCADE,blank=True)
     crated_at = models.DateTimeField(auto_now=True,)
 
     def __str__(self):

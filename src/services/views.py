@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from django.urls import reverse
 
-from .models import Service
+from .models import (Service, ServiceImage)
 
 # Create your views here.
 class Home(ListView):
@@ -32,4 +32,10 @@ class ServiceDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        images = ServiceImage.objects.all().filter(Service_id=context['object'].id)
+        if images.exists():
+            context['has_images'] = True
+            context['images'] = images
+            
         return context

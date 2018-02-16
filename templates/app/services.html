@@ -20,7 +20,7 @@
     {% if object_list  %}
         {% for object in object_list  %}
             <div class="row align-items-center shadow">
-                <div class="col-12 col-sm-6">
+                <div class="col-12 col-sm-6 align-items-stretch">
                     <div class="my-3 p-3">
                         <h2 class="display-5">
                             <a href="{{object.get_absolute_url}}">
@@ -28,12 +28,12 @@
                             </a>
                         </h2>
                         <p class="lead">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate dolores ipsa, eos mollitia tempore aliquid repudiandae placeat ratione molestias, perspiciatis nobis consequatur ex voluptate unde minus quae repellendus. Ab.
+                            {{object.content|safe|truncatechars:160}}
                         </p>
-                        <a href="{{object.get_absolute_url}}" type="button" class="btn btn-outline-default waves-effect">Ver más</a>
+                        <a href="{{object.get_absolute_url}}" type="button" class="btn btn-outline-black waves-effect">Ver más</a>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6">
+                <div class="col-12 col-sm-6 align-items-stretch">
                     <div class="serv-img">
                         <div class="img">
                             <a href="{{object.get_absolute_url}}">

@@ -6,110 +6,113 @@
 {% endblock %}
 {% block content %}
             <div class="container">
-                {% if carousel %}
-                <div class="shadow" id="carousel-header">
-                    <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="8000">
-                        <ol class="carousel-indicators">
-                            {% for object in carousel %}
-                                <li data-target="#{{object.name}}" data-slide-to="{{object.id}}"></li>
-                            {% endfor %}
-                        </ol>
-                        <div class="carousel-inner" role="listbox">
-                            {% for object in carousel %}
+                {% if home_header_carousel %}
+                    <div class="shadow" id="carousel-header">
+                        <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="8000">
+                            <ol class="carousel-indicators">
+                                {% for object in home_header_carousel_images %}
+                                    <li data-target="#carousel" data-slide-to="{{object.id}}"></li>
+                                {% endfor %}
+                            </ol>
+                            <div class="carousel-inner view hm-black-strong" role="listbox">
+                                {% for object in home_header_carousel_images %}
+                                    <div class="carousel-item view hm-black-strong {% if forloop.counter == 1 %}active {% endif %}">
+                            
+                                        <picture>
+                                            <img srcset="{{object.image.url}}" alt="{{object.name}}"
+                                                class="d-block img-fluid">
+                                        </picture>
+                            
+                                        <div class="carousel-caption">
+                                            <div>
+                                                <h2>{{object.name}}</h2>
+                                                {{object.text | safe}}
+                                                {% if object.call_to_action_url == None %}
+                                                {% else %}
+                                                    <a class="btn btn-outline-white waves-effect" href="{{object.call_to_action_url}}">Ver más</a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <a class="carousel-control-prev" role="button" data-slide="prev"  href="#carousel">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Anterior</span>
+                            </a>
+                            <a class="carousel-control-next" role="button" data-slide="next"  href="#carousel">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Siguiente</span>
+                            </a>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="shadow" id="carousel-header">
+                        <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="8000">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carousel" data-slide-to="0" class="active"></li>
+                                <li data-target="#carousel" data-slide-to="1"></li>
+                                <li data-target="#carousel" data-slide-to="2"></li>
+                            </ol>
+                            <div class="carousel-inner" role="listbox">
                                 <div class="carousel-item active">
-                        
                                     <picture>
-                                        <img srcset="{{object.image.url}}" alt="{{object.name}}"
+                                        <img srcset="{% static 'base/img/moby-background-02.png' %}" alt="Algo"
                                             class="d-block img-fluid">
                                     </picture>
-                        
                                     <div class="carousel-caption">
                                         <div>
-                                            <h2>{{object.name}}</h2>
-                                            {{object.text}}
-                                            <a class="btn btn-outline-success waves-effect" href="{{object.call_to_action_url}}">Ver más</a>
+                                            <h2>Nuestros Servicios</h2>
+                                            <p>CORTE, CANTEO, PERFORACIÓN, RANURADO, FRESADO, ARMADO, DESPACHO</p>
+                                            <a class="btn btn-outline-white waves-effect">Ver más</a>
                                         </div>
                                     </div>
                                 </div>
-                            {% endfor %}
+                                <div class="carousel-item">
+                                    <picture>
+                                        <img srcset="{% static 'base/img/moby-background-02.png' %}" alt="responsive image"
+                                            class="d-block img-fluid">
+                                    </picture>
+                                    <div class="carousel-caption justify-content-center align-items-center">
+                                        <div>
+                                            <h2>Nuestros productos</h2>
+                                            <p>HERRAJES, MELAMINA, GRANITO</p>
+                                            <a class="btn btn-outline-white waves-effect">Ver más</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="carousel-item">
+                                    <picture>
+                                        <img srcset="{% static 'base/img/moby-background-02.png' %}" alt="responsive image"
+                                            class="d-block img-fluid">
+                                    </picture>
+                                    <div class="carousel-caption justify-content-center align-items-center">
+                                        <div>
+                                            <h2>Promo del mes</h2>
+                                            <p>Promo por inicio de año, lleva tus herrajes a un 30% de descuento</p>
+                                            <a class="btn btn-outline-white waves-effect">Ver más</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="carousel-control-prev" role="button" data-slide="prev"  href="#carousel">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Anterior</span>
+                            </a>
+                            <a class="carousel-control-next" role="button" data-slide="next"  href="#carousel">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Siguiente</span>
+                            </a>
                         </div>
-                        <a class="carousel-control-prev" role="button" data-slide="prev"  href="#carousel">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Anterior</span>
-                        </a>
-                        <a class="carousel-control-next" role="button" data-slide="next"  href="#carousel">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Siguiente</span>
-                        </a>
                     </div>
-                </div>
-            {% else %}
-                <div class="shadow" id="carousel-header">
-                    <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="8000">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carousel" data-slide-to="0" class="active"></li>
-                            <li data-target="#carousel" data-slide-to="1"></li>
-                            <li data-target="#carousel" data-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner" role="listbox">
-                            <div class="carousel-item active">
-                                <picture>
-                                    <img srcset="{% static 'base/img/moby-background-02.png' %}" alt="Algo"
-                                        class="d-block img-fluid">
-                                </picture>
-                                <div class="carousel-caption">
-                                    <div>
-                                        <h2>Nuestros Servicios</h2>
-                                        <p>CORTE, CANTEO, PERFORACIÓN, RANURADO, FRESADO, ARMADO, DESPACHO</p>
-                                        <a class="btn btn-outline-success waves-effect">Ver más</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <picture>
-                                    <img srcset="{% static 'base/img/moby-background-02.png' %}" alt="responsive image"
-                                        class="d-block img-fluid">
-                                </picture>
-                                <div class="carousel-caption justify-content-center align-items-center">
-                                    <div>
-                                        <h2>Nuestros productos</h2>
-                                        <p>HERRAJES, MELAMINA, GRANITO</p>
-                                        <a class="btn btn-outline-success waves-effect">Ver más</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <picture>
-                                    <img srcset="{% static 'base/img/moby-background-02.png' %}" alt="responsive image"
-                                        class="d-block img-fluid">
-                                </picture>
-                                <div class="carousel-caption justify-content-center align-items-center">
-                                    <div>
-                                        <h2>Promo del mes</h2>
-                                        <p>Promo por inicio de año, lleva tus herrajes a un 30% de descuento</p>
-                                        <a class="btn btn-outline-success waves-effect">Ver más</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <a class="carousel-control-prev" role="button" data-slide="prev"  href="#carousel">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Anterior</span>
-                        </a>
-                        <a class="carousel-control-next" role="button" data-slide="next"  href="#carousel">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Siguiente</span>
-                        </a>
-                    </div>
-                </div>
-            {% endif %}
+                {% endif %}
             </div>
             <div class="container">
                 {% if site_info %}
                     <div class="row" id="about">
                         <div class="col-md-6 col-12">
                             <div class="img shadow">
-                                <img class="img-fluid" src="{{site_info.site_img}}" alt="{{SITE_TITLE}}">
+                                <img class="img-fluid" src="{{site_info.site_img.url}}" alt="{{SITE_TITLE}}">
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-12 align-self-center">
@@ -119,7 +122,7 @@
                                         <span class="h3 moby-text-h-1">
                                             {{site_info.name}}
                                         </span> 
-                                        <br> {{site_info.home_desc}}
+                                        <br> {{site_info.short_description|safe}}
                                     </p>
                                 </div>
                             </div>
@@ -127,21 +130,23 @@
                     </div>
                     <div class="row" id="cards">
                         <div class="col-sm-6 col-12">
-                            <div class="card text-center text-middle shadow">
+                            <div class="card text-center text-middle shadow view hm-black-strong">
                                 <img class="card-img" src="{{site_info.services_img}}" alt="Nuestros servicios">
-                                <div class="card-img-overlay">
-                                    <h5 class="card-title">Nuestros Servicios</h5>
-                                    <a href="{% url 'services:home' %}" class="btn btn-link text-dark btn-sm">Ver más</a>
-                                </div>
+                                <div class="mask"></div>
+                            </div>
+                            <div class="card-img-overlay bg-light shadow">
+                                <h5 class="card-title">Nuestros Servicios</h5>
+                                <a href="{% url 'services:home' %}" class="btn btn-outline-black text-dark btn-sm">Ver más</a>
                             </div>
                         </div>
                         <div class="col-sm-6 col-12">
-                            <div class="card text-center text-middle shadow">
+                            <div class="card text-center text-middle shadow view hm-black-strong">
                                 <img class="card-img" src="{{site_info.products_img}}" alt="Nuestros productos">
-                                <div class="card-img-overlay">
-                                    <h5 class="card-title">Nuestros productos</h5>
-                                    <a href="{% url 'sales:home' %}" class="btn btn-link text-dark btn-sm">Ver más</a>
-                                </div>
+                                <div class="mask"></div>
+                            </div>
+                            <div class="card-img-overlay bg-light shadow">
+                                <h5 class="card-title">Nuestros productos</h5>
+                                <a href="{% url 'sales:all' %}" class="btn btn-outline-black text-dark btn-sm">Ver más</a>
                             </div>
                         </div>
                     </div>
@@ -172,7 +177,7 @@
                                 <img class="card-img" src="{% static 'base/img/moby-background-03.png' %}" alt="Card image">
                                 <div class="card-img-overlay">
                                     <h5 class="card-title">Nuestros Servicios</h5>
-                                    <a href="{% url 'services:home' %}" class="btn btn-link text-dark btn-sm">Ver más</a>
+                                    <a href="{% url 'services:home' %}" class="btn btn-outline-black text-dark btn-sm">Ver más</a>
                                 </div>
                             </div>
                         </div>
@@ -181,7 +186,7 @@
                                 <img class="card-img" src="{% static 'base/img/moby-background-04.png' %}" alt="Card image">
                                 <div class="card-img-overlay">
                                     <h5 class="card-title">Nuestros productos</h5>
-                                    <a href="{% url 'sales:home' %}" class="btn btn-link text-dark btn-sm">Ver más</a>
+                                    <a href="{% url 'sales:all' %}" class="btn btn-outline-black text-dark btn-sm">Ver más</a>
                                 </div>
                             </div>
                         </div>
@@ -190,19 +195,21 @@
             </div>
             <div class="container-fluid" id="departments">
                 {% if departments %}
-                    {% for object in departments %}
-                        <div class="row">
+                    <div class="row">
+                        {% for object in departments %}
                             <div class="col-12 col-md-6 col-lg-3">
                                 <div class="card card-image" style="background-image: url({{object.background.url}});">
                                     <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
                                         <div>
                                             <h3 class="card-title pt-2">
-                                                <a href="#"><strong>{{object.name}}</strong></a>
+                                                <a href="{{object.get_absolute_url}}" class="white-text">
+                                                    <strong>{{object.name}}</strong>
+                                                </a>
                                             </h3>
                                             <p>
-                                                {{object.text|safe}}
+                                                {{object.description|safe|truncatechars:150}}
                                             </p>
-                                            <a class="btn moby-gradient">
+                                            <a class="btn moby-gradient" href="{{object.get_absolute_url}}">
                                                 <i class="fa fa-clone left"></i>
                                                 Ver más
                                             </a>
@@ -210,8 +217,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    {% endfor %}
+                        {% endfor %}
+                    </div>
                 {% else %}
 
                     <div class="row">
@@ -297,7 +304,11 @@
                             <div class="col-sm-4 col-xs-12 align-self-center">
                                 <div class="item">
                                     <div class="header">
+                                        {% if object.img %}
                                         <img class="mb-4 img-fluid" src="{{object.img.url}}" alt="{{object.title}}">
+                                        {% else %}
+                                        <img class="mb-4 img-fluid" src="/static/base/img/moby-background-01.png" alt="{{object.title}}">
+                                        {% endif %}
                                     </div>
                                     <div class="body">
                                         <h3>
@@ -306,11 +317,11 @@
                                             </a>
                                         </h3>
                                         <p class="mt-4 mb-4">
-                                            {{object.text|truncatewords:8 }}
+                                            {{object.text|truncatewords:8|safe }}
                                         </p>
                                     </div>
                                     <div class="footer">
-                                        <a class="btn btn-link text-dark float-right" href="{% url 'blog:blog_detail' object.slug %}" role="button">
+                                        <a class="btn btn-outline-black text-dark float-right" href="{% url 'blog:blog_detail' object.slug %}" role="button">
                                             <i class="material-icons">launch</i>Leer más
                                         </a>
                                     </div>
@@ -335,7 +346,7 @@
                                         </p>
                                     </div>
                                     <div class="footer">
-                                        <a class="btn btn-link text-dark float-right" href="{% url 'blog:blog_detail' object.slug %}" role="button">
+                                        <a class="btn btn-outline-black text-dark float-right" href="{% url 'blog:blog_detail' object.slug %}" role="button">
                                             <i class="material-icons">launch</i>Leer más
                                         </a>
                                     </div>
@@ -355,6 +366,5 @@
     // $('#departments .row:last-child()').css('margin-bottom','0px');
     // $('#departments .row:nth-child(even) .col-12:nth-child(odd)').addClass('order-first order-sm-12');
     // $('#departments .row:nth-child(even) .col-12:nth-child(even)').addClass('order-last order-sm-1');
-    $('.carousel').carousel({interval: 5000});
     </script>
 {% endblock %}
