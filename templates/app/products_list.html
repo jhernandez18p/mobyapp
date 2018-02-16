@@ -49,13 +49,11 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container mt-5">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-12 mt-5">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{% url 'sales:home' %}">Productos</a></li>
-                <li class="breadcrumb-item active">Categoría</li>
-                <li class="breadcrumb-item active">{{cat|title }}</li>
             </ol>
         </div>
     </div>
@@ -66,7 +64,7 @@
                 <div class="card">
                     <div class="card-header">
                         <a class="card-link" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                            Filtro #1
+                            Departamento
                         </a>
                     </div>
                     <div id="collapseOne" class="collapse show">
@@ -79,7 +77,7 @@
                 <div class="card">
                     <div class="card-header">
                         <a class="collapsed card-link" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                            Filtro #2
+                            Categoría
                         </a>
                     </div>
                     <div id="collapseTwo" class="collapse">
@@ -92,7 +90,7 @@
                 <div class="card">
                     <div class="card-header">
                         <a class="collapsed card-link" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                            Filtro #3
+                            Color
                         </a>
                     </div>
                     <div id="collapseThree" class="collapse">
@@ -106,36 +104,35 @@
         </div>
         <div class="col-sm-9">
             <div class="row">
-                {% for object in objects %}
+                {% for objects in products_test %}
                     <div class="col-sm-4">
-                            <div class="item">
-                                <a href="{% url 'sales:home' %}/detalle/{{objects.slug}}">
-                                    {% if object.img %}
+                        <div class="item">
+                            <a href="{% url 'sales:home' %}/detalle/new_product">
+                                {% if objects.img %}
                                     <img src="{{objects.img.url}}" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
-                                    {% else %}
+                                {% else %}
                                     <img src="{% static 'base/img/moby-background-02.png' %}" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
-                                    {% endif %}
-                                </a>
-                                <div class="info">
-                                    <h5>
-                                        <a href="{% url 'sales:home' %}/detalle/{{objects.slug}}/" class="text-dark">
-                                            {{cat|title}}
-                                        </a>
-                                    </h5>
-                                    <p>{{objects.description | safe}}</p>
-                                    <div class="clearfix">
-                                        <!-- <p class="badge badge-info float-left">
-                                            <a href="{% url 'sales:home' %}/{{cat|lower}}" class="text-light">{{cat|lower}}</a>
-                                        </p> -->
-                                        {% if user.is_authenticated %}
-                                        <div class="price float-right">
-                                            <h5 class="">${{objects.price_4}}</h5>
-                                        </div>
-                                        {% endif %}
+                                {% endif %}
+                            </a>
+                            <div class="info">
+                                <h5>
+                                    <a href="{% url 'sales:home' %}/detalle/new_product" class="text-dark">
+                                        {{objects.art_des}}
+                                    </a>
+                                </h5>
+                                <p>{{objects.art_des | safe}}</p>
+                                <div class="clearfix">
+                                    <!-- <p class="badge badge-info float-left">
+                                        <a href="{% url 'sales:home' %}/{{cat|lower}}" class="text-light">{{cat|lower}}</a>
+                                    </p> -->
+                                    {% if user.can_see_price %}
+                                    <div class="price float-right">
+                                        <h5 class="">${{objects.price_4}}</h5>
                                     </div>
+                                    {% endif %}
                                 </div>
                             </div>
-                        
+                        </div>
                     </div>
                 {% endfor %}
             </div>

@@ -87,7 +87,7 @@
         </li>
         {% if user.is_authenticated %}
         <li>
-            <a href="{% url 'intra:home' %}?next={{ request.path }}">
+            <a href="{% url 'front:home' %}?next={{ request.path }}">
                 <i class="material-icons">launch</i>
                 Panel
             </a>
