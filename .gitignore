@@ -109,7 +109,7 @@ media/*
 /*/*/*.pyc
 /*/*/*/*.pyc
 
-src/*/migrations/*
+*/*/migrations/*
 /src/*/migrations/*
 *.rar
 /backup
