@@ -149,9 +149,9 @@ class Contact(ListView):
             print(form.cleaned_data.get('email'))
             print(form.cleaned_data.get('subject'))
             print(form.cleaned_data.get('message'))
-            return HttpResponseRedirect('/contacto/gracias')
+            return HttpResponseRedirect('/contacto')
         else:
-            return HttpResponseRedirect('/contacto/error')
+            return HttpResponseRedirect('/contacto')
         return render(request, self.template_name, {'form': form})
 
     def get_context_data(self, **kwargs):
