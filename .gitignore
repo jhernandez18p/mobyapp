@@ -109,8 +109,8 @@ media/*
 /*/*/*.pyc
 /*/*/*/*.pyc
 
-*/*/migrations/*
-/src/*/migrations/*
+*/*/migrations
+/src/*/migrations
 *.rar
 /backup
 /backup/*
