@@ -2,11 +2,11 @@
 
 {% block css %}
 <style>
-    #departments{margin-top: 120px;}
+    /* #departments{margin-top: px;} */
     #departments .row{
         margin-bottom: 45px;
     }
-    footer{margin-top: -6px;}
+    .breadcrumb{margin-top: 75px;background-color: rgba(0, 0, 0, 0)}
 </style>
 {% endblock %}
 
@@ -15,24 +15,44 @@
 {% endblock %}
 
 {% block content %}
-
-<div class="container" id="departments">
+<div class="container">
+    <div class="row" id="breadcrumb">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'sales:home' %}">Productos</a></li>
+                <li class="breadcrumb-item">Departamento</li>
+            </ol>
+        </div>
+    </div>
+</div>
+<div class="container " id="departments">
     {% if object_list %}
-        {% for object in object_list %}
-            <div class="col-md-12 mb-r">
-                <div class="card card-image" style="background-image: url({{object.background.url}});">
-                    <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
-                        <div>
-                            <h3 class="card-title py-3 font-bold"><strong>{{object.name}}</strong></h3>
-                            <p class="pb-3">
-                                {{object.description|safe}}
-                            </p>
-                            <a class="btn btn-outline-white" href="{{object.get_absolute_url}}"><i class="fa fa-clone left"></i> Ver más</a>
-                        </div>
+        <div class="row">
+            {% for object in object_list %}
+                {% if forloop.counter0 == 2 %}
                     </div>
+                    <div class="row mt-5">
+                {% endif %}
+                <div class="col-md-6 ">
+                {% if object.background %}
+                    <div style="background-image: url({{object.img.url}});" class="item d-flex align-items-end">
+                {% else %}                
+                    <div class="card card-image" style="url(/static/base/img/moby-background-01.png);">
+                {% endif %}
+                            <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                                <div>
+                                    <h3 class="card-title py-3 font-bold"><strong>{{object.name}}</strong></h3>
+                                    <p class="pb-3">
+                                        {{object.description|truncatewords:44|safe}}
+                                    </p>
+                                    <a class="btn btn-outline-white" href="{{object.get_absolute_url}}"><i class="fa fa-clone left"></i> Ver más</a>
+                                </div>
+                            </div>
+                        </div>
                 </div>
-            </div>
-        {% endfor %}
+
+            {% endfor %}
+        </div>
     {% else %}
     <div class="col-md-12 mb-r">
             <div class="card card-image" style="background-image: url(https://mdbootstrap.com/img/Photos/Others/img%20%2832%29.jpg);">
@@ -92,7 +112,7 @@
 
     {% endif %}
 </div>
-
+{% include 'app/base/paginator.html' %}
 {% endblock %}
 
 {% block js %}

@@ -2,11 +2,12 @@
 
 {% block css %}
 <style>
-    #departments{margin-top: 120px;}
+    #departments{}
     #departments .row{
         margin-bottom: 45px;
     }
     footer{margin-top: -6px;}
+    .breadcrumb{margin-top: 70px;background-color: rgba(0, 0, 0, 0)}
 </style>
 {% endblock %}
 
@@ -15,27 +16,42 @@
 {% endblock %}
 
 {% block content %}
-
+<div class="container">
+    <div class="row" id="breadcrumb">
+        <div class="col-md-12">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'sales:home' %}">Productos</a></li>
+                <li class="breadcrumb-item active">Proveedores</li>
+            </ol>
+        </div>
+    </div>
+</div>
 <div class="container" id="departments">
-    {% if departments %}
-        {% for object in departments %}
+    {% if object_list %}
+        {% for object in object_list %}
             <div class="row align-items-center shadow">
                 <div class="col-12 col-sm-6">
                     <div class="my-3 p-3">
                         <h2 class="display-5">
-                            <a href="">
-                                Cortes
+                            <a href="{% url 'sales:provider_detail' object.slug %}">
+                                {{object.name}}
                             </a>
                         </h2>
                         <p class="lead">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate dolores ipsa, eos mollitia tempore aliquid repudiandae placeat ratione molestias, perspiciatis nobis consequatur ex voluptate unde minus quae repellendus. Ab.
+                            {{object.description|safe}}
                         </p>
                     </div>
                 </div>
                 <div class="col-12 col-sm-6">
                     <div class="serv-img">
                         <div class="img">
-                            <img class="img-fluid" src="/static/base/img/moby-background-04.png" alt="departments">
+                            <a href="{% url 'sales:provider_detail' object.slug %}">
+                                {% if object.img %}
+                                    <img class="img-fluid" src="{{object.img.url}}" alt="{{object.name}}">
+                                {% else %}
+                                    <img class="img-fluid" src="/static/base/img/moby-background-04.png" alt="{{object.name}}">
+                                {% endif %}
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -43,173 +59,15 @@
         {% endfor %}
     {% else %}
         <div class="row align-items-center shadow">
-            <div class="col-12 col-sm-6">
+            <div class="col-12">
                 <div class="my-3 p-3">
-                    <h2 class="display-5">
-                        <a href="{% url 'sales:departments' %}" class="">
-                            Cortes
-                        </a>
-                    </h2>
-                    <p class="lead">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate dolores ipsa, eos mollitia tempore aliquid repudiandae placeat ratione molestias, perspiciatis nobis consequatur ex voluptate unde minus quae repellendus. Ab.
+                    <p class="lead h3">
+                        No se han encontrado resultados
                     </p>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6">
-                <div class="serv-img">
-                    <div class="img">
-                        <a href="{% url 'sales:departments' %}">
-                            <img class="img-fluid" src="/static/base/img/moby-background-04.png" alt="departments">
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="row align-items-center shadow">
-            <div class="col-12 col-sm-6">
-                <div class="my-3 p-3">
-                    <h2 class="display-5">
-                        <a href="{% url 'sales:departments' %}" class="">
-                            Canteo
-                        </a>
-                    </h2>
-                    <p class="lead">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate dolores ipsa, eos mollitia tempore aliquid repudiandae placeat ratione molestias, perspiciatis nobis consequatur ex voluptate unde minus quae repellendus. Ab.
-                    </p>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6">
-                <div class="serv-img">
-                    <div class="img">
-                        <a href="{% url 'sales:departments' %}">
-                            <img class="img-fluid" src="/static/base/img/moby-background-04.png" alt="departments">
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row align-items-center shadow">
-            <div class="col-12 col-sm-6">
-                <div class="my-3 p-3">
-                    <h2 class="display-5">
-                        <a href="{% url 'sales:departments' %}" class="">
-                            Perforación
-                        </a>
-                    </h2>
-                    <p class="lead">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate dolores ipsa, eos mollitia tempore aliquid repudiandae placeat ratione molestias, perspiciatis nobis consequatur ex voluptate unde minus quae repellendus. Ab.
-                    </p>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6">
-                <div class="serv-img">
-                    <div class="img">
-                        <a href="{% url 'sales:departments' %}">
-                            <img class="img-fluid" src="/static/base/img/moby-background-04.png" alt="departments">
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row align-items-center shadow">
-            <div class="col-12 col-sm-6">
-                <div class="my-3 p-3">
-                    <h2 class="display-5">
-                        <a href="{% url 'sales:departments' %}" class="">
-                            Ranurado
-                        </a>
-                    </h2>
-                    <p class="lead">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate dolores ipsa, eos mollitia tempore aliquid repudiandae placeat ratione molestias, perspiciatis nobis consequatur ex voluptate unde minus quae repellendus. Ab.
-                    </p>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6">
-                <div class="serv-img">
-                    <div class="img">
-                        <a href="{% url 'sales:departments' %}">
-                            <img class="img-fluid" src="/static/base/img/moby-background-04.png" alt="departments">
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="row align-items-center shadow">
-            <div class="col-12 col-sm-6">
-                <div class="my-3 p-3">
-                    <h2 class="display-5">
-                        <a href="{% url 'sales:departments' %}" class="">
-                            Fresado
-                        </a>
-                    </h2>
-                    <p class="lead">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate dolores ipsa, eos mollitia tempore aliquid repudiandae placeat ratione molestias, perspiciatis nobis consequatur ex voluptate unde minus quae repellendus. Ab.
-                    </p>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6">
-                <div class="serv-img">
-                    <div class="img">
-                        <a href="{% url 'sales:departments' %}">
-                            <img class="img-fluid" src="/static/base/img/moby-background-04.png" alt="departments">
-                        </a>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-
-        <div class="row align-items-center shadow">
-            <div class="col-12 col-sm-6">
-                <div class="my-3 p-3">
-                    <h2 class="display-5">
-                        <a href="{% url 'sales:departments' %}" class="">
-                            Armado
-                        </a>
-                    </h2>
-                    <p class="lead">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate dolores ipsa, eos mollitia tempore aliquid repudiandae placeat ratione molestias, perspiciatis nobis consequatur ex voluptate unde minus quae repellendus. Ab.
-                    </p>
-                </div>
-            </div>
-           <div class="col-12 col-sm-6">
-                <div class="serv-img">
-                    <div class="img">
-                        <a href="{% url 'sales:departments' %}">
-                            <img class="img-fluid" src="/static/base/img/moby-background-04.png" alt="departments">
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row align-items-center shadow">
-            <div class="col-12 col-sm-6">
-                <div class="my-3 p-3">
-                    <h2 class="display-5">
-                        <a href="{% url 'sales:departments' %}" class="">
-                            Fresado
-                        </a>
-                    </h2>
-                    <p class="lead">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate dolores ipsa, eos mollitia tempore aliquid repudiandae placeat ratione molestias, perspiciatis nobis consequatur ex voluptate unde minus quae repellendus. Ab.
-                    </p>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6">
-                <div class="serv-img">
-                    <div class="img">
-                        <a href="{% url 'sales:departments' %}">
-                            <img class="img-fluid" src="/static/base/img/moby-background-04.png" alt="departments">
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
     {% endif %}
 </div>
 

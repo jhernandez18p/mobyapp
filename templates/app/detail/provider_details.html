@@ -2,7 +2,7 @@
 
 {% block css %}
 <style>
-    #breadcrumb{margin-top: 125px;}
+    #breadcrumb{margin-top: 75px;}
     .breadcrumb{background-color: rgba(0, 0, 0, 0)}
 </style>
 {% endblock %}
@@ -17,28 +17,51 @@
         <div class="col-md-12">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{% url 'sales:home' %}">Productos</a></li>
-                <li class="breadcrumb-item active">Departamento</li>
-                <li class="breadcrumb-item"><a href="{% url 'sales:home' %}departamento/{{cat}}/">{{cat|title }}</a></li>
-                <li class="breadcrumb-item active">{{object.art_des | title}}</li>
+                <li class="breadcrumb-item"><a href="{% url 'sales:providers' %}">Proveedores</a></li>
+                <li class="breadcrumb-item active">{{object.name | title}}</li>
             </ol>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-12">
-            {% if object.picture %}
-            <img src="{{object.picture.url}}" alt="{{object.name}}">
-            {% else %}
-            <p>no hay imagen para mostrar</p>
-            {% endif %}
-        </div>
-        <div class="col-sm-12">
             <h1>
-                {{object.title}}
+                {{object.name}}
             </h1>
-            <p>{{object.art_des}}</p>
+            <p>{{object.description|safe}}</p>
         </div>
     </div>
-    {{object}}
+    {% if products %}
+        <div class="row my-5 justify-content-md-center d-flex align-items-stretch">
+            <div class="col-sm-12">
+                <header class="text-center">
+                    <h2 class="text-uppercase mb-5">
+                        <a href="{% url 'sales:all' %}" class="text-dark">Nuestros productos</a>
+                    </h2>
+                </header>
+            </div>
+                {% for objects in products %}
+                    <div class="col-sm-4 align-self-center">
+                        <div class="item">
+                            <a href="{{objects.get_absolute_url}}">
+                                {% if object.img %}
+                                <img src="/media/{{objects.img}}" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
+                                {% else %}
+                                <img src="{% static 'base/img/moby-background-02.png' %}" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
+                                {% endif %}
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="row my-5">
+                <div class="col-12 ">
+                    <div class="text-center">
+                        <a href="{% url 'sales:all' %}" class="btn btn-outline-black text-white btn-lg">Ver más</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 </div>
 {% endblock %}
 

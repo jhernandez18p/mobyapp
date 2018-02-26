@@ -3,7 +3,7 @@
 {% block css %}
     <style>
         #contact{
-            margin-top: 75px;
+            margin-top: 25px;
         }
         #col-map{padding: 0 !important}
         .contact-1, .contact-2 {
@@ -14,7 +14,7 @@
         }
         #map {
             min-height: 1px;
-            height: 80vh;
+            min-height: 80%;
             width: 100%
         }
     </style>
@@ -24,7 +24,7 @@
 {% block content %}
         <div class="container-fluid" id="contact">
             <div class="row">
-                <div class="col-12 col-md-4 d-flex align-items-stretch bg-light">
+                <div class="col-12 col-md-4 d-flex align-items-stretch bg-light w-100">
                     <div class="contact-2 my-3 py-5">
                         <form action="{% url 'front:contact' %}" method="post">
                             {% csrf_token %}
@@ -83,7 +83,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-8 d-flex align-items-stretch" id="col-map">
+                <div class="col-12 col-md-8 d-flex align-items-stretch w-100" id="col-map">
                     <div id="map"></div>
                 </div>
             </div>

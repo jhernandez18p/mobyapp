@@ -16,10 +16,14 @@ from django.urls import (path, re_path, include)
 from .views import (
     Home,
     ServiceDetail,
+    ServiceThanks,
+    ServiceError,
 )
 
 app_name = 'services'
 urlpatterns = [
     path('', Home.as_view(), name='home'),
+    path('/contacto/gracias', ServiceThanks.as_view(), name='thanks'),
+    path('/contacto/error', ServiceError.as_view(), name='error'),
     path('/<slug:slug>', ServiceDetail.as_view(), name='detail'),
 ]

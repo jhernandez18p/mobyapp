@@ -4,7 +4,7 @@
 <style>
     /* #breadcrumb{margin-top: 120px;} */
     .paralsec {
-        margin-top: 75px;
+        /* margin-top: 75px; */
         {% if object.img %}
             background-image: url("{{object.background.url}}");
         {% else %}
@@ -12,7 +12,7 @@
         {% endif %}
     }
     .card .card-body h5 {font-size: 5rem;margin-top: 50px;}
-    .breadcrumb{background-color: rgba(0, 0, 0, 0)}
+    .breadcrumb{margin-top: 15px;background-color: rgba(0, 0, 0, 0)}
     .item .content{
             padding-left: 10px;
             padding-top: 10px;
@@ -59,6 +59,7 @@
     <div class="row" id="breadcrumb">
         <div class="col-md-12">
             <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'sales:home' %}">Productos</a></li>
                 <li class="breadcrumb-item"><a href="{% url 'sales:departments' %}">Departamento</a></li>
                 <li class="breadcrumb-item">{{object.name}}</li>
             </ol>
@@ -75,84 +76,38 @@
             </div>
         </div>
     </div>
-    <div class="row my-5">
+    {% if products %}
+        <div class="row my-5 justify-content-md-center">
             <div class="col-sm-12">
                 <header class="text-center">
                     <h2 class="text-uppercase mb-5">
-                        Nuestros productos
+                        <a href="{% url 'sales:all' %}" class="text-dark">Nuestros productos</a>
                     </h2>
                 </header>
             </div>
-            {% if products %}
                 {% for objects in products %}
-                    <div class="col-sm-4">
+                    <div class="col-sm-4 align-self-center">
                         <div class="item">
-                            <a href="{% url 'sales:home' %}/detalle/{{objects.slug}}">
+                            <a href="{{objects.get_absolute_url}}">
                                 {% if object.img %}
-                                <img src="{{objects.img.url}}" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
+                                <img src="/media/{{objects.img}}" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
                                 {% else %}
                                 <img src="{% static 'base/img/moby-background-02.png' %}" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
                                 {% endif %}
                             </a>
-                            <div class="info">
-                                <h5>
-                                    <a href="{% url 'sales:home' %}/detalle/{{objects.slug}}/" class="text-dark">
-                                        {{cat|title}}
-                                    </a>
-                                </h5>
-                                <p>{{objects.description | safe}}</p>
-                                <div class="clearfix">
-                                    <!-- <p class="badge badge-info float-left">
-                                        <a href="{% url 'sales:home' %}/{{cat|lower}}" class="text-light">{{cat|lower}}</a>
-                                    </p> -->
-                                    {% if user.can_see_price %}
-                                    <div class="price float-right">
-                                        <h5 class="">${{objects.price_4}}</h5>
-                                    </div>
-                                    {% endif %}
-                                </div>
-                            </div>
                         </div>
                     </div>
                 {% endfor %}
-            {% else %}
-                {% for objects in products_test %}
-                    <div class="col-sm-4">
-                        <div class="item">
-                            <a href="{% url 'sales:home' %}/detalle/new_product">
-                                <img src="https://picsum.photos/400/200" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
-                            </a>
-                            <div class="info">
-                                <h5>
-                                    <a href="{% url 'sales:home' %}/detalle/new_product" class="text-dark">
-                                        {{cat|title}}
-                                    </a>
-                                </h5>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                                <div class="clearfix">
-                                    <!-- <p class="badge badge-info float-left">
-                                        <a href="{% url 'sales:home' %}/{{cat|lower}}/" class="text-light">{{cat|lower}}</a>
-                                    </p> -->
-                                    {% if user.can_see_price %}
-                                    <div class="price float-right">
-                                        <h5 class="">$290</h5>
-                                    </div>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
+            </div>
+            <div class="row my-5">
+                <div class="col-12 ">
+                    <div class="text-center">
+                        <a href="{% url 'sales:all' %}" class="btn btn-outline-black text-white btn-lg">Ver más</a>
                     </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-        <div class="row my-5">
-            <div class="col-12 ">
-                <div class="text-center">
-                    <a href="{% url 'sales:all' %}" class="btn btn-outline-black text-white btn-lg">Ver más</a>
                 </div>
             </div>
         </div>
-</div>
+    {% endif %}
 {% endblock %}
 
 {% block js %}

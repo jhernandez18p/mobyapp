@@ -1,6 +1,4 @@
-        {% load staticfiles %}
-        {% load flatpages %}
-        {% get_flatpages as flatpages %}
+        {% load staticfiles %}{% load flatpages %}{% get_flatpages as flatpages %}
         
         {% if has_newsletter %}
             <div id="newsletter">
@@ -30,48 +28,43 @@
             </div>
         {% endif %}
 
-        <div class="bg-footer">
-            <div style="background-color: #00c851;">
-                <div class="container">
-                    <!--Grid row-->
-                    <div class="row py-4 d-flex align-items-center">
-        
-                        <!--Grid column-->
-                        <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
-                            <h6 class="mb-0 white-text">Siguenos en nuestras redes sociales!</h6>
+        <div class="bg-footer" style="z-index: 1050;">
+            <div class="bg-footer-dark" id="SMStopper">
+                    <div class="container">
+                        <div class="row py-2 d-flex align-items-center">
+                            <div class="col-md-6 col-lg-5 text-center text-md-left">
+                                <h6 class="mb-0 white-text">Siguenos en nuestras redes sociales!</h6>
+                            </div>
+                            {% if social_media %}
+                                <div class="col-md-6 col-lg-7 text-center text-md-right">
+                                    {% for object in social_media %}
+                                        <a class="icons-sm fb-ic ml-0" href="{{object.url}}" target="_blank">
+                                            <i class="fa {{object.icon}} white-text mr-lg-4"> </i>
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <div class="col-md-6 col-lg-7 text-center text-md-right">
+                                    <a class="icons-sm fb-ic ml-0" href="" target="_blank">
+                                        <i class="fa fa-facebook white-text mr-lg-4"> </i>
+                                    </a>
+                                    <a class="icons-sm tw-ic" href="" target="_blank">
+                                        <i class="fa fa-twitter white-text mr-lg-4"> </i>
+                                    </a>
+                                    <a class="icons-sm gplus-ic" href="" target="_blank">
+                                        <i class="fa fa-google-plus white-text mr-lg-4"> </i>
+                                    </a>
+                                    <a class="icons-sm li-ic" href="" target="_blank">
+                                        <i class="fa fa-linkedin white-text mr-lg-4"> </i>
+                                    </a>
+                                    <a class="icons-sm ins-ic" href="" target="_blank">
+                                        <i class="fa fa-instagram white-text mr-lg-4"> </i>
+                                    </a>
+                                </div>
+                            {% endif %}
                         </div>
-                        <!--Grid column-->
-        
-                        <!--Grid column-->
-                        <div class="col-md-6 col-lg-7 text-center text-md-right">
-                            <!--Facebook-->
-                            <a class="icons-sm fb-ic ml-0" href="">
-                                <i class="fa fa-facebook white-text mr-lg-4"> </i>
-                            </a>
-                            <!--Twitter-->
-                            <a class="icons-sm tw-ic" href="">
-                                <i class="fa fa-twitter white-text mr-lg-4"> </i>
-                            </a>
-                            <!--Google +-->
-                            <a class="icons-sm gplus-ic" href="">
-                                <i class="fa fa-google-plus white-text mr-lg-4"> </i>
-                            </a>
-                            <!--Linkedin-->
-                            <a class="icons-sm li-ic" href="">
-                                <i class="fa fa-linkedin white-text mr-lg-4"> </i>
-                            </a>
-                            <!--Instagram-->
-                            <a class="icons-sm ins-ic" href="">
-                                <i class="fa fa-instagram white-text mr-lg-4"> </i>
-                            </a>
-                        </div>
-                        <!--Grid column-->
-        
                     </div>
-                    <!--Grid row-->
-        
                 </div>
-            </div>
             <div class="container">
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-3">
@@ -80,9 +73,7 @@
                         </div>
                         <hr class="special-color-dark mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
                         <div class="body text-white">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur officia expedita ad nemo, quidem natus
-                                reiciendis aspernatur doloribus, dolorum cum neque necessitatibus magnam sit, rem sequi temporibus.
-                                Quod, libero labore.
+                            <p>{{site_short_desc|safe}}
                             </p>
                         </div>
                     </div>
@@ -94,13 +85,19 @@
                         <div class="list">
                             <ul class="navbar-nav ml-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link text-uppercase text-white" href="#">¿Quienes somos?</a>
+                                    <a class="nav-link text-uppercase text-white" href="/quienes-somos">¿Quienes somos?</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-uppercase text-white" href="#">Preguntas Frecuentes</a>
+                                    <a class="nav-link text-uppercase text-white" href="/preguntas-frecuentes">Preguntas frecuentes</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-uppercase text-white" href="#">Terminos y condiciones</a>
+                                    <a class="nav-link text-uppercase text-white" href="/terminos-y-condiciones">Terminos y condiciones</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-uppercase text-white" href="/privacidad">Política de privacidad</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-uppercase text-white" href="/sitemap.xml">Mapa del sitio</a>
                                 </li>
                             </ul>
                         </div>
@@ -111,6 +108,14 @@
                         </div>
                         <hr class="special-color-dark mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
                         {% for page in flatpages %}
+                            {% if page.title == '¿Quienes somos?' %}
+                            {% endif %}
+                            {% if page.title == 'Preguntas Frecuentes' %}
+                            {% endif %}
+                            {% if page.title == 'Terminos y condiciones' %}
+                            {% endif %}
+                            {% if page.title == 'Terminos y condiciones' %}
+                            {% endif %}
                             <li>
                                 <a href="{{ page.url }}">{{ page.title }}</a>
                             </li>
@@ -121,9 +126,52 @@
                             <p class="h2 text-white">Contacto</p>
                         </div>
                         <hr class="special-color-dark mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-                        <p class="text-white">Ernesto T. Lefevre, diagonal a Waikiki, Panama Panamá <br>Ciudad de Panamá</p>
-                        <p class="text-white">+(507)-800-MOBY <br>+(507)-800-6629 <br>Lun - Vie, 8:00 am - 5:00 pm</p>
-                        <p class="text-white">info@moby-group.com <br>sale@moby-group.com</p>
+                        <p class="text-white">
+                            {% if site_address == '' %}
+                            Ernesto T. Lefevre, diagonal a Waikiki, Panama Panamá <br>Ciudad de Panamá
+                            {% else %}
+                            {{site_address | safe}}
+                            {% endif %}
+                        </p>
+                        <p class="text-white">
+                                {% if site_phone == '' %}
+                                +(507)-800-MOBY 
+                                {% else %}
+                                {{site_phone |safe}}
+                                {% endif %}
+                            <br>
+                                {% if site_phone2 == '' %}
+                                +(507)-800-6629
+                                {% else %}
+                                {{site_phone2 | safe}}
+                                {% endif %}
+                            <br>
+
+                                {% if site_workday == '' %}
+                                Lun - Vie
+                                {% else %}
+                                {{site_workday | safe}}
+                                {% endif %}
+                                ,
+                                {% if site_schedule == '' %}
+                                8:00 am - 5:00 pm
+                                {% else %}
+                                {{site_schedule | safe}}
+                                {% endif %}
+                        </p>
+                        <p class="text-white">
+                                {% if site_email == '' %}
+                                info@moby-group.com
+                                {% else %}
+                                {{site_email | safe}}
+                                {% endif %}
+                            <br>
+                                {% if site_email2 == '' %}
+                                sale@moby-group.com
+                                {% else %}
+                                {{site_email2 | safe}}
+                                {% endif %}
+                            </p>
                         
                     </div>
                 </div>
@@ -143,7 +191,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="fixed-action-btn smooth-scroll" style="bottom: 45px; right: 24px;">
+                    <div class="fixed-action-btn smooth-scroll" style="bottom: 45px; right: 24px; z-index: 1051;">
                         <a href="#top-section" class="btn-floating btn-large special-color-dark">
                             <i class="fa fa-arrow-up"></i>
                         </a>
@@ -153,17 +201,16 @@
         </div>
         
         {% if cookie_modal %}
-        <div data-bfmodal="jYy" class="modal fade bottom modal-content-clickable show" id="modalCookie" tabindex="-1" role="dialog"
-        aria-labelledby="myModalLabel" data-backdrop="false" style="display: block; padding-right: 17px;">
-        <div class="modal-dialog modal-frame modal-bottom modal-notify modal-info" role="document">
-            <div class="modal-content">
-                <div class="modal-body py-1 rgba-black-strong">
-                    <div class="row d-flex justify-content-center align-items-center">
-                        <p class="pt-3 pr-2 text-white">Hacemos uso de <span>cookies</span> para mejorar la experiencia de uso en la pagina.</p>
-                        <a href="/cookie-policy"
-                        type="button" class="btn btn-outline-white btn-md" target="_blank">Ver más</a>
-                        
-                                    <button id="cookieModalOK" type="button" class="btn btn-outline-white btn-md" >Ok, gracias</button>
+            <div data-bfmodal="jYy" class="modal fade bottom modal-content-clickable show" id="modalCookie" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="false" style="display: block; padding-right: 17px;">
+                <div class="modal-dialog modal-frame modal-bottom modal-notify modal-info" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body py-1 rgba-black-strong">
+                            <div class="row d-flex justify-content-center align-items-center">
+                                <p class="pt-3 pr-2 text-white">Hacemos uso de <span>cookies</span> para mejorar la experiencia de uso en la pagina.</p>
+                                <a href="/cookie-policy"
+                                type="button" class="btn btn-outline-white btn-md" target="_blank">Ver más</a>
+                                
+                                            <button id="cookieModalOK" type="button" class="btn btn-outline-white btn-md" >Ok, gracias</button>
 
                             </div>
                         </div>

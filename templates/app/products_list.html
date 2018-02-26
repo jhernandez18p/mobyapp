@@ -2,7 +2,7 @@
 
 {% block css %}
 <style>
-    .breadcrumb{margin-top: 25px;background-color: rgba(0, 0, 0, 0)}
+    .breadcrumb{margin-top: 0px;background-color: rgba(0, 0, 0, 0)}
     .pagination{
         margin-top: 45px; margin-bottom: 45px;
     }
@@ -49,7 +49,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="container mt-5">
+<div class="container">
     <div class="row">
         <div class="col-12 mt-5">
             <ol class="breadcrumb">
@@ -58,76 +58,116 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-3 ">
+        <div class="col-sm-3 mb-5">
             <div class="accordion-body" id="accordion">
-        
+
                 <div class="card">
                     <div class="card-header">
                         <a class="card-link" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                            Departamento
+                            Filtros
                         </a>
                     </div>
-                    <div id="collapseOne" class="collapse show">
-                        <div class="card-body">
-                            Lorem ipsum..
+                </div>
+
+                {% if departments %}        
+                    <div class="card">
+                        <div class="card-header">
+                            <a class="card-link" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                Departamentos
+                            </a>
+                        </div>
+                        <div id="collapseOne" class="collapse show">
+                            <div class="card-body">
+                                {% for object in departments %}
+                                    <ul>
+                                        <li>
+                                            <a href="{% url 'sales:all' %}">{{object.name}}</a>
+                                        </li>
+                                    </ul>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
-                </div>
+                {% endif %}
         
-                <div class="card">
-                    <div class="card-header">
-                        <a class="collapsed card-link" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                            Categoría
-                        </a>
-                    </div>
-                    <div id="collapseTwo" class="collapse">
-                        <div class="card-body">
-                            Lorem ipsum..
+                {% if categories %}
+                    <div class="card">
+                        <div class="card-header">
+                            <a class="collapsed card-link" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                Categorías
+                            </a>
+                        </div>
+                        <div id="collapseTwo" class="collapse">
+                            <div class="card-body">
+                                {% for object in categories %}
+                                    <ul>
+                                        <li>
+                                            <a href="{% url 'sales:all' %}">{{object.name}}</a>
+                                        </li>
+                                    </ul>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
-                </div>
+                {% endif %}
         
-                <div class="card">
-                    <div class="card-header">
-                        <a class="collapsed card-link" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                            Color
-                        </a>
-                    </div>
-                    <div id="collapseThree" class="collapse">
-                        <div class="card-body">
-                            Lorem ipsum..
+                {% if providers %}
+                    <div class="card">
+                        <div class="card-header">
+                            <a class="collapsed card-link" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                Proveedores
+                            </a>
+                        </div>
+                        <div id="collapseThree" class="collapse">
+                            <div class="card-body">
+                                {% for object in providers %}
+                                    <ul>
+                                        <li>
+                                            <a href="{% url 'sales:all' %}">{{object.name}}</a>
+                                        </li>
+                                    </ul>
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
-                </div>
+                {% endif %}
         
             </div>
         </div>
         <div class="col-sm-9">
-            <div class="row">
-                {% for objects in products_test %}
-                    <div class="col-sm-4">
+            <div class="row d-flex align-items-stretch">
+                {% for object in article_list %}
+                    {% if forloop.counter0 == 3 %}
+                    </div>
+                    <div class="row">
+                    {% endif %}
+                    {% if forloop.counter0 == 6 %}
+                    </div>
+                    <div class="row">
+                    {% endif %}
+                    <div class="col-sm-4 d-flex align-items-stretch">
                         <div class="item">
-                            <a href="{% url 'sales:home' %}/detalle/new_product">
-                                {% if objects.img %}
-                                    <img src="{{objects.img.url}}" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
+                            <a href="{{object.get_absolute_url}}">
+                                {% if object.img %}
+                                    <img src="/media/{{object.img}}" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
                                 {% else %}
                                     <img src="{% static 'base/img/moby-background-02.png' %}" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
                                 {% endif %}
                             </a>
                             <div class="info">
                                 <h5>
-                                    <a href="{% url 'sales:home' %}/detalle/new_product" class="text-dark">
-                                        {{objects.art_des}}
+                                    <a href="{{object.get_absolute_url}}" class="text-dark">
+                                        {{object.name}}
                                     </a>
                                 </h5>
-                                <p>{{objects.art_des | safe}}</p>
+                                <p>{{object.name | safe}}</p>
                                 <div class="clearfix">
                                     <!-- <p class="badge badge-info float-left">
                                         <a href="{% url 'sales:home' %}/{{cat|lower}}" class="text-light">{{cat|lower}}</a>
                                     </p> -->
                                     {% if user.can_see_price %}
                                     <div class="price float-right">
-                                        <h5 class="">${{objects.price_4}}</h5>
+                                        <h5 class="">${{object.price_4}}</h5>
                                     </div>
                                     {% endif %}
                                 </div>
@@ -138,81 +178,8 @@
             </div>
         </div>
     </div>
-    </div class="row">
-        {# if is_paginated #}
-        <div class="col-sm-3 mx-auto">
-            {% if is_authenticated %}
-                <nav>
-                    <ul class="pagination pg-teal">
-                        {# if page_obj.has_previous #}
-                        <li class="page-item">
-                            <a class="page-link" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                        {# else #}
-                        {# endif #}
-                        <li class="page-item active">
-                            <a class="page-link">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link">3</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link">4</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link">5</a>
-                        </li>       
-                        <li class="page-item">
-                            <a class="page-link" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            {% else %}
-            <nav>
-                <ul class="pagination pg-teal">
-                    <li class="page-item">
-                        <a class="page-link" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                    </li>
-                    <li class="page-item active">
-                        <a class="page-link">1</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link">2</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link">3</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link">4</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link">5</a>
-                    </li>       
-                    <li class="page-item">
-                        <a class="page-link" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            {% endif %}
-        </div>
-        {# endif #}
-    </div>
 </div>
+{% include 'app/base/paginator.html' %}
 {% endblock %}
 
 {% block js %}

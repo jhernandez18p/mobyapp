@@ -26,6 +26,11 @@
                             {% block content %}{% endblock %}
                         </div>
                         <div class="card-footer text-center">
+                            {% if SITE_URL == 'Error' %}
+                                <small class="text-muted">¿Ya tiene una cuenta? <a href="{% url 'auth:login' %}">Iniciar Sesión</a></small>
+                                <br>
+                                <small class="text-muted">¿Aun no se ha registrado? <a href="{% url 'auth:register' %}">Registrese</a></small>
+                            {% endif %}
                             {% if SITE_URL == 'Registrarse' %}
                             <small class="text-muted">¿Ya tiene una cuenta? <a href="{% url 'auth:login' %}">Iniciar Sesión</a></small>
                             {% else %}

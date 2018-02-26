@@ -1,60 +1,83 @@
 from __future__ import unicode_literals
-
+from ckeditor.fields import RichTextField
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
-from django.urls import reverse
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models.signals import pre_save
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
-
-
-from ckeditor.fields import RichTextField
+from django.utils.translation import gettext_lazy as _
+from sorl.thumbnail import ImageField
+from datetime import datetime
+import os
 
 from src.utils.libs import (upload_location,get_read_time,count_words)
 
+def get_upload_path(instance, filename):
+    try:
+        a = instance.__class__.__name__
+        print(instance.__class__.objects.all())
+    except:
+        a = 'frontend'
+    return os.path.join('blog/%s/'%(a.lower()), datetime.now().date().strftime("%Y/%m/%d"), filename)
 
+def create_slug(instance, new_slug=None):
+    slug = slugify(instance.name)
+    if new_slug is not None:
+        slug = new_slug
+    qs = instance.__class__.objects.filter(slug=slug).order_by("-id")
+    exists = qs.exists()
+    if exists:
+        new_slug = "%s-%s" %(slug, qs.first().id)
+        return create_slug(instance, new_slug=new_slug)
+    return slug
+
+def pre_save_post_receiver(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = create_slug(instance)
 
 class PostManager(models.Manager):
     def active(self, *args, **kwargs):
         # Post.objects.all() = super(PostManager, self).all()
         return super(PostManager, self).filter(draft=False).filter(published__lte=timezone.now())
 
+
 class Post(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE,)
-    updated_by = models.ForeignKey(User, null=True, related_name='+', on_delete=models.CASCADE,)
-    title = models.CharField(max_length=120)
-    sub_title = models.CharField(max_length=120, blank=True)
-    text = RichTextField()
-    draft = models.BooleanField(default=False)
-    published = models.DateField(auto_now=True, auto_now_add=False)
-    read_time =  models.IntegerField(default=0) # models.TimeField(null=True, blank=True) #assume minutes
-    updated = models.DateTimeField(auto_now=True, auto_now_add=False)
-    created_at = models.DateTimeField(auto_now=False, auto_now_add=True)
-    img = models.ImageField(
-        upload_to=upload_location, 
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE,verbose_name=_('Autor del post'))
+    updated_by = models.ForeignKey(User, null=True, related_name='+', on_delete=models.CASCADE,verbose_name=_('Actualizado por'), blank=True)
+    title = models.CharField(max_length=120,verbose_name=_('Titulo del post'))
+    sub_title = models.CharField(max_length=120, blank=True,verbose_name=_('Subtitulo'))
+    text = RichTextField(verbose_name="Contenido del post")
+    draft = models.BooleanField(default=False,verbose_name=_('¿Es borrador?'))
+    published = models.DateField(auto_now=True, auto_now_add=False,verbose_name=_('Fecha de publicación'))
+    read_time =  models.IntegerField(null=True, blank=True, verbose_name='Tiempo de lectura (Minutos)') #assume minutes
+    updated = models.DateTimeField(auto_now=True, auto_now_add=False,verbose_name=_('Ultima actualización'))
+    created_at = models.DateTimeField(auto_now=False, auto_now_add=True,verbose_name=_('Fecha de creación'))
+    img = ImageField(verbose_name=_('Imágen de portada'),
+        upload_to=get_upload_path, 
         null=True, 
         blank=True, 
         width_field="img_width_field", 
         height_field="img_height_field",
         default='',
     )
-    img_height_field = models.IntegerField(default=0)
-    img_width_field = models.IntegerField(default=0)
-    background = models.ImageField(
-        upload_to=upload_location,
+    img_height_field = models.IntegerField(default=0,verbose_name=_('Altura Imágen'))
+    img_width_field = models.IntegerField(default=0,verbose_name=_('Anchura Imágen'))
+    background = ImageField(verbose_name=_('Imágen de fondo'),
+        upload_to=get_upload_path,
         null=True, 
         blank=True, 
         width_field="background_width_field", 
         height_field="background_height_field",
         default='',
     )
-    background_width_field = models.IntegerField(default=0)
-    background_height_field = models.IntegerField(default=0)
-    slug = models.SlugField(unique=True, blank=True)
+    background_width_field = models.IntegerField(default=0,verbose_name=_('Altura imágen de fondo'))
+    background_height_field = models.IntegerField(default=0,verbose_name=_('Anchura imágen de fondo'))
+    slug = models.SlugField(unique=True, blank=True,verbose_name=_('Nombre url SEO'))
 
     objects = PostManager()
 
@@ -81,33 +104,8 @@ class Post(models.Model):
 
     class Meta:
         ordering = ["-created_at", "-updated"]
-        verbose_name = 'Articulo'
-        verbose_name_plural = 'Articulos'
-
-
-def create_slug(instance, new_slug=None):
-    slug = slugify(instance.title)
-    if new_slug is not None:
-        slug = new_slug
-    qs = Post.objects.filter(slug=slug).order_by("-id")
-    exists = qs.exists()
-    if exists:
-        new_slug = "%s-%s" %(slug, qs.first().id)
-        return create_slug(instance, new_slug=new_slug)
-    return slug
-
-
-def pre_save_post_receiver(sender, instance, *args, **kwargs):
-    if not instance.slug:
-        instance.slug = create_slug(instance)
-
-    # if instance.content:
-    #     html_string = instance.title
-    #     read_time_var = str(html_string)
-    #     instance.read_time = read_time_var
-
-
-pre_save.connect(pre_save_post_receiver, sender=Post)
+        verbose_name = 'Articulo del blog'
+        verbose_name_plural = 'Articulos del blog'
 
 
 class CommentManager(models.Manager):
@@ -123,15 +121,15 @@ class CommentManager(models.Manager):
 
 
 class Comment(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE,)
-    content = RichTextField()
-    parent = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE,)
-    approved = models.BooleanField(default=False)
-    timestamp = models.DateTimeField(auto_now_add=True)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE,null=True)
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE,verbose_name=_('Autor del comentario'))
+    content = RichTextField(verbose_name=_('Comentario'))
+    parent = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE,verbose_name=_('Comentario padre'))
+    approved = models.BooleanField(verbose_name=_('¿Está aprovado?'), default=True)
+    timestamp = models.DateTimeField(auto_now_add=True,verbose_name=_('Tiempo creado'))
+    post = models.ForeignKey(Post, on_delete=models.CASCADE,null=True,verbose_name=_('Post asociado'))
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE,verbose_name=_('Tipo de contenido'))
     content_object = GenericForeignKey('content_type', 'object_id')
-    object_id = models.PositiveIntegerField()
+    object_id = models.PositiveIntegerField(verbose_name=_('Id de relación'))
 
     objects = CommentManager()
 
@@ -161,3 +159,4 @@ class Comment(models.Model):
 
 #Post.objects.all()
 #Post.objects.create(user=user, title="Some time")
+pre_save.connect(pre_save_post_receiver, sender=Post)

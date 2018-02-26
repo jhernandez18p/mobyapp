@@ -1,9 +1,10 @@
-{% extends 'app/base/index.html' %}{% load staticfiles %}
+{% extends 'app/base/index.html' %}{% load staticfiles %}{% load widget_tweaks %}
 
 {% block css %}
 <style>
     .paralsec {
-        margin-top: 75px;
+        margin-top: 25px;
+        height: 350px;
         {% if object.img %}
             background-image: url("{{object.background.url}}");
         {% else %}
@@ -15,6 +16,129 @@
     #our_work img{
         max-height: 200px;
         width: 100%;
+    }
+
+    .row > .column {padding: 0 8px;}
+    .row:after {
+    content: "";
+    display: table;
+    clear: both;
+    }
+
+    /* Create four equal columns that floats next to eachother */
+    .column {
+    float: left;
+    width: 25%;
+    }
+
+    /* The Modal (background) */
+    .modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: black;
+    }
+
+    /* Modal Content */
+    .modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    width: 90%;
+    max-width: 1200px;
+    }
+
+    /* The Close Button */
+    .close {
+    color: white;
+    position: absolute;
+    top: 75px;
+    right: 25px;
+    font-size: 35px;
+    font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+    color: #999;
+    text-decoration: none;
+    cursor: pointer;
+    }
+
+    /* Hide the slides by default */
+    .mySlides {
+    display: none;
+    }
+
+    /* Next & previous buttons */
+    .prev,
+    .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
+    }
+
+    /* Position the "next button" to the right */
+    .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+    }
+
+    /* On hover, add a black background color with a little bit see-through */
+    .prev:hover,
+    .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    /* Number text (1/3 etc) */
+    .numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+    }
+
+    /* Caption text */
+    .caption-container {
+    text-align: center;
+    background-color: black;
+    padding: 2px 16px;
+    color: white;
+    }
+
+    img.demo {
+    opacity: 0.6;
+    }
+
+    .active,
+    .demo:hover {
+    opacity: 1;
+    }
+
+    img.hover-shadow {
+    transition: 0.3s
+    }
+
+    .hover-shadow:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
     }
 </style>
 {% endblock %}
@@ -38,7 +162,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" id="servicesBody">
         <div class="col-sm-12 col-sm-6">
             <h1>
                 {{object.title}}
@@ -53,17 +177,21 @@
     {% if has_images %}
         <div class="row mt-5">
             <div class="col-md-12">
-                <div id="mdb-lightbox-ui">
-                    <h3>
-                        Nuestro trabajo
-                    </h3>
-                    <hr class="special-color-dark mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                <div class="row">
+                    <div class="col-12">
+                        <h3>
+                            Nuestro trabajo
+                        </h3>
+                        <hr class="special-color-dark mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                    </div>
                 </div>
-                <div class="mdb-lightbox">
+                <div class="row">
                     {% for object in images %}
-                        <figure class="col-md-4" id="our_work">
-                            <img src="{{object.image.url}}" alt="placeholder" class="img-fluid">
-                        </figure>
+                        <div class="col-12 col-sm-4">
+                            <figure id="our_work">
+                                <img src="{{object.image.url}}" class="img-fluid" onclick="openModal();currentSlide({{forloop.counter}})">
+                            </figure>
+                        </div>
                     {% endfor %}
                 </div>
             </div>
@@ -72,29 +200,34 @@
 
     <div class="row align-items-center my-5">
         <div class="col-sm-2"></div>
-        <div class="col-12 col-sm-8 align-self-center p-5 bg-white">
-            <form>
+        <div class="col-12 col-sm-8 align-self-center p-5 bg-white shadow">
+            <form action="{% url 'front:contact' %}" method="post">
+                {% csrf_token %}
                 <p class="h5 text-center mb-4">Solicita nuestro servicio de {{object.name}}</p>
-                <div class="md-form">
-                    <i class="fa fa-user prefix grey-text"></i>
-                    <input type="text" id="form3" class="form-control">
-                    <label for="form3">¿Cual es su nombre?</label>
-                </div>
-                <div class="md-form">
-                    <i class="fa fa-envelope prefix grey-text"></i>
-                    <input type="text" id="form2" class="form-control">
-                    <label for="form2">¿Cual es su dirección de correo electronico?</label>
-                </div>
-                <div class="md-form">
-                    <i class="fa fa-tag prefix grey-text"></i>
-                    <input type="text" id="form32" class="form-control">
-                    <label for="form34">Asunto de contacto</label>
-                </div>
-                <div class="md-form">
-                    <i class="fa fa-pencil prefix grey-text"></i>
-                    <textarea type="text" id="form8" class="md-textarea" style="height: 100px"></textarea>
-                    <label for="form8">¿Cual es su mensaje?</label>
-                </div>
+                {% for field in form %}
+                    <div class="md-form">
+                        {% if form.is_bound %}
+                        {% if field.errors %}
+                        {% render_field field class="form-control is-invalid" %}
+                        {% for error in field.errors %}
+                        <div class="invalid-feedback">
+                            {{ error |safe }}
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        {% render_field field class="form-control is-valid" %}
+                        {% endif %}
+                        {% else %}
+                        {% render_field field class="form-control" %}
+                        {% endif %} 
+                        {% if field.help_text %}
+                        <small class="form-text text-muted">
+                            {{ field.help_text |safe}}
+                        </small>
+                        {% endif %}
+                        {{ field.label_tag | safe  }}
+                    </div>
+                {% endfor %}
                 <div class="text-center">
                     <button class="btn btn-success">Enviar
                         <i class="fa fa-paper-plane-o ml-1"></i>
@@ -104,11 +237,70 @@
         </div>
     </div>
 
+    {% if has_images %}
+    <!-- The Modal/Lightbox -->
+        <div id="myModal" class="modal">
+            <span class="close cursor" onclick="closeModal()">&times;</span>
+            <div class="modal-content">
+                {% for object in images %}
+                    <div class="mySlides">
+                        <div class="numbertext">{{forloop.counter}} / {{forloo.last}}</div>
+                        <img src="{{object.image.url}}" style="width:100%; max-height:80vh;" class="img-fluid">
+                    </div>
+                {% endfor %}
+        
+        
+                <!-- Next/previous controls -->
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+            </div>
+        </div>
+    {% endif %}
+
+
 </div>
 {% endblock %}
 
 {% block js %}
 <script>
-    $('.service-body img').addClass('img-fluid')
+    $('.service-body img').addClass('img-fluid');
+
+    function openModal() {
+        document.getElementById('myModal').style.display = "block";
+    }
+
+    function closeModal() {
+        document.getElementById('myModal').style.display = "none";
+    }
+
+    var slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("demo");
+        var captionText = document.getElementById("caption");
+        if (n > slides.length) { slideIndex = 1 }
+        if (n < 1) { slideIndex = slides.length }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+        captionText.innerHTML = dots[slideIndex - 1].alt;
+    }
 </script>
 {% endblock %}

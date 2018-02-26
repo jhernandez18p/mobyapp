@@ -1,85 +1,58 @@
-{% extends 'app/base/index.html' %}{% load staticfiles %}
+{% extends 'app/base/index.html' %}{% load staticfiles %}{% load widget_tweaks %}
 
 {% block css %}
 <style>
     .paralsec {
+        height: 350px;
         {% if object.img %}
             background-image: url("{{object.background.url}}");
         {% else %}
             background-image: url("/static/base/img/moby-background-01.png");
         {% endif %}
     }
-    #newsletter .card{margin-bottom: 0;margin-right: -15px;margin-left: -15px;margin-top: 45px;}
+    #newsletter .card{margin-bottom: 0;margin-right: -15px;margin-left: -15px;margin-top: 30px;}
     .paral p {color:rgba(255, 255, 255, 0.8);}
-    .paral h5 {color: rgba(255, 255, 255, 0.8);}
+    .paral h5 {color: rgba(255, 255, 255, 0.8);margin-top: 50px;}
     .mbr-figure img{max-height: 150px;}
-    .content-1, .content-2, .content-4, .content-5 {
-        background: #fff;
-        padding-bottom: 0.1rem;
-    }
-    .cta-3 {
-        color: #fff;
-        padding: 7rem 0;
-    }
-    .coments{
-        margin-top: 45px;
-        margin-bottom: 45px;
-    }
+    .content-1, .content-2, .content-4, .content-5 {background: #fff;padding-bottom: 0.1rem;}
+    .cta-3 {color: #fff;padding: 7rem 0;}
+    .coments:first-child{margin-top: 45px;}
+    .coments:last-child{padding-bottom: 45px;}
+    .coment_body:first-child{margin-bottom: 15px;}
     .coment_body{
         padding: 2rem 0;
-        background-color: #FFF;
-        margin-bottom: 15px;
+        background-color: #00000008;
         border-radius: 15px;
+        box-shadow: -1px 2px 5px -4px black;
     }
-    .blog-commets-share a{
-        color: #000;
-    }
-    .blog-commets-share span a .material-icons{
-        font-size: 18px;
-    }
-    .-body{
-        padding-top: 45px;
-        padding-bottom: 45px;
-    }
-    .row{
-        margin-left: 0;
-        margin-right: 0;    
-    }
-    .card .card-body h5{
-        font-size: 5rem;
-    }
+    .blog-commets-share a{color: #000;}
+    .blog-commets-share span a .material-icons{font-size: 18px;}
+    .-body{padding-top: 45px;padding-bottom: 45px;}
+    .row{margin-left: 0;margin-right: 0;}
+    .card .card-body h5{font-size: 5rem;}
     .card .card-body p{font-size: 3rem;}
-    @media (max-width: 767px){
-        .coment_body img{
-            width: 70px;
-        }
-    }
+    @media (max-width: 767px){.coment_body img{width: 70px;}}
 </style>
 {% endblock %}
-
 {% block full_screen %}
-
 {% endblock %}
-
 {% block content %}
 
-<div class="container_fluid">
-    <div class="row" id="newsletter">
-        <div class="col-12 text-center">
-            <div class="card paral paralsec">
-                <div class="card-body">
-                    <h5 class="card-title display-4">{{object.title}}</h5>
-                    <p class="card-text text-light">{{object.sub_title}}.</p>
+    <div class="container_fluid">
+        <div class="row" id="newsletter">
+            <div class="col-12 text-center">
+                <div class="card paral paralsec">
+                    <div class="card-body">
+                        <h5 class="card-title display-4">{{object.title}}</h5>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="bg-light">
-    <div class="container">
-        <div class="row content-4">
-            <div class="row justify-center mt-5">
+    <div class="bg-light">
+        <div class="container">
+            <div class="row content-4 justify-center py-5">
                 <div class="col-md-6 pl-5 pr-5 text-center">
                     {% if object.img %}
                         <img class="mb-4 img-fluid" src="{{object.img.url}}" alt="{{object.title}}">
@@ -88,78 +61,87 @@
                     {% endif %}
                 </div>
                 <div class="col-md-6 text-left">
+                    <p class="card-text text-dark h2">{{object.sub_title}}.</p>
                     {{object.text|safe}}
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
+                <div class="col">
 
-<div class="rgba-green-light">
-    <div class="container">
-        <div class="row justify-content-md-center -body">
-            {% if user.is_authenticated %}
-                <div class="col-12">
-                    <p class="h2 text-white text-center">Dejar un comentario</p>
-                </div>
-                <div class="col-12 col-sm-7 my-4">
-                    <form action="">
-                            <div class="md-form">
-                                <textarea id="textarea-char-counter" class="md-textarea" length="120"></textarea>
-                                <label for="textarea-char-counter">Escriba su comentario</label>
-                            </div>
-                        <div class="text-center">
-                            <button class="btn btn-success btn-lg">
-                                Publicar
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            {% else %}
-            <div class="cta-3 text-center justify-center">
-                <div class="container">
-                    <h2 class="mb-4">Debe registrate o iniciar sesión para comentar en esta publicación</h2>
-                    <!-- <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
-                    <a class="btn btn-lg btn-success mt-5" href="{% url 'auth:login' %}">Iniciar Sesión</a>
-                    <a class="btn btn-lg btn-primary mt-5" href="{% url 'auth:register' %}">Registrarse</a>
                 </div>
             </div>
-            {% endif %}
         </div>
-    </div>
-</div>
-
-{% if has_comments %}
-
-    <div class="container">
-        {% for object in comments %}
-            <div class="row justify-content-md-center coments">
-                <div class="col-md-7 col-testimonial">
-                    <div class="row coment_body">
-                        <div class="col-3 col-sm-5 text-center">
-                            <img class="" src="https://api.adorable.io/avatars/150/abott@adorable.png">
+        <div class="rgba-green-light">
+            <div class="container">
+                <div class="row justify-content-md-center -body">
+                    {% if user.is_authenticated %}
+                        <div class="col-12">
+                            <p class="h2 text-dark text-center">Dejar un comentario</p>
                         </div>
-                        <div class="col-9 col-sm-7">
-                            <div class="comment-body">
-                                <p class="quote-text">
-                                    {{object.content|safe}}
-                                </p>
-                                <div class="footer">
-                                    <p><span class="quote-author">{{object.author}}</span></p>
+                        <div class="col-12 col-sm-10 my-4">
+                            <form action="{% url 'blog:add_comment' object.slug %}" method="post">
+                                {% csrf_token %}
+                                {{ form.media }}
+                                {{ form.as_p }}
+    
+                                <div class="text-center">
+                                    <button class="btn btn-success">Enviar
+                                        <i class="fa fa-paper-plane-o ml-1"></i>
+                                    </button>
                                 </div>
-                            </div>
+                            </form>
+                        </div>
+                    {% else %}
+                    <div class="cta-3 text-center justify-center">
+                        <div class="container">
+                            <h2 class="mb-4">Debe registrate o iniciar sesión para comentar en esta publicación</h2>
+                            <!-- <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
+                            <a class="btn btn-lg btn-success py" href="{% url 'auth:login' %}?next={{ request.path }}">Iniciar Sesión</a>
+                            <a class="btn btn-lg btn-primary py" href="{% url 'auth:register' %}?next={{ request.path }}">Registrarse</a>
                         </div>
                     </div>
-                </div>  
+                    {% endif %}
+                </div>
             </div>
-        {% endfor %}
+        </div>
+        {% if has_comments %}
+            <div class="container">
+                {% for object in comments %}
+                    <div class="row justify-content-md-center coments">
+                        <div class="col-md-7 col-testimonial">
+                            <div class="row coment_body">
+                                <div class="col-3 col-sm-5 text-center">
+                                    <img class="" src="https://api.adorable.io/avatars/150/abott@adorable.png">
+                                </div>
+                                <div class="col-9 col-sm-7">
+                                    <div class="comment-body">
+                                        <p class="quote-text">
+                                            {{object.content|safe}}
+                                        </p>
+                                        <div class="footer">
+                                            <p><span class="quote-author">{{object.author}}</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                {% endfor %}
+                {% include 'app/base/paginator.html' %}
+            </div>
+        {% endif %}
+
     </div>
-{% endif %}
 {% endblock %}
 
 {% block js %}
 <script>
     // new WOW().init();
     // $( ".wow" ).addClass( "fadeInUp" );
+</script>
+{% load static %}
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+<script>
+    $('.comment-body p img').addClass('img-fluid');
+    $( ".comment-body table" ).wrap( "<div class='table-responsive'></div>" );
 </script>
 {% endblock %}

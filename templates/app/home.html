@@ -1,370 +1,376 @@
-{% extends 'app/base/index.html' %}{% load staticfiles %}
+{% extends 'app/base/index.html' %}{% load staticfiles %}{% load thumbnail %}
 {% block css %}
     <link rel="stylesheet" href="{% static 'base/css/home.css' %}">
 {% endblock %}
 {% block full_screen %}
 {% endblock %}
 {% block content %}
+        {% if home_header_carousel %}
             <div class="container">
-                {% if home_header_carousel %}
-                    <div class="shadow" id="carousel-header">
-                        <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="8000">
-                            <ol class="carousel-indicators">
-                                {% for object in home_header_carousel_images %}
-                                    <li data-target="#carousel" data-slide-to="{{object.id}}"></li>
-                                {% endfor %}
-                            </ol>
-                            <div class="carousel-inner view hm-black-strong" role="listbox">
-                                {% for object in home_header_carousel_images %}
-                                    <div class="carousel-item view hm-black-strong {% if forloop.counter == 1 %}active {% endif %}">
-                            
-                                        <picture>
-                                            <img srcset="{{object.image.url}}" alt="{{object.name}}"
-                                                class="d-block img-fluid">
-                                        </picture>
-                            
-                                        <div class="carousel-caption">
-                                            <div>
-                                                <h2>{{object.name}}</h2>
-                                                {{object.text | safe}}
-                                                {% if object.call_to_action_url == None %}
-                                                {% else %}
-                                                    <a class="btn btn-outline-white waves-effect" href="{{object.call_to_action_url}}">Ver más</a>
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                {% endfor %}
-                            </div>
-                            <a class="carousel-control-prev" role="button" data-slide="prev"  href="#carousel">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Anterior</span>
-                            </a>
-                            <a class="carousel-control-next" role="button" data-slide="next"  href="#carousel">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Siguiente</span>
-                            </a>
-                        </div>
-                    </div>
-                {% else %}
-                    <div class="shadow" id="carousel-header">
-                        <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="8000">
-                            <ol class="carousel-indicators">
-                                <li data-target="#carousel" data-slide-to="0" class="active"></li>
-                                <li data-target="#carousel" data-slide-to="1"></li>
-                                <li data-target="#carousel" data-slide-to="2"></li>
-                            </ol>
-                            <div class="carousel-inner" role="listbox">
-                                <div class="carousel-item active">
+                <div class="shadow" id="carousel-header">
+                    <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="8000">
+                        <ol class="carousel-indicators">
+                            {% for object in home_header_carousel_images %}
+                                <li data-target="#carousel" data-slide-to="{{object.id}}"></li>
+                            {% endfor %}
+                        </ol>
+                        <div class="carousel-inner view hm-black-strong" role="listbox">
+                            {% for object in home_header_carousel_images %}
+                                <div class="carousel-item view hm-black-strong {% if forloop.counter == 1 %}active {% endif %}">
                                     <picture>
-                                        <img srcset="{% static 'base/img/moby-background-02.png' %}" alt="Algo"
+                                            <source 
+                                            {% thumbnail object.image '544' as im %}
+                                                srcset="{{ im.url }}" media="(max-width:{{ im.x }}px)"
+                                            {% endthumbnail %}>
+                                            <source 
+                                            {% thumbnail object.image '768' as im %}
+                                                srcset="{{ im.url }}" media="(min-width:545px)"
+                                            {% endthumbnail %}>
+                                            <source 
+                                            {% thumbnail object.image '992' as im %}
+                                                srcset="{{ im.url }}" media="(min-width:769px)"
+                                            {% endthumbnail %}>
+                                            <source 
+                                            {% thumbnail object.image '1200' as im %}
+                                                srcset="{{ im.url }}" media="(min-width:993px)"
+                                            {% endthumbnail %}>
+                                            <source 
+                                            {% thumbnail object.image '1920' as im %}
+                                                srcset="{{ im.url }}" media="(min-width:1201px)"
+                                            {% endthumbnail %}>
+                                            <img 
+                                            srcset="{% thumbnail object.image '1920' as im %}{{ im.url }}{% endthumbnail %}" alt="{{object.name}}"
                                             class="d-block img-fluid">
-                                    </picture>
+                                        </picture>
+                        
                                     <div class="carousel-caption">
                                         <div>
-                                            <h2>Nuestros Servicios</h2>
-                                            <p>CORTE, CANTEO, PERFORACIÓN, RANURADO, FRESADO, ARMADO, DESPACHO</p>
-                                            <a class="btn btn-outline-white waves-effect">Ver más</a>
+                                            <h2>{{object.name}}</h2>
+                                            {{object.text | safe}}
+                                            {% if object.call_to_action_url == None %}
+                                            {% else %}
+                                                <a class="btn btn-outline-white waves-effect" href="{{object.call_to_action_url}}">Ver más</a>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
-                                <div class="carousel-item">
-                                    <picture>
-                                        <img srcset="{% static 'base/img/moby-background-02.png' %}" alt="responsive image"
-                                            class="d-block img-fluid">
-                                    </picture>
-                                    <div class="carousel-caption justify-content-center align-items-center">
-                                        <div>
-                                            <h2>Nuestros productos</h2>
-                                            <p>HERRAJES, MELAMINA, GRANITO</p>
-                                            <a class="btn btn-outline-white waves-effect">Ver más</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <picture>
-                                        <img srcset="{% static 'base/img/moby-background-02.png' %}" alt="responsive image"
-                                            class="d-block img-fluid">
-                                    </picture>
-                                    <div class="carousel-caption justify-content-center align-items-center">
-                                        <div>
-                                            <h2>Promo del mes</h2>
-                                            <p>Promo por inicio de año, lleva tus herrajes a un 30% de descuento</p>
-                                            <a class="btn btn-outline-white waves-effect">Ver más</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a class="carousel-control-prev" role="button" data-slide="prev"  href="#carousel">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Anterior</span>
-                            </a>
-                            <a class="carousel-control-next" role="button" data-slide="next"  href="#carousel">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Siguiente</span>
-                            </a>
+                            {% endfor %}
                         </div>
+                        <a class="carousel-control-prev" role="button" data-slide="prev"  href="#carousel">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Anterior</span>
+                        </a>
+                        <a class="carousel-control-next" role="button" data-slide="next"  href="#carousel">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Siguiente</span>
+                        </a>
                     </div>
-                {% endif %}
+                </div>
             </div>
+        {% else %}
+        {% endif %}
+        <!-- Fin Bloque carrusel -->
+        {% if site_info %}
             <div class="container">
-                {% if site_info %}
-                    <div class="row" id="about">
-                        <div class="col-md-6 col-12">
-                            <div class="img shadow">
-                                <img class="img-fluid" src="{{site_info.site_img.url}}" alt="{{SITE_TITLE}}">
-                            </div>
+                <div class="row" id="about">
+                    <div class="col-md-6 col-12">
+                        <div class="img shadow">
+                            <img src="{% thumbnail site_info.site_img '1920' as im %}{{ im.url }}{% endthumbnail %}"
+                                srcset="
+                                {% thumbnail site_info.site_img '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                                {% thumbnail site_info.site_img '768' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                                {% thumbnail site_info.site_img '992' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                                {% thumbnail site_info.site_img '1200' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                                {% thumbnail site_info.site_img '1920' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %}"
+                                alt="{{SITE_TITLE}}" class="img-fluid">
                         </div>
-                        <div class="col-md-6 col-sm-12 align-self-center">
-                            <div class="card text-dark mb-3">
-                                <div class="card-body shadow">
-                                    <p>
-                                        <span class="h3 moby-text-h-1">
-                                            {{site_info.name}}
-                                        </span> 
-                                        <br> {{site_info.short_description|safe}}
-                                    </p>
-                                </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 align-self-center">
+                        <div class="card text-dark mb-3">
+                            <div class="card-body shadow">
+                                <p>
+                                    <span class="h3 moby-text-h-1">
+                                        {{site_info.name}}
+                                    </span> 
+                                    <br> {{site_info.short_description|safe|truncatechars:240}}
+                                </p>
                             </div>
                         </div>
                     </div>
-                    <div class="row" id="cards">
-                        <div class="col-sm-6 col-12">
-                            <div class="card text-center text-middle shadow view hm-black-strong">
-                                <img class="card-img" src="{{site_info.services_img}}" alt="Nuestros servicios">
-                                <div class="mask"></div>
+                </div>
+                <div class="row" id="cards">
+                    <div class="col-sm-6 col-12">
+                        <div class="card text-center text-middle shadow view hm-black-strong">
+                            {% if site_info.services_img %}
+                                <img src="{% thumbnail site_info.services_img '1920' as im %}{{ im.url }}{% endthumbnail %}"
+                                    srcset="
+                                    {% thumbnail site_info.services_img '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                                    {% thumbnail site_info.services_img '768' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                                    {% thumbnail site_info.services_img '992' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                                    {% thumbnail site_info.services_img '1200' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                                    {% thumbnail site_info.services_img '1920' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %}"
+                                    alt="Nuestros servicios" class="card-img img-fluid">
+                            {% else %}
+                            <img class="card-img" src="/static/base/img/moby.png" alt="Nuestros servicios">
+                            {% endif %}
+                            <div class="mask"></div>
+                        </div>
+                        <div class="card-img-overlay bg-light shadow">
+                            <h5 class="card-title">Nuestros Servicios</h5>
+                            <a href="{% url 'services:home' %}" class="btn btn-outline-black text-dark btn-sm">Ver más</a>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-12">
+                        <div class="card text-center text-middle shadow view hm-black-strong">
+                            {% if site_info.products_img %}
+                                <img src="{% thumbnail site_info.products_img '1920' as im %}{{ im.url }}{% endthumbnail %}"
+                                    srcset="
+                                    {% thumbnail site_info.products_img '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                                    {% thumbnail site_info.products_img '768' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                                    {% thumbnail site_info.products_img '992' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                                    {% thumbnail site_info.products_img '1200' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
+                                    {% thumbnail site_info.products_img '1920' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %}"
+                                    alt="Nuestros productos" class="card-img img-fluid">
+                            {% else %}
+                            <img class="card-img" src="/static/base/img/moby.png" alt="Nuestros productos">
+                            {% endif %}
+                            <div class="mask"></div>
+                        </div>
+                        <div class="card-img-overlay bg-light shadow">
+                            <h5 class="card-title">Nuestros productos</h5>
+                            <a href="{% url 'sales:all' %}" class="btn btn-outline-black text-dark btn-sm">Ver más</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="container"></div>
+                <div class="row" id="about">
+                    <div class="col-md-6 col-12">
+                        <div class="img shadow">
+                            <img class="img-fluid" src="/static/base/img/woman.png" alt="{{SITE_TITLE}}">
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 align-self-center">
+                        <div class="card text-dark mb-3">
+                            <div class="card-body shadow">
+                                <p>
+                                    <span class="h3 moby-text-h-1">
+                                        Moby Panamá, S.A.
+                                    </span> 
+                                    <br> fue fundada en Panamá en el año 2011 estructurada en forma sociedad
+                                    anónima.
+                                </p>
                             </div>
-                            <div class="card-img-overlay bg-light shadow">
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="cards">
+                    <div class="col-sm-6 col-12">
+                        <div class="card text-center text-middle shadow">
+                            <img class="card-img" src="{% static 'base/img/moby-background-03.png' %}" alt="Card image">
+                            <div class="card-img-overlay">
                                 <h5 class="card-title">Nuestros Servicios</h5>
                                 <a href="{% url 'services:home' %}" class="btn btn-outline-black text-dark btn-sm">Ver más</a>
                             </div>
                         </div>
-                        <div class="col-sm-6 col-12">
-                            <div class="card text-center text-middle shadow view hm-black-strong">
-                                <img class="card-img" src="{{site_info.products_img}}" alt="Nuestros productos">
-                                <div class="mask"></div>
-                            </div>
-                            <div class="card-img-overlay bg-light shadow">
+                    </div>
+                    <div class="col-sm-6 col-12">
+                        <div class="card text-center text-middle shadow">
+                            <img class="card-img" src="{% static 'base/img/moby-background-04.png' %}" alt="Card image">
+                            <div class="card-img-overlay">
                                 <h5 class="card-title">Nuestros productos</h5>
                                 <a href="{% url 'sales:all' %}" class="btn btn-outline-black text-dark btn-sm">Ver más</a>
                             </div>
                         </div>
                     </div>
-                {% else %}
-                    <div class="row" id="about">
-                        <div class="col-md-6 col-12">
-                            <div class="img shadow">
-                                <img class="img-fluid" src="/static/base/img/woman.png" alt="{{SITE_TITLE}}">
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-sm-12 align-self-center">
-                            <div class="card text-dark mb-3">
-                                <div class="card-body shadow">
-                                    <p>
-                                        <span class="h3 moby-text-h-1">
-                                            Moby Panamá, S.A.
-                                        </span> 
-                                        <br> fue fundada en Panamá en el año 2011 estructurada en forma sociedad
-                                        anónima.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" id="cards">
-                        <div class="col-sm-6 col-12">
-                            <div class="card text-center text-middle shadow">
-                                <img class="card-img" src="{% static 'base/img/moby-background-03.png' %}" alt="Card image">
-                                <div class="card-img-overlay">
-                                    <h5 class="card-title">Nuestros Servicios</h5>
-                                    <a href="{% url 'services:home' %}" class="btn btn-outline-black text-dark btn-sm">Ver más</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-12">
-                            <div class="card text-center text-middle shadow">
-                                <img class="card-img" src="{% static 'base/img/moby-background-04.png' %}" alt="Card image">
-                                <div class="card-img-overlay">
-                                    <h5 class="card-title">Nuestros productos</h5>
-                                    <a href="{% url 'sales:all' %}" class="btn btn-outline-black text-dark btn-sm">Ver más</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
-            </div>
-            <div class="container-fluid" id="departments">
-                {% if departments %}
-                    <div class="row">
-                        {% for object in departments %}
-                            <div class="col-12 col-md-6 col-lg-3">
-                                <div class="card card-image" style="background-image: url({{object.background.url}});">
-                                    <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
-                                        <div>
-                                            <h3 class="card-title pt-2">
-                                                <a href="{{object.get_absolute_url}}" class="white-text">
-                                                    <strong>{{object.name}}</strong>
-                                                </a>
-                                            </h3>
-                                            <p>
-                                                {{object.description|safe|truncatechars:150}}
-                                            </p>
-                                            <a class="btn moby-gradient" href="{{object.get_absolute_url}}">
-                                                <i class="fa fa-clone left"></i>
-                                                Ver más
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% else %}
-
-                    <div class="row">
-                        <div class="col-12 col-md-6 col-lg-3">
-                            <div class="card card-image" style="background-image: url(https://mdbootstrap.com/img/Photos/Horizontal/Work/4-col/img%20%2814%29.jpg);">
-                                <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
-                                    <div>
-                                        <h3 class="card-title pt-2">
-                                            <strong>Cantos</strong>
-                                        </h3>
-                                        <p>
-                                            Repellat fugiat, laboriosam, voluptatem, optio vero odio nam sit officia
-                                        </p>
-                                        <a class="btn moby-gradient">
-                                            <i class="fa fa-clone left"></i>
-                                            Ver más
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-3">
-                            <div class="card card-image" style="background-image: url(https://mdbootstrap.com/img/Photos/Horizontal/Work/4-col/img%20%2814%29.jpg);">
-                                <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
-                                    <div>
-                                        <h3 class="card-title pt-2">
-                                            <strong>Laminas</strong>
-                                        </h3>
-                                        <p>
-                                            Repellat fugiat, laboriosam, voluptatem, optio vero odio nam sit officia
-                                        </p>
-                                        <a class="btn moby-gradient">
-                                            <i class="fa fa-clone left"></i>
-                                            Ver más
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-3">
-                            <div class="card card-image" style="background-image: url(https://mdbootstrap.com/img/Photos/Horizontal/Work/4-col/img%20%2814%29.jpg);">
-                                <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
-                                    <div>
-                                        <h3 class="card-title pt-2">
-                                            <strong>Sobres</strong>
-                                        </h3>
-                                        <p>
-                                            Repellat fugiat, laboriosam, voluptatem, optio vero odio nam sit officia
-                                        </p>
-                                        <a class="btn moby-gradient">
-                                            <i class="fa fa-clone left"></i>
-                                            Ver más
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-3">
-                            <div class="card card-image" style="background-image: url(https://mdbootstrap.com/img/Photos/Horizontal/Work/4-col/img%20%2814%29.jpg);">
-                                <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
-                                    <div>
-                                        <h3 class="card-title pt-2">
-                                            <strong>Herrajes</strong>
-                                        </h3>
-                                        <p>
-                                            Repellat fugiat, laboriosam, voluptatem, optio vero odio nam sit officia
-                                        </p>
-                                        <a class="btn moby-gradient">
-                                            <i class="fa fa-clone left"></i>
-                                            Ver más
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
-            </div>
-            <div class="container" id="blog">
-                <div class="row">
-                    {% if blog_post %}
-                        {% for object in blog_post %}
-                            <div class="col-sm-4 col-xs-12 align-self-center">
-                                <div class="item">
-                                    <div class="header">
-                                        {% if object.img %}
-                                        <img class="mb-4 img-fluid" src="{{object.img.url}}" alt="{{object.title}}">
-                                        {% else %}
-                                        <img class="mb-4 img-fluid" src="/static/base/img/moby-background-01.png" alt="{{object.title}}">
-                                        {% endif %}
-                                    </div>
-                                    <div class="body">
-                                        <h3>
-                                            <a href="{% url 'blog:blog_detail' object.slug %}" class="text-dark">
-                                                {{object.title}}
-                                            </a>
-                                        </h3>
-                                        <p class="mt-4 mb-4">
-                                            {{object.text|truncatewords:8|safe }}
-                                        </p>
-                                    </div>
-                                    <div class="footer">
-                                        <a class="btn btn-outline-black text-dark float-right" href="{% url 'blog:blog_detail' object.slug %}" role="button">
-                                            <i class="material-icons">launch</i>Leer más
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor%}
-                    {% else %}
-                        {% for object in blog_post_test %}
-                            <div class="col-sm-4 col-12 align-self-center">
-                                <div class="item">
-                                    <div class="header">
-                                        <img class="mb-4 img-fluid" src="{{object.img}}" alt="{{object.title}}">
-                                    </div>
-                                    <div class="body">
-                                        <h3>
-                                            <a href="{% url 'blog:blog_detail' object.slug %}" class="text-dark">
-                                                {{object.title}}
-                                            </a>
-                                        </h3>
-                                        <p class="mt-4 mb-4">
-                                            {{object.text|truncatewords:8 }}
-                                        </p>
-                                    </div>
-                                    <div class="footer">
-                                        <a class="btn btn-outline-black text-dark float-right" href="{% url 'blog:blog_detail' object.slug %}" role="button">
-                                            <i class="material-icons">launch</i>Leer más
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor%}
-                    {% endif %}
                 </div>
             </div>
+        {% endif %}
+        <!-- Fin Bloque imgen corporativa y enlaces -->
+        {% if departments %}
+            <div class="container-fluid" id="departments">
+                <div class="row">
+                    {% for object in departments %}
+                        <div class="col-12 col-md-6 col-lg-3 d-flex align-items-stretch">
+                            {% if object.background %}
+                            <div class="card card-image" style="background-image: url({{object.background.url}}); max-height:300px;">
+                            {% else %}
+                            <div class="card card-image" style="background-image: url(/static/base/img/moby-background-01.png); max-height:300px;">
+                            {% endif %}
+                                
+                                <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                                    <div>
+                                        <h3 class="card-title pt-2">
+                                            <a href="{{object.get_absolute_url}}" class="white-text">
+                                                <strong>{{object.name}}</strong>
+                                            </a>
+                                        </h3>
+                                        <p>
+                                            {{object.description|safe|truncatechars:120}}
+                                        </p>
+                                        <a class="btn moby-gradient" href="{{object.get_absolute_url}}">
+                                            <i class="fa fa-clone left"></i>
+                                            Ver más
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% else %}
+            <div class="container-fluid" id="departments">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-3 d-flex align-items-stretch">
+                        <div class="card card-image" style="background-image: url(/static/base/img/moby-background-01.png); max-height:300px;">
+                            <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                                <div>
+                                    <h3 class="card-title pt-2">
+                                        <strong>Cantos</strong>
+                                    </h3>
+                                    <p>
+                                        Repellat fugiat, laboriosam, voluptatem, optio vero odio nam sit officia
+                                    </p>
+                                    <a class="btn moby-gradient">
+                                        <i class="fa fa-clone left"></i>
+                                        Ver más
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="card card-image" style="background-image: url(/static/base/img/moby-background-01.png);">
+                            <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                                <div>
+                                    <h3 class="card-title pt-2">
+                                        <strong>Laminas</strong>
+                                    </h3>
+                                    <p>
+                                        Repellat fugiat, laboriosam, voluptatem, optio vero odio nam sit officia
+                                    </p>
+                                    <a class="btn moby-gradient">
+                                        <i class="fa fa-clone left"></i>
+                                        Ver más
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="card card-image" style="background-image: url(/static/base/img/moby-background-01.png);">
+                            <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                                <div>
+                                    <h3 class="card-title pt-2">
+                                        <strong>Sobres</strong>
+                                    </h3>
+                                    <p>
+                                        Repellat fugiat, laboriosam, voluptatem, optio vero odio nam sit officia
+                                    </p>
+                                    <a class="btn moby-gradient btn-sm">
+                                        <i class="fa fa-clone left"></i>
+                                        Ver más
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="card card-image" style="background-image: url(/static/base/img/moby-background-01.png);">
+                            <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                                <div>
+                                    <h3 class="card-title pt-2">
+                                        <strong>Herrajes</strong>
+                                    </h3>
+                                    <p>
+                                        Repellat fugiat, laboriosam, voluptatem, optio vero odio nam sit officia
+                                    </p>
+                                    <a class="btn moby-gradient btn-sm">
+                                        <i class="fa fa-clone left"></i>
+                                        Ver más
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <!-- Fin linea de departamentos -->
+        {% if blog_post %}
+            <div class="container" id="blog">
+                <div class="row justify-content-md-center">
+                    {% for object in blog_post %}
+                        <div class="col-md-4 col-12 align-self-center">
+                            <div class="item">
+                                <div class="header">
+                                    {% if object.img %}
+                                    <img class="mb-4 img-fluid" src="{{object.img.url}}" alt="{{object.title}}">
+                                    {% else %}
+                                    <img class="mb-4 img-fluid" src="/static/base/img/moby-background-01.png" alt="{{object.title}}">
+                                    {% endif %}
+                                </div>
+                                <div class="body">
+                                    <h4>
+                                        <a href="{% url 'blog:blog_detail' object.slug %}" class="text-dark">
+                                            {{object.title}}
+                                        </a>
+                                    </h4>
+                                    <p class="mt-4 mb-4">
+                                        {{object.text|truncatewords:8|safe }}
+                                    </p>
+                                </div>
+                                <div class="footer">
+                                    <a class="btn btn-outline-black text-dark float-right btn-sm" href="{% url 'blog:blog_detail' object.slug %}" role="button">
+                                        Leer más
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor%}
+                </div>
+            </div>
+        {% else %}
+            <div class="container" id="blog">
+                <div class="row">
+                    {% for object in blog_post_test %}
+                        <div class="col-md-4 col-12 align-self-center">
+                            <div class="item">
+                                <div class="header">
+                                    {% if object.img %}
+                                    <img class="mb-4 img-fluid" src="{{object.img.url}}" alt="{{object.title}}">
+                                    {% else %}
+                                    <img class="mb-4 img-fluid" src="/static/base/img/moby-background-01.png" alt="{{object.title}}">
+                                    {% endif %}
+                                </div>
+                                <div class="body">
+                                    <h4>
+                                        <a href="{% url 'blog:blog_detail' object.slug %}" class="text-dark">
+                                            {{object.title}}
+                                        </a>
+                                    </h4>
+                                    <p class="mt-4 mb-4">
+                                        {{object.text|truncatewords:8 }}
+                                    </p>
+                                </div>
+                                <div class="footer">
+                                    <a class="btn btn-outline-black text-dark float-right btn-sm" href="{% url 'blog:blog_detail' object.slug %}" role="button">
+                                        Leer más
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor%}
+                </div>
+            </div>
+        {% endif %}
+        <!-- Fin Bloque noticias -->
 {% endblock %}
 {% block js %}
     <script>
-    // $('#departments .row:nth-child(odd)').addClass('bg-light shadow');
-    // $('#departments .row:nth-child(even)').addClass('bg-dark shadow');
-    // $('#departments .row .img').css('margin-left','-16px');
-    // $('#departments .row .img').css('margin-right','-16px');
-    // $('#departments .row:last-child()').css('margin-bottom','0px');
-    // $('#departments .row:nth-child(even) .col-12:nth-child(odd)').addClass('order-first order-sm-12');
-    // $('#departments .row:nth-child(even) .col-12:nth-child(even)').addClass('order-last order-sm-1');
+        $('.item .body p img').addClass('img-fluid');
+        $( ".item .body table" ).wrap( "<div class='table-responsive'></div>" );
     </script>
 {% endblock %}
