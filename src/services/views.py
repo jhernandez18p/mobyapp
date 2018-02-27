@@ -43,9 +43,9 @@ class ServiceDetail(DetailView):
             msg.attach_alternative(html_content, "text/html")
             msg.send()
 
-            return HttpResponseRedirect('/servicios')
+            return HttpResponseRedirect('/servicios/gracias')
         else:
-            return HttpResponseRedirect('/servicios')
+            return HttpResponseRedirect('/servicios/error')
         return render(request, self.template_name, {'form': form})
 
     def get_context_data(self, **kwargs):
