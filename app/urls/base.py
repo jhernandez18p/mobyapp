@@ -12,6 +12,7 @@ from django.conf.urls import handler404,handler500,handler403,handler400
 from src.base import views as base_views
 from rest_framework import routers
 from app.urls import rest
+from app.urls import error
 
 router = routers.DefaultRouter()
 router.register(r'users', rest.UserViewSet)
@@ -51,7 +52,7 @@ if settings.DEBUG:
 admin.site.site_title = 'Dev2tech CMS'
 admin.site.site_header = 'CMS Moby Supply'
 
-handler404 = 'app.urls.error.page_not_found_view'
-handler500 = 'app.urls.error.error_view'
-handler403 = 'app.urls.error.permission_denied_view'
-handler400 = 'app.urls.error.bad_request_view'
+handler404 = error.page_not_found_view
+handler500 = error.error_view
+handler403 = error.permission_denied_view
+handler400 = error.bad_request_view
