@@ -26,7 +26,7 @@ def get_upload_path(instance, filename):
     return os.path.join('blog/%s/'%(a.lower()), datetime.now().date().strftime("%Y/%m/%d"), filename)
 
 def create_slug(instance, new_slug=None):
-    slug = slugify(instance.name)
+    slug = slugify(instance.title)
     if new_slug is not None:
         slug = new_slug
     qs = instance.__class__.objects.filter(slug=slug).order_by("-id")
