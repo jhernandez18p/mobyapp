@@ -31,6 +31,10 @@ class Home(ListView):
         departments = Department.objects.all()
         if departments.exists():
             context['departments'] = departments[:4]
+
+        providers = Provider.objects.all()
+        if providers.exists():
+            context['providers'] = providers[:4]
         
         context['SITE_URL'] = 'Nuestros productos'
         context['has_newsletter'] = True
