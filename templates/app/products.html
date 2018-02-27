@@ -200,7 +200,7 @@
                     <div class="col-sm-12">
                         <header class="text-center">
                             <h2 class="text-uppercase">
-                                <a href="{% url 'sales:providers' %}">Marcas</a>
+                                <a href="{% url 'sales:providers' %}" class="text-dark">Marcas</a>
                             </h2>
                         </header>
                     </div>
@@ -211,7 +211,7 @@
                                     {% if object.logo %}
                                     <img class="owl-lazy" data-src="{{object.logo.url}}" alt="{{object.name}}">
                                     {% else %}
-                                    <img class="owl-lazy" data-src="/static/base/img/moby-brands-finsa.jpg" alt="{{object.name}}">
+                                    <img class="owl-lazy" data-src="/static/base/img/moby.png" alt="{{object.name}}">
                                     {% endif %}
                                 </a>
                             {% endfor %}
@@ -227,12 +227,7 @@
                     </div>
                     <div class="col-12">
                         <div class="owl-carousel owl-theme">
-                            <img class="owl-lazy" data-src="/static/base/img/moby-brands-finsa.jpg" alt="">
-                            <img class="owl-lazy" data-src="/static/base/img/moby-brands-finsa.jpg" alt="">
-                            <img class="owl-lazy" data-src="/static/base/img/moby-brands-finsa.jpg" alt="">
-                            <img class="owl-lazy" data-src="/static/base/img/moby-brands-finsa.jpg" alt="">
-                            <img class="owl-lazy" data-src="/static/base/img/moby-brands-finsa.jpg" alt="">
-                            <img class="owl-lazy" data-src="/static/base/img/moby-brands-finsa.jpg" alt="">
+                            <img class="owl-lazy" data-src="/static/base/img/moby.png" alt="Moby Supply">
                         </div>
                     </div>
                 {% endif %}
