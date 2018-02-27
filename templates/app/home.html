@@ -101,7 +101,7 @@
                 <div class="row" id="cards">
                     <div class="col-sm-6 col-12">
                         <div class="card text-center text-middle shadow view hm-black-strong">
-                            {% if site_info.services_img %}
+                            {% if site_info.services_img != None %}
                                 <img src="{% thumbnail site_info.services_img '1920' as im %}{{ im.url }}{% endthumbnail %}"
                                     srcset="
                                     {% thumbnail site_info.services_img '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
@@ -122,7 +122,7 @@
                     </div>
                     <div class="col-sm-6 col-12">
                         <div class="card text-center text-middle shadow view hm-black-strong">
-                            {% if site_info.products_img %}
+                            {% if site_info.products_img != None %}
                                 <img src="{% thumbnail site_info.products_img '1920' as im %}{{ im.url }}{% endthumbnail %}"
                                     srcset="
                                     {% thumbnail site_info.products_img '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
