@@ -108,13 +108,13 @@
                         </div>
                         <hr class="special-color-dark mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
                         {% for page in flatpages %}
-                            {% if page.title == '¿Quienes somos?' %}
+                            {% if page.url == '/quienes-somos/' %}
                             {% endif %}
-                            {% if page.title == 'Preguntas Frecuentes' %}
+                            {% if page.url == '/preguntas-frecuentes/' %}
                             {% endif %}
-                            {% if page.title == 'Terminos y condiciones' %}
+                            {% if page.url == '/terminos-y-condiciones/' %}
                             {% endif %}
-                            {% if page.title == 'Terminos y condiciones' %}
+                            {% if page.url == '/privacidad/' %}
                             {% endif %}
                             <li>
                                 <a href="{{ page.url }}">{{ page.title }}</a>
