@@ -111,16 +111,14 @@
                             <ul class="navbar-nav ml-auto">
                                 {% for page in flatpages %}
                                     {% if page.url == '/quienes-somos/' %}
+                                    {% elif page.url == '/preguntas-frecuentes/' %}
+                                    {% elif page.url == '/terminos-y-condiciones/' %}
+                                    {% elif page.url == '/privacidad/' %}
+                                    {% else %}
+                                        <li class="nav-item">
+                                            <a href="{{ page.url }}" class="nav-link text-uppercase text-white">{{ page.title }}</a>
+                                        </li>
                                     {% endif %}
-                                    {% if page.url == '/preguntas-frecuentes/' %}
-                                    {% endif %}
-                                    {% if page.url == '/terminos-y-condiciones/' %}
-                                    {% endif %}
-                                    {% if page.url == '/privacidad/' %}
-                                    {% endif %}
-                                    <li class="nav-item">
-                                        <a href="{{ page.url }}">{{ page.title }}</a>
-                                    </li>
                                 {% endfor %}
                             </ul>
                         </div>
