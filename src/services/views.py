@@ -60,35 +60,25 @@ class ServiceDetail(DetailView):
 
 
 class ServiceThanks(ListView):
-    # model =
-    # context_object_name = 'boards'
     model = Service
-    template_name = 'app/services/thanks.html'
+    template_name = 'app/base/thanks.html'
 
     def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
-        # Add in a QuerySet of all the books
         context['has_newsletter'] = True
         context['SITE_URL'] = 'Services'
-        # context['services'] = queryset
         context['url'] = reverse('services:home')
 
         return context
 
 class ServiceError(ListView):
-    # model =
-    # context_object_name = 'boards'
     model = Service
-    template_name = 'app/services/error.html'
+    template_name = 'app/base/error.html'
 
     def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
-        # Add in a QuerySet of all the books
         context['has_newsletter'] = True
         context['SITE_URL'] = 'Services'
-        # context['services'] = queryset
         context['url'] = reverse('services:home')
 
         return context

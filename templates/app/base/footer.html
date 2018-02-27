@@ -127,46 +127,46 @@
                         </div>
                         <hr class="special-color-dark mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
                         <p class="text-white">
-                            {% if site_address == '' %}
+                            {% if site_address == None %}
                             Ernesto T. Lefevre, diagonal a Waikiki, Panama Panamá <br>Ciudad de Panamá
                             {% else %}
                             {{site_address | safe}}
                             {% endif %}
                         </p>
                         <p class="text-white">
-                                {% if site_phone == '' %}
+                                {% if site_phone == None %}
                                 +(507)-800-MOBY 
                                 {% else %}
                                 {{site_phone |safe}}
                                 {% endif %}
                             <br>
-                                {% if site_phone2 == '' %}
+                                {% if site_phone2 == None %}
                                 +(507)-800-6629
                                 {% else %}
                                 {{site_phone2 | safe}}
                                 {% endif %}
                             <br>
 
-                                {% if site_workday == '' %}
+                                {% if site_workday == None %}
                                 Lun - Vie
                                 {% else %}
                                 {{site_workday | safe}}
                                 {% endif %}
                                 ,
-                                {% if site_schedule == '' %}
+                                {% if site_schedule == None %}
                                 8:00 am - 5:00 pm
                                 {% else %}
                                 {{site_schedule | safe}}
                                 {% endif %}
                         </p>
                         <p class="text-white">
-                                {% if site_email == '' %}
+                                {% if site_email == None %}
                                 info@moby-group.com
                                 {% else %}
                                 {{site_email | safe}}
                                 {% endif %}
                             <br>
-                                {% if site_email2 == '' %}
+                                {% if site_email2 == None %}
                                 sale@moby-group.com
                                 {% else %}
                                 {{site_email2 | safe}}
