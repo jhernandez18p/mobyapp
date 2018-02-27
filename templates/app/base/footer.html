@@ -107,19 +107,23 @@
                             <p class="h2 text-white">Enlaces</p>
                         </div>
                         <hr class="special-color-dark mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-                        {% for page in flatpages %}
-                            {% if page.url == '/quienes-somos/' %}
-                            {% endif %}
-                            {% if page.url == '/preguntas-frecuentes/' %}
-                            {% endif %}
-                            {% if page.url == '/terminos-y-condiciones/' %}
-                            {% endif %}
-                            {% if page.url == '/privacidad/' %}
-                            {% endif %}
-                            <li>
-                                <a href="{{ page.url }}">{{ page.title }}</a>
-                            </li>
-                        {% endfor %}
+                        <div class="list">
+                            <ul class="navbar-nav ml-auto">
+                                {% for page in flatpages %}
+                                    {% if page.url == '/quienes-somos/' %}
+                                    {% endif %}
+                                    {% if page.url == '/preguntas-frecuentes/' %}
+                                    {% endif %}
+                                    {% if page.url == '/terminos-y-condiciones/' %}
+                                    {% endif %}
+                                    {% if page.url == '/privacidad/' %}
+                                    {% endif %}
+                                    <li class="nav-item">
+                                        <a href="{{ page.url }}">{{ page.title }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </div>
                     <div class="col-12 col-md-6 col-lg-3 ">
                         <div class="header">
