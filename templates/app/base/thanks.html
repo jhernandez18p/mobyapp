@@ -1,0 +1,30 @@
+{% extends 'app/base/index.html' %}{% load staticfiles %}
+
+{% block css %}
+<style>
+        #blog{
+        padding-top: 125px !important;
+        background-color:unset;
+    }
+</style>
+{% endblock %}
+
+{% block full_screen %}
+
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="py-4" id="blog">
+        <h2 class="h1 text-center mb-5">Gracias por creer en nosotros</h2>
+        <p class="text-center mb-5 pb-5">
+            Bienvenidos a <span>{{SITE_TITLE}}</span>
+        </p>
+        <p class="text-center">ir a <span><a href="{% url 'front:home' %}">Inicio</a></span></p>
+    </div>
+</div>
+    
+{% endblock %}
+
+{% block js %}
+{% endblock %}

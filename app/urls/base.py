@@ -20,10 +20,10 @@ sitemaps = {
     'flatpages': FlatPageSitemap,
 }
 
-handler404 = 'app.urls.views.page_not_found_view'
-handler500 = 'app.urls.views.error_view'
-handler403 = 'app.urls.views.permission_denied_view'
-handler400 = 'app.urls.views.bad_request_view'
+handler404 = 'app.error.views.page_not_found_view'
+handler500 = 'app.error.views.error_view'
+handler403 = 'app.error.views.permission_denied_view'
+handler400 = 'app.error.views.bad_request_view'
 
 urlpatterns = [
     path('', include('src.base.urls', namespace='front')),

@@ -136,8 +136,6 @@ class Services(ListView):
 
 
 class Contact(ListView):
-    # model =
-    # context_object_name = 'boards'
     form_class = ContactForm
     queryset = ''
     template_name = 'app/contact.html'
@@ -149,9 +147,9 @@ class Contact(ListView):
             print(form.cleaned_data.get('email'))
             print(form.cleaned_data.get('subject'))
             print(form.cleaned_data.get('message'))
-            return HttpResponseRedirect('/contacto')
+            return HttpResponseRedirect('/contacto/gracias')
         else:
-            return HttpResponseRedirect('/contacto')
+            return HttpResponseRedirect('/contacto/error')
         return render(request, self.template_name, {'form': form})
 
     def get_context_data(self, **kwargs):
@@ -179,7 +177,7 @@ class Search(ListView):
 
 
 class ContactThanks(View):
-    template_name = 'app/contact_thanks.html'
+    template_name = 'app/base/thanks.html'
 
 
     def get(self, request, *args, **kwargs):
@@ -189,7 +187,7 @@ class ContactThanks(View):
 
 
 class ContactError(View):
-    template_name = 'app/contact_error.html'
+    template_name = 'app/base/error.html'
 
 
     def get(self, request, *args, **kwargs):
