@@ -102,7 +102,7 @@
                     <div class="col-sm-6 col-12">
                         <div class="card text-center text-middle shadow view hm-black-strong">
                             {% if site_info.services_img != None %}
-                                <img src="{% thumbnail site_info.services_img '1920' as im %}{{ im.url }}{% endthumbnail %}"
+                                <img src="{{ site_info.services_img.url }}"
                                     srcset="
                                     {% thumbnail site_info.services_img '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
                                     {% thumbnail site_info.services_img '768' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
@@ -123,7 +123,7 @@
                     <div class="col-sm-6 col-12">
                         <div class="card text-center text-middle shadow view hm-black-strong">
                             {% if site_info.products_img != None %}
-                                <img src="{% thumbnail site_info.products_img '1920' as im %}{{ im.url }}{% endthumbnail %}"
+                            <img src="{{ site_info.products_img.url }}"
                                     srcset="
                                     {% thumbnail site_info.products_img '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
                                     {% thumbnail site_info.products_img '768' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
