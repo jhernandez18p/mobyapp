@@ -12,12 +12,12 @@ from .views import (
 app_name = 'sales'
 urlpatterns = [
     path('', Home.as_view(), name='home'),
-    path('/todos', ProductsList.as_view(), name='all'),
-    path('/detalle/<slug:slug>', ProductsDetail.as_view(), name='product_detail'),
+    path('todos/', ProductsList.as_view(), name='all'),
+    path('detalles/<slug:slug>', ProductsDetail.as_view(), name='product_detail'),
     
-    path('/departamentos', Departments.as_view(), name='departments'),
-    path('/departamento/<slug:slug>', DepartmentDetail.as_view(), name='department_detail'),
+    path('departamentos/', Departments.as_view(), name='departments'),
+    path('departamentos/<slug:slug>/', DepartmentDetail.as_view(), name='department_detail'),
 
-    path('/proveedores', Providers.as_view(), name='providers'),
-    path('/proveedor/<slug:slug>', ProvidersDetails.as_view(), name='provider_detail'),
+    path('marcas/', Providers.as_view(), name='brands'),
+    path('marcas/<slug:slug>/', ProvidersDetails.as_view(), name='brand_detail'),
 ]

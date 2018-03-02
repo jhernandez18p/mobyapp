@@ -201,7 +201,7 @@
     <div class="row align-items-center my-5">
         <div class="col-sm-2"></div>
         <div class="col-12 col-sm-8 align-self-center p-5 bg-white shadow">
-            <form action="{% url 'front:contact' %}" method="post">
+            <form action="{% url 'services:detail' object.slug  %}?name={{object.name}}" method="post">
                 {% csrf_token %}
                 <p class="h5 text-center mb-4">Solicita nuestro servicio de {{object.name}}</p>
                 {% for field in form %}
@@ -228,6 +228,8 @@
                         {{ field.label_tag | safe  }}
                     </div>
                 {% endfor %}
+                <input type="hidden" name="service" value="{{object.name}}">
+                
                 <div class="text-center">
                     <button class="btn btn-success">Enviar
                         <i class="fa fa-paper-plane-o ml-1"></i>

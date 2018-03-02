@@ -1,33 +1,110 @@
 from import_export import resources,fields
 from import_export.widgets import (ForeignKeyWidget, CharWidget, IntegerWidget, DecimalWidget)
 from .models import (
-    Line,SubLine,Type,Color,Provider,Department,Category,Article,
+    Line,SubLine,Type,Color,Provider,Department,Category,Article,Brands,
 )
 
-class ArticleResource(resources.ModelResource):
+class LineResource(resources.ModelResource):
+    
+    class Meta:
+        model = Line
+        import_id_fields = ('code',)
+        export_order = ('name','code','description')
+        fields = ['description','code','name']
+        exclude = ('img',)
 
-    id = fields.Field(attribute='id',column_name='id',widget=ForeignKeyWidget('self'))
-    category = fields.Field(column_name='co_cat',attribute='category',widget=ForeignKeyWidget(Category))
-    code = fields.Field(column_name='co_art',attribute='code',widget=IntegerWidget())
-    color = fields.Field(column_name='co_color',attribute='color',widget=ForeignKeyWidget(Color))
-    description = fields.Field(column_name='art_des',attribute='description',widget=CharWidget())
-    img = fields.Field(column_name='picture',attribute='img',widget=CharWidget())
-    item_type = fields.Field(column_name='tipo',attribute='item_type',widget=ForeignKeyWidget(Type))
-    line = fields.Field(column_name='co_lin',attribute='line',widget=ForeignKeyWidget(Line))
-    model = fields.Field(column_name='modelo',attribute='model',widget=CharWidget())
-    origin = fields.Field(column_name='procedenci',attribute='origin',widget=CharWidget())
-    price_1 = fields.Field(column_name='prec_vta1',attribute='price_1',widget=DecimalWidget())
-    price_2 = fields.Field(column_name='prec_vta2',attribute='price_2',widget=DecimalWidget())
-    price_3 = fields.Field(column_name='prec_vta3',attribute='price_3',widget=DecimalWidget())
-    price_4 = fields.Field(column_name='prec_vta4',attribute='price_4',widget=DecimalWidget())
-    price_5 = fields.Field(column_name='prec_vta5',attribute='price_5',widget=DecimalWidget())
-    provider = fields.Field(column_name='co_prov',attribute='provider',widget=ForeignKeyWidget(Provider))
-    ref = fields.Field(column_name='ref',attribute='ref',widget=CharWidget())
-    sales_unit = fields.Field(column_name='uni_venta',attribute='sales_unit',widget=CharWidget())
-    stock = fields.Field(column_name='sstock_act',attribute='stock',widget=IntegerWidget())
-    sub_line = fields.Field(column_name='co_subl',attribute='sub_line',widget=ForeignKeyWidget(SubLine))
+
+class SubLineResource(resources.ModelResource):
+
+    class Meta:
+        model = SubLine
+        import_id_fields = ('code',)
+        export_order = ('name','code','description')
+        fields = ['description','code','name']
+        exclude = ('img','parent')
+
+
+class TypeResource(resources.ModelResource):
+
+    class Meta:
+        model = Type
+        import_id_fields = ('code',)
+        export_order = ('name','code','description')
+        fields = ['description','code','name']
+        exclude = ('background','img')
+
+
+class ColorResource(resources.ModelResource):
+
+    class Meta:
+        model = Color
+        import_id_fields = ('code',)
+        export_order = ('name','code','description')
+        fields = ['description','code','name']
+        exclude = ('hex_code',)
+
+
+class ProviderResource(resources.ModelResource):
+
+    class Meta:
+        model = Provider
+        import_id_fields = ('code',)
+        export_order = ('name','code','description')
+        fields = ['description','code','name']
+        exclude = ('background','img','logo','slug','website')
+
+
+class BrandsResource(resources.ModelResource):
+
+    class Meta:
+        model = Brands
+        import_id_fields = ('code',)
+        export_order = ('name','code','description')
+        fields = ['description','code','name']
+        exclude = ('background','img','logo','slug','website')
+
+
+class DepartmentResource(resources.ModelResource):
+
+    class Meta:
+        model = Department
+        import_id_fields = ('code',)
+        export_order = ('name','code','description')
+        fields = ['description','code','name']
+        exclude = ('background','img','name','slug')
+
+
+class CategoryResource(resources.ModelResource):
+
+    class Meta:
+        model = Category
+        import_id_fields = ('code',)
+        export_order = ('name','code','description')
+        fields = ['description','code','name']
+        exclude = ('background','img','parent','slug')
+
+    
+class ArticleResource(resources.ModelResource):
 
     class Meta:
         model = Article
-        fields = ()
-        exclude = ('name','updated','created_at','slug','picture','is_shipping_required','department','imported',)
+        import_id_fields = ('code',)
+
+        export_order = (
+            'code','description','line__code','category__description','sub_line',\
+            'color__code','ref','model','origin','provider__code',\
+            'sales_unit','stock','price_1','price_2','price_3',\
+            'price_4','price_5','img',
+        )
+
+        fields = [
+            'category__description','code','color__code','description',\
+            'img','item_type','line__code','model','price_1','price_2','price_3',\
+            'price_4','price_5','provider__code','ref','sales_unit','stock','sub_line',
+            'origin','img',
+        ]
+
+        exclude = (
+            'name','updated','created_at','slug','picture',\
+            'is_shipping_required','department','imported'
+        )

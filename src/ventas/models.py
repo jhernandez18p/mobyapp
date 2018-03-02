@@ -15,7 +15,7 @@ from django.utils.translation import ugettext_lazy as _
 from sorl.thumbnail import ImageField
 import os
 
-from src.utils.libs import (upload_location,get_read_time,count_words)
+from src.utils.libs import (upload_location)
 
 def get_upload_path(instance, filename):
     try:
@@ -61,6 +61,7 @@ class Line(models.Model):
     description = RichTextField(blank=True, verbose_name=_('Descripción'))
     img = ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
     name = models.CharField(max_length=144, blank=True, verbose_name=_('Nombre'))
+    code = models.CharField(max_length=144, blank=True, verbose_name=_('Código'))
 
     def __str__(self):
         return self.name
@@ -75,6 +76,7 @@ class SubLine(models.Model):
     description = RichTextField(blank=True, verbose_name=_('Descripción'))
     img = ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
     name = models.CharField(max_length=144, blank=True, verbose_name=_('Nombre'))
+    code = models.CharField(max_length=144, blank=True, verbose_name=_('Código'))
     parent = models.ForeignKey(Line, null=True, blank=True, on_delete=models.CASCADE, verbose_name=_('Linea padre'))
 
     def __str__(self):
@@ -89,6 +91,7 @@ class Color(models.Model):
     description = RichTextField(blank=True, verbose_name=_('Descripción'))
     hex_code = models.CharField(max_length=9, blank=True, verbose_name=_('Código Hexadecimal'))
     name = models.CharField(max_length=144, blank=True, verbose_name=_('Nombre'))
+    code = models.CharField(max_length=144, blank=True, verbose_name=_('Código'))
 
     def __str__(self):
         return self.name
@@ -104,6 +107,7 @@ class Type(models.Model):
     description = RichTextField(blank=True, verbose_name=_('Descripción'))
     img = ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
     name = models.CharField(max_length=144, blank=True, verbose_name=_('Nombre'))
+    code = models.CharField(max_length=144, blank=True, verbose_name=_('Código'))
 
     def __str__(self):
         return self.name
@@ -121,6 +125,7 @@ class Provider(models.Model):
     name = models.CharField(max_length=144, blank=True, verbose_name=_('Nombre'))
     slug = models.CharField(max_length=144, blank=True, verbose_name=_('Slug \"SEO\"'))
     website = models.CharField(max_length=144, blank=True, verbose_name=_('Dirección url'))
+    code = models.CharField(max_length=144, blank=True, verbose_name=_('Código'))
 
     def __str__(self):
         return self.name
@@ -129,8 +134,29 @@ class Provider(models.Model):
         verbose_name = _('Proveedor')
         verbose_name_plural = _('Proveedores')
 
+    # def get_absolute_url(self):
+        # return reverse('sales:provider_detail', kwargs={'slug': self.slug})
+
+
+class Brands(models.Model):
+    background = ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Foto de fondo'))
+    description = RichTextField(blank=True, verbose_name=_('Descripción'))
+    img = ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
+    logo = ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Logo'))
+    name = models.CharField(max_length=144, blank=True, verbose_name=_('Nombre'))
+    slug = models.CharField(max_length=144, blank=True, verbose_name=_('Slug \"SEO\"'))
+    website = models.CharField(max_length=144, blank=True, verbose_name=_('Dirección url'))
+    code = models.CharField(max_length=144, blank=True, verbose_name=_('Código'))
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _('Marca')
+        verbose_name_plural = _('Marcas')
+
     def get_absolute_url(self):
-        return reverse('sales:provider_detail', kwargs={'slug': self.name.lower()})
+        return reverse('sales:brand_detail', kwargs={'slug': self.slug})
 
 
 class Department(models.Model): 
@@ -140,6 +166,7 @@ class Department(models.Model):
     img = ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
     name = models.CharField(max_length=144, blank=True, verbose_name=_('Nombre'))
     slug = models.CharField(max_length=144, blank=True, verbose_name=_('Slug \"SEO\"'))
+    code = models.CharField(max_length=144, blank=True, verbose_name=_('Código'))
 
     def __str__(self):
         return self.name
@@ -161,6 +188,7 @@ class Category(models.Model):
     name = models.CharField(max_length=144, blank=True, verbose_name=_('Nombre'))
     parent = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE, verbose_name=_('Categoría padre'))
     slug = models.CharField(max_length=144, blank=True, verbose_name=_('Slug \"SEO\"'))
+    code = models.CharField(max_length=144, blank=True, verbose_name=_('Código'))
     
     def __str__(self):
         return self.name
@@ -174,13 +202,13 @@ class Category(models.Model):
 
 
 class Article(models.Model):
-    # category = models.CharField(blank=True, max_length=144, verbose_name=_('Categoría'))
-    # color = models.CharField(blank=True, max_length=144, verbose_name=_('Color'))
-    # department = models.CharField(blank=True, max_length=144, verbose_name=_('Departamento'))
-    # item_type = models.CharField(blank=True, max_length=144, verbose_name=_('Tipo de articulo'))
-    # line = models.CharField(blank=True, max_length=144, verbose_name=_('Linea'))
-    # provider = models.CharField(blank=True, max_length=144, verbose_name=_('Proveedor'))
-    # sub_line = models.CharField(blank=True, max_length=144, verbose_name=_('Sublinea'))
+    # bo_category = models.CharField(blank=True, max_length=144, verbose_name=_('Categoría \"se importación\"'))
+    # bo_color = models.CharField(blank=True, max_length=144, verbose_name=_('Color \"se importación\"'))
+    # bo_department = models.CharField(blank=True, max_length=144, verbose_name=_('Departamento \"se importación\"'))
+    # bo_item_type = models.CharField(blank=True, max_length=144, verbose_name=_('Tipo de articulo \"se importación\"'))
+    # bo_line = models.CharField(blank=True, max_length=144, verbose_name=_('Linea \"se importación\"'))
+    # bo_provider = models.CharField(blank=True, max_length=144, verbose_name=_('Proveedor \"se importación\"'))
+    # bo_sub_line = models.CharField(blank=True, max_length=144, verbose_name=_('Sublinea \"se importación\"'))
     category = models.ForeignKey(Category, on_delete=models.CASCADE,verbose_name=_('Categoría'))
     code = models.CharField(max_length=144, blank=True, verbose_name=_('Código de articulo'))
     color = models.ForeignKey(Color, on_delete=models.CASCADE,verbose_name=_('Color'))
@@ -193,7 +221,7 @@ class Article(models.Model):
     item_type = models.ForeignKey(Type, on_delete=models.CASCADE,verbose_name=_('Tipo de articulo'))
     line = models.ForeignKey(Line, on_delete=models.CASCADE,verbose_name=_('Linea'))
     model = models.CharField(max_length=144, blank=True, verbose_name=_('Modelo'))
-    name = models.CharField(max_length=144, blank=True, verbose_name=_('Nombre'))
+    name = models.CharField(max_length=144, blank=False, verbose_name=_('Nombre'))
     origin = models.CharField(max_length=144, blank=True, verbose_name=_('Origen'))
     picture = ImageField(blank=True, upload_to=get_upload_path, verbose_name=_('Foto de articulo'))
     price_1 = models.DecimalField(decimal_places=2, max_digits=99, blank=True, null=True, verbose_name=_('Precio 1'))
@@ -202,6 +230,7 @@ class Article(models.Model):
     price_4 = models.DecimalField(decimal_places=2, max_digits=99, blank=True, null=True, verbose_name=_('Precio 4'))
     price_5 = models.DecimalField(decimal_places=2, max_digits=99, blank=True, null=True, verbose_name=_('Precio 5'))
     provider = models.ForeignKey(Provider, on_delete=models.CASCADE,verbose_name=_('Proveedor'))
+    brand = models.ForeignKey(Brands, on_delete=models.CASCADE,null=True,verbose_name=_('Marca'))
     ref = models.CharField(max_length=144, blank=True, verbose_name=_('Referencia')) # 
     sales_unit = models.CharField(max_length=144, blank=True, verbose_name=_('Unidad de ventas'))
     slug = models.SlugField(unique=True, blank=True, verbose_name=_('URL \"SEO\"'))
@@ -209,7 +238,7 @@ class Article(models.Model):
     sub_line = models.ForeignKey(SubLine, on_delete=models.CASCADE,verbose_name=_('Sublinea'))
     updated = models.DateTimeField(auto_now=True, auto_now_add=False, verbose_name=_('Ultima actualización'))
 
-    def __srt__(self):
+    def __str__(self):
         return self.name
 
     class Meta:

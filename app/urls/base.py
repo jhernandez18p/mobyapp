@@ -26,20 +26,20 @@ sitemaps = {
 urlpatterns = [
     path('', include('src.base.urls', namespace='front')),
     path('social-ligin/', include('social_django.urls', namespace='social')),
-    path('blog', include('src.blog.urls', namespace='blog')),
-    path('servicios', include('src.services.urls', namespace='services')),
-    path('productos', include('src.ventas.urls', namespace='sales')),
-    path('intra', include('src.intra.urls', namespace='intra')),
-    path('auth', include('src.user.urls',namespace='auth')),
+    path('blog/', include('src.blog.urls', namespace='blog')),
+    path('servicios/', include('src.services.urls', namespace='services')),
+    path('productos/', include('src.ventas.urls', namespace='sales')),
+    path('intra/', include('src.intra.urls', namespace='intra')),
+    path('auth/', include('src.user.urls',namespace='auth')),
     path('adminsite/', admin.site.urls),
-    path('api', include(router.urls)),
+    path('api/', include(router.urls)),
     path('ckeditor/', include('ckeditor_uploader.urls')),
-    path('api/auth', include('rest_framework.urls', 
+    path('api/auth/', include('rest_framework.urls', 
         namespace='rest_framework')),
     path('sitemap.xml', sitemap,
         {'sitemaps': sitemaps},
         name='django.contrib.sitemaps.views.sitemap'),
-    path('<path:url>/', views.flatpage),
+    path('<path:url>', views.flatpage),
 ]
 
 if settings.DEBUG:

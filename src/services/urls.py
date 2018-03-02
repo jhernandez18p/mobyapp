@@ -23,7 +23,7 @@ from .views import (
 app_name = 'services'
 urlpatterns = [
     path('', Home.as_view(), name='home'),
-    path('/gracias', ServiceThanks.as_view(), name='thanks'),
-    path('/error', ServiceError.as_view(), name='error'),
-    path('/<slug:slug>', ServiceDetail.as_view(), name='detail'),
+    path('gracias', ServiceThanks.as_view(), name='thanks'),
+    path('error', ServiceError.as_view(), name='error'),
+    path('<slug:slug>', ServiceDetail.as_view(), name='detail'),
 ]

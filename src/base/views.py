@@ -1,15 +1,16 @@
 from django.contrib.sessions.backends.db import SessionStore
-from django.http import (HttpResponse, HttpResponseRedirect, JsonResponse)
+from django.http import HttpResponseRedirect, JsonResponse
+from django.shortcuts import render
+from django.urls import reverse
 from django.views import View
 from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.edit import CreateView
-from django.urls import reverse
-from django.shortcuts import render
 
-from src.base.forms import (ContactForm)
-from src.base.models import *
-from src.blog.models import (Comment, Post)
-from src.ventas.models import (Department)
+from src.base.forms import ContactForm
+from src.base.models import Position, Carousel, CarouselImage, Site
+from src.blog.models import Comment, Post
+from src.utils.libs import contact_email
+from src.ventas.models import Department
 
 
 class AjaxableSessionResponseMixin:
@@ -40,8 +41,6 @@ class AjaxableSessionResponseMixin:
 
 
 class Home(ListView):
-    # model =
-    # context_object_name = 'boards'
     queryset = ''
     template_name = 'app/home.html'
 
@@ -143,10 +142,21 @@ class Contact(ListView):
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
-            print(form.cleaned_data.get('name'))
-            print(form.cleaned_data.get('email'))
-            print(form.cleaned_data.get('subject'))
-            print(form.cleaned_data.get('message'))
+
+            form_name = form.cleaned_data.get('name')
+            form_email = form.cleaned_data.get('email')
+            form_subject = form.cleaned_data.get('subject')
+            form_message = form.cleaned_data.get('message')
+            form_service = request.GET.get('name')
+            
+            contact_email(
+                (form_name,
+                form_email,
+                form_subject,
+                form_message,
+                form_service,)
+            )
+
             return HttpResponseRedirect('/contacto/gracias')
         else:
             return HttpResponseRedirect('/contacto/error')

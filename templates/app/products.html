@@ -200,7 +200,7 @@
                     <div class="col-sm-12">
                         <header class="text-center">
                             <h2 class="text-uppercase">
-                                <a href="{% url 'sales:providers' %}" class="text-dark">Marcas</a>
+                                <a href="{% url 'sales:brands' %}" class="text-dark">Marcas</a>
                             </h2>
                         </header>
                     </div>
@@ -221,7 +221,7 @@
                     <div class="col-sm-12">
                         <header class="text-center">
                             <h2 class="text-uppercase">
-                                <a href="{% url 'sales:providers' %}" class="text-dark">Marcas</a>
+                                <a href="{% url 'sales:brands' %}" class="text-dark">Marcas</a>
                             </h2>
                         </header>
                     </div>
@@ -247,7 +247,7 @@
                     {% for objects in products %}
                         <div class="col-sm-4 align-self-center">
                             <div class="item">
-                                <a href="{% url 'sales:home' %}/detalle/{{objects.slug}}">
+                                <a href="{{objects.get_absolute_url}}">
                                     {% if object.img %}
                                     <img src="/media/{{objects.img.url}}" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
                                     {% else %}

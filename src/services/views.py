@@ -1,11 +1,11 @@
-from django.core.mail import send_mail,EmailMultiAlternatives
-from django.http import (HttpResponse, HttpResponseRedirect, JsonResponse)
+from django.http import (HttpResponseRedirect)
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import ListView, DetailView
 
 from .models import (Service, ServiceImage)
 from .forms import ServiceForm
+from src.utils.libs import contact_email
 
 # Create your views here.
 class Home(ListView):
@@ -34,14 +34,15 @@ class ServiceDetail(DetailView):
             form_email = form.cleaned_data.get('email')
             form_subject = form.cleaned_data.get('subject')
             form_message = form.cleaned_data.get('message')
-            form_service = form.cleaned_data.get('service')
-
-            subject, from_email, to = 'Solicitud de servicios %s | mensaje enviado' %(form_service), 'info@moby-group.com', form_email
-            text_content = 'Su mensaje ha sido enviado correctamente.'
-            html_content = '<p>Su mensaje ha sido emviado correctamente.</p>'
-            msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-            msg.attach_alternative(html_content, "text/html")
-            msg.send()
+            form_service = request.GET.get('name')
+            
+            contact_email(
+                (form_name,
+                form_email,
+                form_subject,
+                form_message,
+                form_service,)
+            )
 
             return HttpResponseRedirect('/servicios/gracias')
         else:
@@ -70,6 +71,7 @@ class ServiceThanks(ListView):
         context['url'] = reverse('services:home')
 
         return context
+
 
 class ServiceError(ListView):
     model = Service

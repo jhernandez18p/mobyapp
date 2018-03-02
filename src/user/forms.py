@@ -3,6 +3,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 
+from .models import Newsletter
+
 class SignUpForm(UserCreationForm):
     # first_name = forms.CharField(max_length=30, required=False, help_text='Opcional.', label='Nombre')
     # last_name = forms.CharField(max_length=30, required=False, help_text='Opcional.', label='Apellido')
@@ -11,3 +13,10 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2',]
+
+
+class NewsletterForm(forms.ModelForm):
+    
+    class Meta:
+        model = Newsletter
+        fields = ('name','email' )

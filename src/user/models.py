@@ -1,18 +1,24 @@
 from __future__ import unicode_literals
-
 from django.conf import settings
 from django.contrib.auth.models import User, Group
-from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes.fields import GenericForeignKey
-from django.urls import reverse
 from django.db import models
 from django.db.models.signals import pre_save
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 from ckeditor.fields import RichTextField
+
+
+class Newsletter(models.Model):
+    name = models.CharField(max_length=140)
+    email = models.CharField(max_length=144)
+    updated = models.DateTimeField(auto_now=True, auto_now_add=False, verbose_name=_('Ultima actualización'))
+
+    def __str__(self):
+        return self.name
 
 
 class Frecuency(models.Model):

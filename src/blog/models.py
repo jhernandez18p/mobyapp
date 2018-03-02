@@ -15,7 +15,7 @@ from sorl.thumbnail import ImageField
 from datetime import datetime
 import os
 
-from src.utils.libs import (upload_location,get_read_time,count_words)
+from src.utils.libs import (upload_location)
 
 def get_upload_path(instance, filename):
     try:

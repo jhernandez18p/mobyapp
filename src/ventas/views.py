@@ -4,9 +4,9 @@ from django.views import View
 from django.views.generic import ListView, DetailView
 
 from src.base.models import Carousel, CarouselImage
-from .models import (Article, Photo, Department, Provider, Category, Color)
+from .models import (Article, Photo, Department, Provider, Brands, Category, Color)
 from .forms import PhotoForm
-# Create your views here.
+
 
 class Home(ListView):
     queryset = ''
@@ -237,8 +237,7 @@ class ProductsList(ListView):
 
     model = Article
     template_name = 'app/products_list.html'
-    paginate_by = 9
-    # queryset = ''
+    paginate_by = 18
     
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
@@ -273,32 +272,8 @@ class ProductsDetail(DetailView):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         category = 'herraje'
-        context['SITE_URL'] = 'Detalle de producto'
         context['cat'] = '%s' % (category)
-        # context['object'] = {
-        #     'name':'CUBIERTERO LINEA TEN DE 450 MM',
-        #     'co_art':'113120',
-        #     'art_des':'CUBIERTERO LINEA TEN DE 450 MM',
-        #     'co_lin':'HERR',
-        #     'co_cat':'VARIOS',
-        #     'co_subl':'VRO',
-        #     'co_color':'10',
-        #     'CO_CATW':'',
-        #     'ref':'',
-        #     'modelo':'',
-        #     'procedenci':'1',
-        #     'co_prov':'P00049',
-        #     'uni_venta':'PZA',
-        #     'sstock_act':'10',
-        #     'prec_vta1':'7.2',
-        #     'prec_vta2':'8',
-        #     'prec_vta3':'9.2',
-        #     'prec_vta4':'12.42',
-        #     'prec_vta5':'9.2',
-        #     'tipo':'V',
-        #     'picture':'/static/base/img/logo.png',
-        # }
-        # print(context)
+        context['SITE_URL'] = 'Detalle de producto'
         return context
 
 
@@ -527,7 +502,7 @@ class DepartmentDetail(DetailView):
 
 
 class Providers(ListView):
-    model = Provider
+    model = Brands
     # context_object_name = 'boards'
     paginate_by = 6
     # queryset = ''
@@ -543,7 +518,7 @@ class Providers(ListView):
 
 
 class ProvidersDetails(DetailView):
-    model = Provider
+    model = Brands
     # context_object_name = 'boards'
     # queryset = ''
     template_name = 'app/detail/provider_details.html'

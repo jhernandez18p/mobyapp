@@ -130,7 +130,10 @@ input[type=date]:focus:not([readonly])+label, input[type=datetime-local]:focus:n
     margin-bottom: 0;
     width: 100%;
 }
-#sticky{top:96% !important;width:100%;}
+#sticky{top:calc(100% - 64px) !important;width:100%;}
+#sticky .icons-sm {
+    font-size: 2rem;
+}
 @media (min-width: 320px) and (max-width:767px){
     .navbar-expand-md .navbar-toggler{display: block;}
     #menuLogo{vertical-align: unset;margin-top: 5px;height: 50px;max-height: 50px; vertical-align: unset}
