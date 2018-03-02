@@ -71,7 +71,7 @@ class DepartmentResource(resources.ModelResource):
         import_id_fields = ('code',)
         export_order = ('name','code','description')
         fields = ['description','code','name']
-        exclude = ('background','img','name','slug')
+        exclude = ('background','img','slug')
 
 
 class CategoryResource(resources.ModelResource):
