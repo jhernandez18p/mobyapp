@@ -7,10 +7,10 @@
         {% if object.img %}
             background-image: url("{{object.background.url}}");
         {% else %}
-            background-image: url("/static/base/img/moby-background-01.png");
+            background-image: url("/static/base/img/img-base-l.png");
         {% endif %}
     }
-    #newsletter .card{margin-bottom: 0;margin-right: -15px;margin-left: -15px;margin-top: 30px;}
+    #newsletter .card{margin-bottom: 0;margin-right: -15px;margin-left: -15px;}
     .paral p {color:rgba(255, 255, 255, 0.8);}
     .paral h5 {color: rgba(255, 255, 255, 0.8);margin-top: 50px;}
     .mbr-figure img{max-height: 150px;}
@@ -57,7 +57,7 @@
                     {% if object.img %}
                         <img class="mb-4 img-fluid" src="{{object.img.url}}" alt="{{object.title}}">
                     {% else %}
-                        <img class="mb-4 img-fluid" src="/static/base/img/moby-background-01.png" alt="{{object.title}}">
+                        <img class="mb-4 img-fluid" src="/static/base/img/img-base-m.png" alt="{{object.title}}">
                     {% endif %}
                 </div>
                 <div class="col-md-6 text-left">
@@ -109,7 +109,7 @@
                         <div class="col-md-7 col-testimonial">
                             <div class="row coment_body">
                                 <div class="col-3 col-sm-5 text-center">
-                                    <img class="" src="https://api.adorable.io/avatars/150/abott@adorable.png">
+                                    <img class="" src="/static/base/img/base-s.png">
                                 </div>
                                 <div class="col-9 col-sm-7">
                                     <div class="comment-body">

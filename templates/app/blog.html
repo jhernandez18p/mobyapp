@@ -30,11 +30,7 @@
                     <div class=" col-lg-5 col-xl-4 mb-4 align-self-center">
                         <div class="view overlay hm-white-slight ">
                             <a href="{{object.get_absolute_url}}">
-                            {% if object.img %}
-                                <img class="mb-4 img-fluid" src="{{object.img.url}}" alt="{{object.title}}">
-                            {% else %}
-                                <img class="mb-4 img-fluid" src="/static/base/img/moby-background-01.png" alt="{{object.title}}">
-                            {% endif %}
+                                <img class="mb-4 img-fluid" src="{% if object.img.url != None %}{{object.img.url}}{% else %}/static/base/img/img-base-m.png{% endif %}" alt="{{object.title}}">
                             </a>
                         </div>
                     </div>

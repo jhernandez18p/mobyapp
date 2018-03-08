@@ -60,7 +60,6 @@
     <div class="row">
         <div class="col-sm-3 mb-5">
             <div class="accordion-body" id="accordion">
-
                 <div class="card">
                     <div class="card-header">
                         <a class="card-link" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
@@ -68,7 +67,6 @@
                         </a>
                     </div>
                 </div>
-
                 {% if departments %}        
                     <div class="card">
                         <div class="card-header">
@@ -81,7 +79,7 @@
                                 {% for object in departments %}
                                     <ul>
                                         <li>
-                                            <a href="{% url 'sales:all' %}">{{object.name}}</a>
+                                            <a href="{{ object.get_absolute_url }}">{{object.name}}</a>
                                         </li>
                                     </ul>
                                 {% endfor %}
@@ -89,7 +87,6 @@
                         </div>
                     </div>
                 {% endif %}
-        
                 {% if categories %}
                     <div class="card">
                         <div class="card-header">
@@ -102,7 +99,7 @@
                                 {% for object in categories %}
                                     <ul>
                                         <li>
-                                            <a href="{% url 'sales:all' %}">{{object.name}}</a>
+                                            <a href="{% url 'sales:all' %}?cat={{object.id}}">{{object.name}}</a>
                                         </li>
                                     </ul>
                                 {% endfor %}
@@ -110,20 +107,19 @@
                         </div>
                     </div>
                 {% endif %}
-        
-                {% if providers %}
+                {% if brands %}
                     <div class="card">
                         <div class="card-header">
                             <a class="collapsed card-link" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                                Proveedores
+                                Marcas
                             </a>
                         </div>
                         <div id="collapseThree" class="collapse">
                             <div class="card-body">
-                                {% for object in providers %}
+                                {% for object in brands %}
                                     <ul>
                                         <li>
-                                            <a href="{% url 'sales:all' %}">{{object.name}}</a>
+                                            <a href="{{object.get_absolute_url}}">{{object.name}}</a>
                                         </li>
                                     </ul>
                                 {% endfor %}
@@ -131,7 +127,6 @@
                         </div>
                     </div>
                 {% endif %}
-        
             </div>
         </div>
         <div class="col-sm-9">
@@ -148,11 +143,7 @@
                     <div class="col-sm-4 d-flex align-items-stretch">
                         <div class="item">
                             <a href="{{object.get_absolute_url}}">
-                                {% if object.img %}
-                                    <img src="/media/{{object.img}}" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
-                                {% else %}
-                                    <img src="{% static 'base/img/moby-background-02.png' %}" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
-                                {% endif %}
+                                <img src="{% if object.img != '' %}/media/articulos/{{objects.img}}{% else %}{% static 'base/img/base-m.png' %}{% endif %}" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
                             </a>
                             <div class="info">
                                 <h5>
@@ -160,11 +151,11 @@
                                         {{object.name}}
                                     </a>
                                 </h5>
-                                <p>{{object.name | safe}}</p>
+                                <p>{{object.description | safe | truncatechars:120}}</p>
                                 <div class="clearfix">
-                                    <!-- <p class="badge badge-info float-left">
-                                        <a href="{% url 'sales:home' %}/{{cat|lower}}" class="text-light">{{cat|lower}}</a>
-                                    </p> -->
+                                    <p class="badge badge-info float-left">
+                                        <a href="{% url 'sales:departments' %}{{object.department.slug }}" class="text-light">{{object.department}}</a>
+                                    </p>
                                     {% if user.can_see_price %}
                                     <div class="price float-right">
                                         <h5 class="">${{object.price_4}}</h5>

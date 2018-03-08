@@ -62,9 +62,9 @@ class ProductsList(ListView):
         if categories.exists():
             context['categories'] = categories
         
-        providers = Provider.objects.all()
-        if providers.exists():
-            context['providers'] = providers
+        brands = Brands.objects.all()
+        if brands.exists():
+            context['brands'] = brands
 
         # print(context)
         return context

@@ -139,28 +139,28 @@
                             {% endif %}
                         </p>
                         <p class="text-white">
-                            {% if site_phone == None %}
+                            {% if info_site.hone == None %}
                             +(507)-800-MOBY 
                             {% else %}
-                            {{site_phone |safe}}
+                            {{info_site.phone |safe}}
                             {% endif %}
                             <br>
-                            {% if site_phone2 == None %}
+                            {% if info_site.phone2 == None %}
                             +(507)-800-6629
                             {% else %}
-                            {{site_phone2 | safe}}
+                            {{info_site.phone2 | safe}}
                             {% endif %}
                             <br>
-                            {% if site_workday == None %}
+                            {% if info_site.workday == None %}
                             Lun - Vie
                             {% else %}
-                            {{site_workday | safe}}
+                            {{info_site.workday | safe}}
                             {% endif %}
                             ,
-                            {% if site_schedule == None %}
+                            {% if info_site.schedule == None %}
                             8:00 am - 5:00 pm
                             {% else %}
-                            {{site_schedule | safe}}
+                            {{info_site.schedule | safe}}
                             {% endif %}
                         </p>
                         <p class="text-white">
