@@ -14,7 +14,7 @@
                                 <li data-target="#carousel" data-slide-to="{{object.id}}"></li>
                             {% endfor %}
                         </ol>
-                        <div class="carousel-inner view hm-black-strong" role="listbox">
+                        <div class="carousel-inner view" role="listbox">
                             {% for object in home_header_carousel_images %}
                                 <div class="carousel-item view hm-black-strong {% if forloop.counter == 1 %}active {% endif %}">
                                     <img src="{{ object.image.url }}" alt="{{object.name}}" class="d-block img-fluid">
@@ -74,9 +74,9 @@
                     <div class="col-sm-6 col-12">
                         <div class="card text-center text-middle shadow view hm-black-strong">
                             {% if info_site.services_img.url != None %}
-                                <img src="{{ info_site.services_img.url }}" alt="Nuestros servicios" class=" img-fluid">
+                                <img src="{{ info_site.services_img.url }}" alt="Nuestros servicios" class="card-img img-fluid">
                             {% else %}
-                                <img class="" src="/static/base/img/img-base-m.png" alt="Nuestros servicios">
+                                <img class="card-img" src="/static/base/img/img-base-m.png" alt="Nuestros servicios">
                             {% endif %}
                         </div>
                         <div class="card-img-overlay bg-light shadow">
@@ -87,9 +87,9 @@
                     <div class="col-sm-6 col-12">
                         <div class="card text-center text-middle shadow view hm-black-strong">
                             {% if info_site.products_img.url != None %}
-                                <img src="{{ info_site.products_img.url }}" alt="Nuestros productos" class=" img-fluid">
+                                <img src="{{ info_site.products_img.url }}" alt="Nuestros productos" class="card-img img-fluid">
                             {% else %}
-                                <img class="" src="/static/base/img/img-base-m.png" alt="Nuestros productos">
+                                <img class="card-img" src="/static/base/img/img-base-m.png" alt="Nuestros productos">
                             {% endif %}
                         </div>
                         <div class="card-img-overlay bg-light shadow">
@@ -101,7 +101,7 @@
             </div>
         {% endif %}
         <!-- Fin Bloque imgen corporativa y enlaces -->
-        {% if departments %}
+        {% if department %}
             <div class="container-fluid" id="departments">
                 <div class="row">
                     {% for object in departments %}
