@@ -252,4 +252,5 @@ class Article(models.Model):
 pre_save.connect(pre_save_receiver, sender=Article)
 pre_save.connect(pre_save_receiver, sender=Category)
 pre_save.connect(pre_save_receiver, sender=Department)
+pre_save.connect(pre_save_receiver, sender=Brands)
 pre_save.connect(pre_save_receiver, sender=Provider)
