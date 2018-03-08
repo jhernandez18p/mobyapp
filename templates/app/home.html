@@ -93,14 +93,18 @@
                 <div class="row">
                     {% for object in departments %}
                         <div class="col-md-6 col-lg-3">
-                            <div class="card card-image" style="{% if object.background.url != None %}background-image: url({{object.background.url}});{% else %}background-image: url(/static/base/img/img-base-m.png){% endif %}">
-                                <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                            <div class="card">
+                                <div class="view overlay">
+                                    <img src="{% if object.background.url != None %}{{object.background.url}}{% else %}/static/base/img/img-base-m.png{% endif %}" alt="{{object.title}}" class="img-fluid">
+                                </div>
+                                <div class="text-center d-flex align-items-center px-4">
                                     <div>
                                         <h3 class="card-title pt-2">
-                                            <a href="{{object.get_absolute_url}}" class="white-text">
+                                            <a href="{{object.get_absolute_url}}" class="black-text">
                                                 <strong>{{object.name}}</strong>
                                             </a>
                                         </h3>
+                                        <p>{{object.description|safe|truncatechars:120}}</p>
                                         <a class="btn moby-gradient" href="{{object.get_absolute_url}}">
                                             <i class="fa fa-clone left"></i>
                                             Ver más
