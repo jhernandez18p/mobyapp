@@ -31,6 +31,9 @@
                 <div id="carousel-thumb" class="carousel slide carousel-fade carousel-thumbnails" data-ride="carousel">
                     <div class="carousel-inner center-on-small-only" role="listbox">
                         <div class="carousel-item active">
+                            <img src="/static/base/img/base-m.jpg" alt="First slide" class="img-fluid">
+                        </div>
+                        <div class="carousel-item active">
                             <img src="/static/base/img/moby-background-02.jpg" alt="First slide" class="img-fluid">
                         </div>
                         <div class="carousel-item">
@@ -64,7 +67,7 @@
                     {% if has_descount %}
                     <span class="grey-text">
                         <small>
-                            <s>$89</s>
+                            <s>{{object.price_4}}}</s>
                         </small>
                     </span>
                     {% endif %}
