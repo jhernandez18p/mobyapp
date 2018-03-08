@@ -3,7 +3,7 @@ body {display: flex;min-height: 100vh;flex-direction: column;background-color: r
 body::-webkit-scrollbar {width: .51em;}
 body::-webkit-scrollbar-track {-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);}
 body::-webkit-scrollbar-thumb {background-color: darkgrey;outline: 1px solid slategrey;}
-section {flex: 1;}
+section {flex: 1;min-height: calc(100vh - 75px);}
 .moby-text-h-1{color: #aba38d}
 .moby-text-h-2{color: #686867}
 .bg-dark {background-color: #887c5c!important;}
