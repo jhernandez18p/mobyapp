@@ -135,64 +135,82 @@
                         </header>
                     </div>
                 </div>
-                <div class="row text-left">
-                    {% if departments %}
-                        {% for object in departments %}
-                            <div class="col-sm-3 card-shadow">
-                                <a href="{{object.get_absolute_url}}">
-                                        {% if object.background %}
-                                        <div style="background-image: url({{object.img.url}});" class="item d-flex align-items-end">
-                                        {% else %}
-                                        <div style="background-image: url(/static/base/img/moby-background-01.png);" class="item d-flex align-items-end">
-                                        {% endif %}
-                                        <div class="content">
-                                            <h3 class="h5">{{ object.name }}</h3>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        {% endfor %}
-                    {% else %}
-                        <div class="col-sm-3 card-shadow">
-                            <a href="{% url 'sales:home' %}/departamento/herrajes">
-                                <div style="background-image: url({% static 'base/img/herrajes.png' %});" class="item d-flex align-items-end">
-                                    <div class="content">
-                                        <h3 class="h5">Herrajes</h3>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-3 card-shadow">
-                            <a href="{% url 'sales:home' %}/departamento/laminas">
-                                <div style="background-image: url({% static 'base/img/laminas.png' %});" class="item d-flex align-items-end">
-                                    <div class="content">
-                                        <h3 class="h5">Laminas</h3>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-3 card-shadow">
-                            <a href="{% url 'sales:home' %}/departamento/sobres">
-                                <div style="background-image: url({% static 'base/img/sobres.png' %});" class="item d-flex align-items-end">
-                                    <div class="content">
-                                        <h3 class="h5">Sobres</h3>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-sm-3 card-shadow">
-                            <a href="{% url 'sales:home' %}/departamento/cantos">
-                                <div style="background-image: url({% static 'base/img/cantos.png' %});" class="item d-flex align-items-end">
-                                    <div class="content">
-                                        <h3 class="h5">Cantos</h3>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    {% endif %}
-                </div>  
             </div>
         </div>
+
+            <div class="container">
+                {% if departments %}
+                <div class="row">
+                    {% for object in departments %}
+                    <div class="col-md-6 col-lg-3 d-flex align-items-stretch">
+                        <div class="card">
+                            <div class="view overlay">
+                                <img src="{% if object.background.url != None %}{{object.background.url}}{% else %}/static/base/img/img-base-m.png{% endif %}" alt="{{object.title}}" class="img-fluid">
+                            </div>
+                            <div class="d-flex align-items-center py-2 px-1">
+                                <div class="text-center">
+                                    <h3 class="card-title pt-2">
+                                        <a href="{{object.get_absolute_url}}" class="black-text">
+                                            <strong>{{object.name}}</strong>
+                                        </a>
+                                    </h3>
+                                    <p>{{object.description|safe|truncatechars:120}}</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="text-center pb-2">
+                                <a class="btn btn-outline-black text-dark btn-sm" href="{{object.get_absolute_url}}">
+                                    <i class="fa fa-clone left"></i>
+                                    Ver más
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        {% if products %}
+        <div class="container">
+            <div class="row mt-5 justify-content-md-center">
+                <div class="col-sm-12">
+                    <header class="text-center">
+                        <h2 class="text-uppercase">
+                            <a href="{% url 'sales:all' %}" class="text-dark">Nuestros productos</a>
+                        </h2>
+                    </header>
+                </div>
+            </div>
+        </div>
+        <div class="rgba-green-strong py-5">
+            <div class="container">
+                <div class="row">
+                    {% for objects in products %}
+                        <div class="col-sm-4 align-self-center">
+                            <div class="item">
+                                <a href="{{objects.get_absolute_url}}">
+                                    {% if object.img %}
+                                    <img src="/media/{{objects.img.url}}" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
+                                    {% else %}
+                                    <img src="{% static 'base/img/moby-background-02.png' %}" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
+                                    {% endif %}
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row pb-1">
+                <div class="col-12 ">
+                    <div class="text-center">
+                        <a href="{% url 'sales:all' %}" class="btn btn-outline-black text-white btn-lg">Ver más</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
         {# Proveedores #}
         <div class="container-fluid grey lighten-3">
             <div class="row pb-5" id="providers">
@@ -234,39 +252,6 @@
             </div>
         </div>
         {# proveedores #}
-        {% if products %}
-        <div class="container">
-            <div class="row my-5 justify-content-md-center">
-                    <div class="col-sm-12">
-                        <header class="text-center">
-                            <h2 class="text-uppercase mb-5">
-                                <a href="{% url 'sales:all' %}" class="text-dark">Nuestros productos</a>
-                            </h2>
-                        </header>
-                    </div>
-                    {% for objects in products %}
-                        <div class="col-sm-4 align-self-center">
-                            <div class="item">
-                                <a href="{{objects.get_absolute_url}}">
-                                    {% if object.img %}
-                                    <img src="/media/{{objects.img.url}}" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
-                                    {% else %}
-                                    <img src="{% static 'base/img/moby-background-02.png' %}" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
-                                    {% endif %}
-                                </a>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-                <div class="row pb-5">
-                    <div class="col-12 ">
-                        <div class="text-center">
-                            <a href="{% url 'sales:all' %}" class="btn btn-outline-black text-white btn-lg">Ver más</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
 {% endblock %}
 {% block js %}
     <script src="{% static 'base/js/owl/owl.carousel.min.js' %}"></script>
