@@ -40,6 +40,8 @@ def create_slug(instance, new_slug=None):
 def pre_save_post_receiver(sender, instance, *args, **kwargs):
     if not instance.slug:
         instance.slug = create_slug(instance)
+    if not instance.updated_by:
+        instance.updated_by = instance.author
 
 class PostManager(models.Manager):
     def active(self, *args, **kwargs):
