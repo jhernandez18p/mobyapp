@@ -17,37 +17,12 @@
                         <div class="carousel-inner view hm-black-strong" role="listbox">
                             {% for object in home_header_carousel_images %}
                                 <div class="carousel-item view hm-black-strong {% if forloop.counter == 1 %}active {% endif %}">
-                                    <picture>
-                                            <source 
-                                            {% thumbnail object.image '544' as im %}
-                                                srcset="{{ im.url }}" media="(max-width:{{ im.x }}px)"
-                                            {% endthumbnail %}>
-                                            <source 
-                                            {% thumbnail object.image '768' as im %}
-                                                srcset="{{ im.url }}" media="(min-width:545px)"
-                                            {% endthumbnail %}>
-                                            <source 
-                                            {% thumbnail object.image '992' as im %}
-                                                srcset="{{ im.url }}" media="(min-width:769px)"
-                                            {% endthumbnail %}>
-                                            <source 
-                                            {% thumbnail object.image '1200' as im %}
-                                                srcset="{{ im.url }}" media="(min-width:993px)"
-                                            {% endthumbnail %}>
-                                            <source 
-                                            {% thumbnail object.image '1920' as im %}
-                                                srcset="{{ im.url }}" media="(min-width:1201px)"
-                                            {% endthumbnail %}>
-                                            <img 
-                                            srcset="{% thumbnail object.image '1920' as im %}{{ im.url }}{% endthumbnail %}" alt="{{object.name}}"
-                                            class="d-block img-fluid">
-                                        </picture>
-                        
+                                    <img src="{{ object.image }}" alt="{{object.name}}" class="d-block img-fluid">
                                     <div class="carousel-caption">
                                         <div>
                                             <h2>{{object.name}}</h2>
                                             {{object.text | safe}}
-                                            {% if object.call_to_action_url == None %}
+                                            {% if object.call_to_action_url != None %}
                                             {% else %}
                                                 <a class="btn btn-outline-white waves-effect" href="{{object.call_to_action_url}}">Ver más</a>
                                             {% endif %}
@@ -75,14 +50,11 @@
                 <div class="row" id="about">
                     <div class="col-md-6 col-12">
                         <div class="img shadow">
-                            <img src="{% thumbnail site_info.site_img '1920' as im %}{{ im.url }}{% endthumbnail %}"
-                                srcset="
-                                {% thumbnail site_info.site_img '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
-                                {% thumbnail site_info.site_img '768' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
-                                {% thumbnail site_info.site_img '992' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
-                                {% thumbnail site_info.site_img '1200' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
-                                {% thumbnail site_info.site_img '1920' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %}"
-                                alt="{{SITE_TITLE}}" class="img-fluid">
+                            {% if site_info.site_img.url != None %}
+                            <img src="{{ site_info.site_img.url }}" alt="{{SITE_TITLE}}" class="img-fluid">
+                            {% else %}
+                            <img src="{% static 'base/img/img-base-m.png' %}" alt="{{SITE_TITLE}}" class="img-fluid">
+                            {% endif %}
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-12 align-self-center">
@@ -102,16 +74,9 @@
                     <div class="col-sm-6 col-12">
                         <div class="card text-center text-middle shadow view hm-black-strong">
                             {% if site_info.services_img != None %}
-                                <img src="{{ site_info.services_img.url }}"
-                                    srcset="
-                                    {% thumbnail site_info.services_img '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
-                                    {% thumbnail site_info.services_img '768' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
-                                    {% thumbnail site_info.services_img '992' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
-                                    {% thumbnail site_info.services_img '1200' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
-                                    {% thumbnail site_info.services_img '1920' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %}"
-                                    alt="Nuestros servicios" class="card-img img-fluid">
+                                <img src="{{ site_info.services_img.url }}" alt="Nuestros servicios" class="card-img img-fluid">
                             {% else %}
-                            <img class="card-img" src="/static/base/img/moby.png" alt="Nuestros servicios">
+                                <img class="card-img" src="/static/base/img/img-base-m.png" alt="Nuestros servicios">
                             {% endif %}
                             <div class="mask"></div>
                         </div>
@@ -123,16 +88,9 @@
                     <div class="col-sm-6 col-12">
                         <div class="card text-center text-middle shadow view hm-black-strong">
                             {% if site_info.products_img != None %}
-                            <img src="{{ site_info.products_img.url }}"
-                                    srcset="
-                                    {% thumbnail site_info.products_img '544' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
-                                    {% thumbnail site_info.products_img '768' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
-                                    {% thumbnail site_info.products_img '992' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
-                                    {% thumbnail site_info.products_img '1200' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %},
-                                    {% thumbnail site_info.products_img '1920' as im %}  {{ im.url }} {{ im.x }}w{% endthumbnail %}"
-                                    alt="Nuestros productos" class="card-img img-fluid">
+                                <img src="{{ site_info.products_img.url }}" alt="Nuestros productos" class="card-img img-fluid">
                             {% else %}
-                            <img class="card-img" src="/static/base/img/moby.png" alt="Nuestros productos">
+                                <img class="card-img" src="/static/base/img/img-base-m.png" alt="Nuestros productos">
                             {% endif %}
                             <div class="mask"></div>
                         </div>
@@ -193,108 +151,30 @@
                 <div class="row">
                     {% for object in departments %}
                         <div class="col-12 col-md-6 col-lg-3 d-flex align-items-stretch">
-                            {% if object.background %}
-                            <div class="card card-image" style="background-image: url({{object.background.url}}); max-height:300px;">
+                            {% if object.background.url != None %}
+                                <div class="card card-image" style="background-image: url({{object.background.url}}); max-height:300px;">
                             {% else %}
-                            <div class="card card-image" style="background-image: url(/static/base/img/moby-background-01.png); max-height:300px;">
+                                <div class="card card-image" style="background-image: url(/static/base/img/img-base-m.png); max-height:300px;">
                             {% endif %}
-                                
-                                <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
-                                    <div>
-                                        <h3 class="card-title pt-2">
-                                            <a href="{{object.get_absolute_url}}" class="white-text">
-                                                <strong>{{object.name}}</strong>
+                                    <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                                        <div>
+                                            <h3 class="card-title pt-2">
+                                                <a href="{{object.get_absolute_url}}" class="white-text">
+                                                    <strong>{{object.name}}</strong>
+                                                </a>
+                                            </h3>
+                                            <p>
+                                                {{object.description|safe|truncatechars:120}}
+                                            </p>
+                                            <a class="btn moby-gradient" href="{{object.get_absolute_url}}">
+                                                <i class="fa fa-clone left"></i>
+                                                Ver más
                                             </a>
-                                        </h3>
-                                        <p>
-                                            {{object.description|safe|truncatechars:120}}
-                                        </p>
-                                        <a class="btn moby-gradient" href="{{object.get_absolute_url}}">
-                                            <i class="fa fa-clone left"></i>
-                                            Ver más
-                                        </a>
+                                        </div>
                                     </div>
-                                </div>
                             </div>
                         </div>
                     {% endfor %}
-                </div>
-            </div>
-        {% else %}
-            <div class="container-fluid" id="departments">
-                <div class="row">
-                    <div class="col-12 col-md-6 col-lg-3 d-flex align-items-stretch">
-                        <div class="card card-image" style="background-image: url(/static/base/img/moby-background-01.png); max-height:300px;">
-                            <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
-                                <div>
-                                    <h3 class="card-title pt-2">
-                                        <strong>Cantos</strong>
-                                    </h3>
-                                    <p>
-                                        Repellat fugiat, laboriosam, voluptatem, optio vero odio nam sit officia
-                                    </p>
-                                    <a class="btn moby-gradient">
-                                        <i class="fa fa-clone left"></i>
-                                        Ver más
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-3 d-flex align-items-stretch">
-                        <div class="card card-image" style="background-image: url(/static/base/img/moby-background-01.png);">
-                            <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
-                                <div>
-                                    <h3 class="card-title pt-2">
-                                        <strong>Laminas</strong>
-                                    </h3>
-                                    <p>
-                                        Repellat fugiat, laboriosam, voluptatem, optio vero odio nam sit officia
-                                    </p>
-                                    <a class="btn moby-gradient">
-                                        <i class="fa fa-clone left"></i>
-                                        Ver más
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-3 d-flex align-items-stretch">
-                        <div class="card card-image" style="background-image: url(/static/base/img/moby-background-01.png);">
-                            <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
-                                <div>
-                                    <h3 class="card-title pt-2">
-                                        <strong>Sobres</strong>
-                                    </h3>
-                                    <p>
-                                        Repellat fugiat, laboriosam, voluptatem, optio vero odio nam sit officia
-                                    </p>
-                                    <a class="btn moby-gradient btn-sm">
-                                        <i class="fa fa-clone left"></i>
-                                        Ver más
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-3 d-flex align-items-stretch">
-                        <div class="card card-image" style="background-image: url(/static/base/img/moby-background-01.png);">
-                            <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
-                                <div>
-                                    <h3 class="card-title pt-2">
-                                        <strong>Herrajes</strong>
-                                    </h3>
-                                    <p>
-                                        Repellat fugiat, laboriosam, voluptatem, optio vero odio nam sit officia
-                                    </p>
-                                    <a class="btn moby-gradient btn-sm">
-                                        <i class="fa fa-clone left"></i>
-                                        Ver más
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         {% endif %}
@@ -306,10 +186,10 @@
                         <div class="col-md-4 col-12 align-self-center">
                             <div class="item">
                                 <div class="header">
-                                    {% if object.img %}
+                                    {% if object.img.url != None %}
                                     <img class="mb-4 img-fluid" src="{{object.img.url}}" alt="{{object.title}}">
                                     {% else %}
-                                    <img class="mb-4 img-fluid" src="/static/base/img/moby-background-01.png" alt="{{object.title}}">
+                                    <img class="mb-4 img-fluid" src="/static/base/img/img-base-m.png" alt="{{object.title}}">
                                     {% endif %}
                                 </div>
                                 <div class="body">
@@ -320,39 +200,6 @@
                                     </h4>
                                     <p class="mt-4 mb-4">
                                         {{object.text|truncatewords:8|safe }}
-                                    </p>
-                                </div>
-                                <div class="footer">
-                                    <a class="btn btn-outline-black text-dark float-right btn-sm" href="{% url 'blog:blog_detail' object.slug %}" role="button">
-                                        Leer más
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor%}
-                </div>
-            </div>
-        {% else %}
-            <div class="container" id="blog">
-                <div class="row">
-                    {% for object in blog_post_test %}
-                        <div class="col-md-4 col-12 align-self-center">
-                            <div class="item">
-                                <div class="header">
-                                    {% if object.img %}
-                                    <img class="mb-4 img-fluid" src="{{object.img.url}}" alt="{{object.title}}">
-                                    {% else %}
-                                    <img class="mb-4 img-fluid" src="/static/base/img/moby-background-01.png" alt="{{object.title}}">
-                                    {% endif %}
-                                </div>
-                                <div class="body">
-                                    <h4>
-                                        <a href="{% url 'blog:blog_detail' object.slug %}" class="text-dark">
-                                            {{object.title}}
-                                        </a>
-                                    </h4>
-                                    <p class="mt-4 mb-4">
-                                        {{object.text|truncatewords:8 }}
                                     </p>
                                 </div>
                                 <div class="footer">
