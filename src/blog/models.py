@@ -13,6 +13,7 @@ from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from sorl.thumbnail import ImageField
 from datetime import datetime
+from django.db.models import Q
 import os
 
 from src.utils.libs import (upload_location)

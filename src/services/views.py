@@ -52,7 +52,7 @@ class ServiceDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         form = self.form_class
-        images = ServiceImage.objects.all().filter(Service_id=context['object'].id)
+        images = ServiceImage.objects.filter(Service_id=context['object'].id)
         if images.exists():
             context['has_images'] = True
             context['images'] = images

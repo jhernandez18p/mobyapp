@@ -45,15 +45,15 @@
         {% else %}
         {% endif %}
         <!-- Fin Bloque carrusel -->
-        {% if site_info %}
+        {% if info_site %}
             <div class="container">
                 <div class="row" id="about">
                     <div class="col-md-6 col-12">
                         <div class="img shadow">
-                            {% if site_info.site_img.url != None %}
-                            <img src="{{ site_info.site_img.url }}" alt="{{SITE_TITLE}}" class="img-fluid">
+                            {% if info_site.site_img.url != None %}
+                                <img src="{{ info_site.site_img.url }}" alt="{{info_site.title}}" class="img-fluid">
                             {% else %}
-                            <img src="{% static 'base/img/img-base-m.png' %}" alt="{{SITE_TITLE}}" class="img-fluid">
+                                <img src="{% static 'base/img/img-base-m.png' %}" alt="{{info_site.title}}" class="img-fluid">
                             {% endif %}
                         </div>
                     </div>
@@ -62,9 +62,9 @@
                             <div class="card-body shadow">
                                 <p>
                                     <span class="h3 moby-text-h-1">
-                                        {{site_info.name}}
+                                        {{info_site.name}}
                                     </span> 
-                                    <br> {{site_info.short_description|safe|truncatechars:240}}
+                                    <br> {{info_site.short_description|safe|truncatechars:240}}
                                 </p>
                             </div>
                         </div>
@@ -73,8 +73,8 @@
                 <div class="row" id="cards">
                     <div class="col-sm-6 col-12">
                         <div class="card text-center text-middle shadow view hm-black-strong">
-                            {% if site_info.services_img != None %}
-                                <img src="{{ site_info.services_img.url }}" alt="Nuestros servicios" class="card-img img-fluid">
+                            {% if info_site.services_img.url != None %}
+                                <img src="{{ info_site.services_img.url }}" alt="Nuestros servicios" class="card-img img-fluid">
                             {% else %}
                                 <img class="card-img" src="/static/base/img/img-base-m.png" alt="Nuestros servicios">
                             {% endif %}
@@ -87,8 +87,8 @@
                     </div>
                     <div class="col-sm-6 col-12">
                         <div class="card text-center text-middle shadow view hm-black-strong">
-                            {% if site_info.products_img != None %}
-                                <img src="{{ site_info.products_img.url }}" alt="Nuestros productos" class="card-img img-fluid">
+                            {% if info_site.products_img.url != None %}
+                                <img src="{{ info_site.products_img.url }}" alt="Nuestros productos" class="card-img img-fluid">
                             {% else %}
                                 <img class="card-img" src="/static/base/img/img-base-m.png" alt="Nuestros productos">
                             {% endif %}
@@ -101,56 +101,13 @@
                     </div>
                 </div>
             </div>
-        {% else %}
-            <div class="container"></div>
-                <div class="row" id="about">
-                    <div class="col-md-6 col-12">
-                        <div class="img shadow">
-                            <img class="img-fluid" src="/static/base/img/woman.png" alt="{{SITE_TITLE}}">
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-12 align-self-center">
-                        <div class="card text-dark mb-3">
-                            <div class="card-body shadow">
-                                <p>
-                                    <span class="h3 moby-text-h-1">
-                                        Moby Panamá, S.A.
-                                    </span> 
-                                    <br> fue fundada en Panamá en el año 2011 estructurada en forma sociedad
-                                    anónima.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" id="cards">
-                    <div class="col-sm-6 col-12">
-                        <div class="card text-center text-middle shadow">
-                            <img class="card-img" src="{% static 'base/img/moby-background-03.png' %}" alt="Card image">
-                            <div class="card-img-overlay">
-                                <h5 class="card-title">Nuestros Servicios</h5>
-                                <a href="{% url 'services:home' %}" class="btn btn-outline-black text-dark btn-sm">Ver más</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-12">
-                        <div class="card text-center text-middle shadow">
-                            <img class="card-img" src="{% static 'base/img/moby-background-04.png' %}" alt="Card image">
-                            <div class="card-img-overlay">
-                                <h5 class="card-title">Nuestros productos</h5>
-                                <a href="{% url 'sales:all' %}" class="btn btn-outline-black text-dark btn-sm">Ver más</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         {% endif %}
         <!-- Fin Bloque imgen corporativa y enlaces -->
         {% if departments %}
             <div class="container-fluid" id="departments">
                 <div class="row">
                     {% for object in departments %}
-                        <div class="col-12 col-md-6 col-lg-3 d-flex align-items-stretch">
+                        <div class="col-12 col-md-6 col-lg-3">
                             {% if object.background.url != None %}
                                 <div class="card card-image" style="background-image: url({{object.background.url}}); max-height:300px;">
                             {% else %}

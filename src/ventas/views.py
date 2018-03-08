@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.db.models import Q
 from django.http import JsonResponse
+from django.shortcuts import render
 from django.views import View
 from django.views.generic import ListView, DetailView
 
@@ -13,18 +14,19 @@ class Home(ListView):
     template_name = 'app/products.html'
 
     def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
-        # Add in a QuerySet of all the books
+        context['SITE_URL'] = 'Nuestros productos'
+        context['has_newsletter'] = True
+
         articles = Article.objects.all()
         if articles.exists():
             context['products'] = articles[:9]
 
-        products_header_carousel = Carousel.objects.all().filter(page_id=3).filter(position_id=1)
+        products_header_carousel = Carousel.objects.filter(Q(page_id=3) & Q(position_id=1))
         if products_header_carousel.exists():
             context['products_header_carousel'] = True
             
-            products_header_carousel_images = CarouselImage.objects.all().filter(Carousel_id=products_header_carousel[0].id)
+            products_header_carousel_images = CarouselImage.objects.filter(Carousel_id=products_header_carousel[0].id)
             if products_header_carousel_images.exists():
                 context['products_header_carousel_images'] = products_header_carousel_images
         
@@ -35,201 +37,7 @@ class Home(ListView):
         providers = Provider.objects.all()
         if providers.exists():
             context['providers'] = providers[:4]
-        
-        context['SITE_URL'] = 'Nuestros productos'
-        context['has_newsletter'] = True
-        context['products_test'] = {
-            1:{
-                'co_art':'113120',
-                'art_des':'CUBIERTERO LINEA TEN DE 450 MM',
-                'co_lin':'HERR',
-                'co_cat':'VARIOS',
-                'co_subl':'VRO',
-                'co_color':'10',
-                'CO_CATW':'',
-                'ref':'',
-                'modelo':'',
-                'procedenci':'1',
-                'co_prov':'P00049',
-                'uni_venta':'PZA',
-                'sstock_act':'10',
-                'prec_vta1':'7.2',
-                'prec_vta2':'8',
-                'prec_vta3':'9.2',
-                'prec_vta4':'12.42',
-                'prec_vta5':'9.2',
-                'tipo':'V',
-                'picture':'/static/base/img/art.png',
-            },2:{
-                'co_art':'113120',
-                'art_des':'CUBIERTERO LINEA TEN DE 450 MM',
-                'co_lin':'HERR',
-                'co_cat':'VARIOS',
-                'co_subl':'VRO',
-                'co_color':'10',
-                'CO_CATW':'',
-                'ref':'',
-                'modelo':'',
-                'procedenci':'1',
-                'co_prov':'P00049',
-                'uni_venta':'PZA',
-                'sstock_act':'10',
-                'prec_vta1':'7.2',
-                'prec_vta2':'8',
-                'prec_vta3':'9.2',
-                'prec_vta4':'12.42',
-                'prec_vta5':'9.2',
-                'tipo':'V',
-                'picture':'/static/base/img/art.png',
-            },3:{
-                'co_art':'113120',
-                'art_des':'CUBIERTERO LINEA TEN DE 450 MM',
-                'co_lin':'HERR',
-                'co_cat':'VARIOS',
-                'co_subl':'VRO',
-                'co_color':'10',
-                'CO_CATW':'',
-                'ref':'',
-                'modelo':'',
-                'procedenci':'1',
-                'co_prov':'P00049',
-                'uni_venta':'PZA',
-                'sstock_act':'10',
-                'prec_vta1':'7.2',
-                'prec_vta2':'8',
-                'prec_vta3':'9.2',
-                'prec_vta4':'12.42',
-                'prec_vta5':'9.2',
-                'tipo':'V',
-                'picture':'/static/base/img/art.png',
-            },4:{
-                'co_art':'113120',
-                'art_des':'CUBIERTERO LINEA TEN DE 450 MM',
-                'co_lin':'HERR',
-                'co_cat':'VARIOS',
-                'co_subl':'VRO',
-                'co_color':'10',
-                'CO_CATW':'',
-                'ref':'',
-                'modelo':'',
-                'procedenci':'1',
-                'co_prov':'P00049',
-                'uni_venta':'PZA',
-                'sstock_act':'10',
-                'prec_vta1':'7.2',
-                'prec_vta2':'8',
-                'prec_vta3':'9.2',
-                'prec_vta4':'12.42',
-                'prec_vta5':'9.2',
-                'tipo':'V',
-                'picture':'/static/base/img/art.png',
-            },5:{
-                'co_art':'113120',
-                'art_des':'CUBIERTERO LINEA TEN DE 450 MM',
-                'co_lin':'HERR',
-                'co_cat':'VARIOS',
-                'co_subl':'VRO',
-                'co_color':'10',
-                'CO_CATW':'',
-                'ref':'',
-                'modelo':'',
-                'procedenci':'1',
-                'co_prov':'P00049',
-                'uni_venta':'PZA',
-                'sstock_act':'10',
-                'prec_vta1':'7.2',
-                'prec_vta2':'8',
-                'prec_vta3':'9.2',
-                'prec_vta4':'12.42',
-                'prec_vta5':'9.2',
-                'tipo':'V',
-                'picture':'/static/base/img/art.png',
-            },6:{
-                'co_art':'113120',
-                'art_des':'CUBIERTERO LINEA TEN DE 450 MM',
-                'co_lin':'HERR',
-                'co_cat':'VARIOS',
-                'co_subl':'VRO',
-                'co_color':'10',
-                'CO_CATW':'',
-                'ref':'',
-                'modelo':'',
-                'procedenci':'1',
-                'co_prov':'P00049',
-                'uni_venta':'PZA',
-                'sstock_act':'10',
-                'prec_vta1':'7.2',
-                'prec_vta2':'8',
-                'prec_vta3':'9.2',
-                'prec_vta4':'12.42',
-                'prec_vta5':'9.2',
-                'tipo':'V',
-                'picture':'/static/base/img/art.png',
-            },7:{
-                'co_art':'113120',
-                'art_des':'CUBIERTERO LINEA TEN DE 450 MM',
-                'co_lin':'HERR',
-                'co_cat':'VARIOS',
-                'co_subl':'VRO',
-                'co_color':'10',
-                'CO_CATW':'',
-                'ref':'',
-                'modelo':'',
-                'procedenci':'1',
-                'co_prov':'P00049',
-                'uni_venta':'PZA',
-                'sstock_act':'10',
-                'prec_vta1':'7.2',
-                'prec_vta2':'8',
-                'prec_vta3':'9.2',
-                'prec_vta4':'12.42',
-                'prec_vta5':'9.2',
-                'tipo':'V',
-                'picture':'/static/base/img/art.png',
-            },8:{
-                'co_art':'113120',
-                'art_des':'CUBIERTERO LINEA TEN DE 450 MM',
-                'co_lin':'HERR',
-                'co_cat':'VARIOS',
-                'co_subl':'VRO',
-                'co_color':'10',
-                'CO_CATW':'',
-                'ref':'',
-                'modelo':'',
-                'procedenci':'1',
-                'co_prov':'P00049',
-                'uni_venta':'PZA',
-                'sstock_act':'10',
-                'prec_vta1':'7.2',
-                'prec_vta2':'8',
-                'prec_vta3':'9.2',
-                'prec_vta4':'12.42',
-                'prec_vta5':'9.2',
-                'tipo':'V',
-                'picture':'/static/base/img/art.png',
-            },9:{
-                'co_art':'113120',
-                'art_des':'CUBIERTERO LINEA TEN DE 450 MM',
-                'co_lin':'HERR',
-                'co_cat':'VARIOS',
-                'co_subl':'VRO',
-                'co_color':'10',
-                'CO_CATW':'',
-                'ref':'',
-                'modelo':'',
-                'procedenci':'1',
-                'co_prov':'P00049',
-                'uni_venta':'PZA',
-                'sstock_act':'10',
-                'prec_vta1':'7.2',
-                'prec_vta2':'8',
-                'prec_vta3':'9.2',
-                'prec_vta4':'12.42',
-                'prec_vta5':'9.2',
-                'tipo':'V',
-                'picture':'/static/base/img/art.png',
-            },
-        }
+
         return context
 
 

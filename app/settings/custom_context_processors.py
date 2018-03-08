@@ -46,15 +46,16 @@ def site(request):
 
     info_site = Site.objects.filter(id=1)
     if info_site.exists():
-        context['site_short_desc'] = info_site[0].short_description
-        context['site_email'] = info_site[0].email
-        context['site_email2'] = info_site[0].email2
-        context['site_phone'] = info_site[0].phone
-        context['site_phone2'] = info_site[0].phone2
-        context['site_schedule'] = info_site[0].schedule
-        context['site_workday'] = info_site[0].workday
-        context['site_address'] = info_site[0].address
-        sm = SocialMedia.objects.all().filter(site=info_site[0].id)
+        # context['site_short_desc'] = info_site[0].short_description
+        # context['site_email'] = info_site[0].email
+        # context['site_email2'] = info_site[0].email2
+        # context['site_phone'] = info_site[0].phone
+        # context['site_phone2'] = info_site[0].phone2
+        # context['site_schedule'] = info_site[0].schedule
+        # context['site_workday'] = info_site[0].workday
+        # context['site_address'] = info_site[0].address
+        context['info_site'] = info_site[0]
+        sm = SocialMedia.objects.filter(site=info_site[0].id)
         if sm.exists():
             context['social_media'] = sm
         pass

@@ -1,4 +1,5 @@
 from django.contrib.sessions.backends.db import SessionStore
+from django.db.models import Q
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
@@ -47,57 +48,22 @@ class Home(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        home_header_carousel = Carousel.objects.all().filter(page_id=1).filter(position_id=1)
+        home_header_carousel = Carousel.objects.filter(Q(page_id=1) & Q(position_id=1))
         if home_header_carousel.exists():
             context['home_header_carousel'] = True
             
-            home_header_carousel_images = CarouselImage.objects.all().filter(Carousel_id=1)
+            home_header_carousel_images = CarouselImage.objects.filter(Carousel_id=1)
             if home_header_carousel_images.exists():
                 context['home_header_carousel_images'] = home_header_carousel_images
-
-        info_site = Site.objects.all()
-        if info_site.exists():
-            context['site_info'] = info_site[0]
-            # print(context['info_site'].services_img.url)
 
         departments = Department.objects.all()
         if departments.exists():
             context['departments'] = departments[:4]
 
-        posts = Post.objects.all().filter(draft=False)
+        posts = Post.objects.filter(draft=False)
         if posts.exists():
             context['blog_post'] = posts[:3]
-        else:
-            context['blog_post_test'] = [
-                {
-                    'title':'Esto es un post',
-                    'sub_title':'New post 01',
-                    'text':'Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ipsa nam facere fugiat maiores iste, placeat ratione consequuntur. Laboriosam in eos non dolores sit enim quaerat saepe exercitationem possimus ratione?',
-                    'background':'https://static.pexels.com/photos/261579/pexels-photo-261579.jpeg',
-                    'img':'/static/base/img/moby-background-01.png',
-                    'time_stamp':'01/01/2018',
-                    'slug':'new_post_1',
-                },
-                {
-                    'title':'Esto es un post',
-                    'sub_title':'New post 01',
-                    'text':'Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ipsa nam facere fugiat maiores iste, placeat ratione consequuntur. Laboriosam in eos non dolores sit enim quaerat saepe exercitationem possimus ratione?',
-                    'background':'https://static.pexels.com/photos/261579/pexels-photo-261579.jpeg',
-                    'img':'/static/base/img/moby-background-01.png',
-                    'time_stamp':'01/01/2018',
-                    'slug':'new_post_2',
-                },
-                {
-                    'title':'Esto es un post',
-                    'sub_title':'New post 01',
-                    'text':'Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ipsa nam facere fugiat maiores iste, placeat ratione consequuntur. Laboriosam in eos non dolores sit enim quaerat saepe exercitationem possimus ratione?',
-                    'background':'https://static.pexels.com/photos/261579/pexels-photo-261579.jpeg',
-                    'img':'/static/base/img/moby-background-01.png',
-                    'time_stamp':'01/01/2018',
-                    'slug':'new_post_3',
-                }
-            ]
-        
+
         context['has_newsletter'] = True
         context['SITE_URL'] = 'Inicio'
         context['url'] = reverse('front:home')

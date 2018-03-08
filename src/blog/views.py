@@ -13,7 +13,7 @@ from .forms import CommentForm
 
 class Home(ListView):
     model = Post
-    queryset = Post.objects.all().filter(draft=False)
+    queryset = Post.objects.filter(draft=False)
     # context_object_name = 'boards'
     paginate_by = 6
     template_name = 'app/blog.html'
@@ -38,7 +38,7 @@ class BlogDetail(DetailView):
         context = super().get_context_data(**kwargs)
 
         context['form'] = CommentForm
-        comments = Comment.objects.all().filter(content_type=17, approved=True,object_id=context['object'].id)
+        comments = Comment.objects.filter(content_type=17, approved=True,object_id=context['object'].id)
         if comments.exists():
             context['has_comments'] = True
             page = self.request.GET.get('page')
