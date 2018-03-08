@@ -17,7 +17,7 @@
                         <div class="carousel-inner view hm-black-strong" role="listbox">
                             {% for object in home_header_carousel_images %}
                                 <div class="carousel-item view hm-black-strong {% if forloop.counter == 1 %}active {% endif %}">
-                                    <img src="{{ object.image }}" alt="{{object.name}}" class="d-block img-fluid">
+                                    <img src="{{ object.image.url }}" alt="{{object.name}}" class="d-block img-fluid">
                                     <div class="carousel-caption">
                                         <div>
                                             <h2>{{object.name}}</h2>
