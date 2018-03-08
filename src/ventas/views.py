@@ -34,9 +34,9 @@ class Home(ListView):
         if departments.exists():
             context['departments'] = departments[:4]
 
-        providers = Provider.objects.all()
-        if providers.exists():
-            context['providers'] = providers[:4]
+        brands = Brands.objects.all()
+        if brands.exists():
+            context['brands'] = brands
 
         return context
 
@@ -309,7 +309,7 @@ class DepartmentDetail(DetailView):
         return context
 
 
-class Providers(ListView):
+class BrandView(ListView):
     model = Brands
     # context_object_name = 'boards'
     paginate_by = 6
@@ -325,7 +325,7 @@ class Providers(ListView):
         return context
 
 
-class ProvidersDetails(DetailView):
+class BrandsDetails(DetailView):
     model = Brands
     # context_object_name = 'boards'
     # queryset = ''

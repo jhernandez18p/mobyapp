@@ -127,10 +127,10 @@
             <div class="rgba-green-strong py-5">
                 <div class="container">
                     <div class="row">
-                        {% for objects in products %}
+                        {% for object in products %}
                             <div class="col-sm-4 align-self-center">
                                 <div class="item">
-                                    <a href="{{objects.get_absolute_url}}">
+                                    <a href="{{object.get_absolute_url}}">
                                         <img src="{% if object.img != None %}/media/articulos/{{objects.img}}{% else %}{% static 'base/img/base-product-img.png' %}{% endif %}" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
                                     </a>
                                 </div>
@@ -148,7 +148,7 @@
             </div>
         {% endif %} 
         {# Proveedores #}
-        {% if providers %}
+        {% if brands %}
             <div class="container">
                 <div class="row pb-5" id="providers">
                     <div class="col-sm-12">
@@ -160,11 +160,9 @@
                     </div>
                     <div class="col-12">
                         <div class="owl-carousel owl-theme">
-                            {% for object in providers %}
-                                <a href="{{object.get_absolute_url}}">
-                                    {% if object.logo %}
-                                    <img class="owl-lazy" data-src="{{object.logo.url}}" alt="{{object.name}}"> {% else %}
-                                    <img class="owl-lazy" data-src="/static/base/img/moby.png" alt="{{object.name}}"> {% endif %}
+                            {% for object in brands %}
+                                <a href="{{object.get_absolute_url}}">                                    
+                                    <img class="owl-lazy" data-src="{% if object.logo.url != None %}{{object.logo.url}}{% else %} /static/base/img/moby.png {% endif %}" alt="{{object.name}}" data-toggle="tooltip" data-placement="top" title="{{object.name}}">
                                 </a>
                             {% endfor %}
                         </div>

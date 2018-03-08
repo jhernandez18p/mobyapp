@@ -171,13 +171,14 @@ class Department(models.Model):
     def __str__(self):
         return self.name
 
+
     class Meta:
         verbose_name = _('Departamento')
         verbose_name_plural = _('Departamentos')
 
 
     def get_absolute_url(self):
-        return reverse('sales:department_detail', kwargs={'slug': self.name.lower()})
+        return reverse('sales:department_detail', kwargs={'slug': self.slug})
 
 
 class Category(models.Model):

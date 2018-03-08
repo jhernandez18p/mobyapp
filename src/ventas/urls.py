@@ -5,8 +5,8 @@ from .views import (
     DepartmentDetail,
     ProductsList,
     ProductsDetail,
-    Providers,
-    ProvidersDetails,
+    BrandView,
+    BrandsDetails,
 )
 
 app_name = 'sales'
@@ -18,6 +18,6 @@ urlpatterns = [
     path('departamentos/', Departments.as_view(), name='departments'),
     path('departamentos/<slug:slug>', DepartmentDetail.as_view(), name='department_detail'),
 
-    path('marcas/', Providers.as_view(), name='brands'),
-    path('marcas/<slug:slug>', ProvidersDetails.as_view(), name='brand_detail'),
+    path('marcas/', BrandView.as_view(), name='brands'),
+    path('marcas/<slug:slug>', BrandsDetails.as_view(), name='brand_detail'),
 ]
