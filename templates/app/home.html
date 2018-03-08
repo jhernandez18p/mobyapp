@@ -57,7 +57,7 @@
                             {% endif %}
                         </div>
                     </div>
-                    <div class="col-md-6 col-sm-12 align-self-center">
+                    <div class="col-md-6 col-sm-12">
                         <div class="card text-dark mb-3">
                             <div class="card-body shadow">
                                 <p>
@@ -78,7 +78,6 @@
                             {% else %}
                                 <img class="card-img" src="/static/base/img/img-base-m.png" alt="Nuestros servicios">
                             {% endif %}
-                            <div class="mask"></div>
                         </div>
                         <div class="card-img-overlay bg-light shadow">
                             <h5 class="card-title">Nuestros Servicios</h5>
@@ -92,7 +91,6 @@
                             {% else %}
                                 <img class="card-img" src="/static/base/img/img-base-m.png" alt="Nuestros productos">
                             {% endif %}
-                            <div class="mask"></div>
                         </div>
                         <div class="card-img-overlay bg-light shadow">
                             <h5 class="card-title">Nuestros productos</h5>
@@ -109,9 +107,9 @@
                     {% for object in departments %}
                         <div class="col-12 col-md-6 col-lg-3">
                             {% if object.background.url != None %}
-                                <div class="card card-image" style="background-image: url({{object.background.url}}); max-height:300px;">
+                                <div class="card card-image" style="background-image: url({{object.background.url}});">
                             {% else %}
-                                <div class="card card-image" style="background-image: url(/static/base/img/img-base-m.png); max-height:300px;">
+                                <div class="card card-image" style="background-image: url(/static/base/img/img-base-m.png);">
                             {% endif %}
                                     <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
                                         <div>
