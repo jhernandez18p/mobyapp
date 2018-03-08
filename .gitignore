@@ -116,3 +116,4 @@ media/*
 /backup/*
 
 **/__pycache__
+*.gz

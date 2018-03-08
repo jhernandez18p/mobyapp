@@ -13,8 +13,8 @@ from .views import (
 
 app_name = 'front'
 urlpatterns = [
-    path('', cache_page(60*60)(Home.as_view()), name='home'),
-    path('contacto', cache_page(60*60)(Contact.as_view()), name='contact'),
+    path('', Home.as_view(), name='home'),
+    path('contacto', Contact.as_view(), name='contact'),
     path('contacto/gracias', ContactThanks.as_view(), name='contact_thanks'),
     path('contacto/error', ContactError.as_view(), name='contact_error'),
     path('busqueda', Search.as_view(), name='search'),
