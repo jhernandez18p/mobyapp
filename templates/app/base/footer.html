@@ -1,5 +1,4 @@
         {% load staticfiles %}{% load flatpages %}{% get_flatpages as flatpages %}
-        
         {% if has_newsletter %}
             <div id="newsletter">
                 <div class="text-center">
@@ -30,44 +29,45 @@
                 </div>
             </div>
         {% endif %}
-
         <div class="bg-footer" style="z-index: 1050;">
             <div class="bg-footer-dark" id="SMStopper">
-                    <div class="container">
-                        <div class="row py-2 d-flex align-items-center">
-                            <div class="col-md-6 col-lg-5 text-center text-md-left">
-                                <h6 class="mb-0 white-text">Siguenos en nuestras redes sociales!</h6>
-                            </div>
-                            {% if social_media %}
-                                <div class="col-md-6 col-lg-7 text-center text-md-right">
-                                    {% for object in social_media %}
-                                        <a class="icons-sm fb-ic ml-0" href="{{object.url}}" target="_blank">
-                                            <i class="fa {{object.icon}} white-text mr-lg-4"> </i>
-                                        </a>
-                                    {% endfor %}
-                                </div>
-                            {% else %}
-                                <div class="col-md-6 col-lg-7 text-center text-md-right">
-                                    <a class="icons-sm fb-ic ml-0" href="" target="_blank">
-                                        <i class="fa fa-facebook white-text mr-lg-4"> </i>
-                                    </a>
-                                    <a class="icons-sm tw-ic" href="" target="_blank">
-                                        <i class="fa fa-twitter white-text mr-lg-4"> </i>
-                                    </a>
-                                    <a class="icons-sm gplus-ic" href="" target="_blank">
-                                        <i class="fa fa-google-plus white-text mr-lg-4"> </i>
-                                    </a>
-                                    <a class="icons-sm li-ic" href="" target="_blank">
-                                        <i class="fa fa-linkedin white-text mr-lg-4"> </i>
-                                    </a>
-                                    <a class="icons-sm ins-ic" href="" target="_blank">
-                                        <i class="fa fa-instagram white-text mr-lg-4"> </i>
-                                    </a>
-                                </div>
-                            {% endif %}
+                <div class="container">
+                    <div class="row py-2 d-flex align-items-center">
+                        <div class="col-md-6 col-lg-5 text-center text-md-left">
+                            <h6 class="mb-0 white-text">
+                                Siguenos en nuestras redes sociales!
+                            </h6>
                         </div>
+                        {% if social_media %}
+                        <div class="col-md-6 col-lg-7 text-center text-md-right">
+                            {% for object in social_media %}
+                                <a class="icons-sm fb-ic ml-0" href="{{object.url}}" target="_blank">
+                                    <i class="fa {{object.icon}} white-text mr-lg-4"> </i>
+                                </a>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        <div class="col-md-6 col-lg-7 text-center text-md-right">
+                            <a class="icons-sm fb-ic ml-0" href="" target="_blank">
+                                <i class="fa fa-facebook white-text mr-lg-4"> </i>
+                            </a>
+                            <a class="icons-sm tw-ic" href="" target="_blank">
+                                <i class="fa fa-twitter white-text mr-lg-4"> </i>
+                            </a>
+                            <a class="icons-sm gplus-ic" href="" target="_blank">
+                                <i class="fa fa-google-plus white-text mr-lg-4"> </i>
+                            </a>
+                            <a class="icons-sm li-ic" href="" target="_blank">
+                                <i class="fa fa-linkedin white-text mr-lg-4"> </i>
+                            </a>
+                            <a class="icons-sm ins-ic" href="" target="_blank">
+                                <i class="fa fa-instagram white-text mr-lg-4"> </i>
+                            </a>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
+            </div>
             <div class="container">
                 <div class="row">
                     <div class="col-12 col-md-6 col-lg-3">
@@ -139,45 +139,43 @@
                             {% endif %}
                         </p>
                         <p class="text-white">
-                                {% if site_phone == None %}
-                                +(507)-800-MOBY 
-                                {% else %}
-                                {{site_phone |safe}}
-                                {% endif %}
+                            {% if site_phone == None %}
+                            +(507)-800-MOBY 
+                            {% else %}
+                            {{site_phone |safe}}
+                            {% endif %}
                             <br>
-                                {% if site_phone2 == None %}
-                                +(507)-800-6629
-                                {% else %}
-                                {{site_phone2 | safe}}
-                                {% endif %}
+                            {% if site_phone2 == None %}
+                            +(507)-800-6629
+                            {% else %}
+                            {{site_phone2 | safe}}
+                            {% endif %}
                             <br>
-
-                                {% if site_workday == None %}
-                                Lun - Vie
-                                {% else %}
-                                {{site_workday | safe}}
-                                {% endif %}
-                                ,
-                                {% if site_schedule == None %}
-                                8:00 am - 5:00 pm
-                                {% else %}
-                                {{site_schedule | safe}}
-                                {% endif %}
+                            {% if site_workday == None %}
+                            Lun - Vie
+                            {% else %}
+                            {{site_workday | safe}}
+                            {% endif %}
+                            ,
+                            {% if site_schedule == None %}
+                            8:00 am - 5:00 pm
+                            {% else %}
+                            {{site_schedule | safe}}
+                            {% endif %}
                         </p>
                         <p class="text-white">
-                                {% if site_email == None %}
-                                info@moby-group.com
-                                {% else %}
-                                {{site_email | safe}}
-                                {% endif %}
+                            {% if site_email == None %}
+                            info@moby-group.com
+                            {% else %}
+                            {{site_email | safe}}
+                            {% endif %}
                             <br>
-                                {% if site_email2 == None %}
-                                sale@moby-group.com
-                                {% else %}
-                                {{site_email2 | safe}}
-                                {% endif %}
-                            </p>
-                        
+                            {% if site_email2 == None %}
+                            sale@moby-group.com
+                            {% else %}
+                            {{site_email2 | safe}}
+                            {% endif %}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -186,37 +184,37 @@
                     <hr>
                     <div class="row">
                         <div class="col-12 col-sm-6">
-                            <div>
-                                <div class="h-100 align-middle">
-                                    <p class="font-weight-light text-light text-footer">
-                                        Moby Group
-                                        <i class="material-icons">copyright</i> Todos los derechos reservados {% now 'Y' %}.
-                                    </p>
-                                </div>
+                            <div class="h-100 align-middle">
+                                <p class="font-weight-light text-light text-footer">
+                                    Moby Group
+                                    <i class="material-icons">copyright</i> Todos los derechos reservados {% now 'Y' %}.
+                                </p>
                             </div>
                         </div>
-                    </div>
-                    <div class="fixed-action-btn smooth-scroll" style="bottom: 45px; right: 24px; z-index: 1051;">
-                        <a href="#top-section" class="btn-floating btn-large special-color-dark">
-                            <i class="fa fa-arrow-up"></i>
-                        </a>
                     </div>
                 </div>
             </div>
         </div>
-        
+        <div class="fixed-action-btn smooth-scroll" style="bottom: 45px; right: 24px; z-index: 1051;">
+            <a href="#top-section" class="btn-floating btn-large special-color-dark">
+                <i class="fa fa-arrow-up"></i>
+            </a>
+        </div>
         {% if cookie_modal %}
-            <div data-bfmodal="jYy" class="modal fade bottom modal-content-clickable show" id="modalCookie" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="false" style="display: block; padding-right: 17px;">
+            <div class="modal fade bottom modal-content-clickable" id="modalCookie" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="false" style="display: block; padding-right: 17px;">
                 <div class="modal-dialog modal-frame modal-bottom modal-notify modal-info" role="document">
                     <div class="modal-content">
                         <div class="modal-body py-1 rgba-black-strong">
                             <div class="row d-flex justify-content-center align-items-center">
-                                <p class="pt-3 pr-2 text-white">Hacemos uso de <span>cookies</span> para mejorar la experiencia de uso en la pagina.</p>
-                                <a href="/cookie-policy"
-                                type="button" class="btn btn-outline-white btn-md" target="_blank">Ver más</a>
-                                
-                                            <button id="cookieModalOK" type="button" class="btn btn-outline-white btn-md" >Ok, gracias</button>
-
+                                <p class="pt-3 pr-2 text-white">
+                                    Hacemos uso de <span>cookies</span> para mejorar la experiencia de uso en la pagina.</p>
+                                <a href="/cookies"
+                                type="button" class="btn btn-outline-white btn-md" target="_blank">
+                                    Ver más
+                                </a>
+                                <button id="cookieModalOK" type="button" class="btn btn-outline-white btn-md" >
+                                    Ok, gracias
+                                </button>
                             </div>
                         </div>
                     </div>

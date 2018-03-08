@@ -4,7 +4,7 @@ from django.contrib.auth import login, authenticate,REDIRECT_FIELD_NAME, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
 from django.db.models import Q
-from django.http import HttpResponseRedirect,JsonResponse 
+from django.http import HttpResponse ,HttpResponseRedirect ,JsonResponse 
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
@@ -129,8 +129,7 @@ def custom_register(request):
 
     return render(request, "auth/form.html", context)
 
-
-def Newsletter(request):
+def newsletter(request):
     if request.method == 'POST':
         return HttpResponseRedirect('/contacto/error')
     else:
@@ -154,6 +153,30 @@ def Newsletter(request):
             if newsletter:
                 Newsletter(name=form_name,email=form_email)
 
+def page_not_found_view(request):
+    # my custom page not found view
+    template = 'auth/page_not_found_view.html'
+    context = {}
+    context['error_code'] = "404"
+    return render(request,template,context)
 
+def error_view(request):
+    # my custom error view
+    template = 'auth/error_view.html'
+    context = {}
+    context['error_code'] = "500"
+    return render(request,template,context)
 
+def permission_denied_view(request):
+    # my custom permission denied view
+    template = 'auth/permission_denied_view.html'
+    context = {}
+    context['error_code'] = "403"
+    return render(request,template,context)
 
+def bad_request_view(request):
+    # my custom bad request view
+    template = 'auth/bad_request_view.html'
+    context = {}
+    context['error_code'] = "400"
+    return render(request,template,context)

@@ -114,3 +114,5 @@ media/*
 *.rar
 /backup
 /backup/*
+
+**/__pycache__

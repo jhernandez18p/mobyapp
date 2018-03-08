@@ -68,6 +68,7 @@ class Carousel(models.Model):
         verbose_name = _("Carousel")
         verbose_name_plural = _("Carousel")
 
+
 class CarouselImage(models.Model):
     Carousel = models.ForeignKey(Carousel, related_name='images', on_delete=models.CASCADE)
     image = ImageField(upload_to=get_upload_path,verbose_name = _('Imágen'))
@@ -228,3 +229,6 @@ class SocialMedia(models.Model):
     class Meta:
         verbose_name = _('Perfiles de redes sociales')
         verbose_name_plural = _('Perfiles de redes sociales')
+
+
+        

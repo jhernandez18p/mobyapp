@@ -50,7 +50,6 @@ THIRD_PARTY_APPS = (
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -157,6 +156,7 @@ else:
     STATICFILES_DIRS = (
         os.path.abspath(os.path.join(os.path.join(BASE_DIR,os.pardir), 'staticfiles')),
     )
+    print(MEDIA_ROOT)
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -211,6 +211,9 @@ MESSAGE_TAGS = {
 IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 APPEND_SLASH = True
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'
 
 # CKEDITOR_CONFIGS = {
 #     'default': {
@@ -277,6 +280,5 @@ APPEND_SLASH = True
 #     }
 # }
 
-CKEDITOR_UPLOAD_PATH = "uploads/"
-CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'
+
 
