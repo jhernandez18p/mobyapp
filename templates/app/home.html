@@ -101,32 +101,28 @@
             </div>
         {% endif %}
         <!-- Fin Bloque imgen corporativa y enlaces -->
-        {% if department %}
-            <div class="container-fluid" id="departments">
+        {% if departments %}
+            <div class="container">
                 <div class="row">
                     {% for object in departments %}
-                        <div class="col-12 col-md-6 col-lg-3">
-                            {% if object.background.url != None %}
-                                <div class="card card-image" style="background-image: url({{object.background.url}});">
-                            {% else %}
-                                <div class="card card-image" style="background-image: url(/static/base/img/img-base-m.png);">
-                            {% endif %}
-                                    <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
-                                        <div>
-                                            <h3 class="card-title pt-2">
-                                                <a href="{{object.get_absolute_url}}" class="white-text">
-                                                    <strong>{{object.name}}</strong>
-                                                </a>
-                                            </h3>
-                                            <p>
-                                                {{object.description|safe|truncatechars:120}}
-                                            </p>
-                                            <a class="btn moby-gradient" href="{{object.get_absolute_url}}">
-                                                <i class="fa fa-clone left"></i>
-                                                Ver más
+                        <div class="col-md-6 col-lg-3">
+                            <div class="card card-image" {% if object.background.url != None %} style="background-image: url({{object.background.url}});" {% else %} style="background-image: url(/static/base/img/img-base-m.png);" {% endif %}>
+                                <div class="text-white text-center d-flex align-items-center rgba-black-strong py-5 px-4">
+                                    <div>
+                                        <h3 class="card-title pt-2">
+                                            <a href="{{object.get_absolute_url}}" class="white-text">
+                                                <strong>{{object.name}}</strong>
                                             </a>
-                                        </div>
+                                        </h3>
+                                        <p>
+                                            {{object.description|safe|truncatechars:120}}
+                                        </p>
+                                        <a class="btn moby-gradient" href="{{object.get_absolute_url}}">
+                                            <i class="fa fa-clone left"></i>
+                                            Ver más
+                                        </a>
                                     </div>
+                                </div>
                             </div>
                         </div>
                     {% endfor %}
