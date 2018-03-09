@@ -3,7 +3,7 @@
 #about .card{margin-left: -25px;}
 #carousel {width: 100%;overflow: hidden; max-height: 600px;}
 #carousel .carousel-inner img {width:100%;max-height: 600px;}
-#carousel-header {max-height: 600px; overflow: hidden; width: 100%; margin-top: 25px;}
+#carousel-header {max-height: 600px; overflow: hidden; width: 100%; margin-top: 50px;}
 .carousel-caption {bottom: 10%;}
 #cards .card-img-overlay {position: initial;}
 #departments .row {margin-bottom: 45px;}

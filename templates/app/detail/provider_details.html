@@ -39,14 +39,14 @@
                     </h2>
                 </header>
             </div>
-                {% for objects in products %}
+                {% for object in products %}
                     <div class="col-sm-4 align-self-center">
                         <div class="item">
-                            <a href="{{objects.get_absolute_url}}">
-                                {% if object.img %}
-                                <img src="/media/{{objects.img}}" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
+                            <a href="{{object.get_absolute_url}}">
+                                {% if object.img.url != None %}
+                                <img src="{{object.img.url}}" alt="{{object.name}}" class="img-fluid rounded mx-auto d-block"></img>
                                 {% else %}
-                                <img src="{% static 'base/img/moby-background-02.png' %}" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
+                                <img src="{% static 'base/img/img-base-m.png' %}" alt="{{object.name}}" class="img-fluid rounded mx-auto d-block"></img>
                                 {% endif %}
                             </a>
                         </div>

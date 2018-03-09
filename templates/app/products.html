@@ -44,7 +44,6 @@
                                             <h2>{{object.name}}</h2>
                                             {{object.text | safe}}
                                             {% if object.call_to_action_url != None %}
-                                            {% else %}
                                                 <a class="btn btn-outline-white waves-effect" href="{{object.call_to_action_url}}">Ver más</a>
                                             {% endif %}
                                         </div>
@@ -131,7 +130,7 @@
                             <div class="col-sm-4 align-self-center">
                                 <div class="item">
                                     <a href="{{object.get_absolute_url}}">
-                                        <img src="{% if object.img != '' %}/media/articulos/{{objects.img}}{% else %}{% static 'base/img/base-m.png' %}{% endif %}" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
+                                        <img src="{% if object.img != '' %}/media/articulos/{{objects.img}}{% else %}{% static 'base/img/base-m.png' %}{% endif %}" alt="{{object.name}}" class="img-fluid rounded mx-auto d-block"></img>
                                     </a>
                                 </div>
                             </div>

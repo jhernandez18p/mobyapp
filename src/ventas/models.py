@@ -59,7 +59,7 @@ class Photo(models.Model):
 class Line(models.Model): 
     # Business logic art. key 
     description = RichTextField(blank=True, verbose_name=_('Descripción'))
-    img = ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
+    img = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
     name = models.CharField(max_length=144, blank=True, verbose_name=_('Nombre'))
     code = models.CharField(max_length=144, blank=True, verbose_name=_('Código'))
 
@@ -74,7 +74,7 @@ class Line(models.Model):
 class SubLine(models.Model): 
     # Business logic art. key 
     description = RichTextField(blank=True, verbose_name=_('Descripción'))
-    img = ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
+    img = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
     name = models.CharField(max_length=144, blank=True, verbose_name=_('Nombre'))
     code = models.CharField(max_length=144, blank=True, verbose_name=_('Código'))
     parent = models.ForeignKey(Line, null=True, blank=True, on_delete=models.CASCADE, verbose_name=_('Linea padre'))
@@ -103,9 +103,9 @@ class Color(models.Model):
 
 class Type(models.Model): 
     # For web use
-    background = ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Foto de fondo'))
+    background = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Foto de fondo'))
     description = RichTextField(blank=True, verbose_name=_('Descripción'))
-    img = ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
+    img = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
     name = models.CharField(max_length=144, blank=True, verbose_name=_('Nombre'))
     code = models.CharField(max_length=144, blank=True, verbose_name=_('Código'))
 
@@ -118,10 +118,10 @@ class Type(models.Model):
 
 
 class Provider(models.Model):
-    background = ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Foto de fondo'))
+    background = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Foto de fondo'))
     description = RichTextField(blank=True, verbose_name=_('Descripción'))
-    img = ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
-    logo = ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Logo'))
+    img = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
+    logo = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Logo'))
     name = models.CharField(max_length=144, blank=True, verbose_name=_('Nombre'))
     slug = models.CharField(max_length=144, blank=True, verbose_name=_('Slug \"SEO\"'))
     website = models.CharField(max_length=144, blank=True, verbose_name=_('Dirección url'))
@@ -139,10 +139,10 @@ class Provider(models.Model):
 
 
 class Brands(models.Model):
-    background = ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Foto de fondo'))
+    background = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Foto de fondo'))
     description = RichTextField(blank=True, verbose_name=_('Descripción'))
-    img = ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
-    logo = ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Logo'))
+    img = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
+    logo = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Logo'))
     name = models.CharField(max_length=144, blank=True, verbose_name=_('Nombre'))
     slug = models.CharField(max_length=144, blank=True, verbose_name=_('Slug \"SEO\"'))
     website = models.CharField(max_length=144, blank=True, verbose_name=_('Dirección url'))
@@ -161,9 +161,9 @@ class Brands(models.Model):
 
 class Department(models.Model): 
     # Only for web use
-    background = ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Foto de fondo'))
+    background = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Foto de fondo'))
     description = RichTextField(blank=True, verbose_name=_('Descripción'))
-    img = ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
+    img = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
     name = models.CharField(max_length=144, blank=True, verbose_name=_('Nombre'))
     slug = models.CharField(max_length=144, blank=True, verbose_name=_('Slug \"SEO\"'))
     code = models.CharField(max_length=144, blank=True, verbose_name=_('Código'))
@@ -183,9 +183,9 @@ class Department(models.Model):
 
 class Category(models.Model):
     # Business Logic art. cat.
-    background = ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Foto de fondo'))
+    background = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Foto de fondo'))
     description = RichTextField(blank=True, verbose_name=_('Descripción'))
-    img = ImageField(max_length=144, blank=True, verbose_name=_('Imágen'))
+    img = models.ImageField(max_length=144, blank=True, verbose_name=_('Imágen'))
     name = models.CharField(max_length=144, blank=True, verbose_name=_('Nombre'))
     parent = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE, verbose_name=_('Categoría padre'))
     slug = models.CharField(max_length=144, blank=True, verbose_name=_('Slug \"SEO\"'))
@@ -224,7 +224,7 @@ class Article(models.Model):
     model = models.CharField(max_length=144, blank=True, verbose_name=_('Modelo'))
     name = models.CharField(max_length=144, blank=False, verbose_name=_('Nombre'))
     origin = models.CharField(max_length=144, blank=True, verbose_name=_('Origen'))
-    picture = ImageField(blank=True, upload_to=get_upload_path, verbose_name=_('Foto de articulo'))
+    picture = models.ImageField(blank=True, upload_to=get_upload_path, verbose_name=_('Foto de articulo'))
     price_1 = models.DecimalField(decimal_places=2, max_digits=99, blank=True, null=True, verbose_name=_('Precio 1'))
     price_2 = models.DecimalField(decimal_places=2, max_digits=99, blank=True, null=True, verbose_name=_('Precio 2'))
     price_3 = models.DecimalField(decimal_places=2, max_digits=99, blank=True, null=True, verbose_name=_('Precio 3'))

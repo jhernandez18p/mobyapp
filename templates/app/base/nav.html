@@ -10,8 +10,8 @@
         <div class="navbar-collapse">
             <ul class="navbar-nav ml-auto navbar-nav-custom-1">
                 {% for item in FRONT_HEADER_MENU %}
-                    <li class="nav-item">
-                        <a class="nav-link text-uppercase" href="{{item.url}}">
+                    <li class="nav-item ">
+                        <a class="nav-link text-uppercase {% if url_nav == item.name %}text-green{% endif %}" href="{{item.url}}">
                             {% if item.have_icon %}
                             <i class="material-icons">{{item.name}}</i>
                             {% else %} {{item.name}} {% endif %}

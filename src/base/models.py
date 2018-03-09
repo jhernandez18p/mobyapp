@@ -71,7 +71,7 @@ class Carousel(models.Model):
 
 class CarouselImage(models.Model):
     Carousel = models.ForeignKey(Carousel, related_name='images', on_delete=models.CASCADE)
-    image = ImageField(upload_to=get_upload_path,verbose_name = _('Imágen'))
+    image = models.ImageField(upload_to=get_upload_path,verbose_name = _('Imágen'))
     name = models.CharField(max_length=144, blank=True,verbose_name = _('Nombre'))
     text = RichTextField(blank=True, verbose_name = _('Testo para mostrar sobre la imágen'))
     call_to_action_url = models.ForeignKey(FlatPage, on_delete=models.CASCADE, blank=True, null=True,verbose_name = _('Llamado a acción'))
@@ -112,10 +112,10 @@ class Site(models.Model):
     workday = models.CharField(max_length=144, blank=True, null=True,verbose_name = _('Días laborales'))
     address = models.CharField(max_length=144, blank=True, null=True,verbose_name = _('Dirección principal'))
     address1 = models.CharField(max_length=144, blank=True, null=True,verbose_name = _('Dirección secundaria'))
-    logo = ImageField(upload_to=get_upload_path, default='/static/base/img/moby.png',verbose_name = _('Logo del sitio'))
-    site_img = ImageField(upload_to=get_upload_path, default='/static/base/img/moby.png',verbose_name = _('Imágen destacada'))
-    services_img = ImageField(upload_to=get_upload_path, default='/static/base/img/moby.png',verbose_name = _('Imágen para servicios'))
-    products_img = ImageField(upload_to=get_upload_path, default='/static/base/img/moby.png',verbose_name = _('Imágen para productos'))
+    logo = models.ImageField(upload_to=get_upload_path, verbose_name = _('Logo del sitio'))
+    site_img = models.ImageField(upload_to=get_upload_path, verbose_name = _('Imágen destacada'))
+    services_img = models.ImageField(upload_to=get_upload_path, verbose_name = _('Imágen para servicios'))
+    products_img = models.ImageField(upload_to=get_upload_path, verbose_name = _('Imágen para productos'))
 
     def __str__(self):
         return self.name

@@ -69,66 +69,66 @@
                 </div>
             </div>
         </div>
-        <div class="rgba-green-light">
-            <div class="container">
-                <div class="row justify-content-md-center -body">
-                    {% if user.is_authenticated %}
-                        <div class="col-12">
-                            <p class="h2 text-dark text-center">Dejar un comentario</p>
-                        </div>
-                        <div class="col-12 col-sm-10 my-4">
-                            <form action="{% url 'blog:add_comment' object.slug %}" method="post">
-                                {% csrf_token %}
-                                {{ form.media }}
-                                {{ form.as_p }}
-    
-                                <div class="text-center">
-                                    <button class="btn btn-success">Enviar
-                                        <i class="fa fa-paper-plane-o ml-1"></i>
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    {% else %}
-                    <div class="cta-3 text-center justify-center">
-                        <div class="container">
-                            <h2 class="mb-4">Debe registrate o iniciar sesión para comentar en esta publicación</h2>
-                            <!-- <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
-                            <a class="btn btn-lg btn-success py" href="{% url 'auth:login' %}?next={{ request.path }}">Iniciar Sesión</a>
-                            <a class="btn btn-lg btn-primary py" href="{% url 'auth:register' %}?next={{ request.path }}">Registrarse</a>
-                        </div>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-        {% if has_comments %}
-            <div class="container">
-                {% for object in comments %}
-                    <div class="row justify-content-md-center coments">
-                        <div class="col-md-7 col-testimonial">
-                            <div class="row coment_body">
-                                <div class="col-3 col-sm-5 text-center">
-                                    <img class="" src="/static/base/img/base-s.png">
-                                </div>
-                                <div class="col-9 col-sm-7">
-                                    <div class="comment-body">
-                                        <p class="quote-text">
-                                            {{object.content|safe}}
-                                        </p>
-                                        <div class="footer">
-                                            <p><span class="quote-author">{{object.author}}</span></p>
-                                        </div>
+    </div>
+    {% if has_comments %}
+        <div class="container">
+            {% for object in comments %}
+                <div class="row justify-content-md-center coments">
+                    <div class="col-md-7 col-testimonial">
+                        <div class="row coment_body">
+                            <div class="col-3 col-sm-5 text-center">
+                                <img class="" src="/static/base/img/base-s.png">
+                            </div>
+                            <div class="col-9 col-sm-7">
+                                <div class="comment-body">
+                                    <p class="quote-text">
+                                        {{object.content|safe}}
+                                    </p>
+                                    <div class="footer">
+                                        <p><span class="quote-author">{{object.author}}</span></p>
                                     </div>
                                 </div>
                             </div>
-                        </div>  
-                    </div>
-                {% endfor %}
-                {% include 'app/base/paginator.html' %}
-            </div>
-        {% endif %}
+                        </div>
+                    </div>  
+                </div>
+            {% endfor %}
+            {% include 'app/base/paginator.html' %}
+        </div>
+    {% endif %}
 
+    <div class="rgba-green-light">
+        <div class="container">
+            <div class="row justify-content-md-center -body">
+                {% if user.is_authenticated %}
+                    <div class="col-12">
+                        <p class="h2 text-dark text-center">Dejar un comentario</p>
+                    </div>
+                    <div class="col-12 col-sm-10 my-4">
+                        <form action="{% url 'blog:add_comment' object.slug %}" method="post">
+                            {% csrf_token %}
+                            {{ form.media }}
+                            {{ form.as_p }}
+
+                            <div class="text-center">
+                                <button class="btn btn-success">Enviar
+                                    <i class="fa fa-paper-plane-o ml-1"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                {% else %}
+                <div class="cta-3 text-center justify-center">
+                    <div class="container">
+                        <h2 class="mb-4">Debe registrate o iniciar sesión para comentar en esta publicación</h2>
+                        <!-- <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
+                        <a class="btn btn-lg btn-success py" href="{% url 'auth:login' %}?next={{ request.path }}">Iniciar Sesión</a>
+                        <a class="btn btn-lg btn-primary py" href="{% url 'auth:register' %}?next={{ request.path }}">Registrarse</a>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
     </div>
 {% endblock %}
 

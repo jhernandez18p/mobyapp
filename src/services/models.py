@@ -45,8 +45,8 @@ class Service(models.Model):
     title = models.CharField(max_length=140, blank=True, verbose_name=_('Título'))
     content = RichTextField(blank=True, verbose_name=_('Descripción'))
     slug = models.CharField(max_length=140, blank=True, verbose_name=_('Slug \"SEO\"'))
-    image = ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
-    background = ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Foto de fondo'))
+    image = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
+    background = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Foto de fondo'))
 
     def __str__(self):
         return self.name
@@ -61,7 +61,7 @@ class Service(models.Model):
 
 class ServiceImage(models.Model):
     Service = models.ForeignKey(Service, related_name='images', on_delete=models.CASCADE,)
-    image = ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
+    image = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
     name = models.CharField(max_length=144, blank=True, verbose_name=_('Nombre'))
     text = RichTextField(blank=True, verbose_name=_('Descripción'))
     uploaded_at = models.DateTimeField(auto_now=True)

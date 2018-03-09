@@ -1,15 +1,6 @@
-from django.urls import (path, re_path, include)
-from django.views.decorators.cache import cache_page
-from .views import (
-    Home,
-    About,
-    Services,
-    Contact,
-    Search,
-    ContactThanks,
-    ContactError,
-    session
-)
+from django.urls import path, re_path, include
+from .views import Home,Contact,Search,\
+    ContactThanks,ContactError,session
 
 app_name = 'front'
 urlpatterns = [

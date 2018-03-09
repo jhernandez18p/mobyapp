@@ -16,8 +16,9 @@ class Home(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['has_newsletter'] = True
-        context['SITE_URL'] = 'Services'
+        context['SITE_URL'] = 'Servicios'
         context['url'] = reverse('services:home')
+        context['url_nav'] = 'servicios'
         return context
 
 
@@ -57,6 +58,7 @@ class ServiceDetail(DetailView):
             context['has_images'] = True
             context['images'] = images
         context['form'] = form
+        context['url_nav'] = 'servicios'
         return context
 
 
@@ -67,8 +69,9 @@ class ServiceThanks(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['has_newsletter'] = True
-        context['SITE_URL'] = 'Services'
+        context['SITE_URL'] = 'Servicios'
         context['url'] = reverse('services:home')
+        context['url_nav'] = 'servicios'
 
         return context
 
@@ -80,7 +83,8 @@ class ServiceError(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['has_newsletter'] = True
-        context['SITE_URL'] = 'Services'
+        context['SITE_URL'] = 'Servicios'
+        context['url_nav'] = 'servicios'
         context['url'] = reverse('services:home')
 
         return context

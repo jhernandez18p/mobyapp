@@ -60,26 +60,18 @@ class Post(models.Model):
     read_time =  models.IntegerField(null=True, blank=True, verbose_name='Tiempo de lectura (Minutos)') #assume minutes
     updated = models.DateTimeField(auto_now=True, auto_now_add=False,verbose_name=_('Ultima actualización'))
     created_at = models.DateTimeField(auto_now=False, auto_now_add=True,verbose_name=_('Fecha de creación'))
-    img = ImageField(verbose_name=_('Imágen de portada'),
+    img = models.ImageField(verbose_name=_('Imágen de portada'),
         upload_to=get_upload_path, 
         null=True, 
         blank=True, 
-        width_field="img_width_field", 
-        height_field="img_height_field",
         default='',
     )
-    img_height_field = models.IntegerField(default=0,verbose_name=_('Altura Imágen'))
-    img_width_field = models.IntegerField(default=0,verbose_name=_('Anchura Imágen'))
-    background = ImageField(verbose_name=_('Imágen de fondo'),
+    background = models.ImageField(verbose_name=_('Imágen de fondo'),
         upload_to=get_upload_path,
         null=True, 
         blank=True, 
-        width_field="background_width_field", 
-        height_field="background_height_field",
         default='',
     )
-    background_width_field = models.IntegerField(default=0,verbose_name=_('Altura imágen de fondo'))
-    background_height_field = models.IntegerField(default=0,verbose_name=_('Anchura imágen de fondo'))
     slug = models.SlugField(unique=True, blank=True,verbose_name=_('Nombre url SEO'))
 
     objects = PostManager()

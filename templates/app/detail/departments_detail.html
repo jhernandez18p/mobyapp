@@ -85,11 +85,11 @@
                     </h2>
                 </header>
             </div>
-                {% for objects in products %}
+                {% for object in products %}
                     <div class="col-sm-4 align-self-center">
                         <div class="item">
-                            <a href="{{objects.get_absolute_url}}">
-                                <img src="{% if object.img != '' %}/media/articulos/{{objects.img}}{% else %}{% static 'base/img/base-m.png' %}{% endif %}" alt="{{cat|title}}" class="img-fluid rounded mx-auto d-block"></img>
+                            <a href="{{object.get_absolute_url}}">
+                                <img src="{% if object.img != '' %}/media/articulos/{{object.img}}{% else %}{% static 'base/img/base-m.png' %}{% endif %}" alt="{{object.name}}" class="img-fluid rounded mx-auto d-block"></img>
                             </a>
                         </div>
                     </div>

@@ -41,15 +41,11 @@ urlpatterns = [
     path('sitemap.xml', sitemap,
         {'sitemaps': sitemaps},
         name='django.contrib.sitemaps.views.sitemap'),
+    re_path(r'^media/(?P<path>.*)$', serve, {
+        'document_root': settings.MEDIA_ROOT,
+    }),
     path('<path:url>', flats.flatpage),
 ]
-
-if settings.DEBUG:
-    urlpatterns += [
-        re_path(r'^media/(?P<path>.*)$', serve, {
-            'document_root': settings.MEDIA_ROOT,
-        }),
-    ]
     
 admin.site.site_title = 'Dev2tech CMS'
 admin.site.site_header = 'CMS Moby Supply'

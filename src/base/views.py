@@ -67,6 +67,7 @@ class Home(ListView):
         context['has_newsletter'] = True
         context['SITE_URL'] = 'Inicio'
         context['url'] = reverse('front:home')
+        context['url_nav'] = 'inicio'
         
         return context
 
@@ -82,21 +83,7 @@ class About(ListView):
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
         context['SITE_URL'] = 'Moby'
-        return context
-
-
-class Services(ListView):
-    # model =
-    # context_object_name = 'boards'
-    queryset = ''
-    template_name = 'app/services.html'
-
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super().get_context_data(**kwargs)
-        # Add in a QuerySet of all the books
-        context['SITE_URL'] = 'Nuestros servicios'
-        context['has_newsletter'] = True
+        context['url_nav'] = '¿Quienes somos?'
         return context
 
 
@@ -135,6 +122,7 @@ class Contact(ListView):
         # Add in a QuerySet of all the books
         context['SITE_URL'] = 'Contactanos'
         context['form'] = form
+        context['url_nav'] = 'contacto'
         return context
 
 
@@ -149,6 +137,7 @@ class Search(ListView):
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
         context['SITE_URL'] = 'Buscar'
+        context['url_nav'] = 'buscar'
         return context
 
 

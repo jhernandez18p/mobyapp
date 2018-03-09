@@ -117,3 +117,7 @@ media/*
 
 **/__pycache__
 *.gz
+**/admin/*
+**/rest_fr*/*
+**/im*ex*/*
+**/ck*/*

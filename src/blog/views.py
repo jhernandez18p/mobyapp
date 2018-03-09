@@ -24,6 +24,7 @@ class Home(ListView):
         # Add in a QuerySet of all the books
         context['SITE_URL'] = 'Ultimas noticias'
         context['has_newsletter'] = True
+        context['url_nav'] = 'blog'
 
         return context
 
@@ -38,6 +39,7 @@ class BlogDetail(DetailView):
         context = super().get_context_data(**kwargs)
 
         context['form'] = CommentForm
+        context['url_nav'] = 'blog'
         comments = Comment.objects.filter(content_type=17, approved=True,object_id=context['object'].id)
         if comments.exists():
             context['has_comments'] = True

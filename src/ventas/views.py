@@ -38,6 +38,7 @@ class Home(ListView):
         if brands.exists():
             context['brands'] = brands
 
+        context['url_nav'] = 'productos'
         return context
 
 
@@ -67,6 +68,7 @@ class ProductsList(ListView):
             context['brands'] = brands
 
         # print(context)
+        context['url_nav'] = 'productos'
         return context
 
 
@@ -82,6 +84,7 @@ class ProductsDetail(DetailView):
         category = 'herraje'
         context['cat'] = '%s' % (category)
         context['SITE_URL'] = 'Detalle de producto'
+        context['url_nav'] = 'productos'
         return context
 
 
@@ -95,6 +98,8 @@ class Departments(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['SITE_URL'] = 'Departamentos'
+
+        context['url_nav'] = 'productos'
 
         return context
 
@@ -112,200 +117,8 @@ class DepartmentDetail(DetailView):
         # context['objects'] = {}
         articles = Article.objects.filter(department=self.get_object().pk)
         if articles.exists():
-            print()
             context['products'] = articles[:9]
-        context['products_test'] = {
-            1:{
-                'co_art':'113120',
-                'art_des':'CUBIERTERO LINEA TEN DE 450 MM',
-                'co_lin':'HERR',
-                'co_cat':'VARIOS',
-                'co_subl':'VRO',
-                'co_color':'10',
-                'CO_CATW':'',
-                'ref':'',
-                'modelo':'',
-                'procedenci':'1',
-                'co_prov':'P00049',
-                'uni_venta':'PZA',
-                'sstock_act':'10',
-                'prec_vta1':'7.2',
-                'prec_vta2':'8',
-                'prec_vta3':'9.2',
-                'prec_vta4':'12.42',
-                'prec_vta5':'9.2',
-                'tipo':'V',
-                'picture':'/static/base/img/art.png',
-            },2:{
-                'co_art':'113120',
-                'art_des':'CUBIERTERO LINEA TEN DE 450 MM',
-                'co_lin':'HERR',
-                'co_cat':'VARIOS',
-                'co_subl':'VRO',
-                'co_color':'10',
-                'CO_CATW':'',
-                'ref':'',
-                'modelo':'',
-                'procedenci':'1',
-                'co_prov':'P00049',
-                'uni_venta':'PZA',
-                'sstock_act':'10',
-                'prec_vta1':'7.2',
-                'prec_vta2':'8',
-                'prec_vta3':'9.2',
-                'prec_vta4':'12.42',
-                'prec_vta5':'9.2',
-                'tipo':'V',
-                'picture':'/static/base/img/art.png',
-            },3:{
-                'co_art':'113120',
-                'art_des':'CUBIERTERO LINEA TEN DE 450 MM',
-                'co_lin':'HERR',
-                'co_cat':'VARIOS',
-                'co_subl':'VRO',
-                'co_color':'10',
-                'CO_CATW':'',
-                'ref':'',
-                'modelo':'',
-                'procedenci':'1',
-                'co_prov':'P00049',
-                'uni_venta':'PZA',
-                'sstock_act':'10',
-                'prec_vta1':'7.2',
-                'prec_vta2':'8',
-                'prec_vta3':'9.2',
-                'prec_vta4':'12.42',
-                'prec_vta5':'9.2',
-                'tipo':'V',
-                'picture':'/static/base/img/art.png',
-            },4:{
-                'co_art':'113120',
-                'art_des':'CUBIERTERO LINEA TEN DE 450 MM',
-                'co_lin':'HERR',
-                'co_cat':'VARIOS',
-                'co_subl':'VRO',
-                'co_color':'10',
-                'CO_CATW':'',
-                'ref':'',
-                'modelo':'',
-                'procedenci':'1',
-                'co_prov':'P00049',
-                'uni_venta':'PZA',
-                'sstock_act':'10',
-                'prec_vta1':'7.2',
-                'prec_vta2':'8',
-                'prec_vta3':'9.2',
-                'prec_vta4':'12.42',
-                'prec_vta5':'9.2',
-                'tipo':'V',
-                'picture':'/static/base/img/art.png',
-            },5:{
-                'co_art':'113120',
-                'art_des':'CUBIERTERO LINEA TEN DE 450 MM',
-                'co_lin':'HERR',
-                'co_cat':'VARIOS',
-                'co_subl':'VRO',
-                'co_color':'10',
-                'CO_CATW':'',
-                'ref':'',
-                'modelo':'',
-                'procedenci':'1',
-                'co_prov':'P00049',
-                'uni_venta':'PZA',
-                'sstock_act':'10',
-                'prec_vta1':'7.2',
-                'prec_vta2':'8',
-                'prec_vta3':'9.2',
-                'prec_vta4':'12.42',
-                'prec_vta5':'9.2',
-                'tipo':'V',
-                'picture':'/static/base/img/art.png',
-            },6:{
-                'co_art':'113120',
-                'art_des':'CUBIERTERO LINEA TEN DE 450 MM',
-                'co_lin':'HERR',
-                'co_cat':'VARIOS',
-                'co_subl':'VRO',
-                'co_color':'10',
-                'CO_CATW':'',
-                'ref':'',
-                'modelo':'',
-                'procedenci':'1',
-                'co_prov':'P00049',
-                'uni_venta':'PZA',
-                'sstock_act':'10',
-                'prec_vta1':'7.2',
-                'prec_vta2':'8',
-                'prec_vta3':'9.2',
-                'prec_vta4':'12.42',
-                'prec_vta5':'9.2',
-                'tipo':'V',
-                'picture':'/static/base/img/art.png',
-            },7:{
-                'co_art':'113120',
-                'art_des':'CUBIERTERO LINEA TEN DE 450 MM',
-                'co_lin':'HERR',
-                'co_cat':'VARIOS',
-                'co_subl':'VRO',
-                'co_color':'10',
-                'CO_CATW':'',
-                'ref':'',
-                'modelo':'',
-                'procedenci':'1',
-                'co_prov':'P00049',
-                'uni_venta':'PZA',
-                'sstock_act':'10',
-                'prec_vta1':'7.2',
-                'prec_vta2':'8',
-                'prec_vta3':'9.2',
-                'prec_vta4':'12.42',
-                'prec_vta5':'9.2',
-                'tipo':'V',
-                'picture':'/static/base/img/art.png',
-            },8:{
-                'co_art':'113120',
-                'art_des':'CUBIERTERO LINEA TEN DE 450 MM',
-                'co_lin':'HERR',
-                'co_cat':'VARIOS',
-                'co_subl':'VRO',
-                'co_color':'10',
-                'CO_CATW':'',
-                'ref':'',
-                'modelo':'',
-                'procedenci':'1',
-                'co_prov':'P00049',
-                'uni_venta':'PZA',
-                'sstock_act':'10',
-                'prec_vta1':'7.2',
-                'prec_vta2':'8',
-                'prec_vta3':'9.2',
-                'prec_vta4':'12.42',
-                'prec_vta5':'9.2',
-                'tipo':'V',
-                'picture':'/static/base/img/art.png',
-            },9:{
-                'co_art':'113120',
-                'art_des':'CUBIERTERO LINEA TEN DE 450 MM',
-                'co_lin':'HERR',
-                'co_cat':'VARIOS',
-                'co_subl':'VRO',
-                'co_color':'10',
-                'CO_CATW':'',
-                'ref':'',
-                'modelo':'',
-                'procedenci':'1',
-                'co_prov':'P00049',
-                'uni_venta':'PZA',
-                'sstock_act':'10',
-                'prec_vta1':'7.2',
-                'prec_vta2':'8',
-                'prec_vta3':'9.2',
-                'prec_vta4':'12.42',
-                'prec_vta5':'9.2',
-                'tipo':'V',
-                'picture':'/static/base/img/art.png',
-            },
-        }
+        context['url_nav'] = 'productos'
         return context
 
 
@@ -322,6 +135,7 @@ class BrandView(ListView):
         # Add in a QuerySet of all the books
         context['SITE_URL'] = 'Proveedores'
         # context['objects'] = {}
+        context['url_nav'] = 'productos'
         return context
 
 
@@ -340,4 +154,5 @@ class BrandsDetails(DetailView):
             context['products'] = articles[:9]
         context['SITE_URL'] = 'Detalles de proveedor'
         # context['objects'] = {}
+        context['url_nav'] = 'productos'
         return context

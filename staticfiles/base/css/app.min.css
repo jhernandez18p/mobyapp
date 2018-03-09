@@ -130,9 +130,10 @@ input[type=date]:focus:not([readonly])+label, input[type=datetime-local]:focus:n
     margin-bottom: 0;
     width: 100%;
 }
-#sticky{top:calc(100% - 64px) !important;width:100%;}
-#sticky .icons-sm {
-    font-size: 2rem;
+#sticky{top:calc(100% - 47px) !important;width:100%;}
+#SMStopper .icons-sm ,#sticky .icons-sm {font-size: 2rem;}
+.text-green{
+    color: #00c851 !important;
 }
 @media (min-width: 320px) and (max-width:767px){
     .navbar-expand-md .navbar-toggler{display: block;}
@@ -211,6 +212,8 @@ input[type=date]:focus:not([readonly])+label, input[type=datetime-local]:focus:n
         color: #000;
     }
 
+}
+@media (max-width: 991px){
 }
 @media (min-width:768px) and (max-width: 820px){
     #menuLogo{height: 50px;}
