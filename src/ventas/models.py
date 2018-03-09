@@ -244,8 +244,8 @@ class Article(models.Model):
 
     class Meta:
         ordering = ["-created_at", "-updated"]
-        verbose_name = _('Artículo')
-        verbose_name_plural = _('Artículos')
+        verbose_name = _('Producto')
+        verbose_name_plural = _('Productos')
 
     def get_absolute_url(self):
         return reverse('sales:product_detail', kwargs={'slug': self.slug})
