@@ -5,6 +5,23 @@
 
 {% block content %}
 
+<script language="JavaScript">
+    function hasWhiteSpace(s) {
+
+        reWhiteSpace = new RegExp(/^\s+$/);
+
+        // Check for white space
+        if (reWhiteSpace.test(s)) {
+            alert("Please Check Your Fields For Spaces");
+            return false;
+        }
+        return true;
+        console.log('false');
+    }
+    var username = document.getElementById('id_username');
+    $(username).change(hasWhiteSpace(this.value));
+</script>
+
     <form method="post" novalidate>
         {% csrf_token %} 
         {% for field in form %}

@@ -7,18 +7,16 @@
     {% include 'auth/base/head.html' %}
     <title>{{SITE_TITLE}} - {{SITE_URL}}</title>
     {% block styles %}{% endblock %}
-    <script src="{% static 'base/js/jquery-3.2.1.slim.min.js' %}"></script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-83370429-7"></script>
+    <script src="{% static 'base/js/jquery-3.2.1.min.js' %}"></script>
 </head>
 <body class="bg-light">
     <section>
         <div class="container-fluid">
             <div class="row justify-content-center" id="auth">
-                <div class="col-12 col-sm-6">
+                <div class="col-12 col-sm-6 mt-5">
                     <h2 class="text-center text-info mb-4">Autenticación Moby Supply</h2>
                     <span class="anchor" id="formLogin"></span>
-                    <div class="card rounded-0">
+                    <div class="card rounded-0 mt-3 mb-5">
                         <div class="card-header text-center">
                             <h3 class="mb-0">{{form_name}}</h3>
                         </div>
@@ -44,8 +42,7 @@
     </section>
     <script src="{% static 'base/js/popper.min.js' %}"></script>
     <script src="{% static 'base/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'base/js/app.min.js' %}"></script>
-    <script src="{% static 'base/js/analytics.js' %}"></script>
+    <script src="{% static 'base/js/mdb.min.js' %}"></script>
     <script src="{% static 'auth/js/app.js' %}"></script>
     {% block js %}{% endblock %}
 </body>
