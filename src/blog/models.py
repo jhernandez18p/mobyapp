@@ -98,7 +98,7 @@ class Post(models.Model):
         return content_type
 
     class Meta:
-        ordering = ["-created_at", "-updated"]
+        ordering = ["created_at"]
         verbose_name = 'Articulo del blog'
         verbose_name_plural = 'Articulos del blog'
 

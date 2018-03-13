@@ -100,33 +100,50 @@
     <div class="rgba-green-light">
         <div class="container">
             <div class="row justify-content-md-center -body">
-                {% if user.is_authenticated %}
-                    <div class="col-12">
-                        <p class="h2 text-dark text-center">Dejar un comentario</p>
+                
+                <div class="cta-3 text-center justify-center">
+                    {% if user.is_authenticated %}
+                        <div class="container">
+                            <a class="btn btn-lg btn-info py" data-toggle="modal" data-target="#fullHeightModalRight">Hacer un comentario</a>
+                        </div>
+                    {% else %}
+                        <div class="container">
+                            <h2 class="mb-4">Debe registrate o iniciar sesión para comentar en esta publicación</h2>
+                            <a class="btn btn-lg btn-success py" href="{% url 'auth:login' %}?next={{ request.path }}">Iniciar Sesión</a>
+                            <a class="btn btn-lg btn-primary py" href="{% url 'auth:register' %}?next={{ request.path }}">Registrarse</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade top" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-full-height modal-bottom" role="document">
+            <div class="modal-content container">
+                <form action="{% url 'blog:add_comment' object.slug %}" method="post">
+                    <div class="modal-header">
+                        <h5 class=" text-center" id="emyModalLabel">Hacer un comentario</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="col-12 col-sm-10 my-4">
-                        <form action="{% url 'blog:add_comment' object.slug %}" method="post">
+                    <div class="modal-body">
+                        <div class="text-center">
                             {% csrf_token %}
                             {{ form.media }}
                             {{ form.as_p }}
-
-                            <div class="text-center">
-                                <button class="btn btn-success">Enviar
-                                    <i class="fa fa-paper-plane-o ml-1"></i>
-                                </button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
-                {% else %}
-                <div class="cta-3 text-center justify-center">
-                    <div class="container">
-                        <h2 class="mb-4">Debe registrate o iniciar sesión para comentar en esta publicación</h2>
-                        <!-- <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
-                        <a class="btn btn-lg btn-success py" href="{% url 'auth:login' %}?next={{ request.path }}">Iniciar Sesión</a>
-                        <a class="btn btn-lg btn-primary py" href="{% url 'auth:register' %}?next={{ request.path }}">Registrarse</a>
+                    <div class="modal-footer">
+                        <div class="text-center">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                            <button class="btn btn-success">Publicar
+                                <i class="fa fa-paper-plane-o ml-1"></i>
+                            </button>
+                        </div>
                     </div>
-                </div>
-                {% endif %}
+                </form>
             </div>
         </div>
     </div>
@@ -145,3 +162,17 @@
     $( ".comment-body table" ).wrap( "<div class='table-responsive'></div>" );
 </script>
 {% endblock %}
+
+
+<div class="col-12">
+        <p class="h2 text-dark text-center">Dejar un comentario</p>
+    </div>
+    <div class="col-12 col-sm-10 my-4">
+        <form >
+            
+
+            
+                
+            </div>
+        </form>
+    </div>
