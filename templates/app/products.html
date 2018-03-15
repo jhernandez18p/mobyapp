@@ -2,6 +2,7 @@
 {% block css %}
     <link rel="stylesheet" href="{% static 'base/css/owl/owl.carousel.min.css' %}">
     <link rel="stylesheet" href="{% static 'base/css/owl/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'base/css/home.css' %}">
     <style>
         .categories{padding-top: 3rem;}
         /*  .categories */
@@ -17,9 +18,9 @@
         .item img{text-align: center}
         .item .price{margin-right: 0px;margin-bottom: 0px;background-color: #8a7e5f;padding: 5px 20px 0px 20px;color: #FFF;}
         #ch{margin-top: 25px;}
-        #carousel .carousel-inner img {width: 100%;max-height: 600px;}
+
         #carousel-header{
-            margin-top: 25px;
+            margin-top: 50px;
         }
     </style>
 {% endblock %}
@@ -38,7 +39,7 @@
                         <div class="carousel-inner view" role="listbox">
                             {% for object in products_header_carousel_images %}
                                 <div class="carousel-item view hm-black-strong {% if forloop.counter == 1 %}active {% endif %}">
-                                    <img src="{{ object.image.url }}" alt="{{object.name}}" class="d-block img-fluid">
+                                    <img src="{{ object.image.url }}" alt="{{object.name}}" class="">
                                     <div class="carousel-caption">
                                         <div>
                                             <h2>{{object.name}}</h2>

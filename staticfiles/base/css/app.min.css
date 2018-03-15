@@ -132,9 +132,38 @@ input[type=date]:focus:not([readonly])+label, input[type=datetime-local]:focus:n
 }
 #sticky{top:calc(100% - 47px) !important;width:100%;}
 #SMStopper .icons-sm ,#sticky .icons-sm {font-size: 2rem;}
-.text-green{
-    color: #00c851 !important;
+
+.text-green-active {
+    margin-left: 5px;
+    display: inline-block;
+    position: relative;
+    border-bottom: solid 1px rgba(0, 200, 81, 0.64);
+    background-color: rgba(133, 134, 132, 0.18);
 }
+.text-green-active a {color: #fff !important}
+
+.text-green {
+    display: inline-block;
+    position: relative;
+    color: #00c851;
+}
+.text-green::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #00c851;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+.text-green:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
 @media (min-width: 320px) and (max-width:767px){
     .navbar-expand-md .navbar-toggler{display: block;}
     #menuLogo{vertical-align: unset;margin-top: 5px;height: 50px;max-height: 50px; vertical-align: unset}
