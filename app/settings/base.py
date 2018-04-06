@@ -153,11 +153,7 @@ STATIC_URL = '/static/'
 if config('STATIC_ROOT', cast=bool) == True:
     STATIC_ROOT = os.path.abspath(os.path.join(os.path.join(BASE_DIR,os.pardir), 'staticfiles'))
 else:
-    STATICFILES_DIRS = (
-        os.path.abspath(os.path.join(os.path.join(BASE_DIR,os.pardir), 'staticfiles')),
-    )
-    print(MEDIA_ROOT)
-
+    STATICFILES_DIRS = (os.path.abspath(os.path.join(os.path.join(BASE_DIR,os.pardir), 'staticfiles')),)
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
