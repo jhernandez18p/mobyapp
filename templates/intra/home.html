@@ -42,7 +42,7 @@
                                         {% for post in posts %}
                                         <li class="{% if forloop.first %}is-active{% endif %} orbit-slide" data-equalizer-watch>
                                             <figure class="orbit-figure">
-                                                <img class="orbit-image" src="{{ post.background.url }}" alt="Space">
+                                                <img class="orbit-image" src="{% if post.background %}{{ post.background.url }}{% else %}{{post.img.url}}{% endif %}" alt="{{ post.title }}">
                                                 <figcaption class="orbit-caption">{{ post.title }}</figcaption>
                                             </figure>
                                         </li>
@@ -50,7 +50,7 @@
                                     {% else %}
                                         <li class="is-active orbit-slide" data-equalizer-watch>
                                             <figure class="orbit-figure">
-                                                <img class="orbit-image" src="{{ posts.background.url }}" alt="Space">
+                                                <img class="orbit-image" src="{% if post.background %}{{ post.background.url }}{% else %}{{post.img.url}}{% endif %}" alt="{{ post.title }}">
                                                 <figcaption class="orbit-caption">{{ posts.title }}</figcaption>
                                             </figure>
                                         </li>
