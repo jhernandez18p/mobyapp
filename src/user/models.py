@@ -36,9 +36,12 @@ def get_upload_path(instance, filename):
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
+    instance.profile.save()
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
     instance.profile.save()
 
 
@@ -433,10 +436,10 @@ class Profile(models.Model):
             return False
             
 
-    def save(self, *args, **kwargs):
-        if not self.user.profile.email_confirmed and self.user.profile.status == 'INACTIVE':
-            print(AccountActivationTokenGenerator._make_hash_value )
-        super(Profile, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     if self.request.user.profile.email_confirmed and self.user.profile.status == 'INACTIVE':
+            
+    #     super(Profile, self).save(*args, **kwargs)
 
 
 class Frecuency(models.Model):
