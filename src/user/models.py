@@ -36,12 +36,9 @@ def get_upload_path(instance, filename):
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
-    instance.profile.save()
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
     instance.profile.save()
 
 
@@ -365,7 +362,7 @@ class Profile(models.Model):
         upload_to=get_upload_path, 
         null=True, 
         blank=True, 
-        default='/staticfiles/base/img/avatar.png',
+        default='/profile/avatar.png',
     )
     bio = RichTextField( blank=True, verbose_name=_('Biografia'))
     birth_date = models.DateField(null=True, blank=True, verbose_name=_('Fecha de nacimiento'))

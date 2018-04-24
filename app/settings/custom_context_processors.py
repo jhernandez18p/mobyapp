@@ -21,11 +21,14 @@ def site(request):
     if user.is_anonymous:
         print('AnonymousUser')
     else:
-        if request.user.profile.get_fullname:
-            context['USER_FULLNAME'] = request.user.profile.get_fullname
+        try:
+            if request.user.profile.get_fullname:
+                context['USER_FULLNAME'] = request.user.profile.get_fullname
 
-        if request.user.profile.get_avatar:
-            context['USER_AVATAR'] = request.user.profile.get_avatar
+            if request.user.profile.get_avatar:
+                context['USER_AVATAR'] = request.user.profile.get_avatar
+        except:
+            Profile.objects.create(user=user)
 
 
     pages = Pages.objects.all()

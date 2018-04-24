@@ -24,6 +24,7 @@ from .forms import SignUpForm,NewsletterForm
 from src.utils.libs import newsletter_email
 
 from src.user.tokens import account_activation_token
+from src.user.models import Profile
 
 class ActivateAccountView(View):
     def get(self, request, uidb64, token):
@@ -153,32 +154,34 @@ def custom_register(request):
             password = form.cleaned_data.get('password1')
             
             if result['success']:
-                if User.objects.get(email=useremail):
+                try:
+                    user_exist = User.objects.get(email=useremail)
                     messages.add_message(request, messages.INFO, 'Ups... Ha ocurrido un error el usuario que introdujo ya existe.')
                     return HttpResponseRedirect('/auth/error')
-                form.save()
-                user = auth.authenticate(username = useremail, password = password)
-                if user is not None:
-                    if user.is_active:
-                        auth.login(request, user)
-                        _next = "/auth/gracias"
-                        if "next" in request.GET:
-                            _next = request.GET["next"]
-                        if _next == None or _next == "":
+                except User.DoesNotExist:
+                    form.save()
+                    user = auth.authenticate(username = useremail, password = password)
+                    if user is not None:
+                        if user.is_active:
+                            auth.login(request, user)
                             _next = "/auth/gracias"
-                        return HttpResponseRedirect(_next)
+                            if "next" in request.GET:
+                                _next = request.GET["next"]
+                            if _next == None or _next == "":
+                                _next = "/auth/gracias"
+                            return HttpResponseRedirect(_next)
+                        else:
+                            # User is not active
+                            messages.add_message(request, messages.INFO, 'Ups... Parece que no ha activado su cuenta aún.')
+                            return HttpResponseRedirect('/auth/error')
                     else:
-                        # User is not active
-                        messages.add_message(request, messages.INFO, 'Ups... Parece que no ha activado su cuenta aún.')
+                        messages.add_message(request, messages.INFO, 'No ha sido posible validar el nombre de usuario, por favor vuelva a intentarlo.')
                         return HttpResponseRedirect('/auth/error')
-                else:
-                    messages.add_message(request, messages.INFO, 'No ha sido posible validar el nombre de usuario, por favor vuelva a intentarlo.')
-                    return HttpResponseRedirect('/auth/error')
         else:
             messages.add_message(request, messages.INFO, 'Ups... Ha ocurrido un error, los datos puede que sean invalidos.')
             return HttpResponseRedirect('/auth/error')
-    else:
-        return render(request, "auth/form.html", context)
+
+    return render(request, "auth/form.html", context)
 
 def newsletter(request):
     if request.method == 'POST':
