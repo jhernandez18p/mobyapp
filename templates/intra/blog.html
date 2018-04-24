@@ -8,28 +8,28 @@
         <div class="card-profile-stats" id="blog">
             <div class="card-profile-stats-intro">
                 <div class="card-profile-stats-intro-content">
-                    <h3>Servicios</h3>
+                    <h3>Articlulos del blog</h3>
                 </div>
             </div>
-            {% for service in services %}
+            {% for post in posts %}
             <hr />
             <div class="card-profile-stats-intro">
                 <div class="card-profile-stats-intro-content">
                     <div class="card-profile-stats-container float-left">
                         <div class="">
-                            <p>{{service.name}}: <span>{{service.content | safe}}</span></p>
+                            <p>{{post.title}}: <span>{{post.text|safe}}</span></p>
                         </div>
                     </div>
                     {% if user.profile.role == 'ADMIN' or user.profile.role ==  'SUPERVISOR' %}
                     <div class="card-profile-stats-container float-right">
                         <div class="ml-5">
                             <p data-tooltip tabindex="1" title="Editar." data-position="left" data-alignment="center">
-                                <a href="{% url 'intra:services' %}">
+                                <a href="{% url 'intra:blog' %}">
                                     <i class="fi-clipboard-pencil"></i>
                                 </a>
                             </p>
                             <p data-tooltip tabindex="1" title="Eliminar." data-position="right" data-alignment="center">
-                                <a href="{% url 'intra:services' %}">
+                                <a href="{% url 'intra:blog' %}">
                                     <i class="fi-x red"></i>
                                 </a>
                             </p>
