@@ -7,6 +7,8 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.core.mail import send_mail
 
+from src.user.models import Profile
+
 def site(request):
     # Site info preprocessor 
     context = {}
@@ -14,7 +16,11 @@ def site(request):
     context['SITE_URL'] = ''
     context['SITE_LOGO'] = '/static/base/img/logo.png'
 
-    if request.user.profile.exists():
+    user = request.user
+
+    if user.is_anonymous:
+        print('AnonymousUser')
+    else:
         if request.user.profile.get_fullname:
             context['USER_FULLNAME'] = request.user.profile.get_fullname
 
