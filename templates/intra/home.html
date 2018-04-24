@@ -40,17 +40,25 @@
                                 <ul class="orbit-container" data-equalizer data-equalize-on="medium">
                                     {% if have_many_posts %}
                                         {% for post in posts %}
-                                        <li class="{% if forloop.first %}is-active{% endif %} orbit-slide" data-equalizer-watch>
+                                        <li class="
+                                            {% if forloop.first %}
+                                            is-active
+                                            {% endif %} orbit-slide" data-equalizer-watch>
                                             <figure class="orbit-figure">
-                                                <img class="orbit-image" src="{% if post.background %}{{ post.background.url }}{% else %}{{post.img.url}}{% endif %}" alt="{{ post.title }}">
+                                                <img class="orbit-image" src="
+                                                {% if object.img.url != None %}
+                                                {{object.img.url}}
+                                                {% else %}
+                                                /static/base/img/img-base-m.png
+                                                {% endif %}" alt="{{ post.title }}">
                                                 <figcaption class="orbit-caption">{{ post.title }}</figcaption>
                                             </figure>
                                         </li>
                                         {% endfor %}
-                                    {% else %}
+                                    {% else  %}
                                         <li class="is-active orbit-slide" data-equalizer-watch>
                                             <figure class="orbit-figure">
-                                                <img class="orbit-image" src="{% if post.background %}{{ post.background.url }}{% else %}{{post.img.url}}{% endif %}" alt="{{ post.title }}">
+                                                <img class="orbit-image" src="{% if object.img.url != None %}{{object.img.url}}{% else %}/static/base/img/img-base-m.png{% endif %}" alt="{{ post.title }}">
                                                 <figcaption class="orbit-caption">{{ posts.title }}</figcaption>
                                             </figure>
                                         </li>
