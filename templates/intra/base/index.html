@@ -1,26 +1,58 @@
 <!DOCTYPE html>{% load staticfiles %}
-<html lang="es">
+<html class="no-js" lang="es" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
     {% include 'intra/base/head.html' %}
     <title>{{SITE_URL}} - {{SITE_TITLE}}</title>
-    {% block styles %}{% endblock %}
+    {% block css %}{% endblock %}
 </head>
 <body>
     <header>
         {% block full_screen %}{% endblock %}
         {% include 'intra/base/nav.html' %}
     </header>
-    <section>{% block content %}{% endblock %}</section>
-    <footer>
+    {% if sUSER_IS_ACTIVE == 'INACTIVE' %}
+    <div class="full reveal" id="statusModal" data-reveal>
+        <div class="card ">
+            <div class="card-divider">
+                <p>Disculpe {{USER_FULLNAME}} debe activar su usuario</p>
+            </div>
+            <div class="card-section">
+                <p>Por favor revisar en la bandeja de entrada de su correo, para activar su usuario</p>
+            </div>
+        </div>
+    </div>
+    {% elif USER_IS_ACTIVE == 'BLOCKED' %}
+    <div class="full reveal" id="statusModal" data-reveal>
+        <div class="card ">
+            <div class="card-divider">
+                <p>Ups... Disculpe {{USER_FULLNAME}} su usuario ha sido bloqueado</p>
+            </div>
+            <div class="card-section">
+                <p>Por favor contactar al equipo de soporte</p>
+                <a href="mailto:info@moby-group.com" class="primary button expanded">
+                    Contacto
+                </a>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <section class="app-dashboard-body off-canvas-wrapper">
+        {% block slide %}{% endblock %}
+        {% block content %}{% endblock %}
         {% include 'intra/base/footer.html' %}
-    </footer>
-    <script src="{% static 'base/js/jquery-3.2.1.slim.min.js' %}"></script>
-    <script src="{% static 'base/js/popper.min.js' %}"></script>
-    <script src="{% static 'base/js/bootstrap.min.js' %}"></script>
+    </section>
+    {% endif %}
+    <script src="{% static 'intra/js/vendor/jquery.js' %}"></script>
+    <script src="{% static 'intra/js/vendor/what-input.js' %}"></script>
+    <script src="{% static 'intra/js/vendor/foundation.js' %}"></script>
     <script src="{% static 'intra/js/app.js' %}"></script>
-    <script src="{% static 'base/js/owl/owl.carousel.min.js' %}"></script>
+    {% if USER_IS_ACTIVE == 'BLOCKED' %}
+    <script>
+        var elem = $('#statusModal').foundation('open');
+    </script>
+    {% endif %}
 </body>
 </html>

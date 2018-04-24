@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {% include 'auth/base/head.html' %}
-    <title>{{SITE_TITLE}} - {{SITE_URL}}</title>
+    <title>{{SITE_TITLE}} - {% if SITE_URL %}{{SITE_URL}}{% else %}{{title}}{% endif %}</title>
     {% block styles %}{% endblock %}
     <script src="{% static 'base/js/jquery-3.2.1.min.js' %}"></script>
 </head>
@@ -18,19 +18,24 @@
                     <span class="anchor" id="formLogin"></span>
                     <div class="card rounded-0 mt-3 mb-5">
                         <div class="card-header text-center">
-                            <h3 class="mb-0">{{form_name}}</h3>
+                            <h3 class="mb-0">{% if form_name %}{{form_name}}{% else %}{{title}}{% endif %}</h3>
                         </div>
                         <div class="card-body">
                             {% block content %}{% endblock %}
                         </div>
                         <div class="card-footer text-center">
                             {% if SITE_URL == 'Error' %}
-                                <small class="text-muted">¿Ya tiene una cuenta? <a href="{% url 'auth:login' %}">Iniciar Sesión</a></small>
-                            {% endif %}
-                            {% if SITE_URL == 'Registrarse' %}
-                            <small class="text-muted">¿Ya tiene una cuenta? <a href="{% url 'auth:login' %}">Iniciar Sesión</a></small>
+                                <small class="text-muted">¿Ya tiene una cuenta? <a href="{% url 'auth:login' %}">Iniciar Sesión</a></small> -
+                                <small class="text-muted">¿Aun no se ha registrado? <a href="{% url 'auth:register' %}">Registrese</a></small>
+                            {% elif SITE_URL == 'Registrarse' %}
+                                <small class="text-muted">¿Ya tiene una cuenta? <a href="{% url 'auth:login' %}">Iniciar Sesión</a></small> -
+                                <small class="text-muted">¿Olvido su contraseña? <a href="{% url 'auth:password_reset' %}">Recuperar contraseña</a></small>
+                            {% elif SITE_URL == 'Iniciar Sesión'  %}
+                                <small class="text-muted">¿Aun no se ha registrado? <a href="{% url 'auth:register' %}">Registrese</a></small> -
+                                <small class="text-muted">¿Olvido su contraseña? <a href="{% url 'auth:password_reset' %}">Recuperar contraseña</a></small>
                             {% else %}
-                            <small class="text-muted">¿Aun no se ha registrado? <a href="{% url 'auth:register' %}">Registrese</a></small>
+                                <small class="text-muted">¿Ya tiene una cuenta? <a href="{% url 'auth:login' %}">Iniciar Sesión</a></small> -
+                                <small class="text-muted">¿Aun no se ha registrado? <a href="{% url 'auth:register' %}">Registrese</a></small>
                             {% endif %}
                         </div>
                     </div>

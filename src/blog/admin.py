@@ -17,9 +17,9 @@ class CommentInline(admin.StackedInline):
 
 
 class PostModelAdmin(admin.ModelAdmin):
-    list_display = ["title", "updated", "created_at"]
+    list_display = ["title", "updated", "created_at", "is_public", "draft"]
     list_display_links = ["created_at",]
-    list_editable = ["title"]
+    list_editable = ["title", "is_public", "draft"]
     list_filter = ["created_at", "updated"]
     search_fields = ["title", "content"]
     # fieldsets = [

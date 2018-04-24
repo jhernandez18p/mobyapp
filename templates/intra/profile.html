@@ -1,0 +1,171 @@
+{% extends 'intra/base/index.html' %}{% load staticfiles %}
+
+{% block css %}
+<style>
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="app-dashboard-body-content off-canvas-content" data-off-canvas-content>
+    
+    <div class="card-profile-stats" id="perfil">
+        <div class="card-profile-stats-intro float-left">
+            <a href="{% url 'intra:profile' %}">
+                <img class="card-profile-stats-intro-pic" src="{% if USER_AVATAR %}{{ USER_AVATAR }}{% else %}{% static 'base/img/avatar.png' %}{% endif %}" alt="{{USER_FULLNAME}}"/>
+            </a>
+            <div class="card-profile-stats-intro-content">
+                <h3>{{USER_FULLNAME}} 
+                    <span>
+                        {% if user.is_superuser %}
+                        <i class="fi-sheriff-badge gold"></i>
+                        {% endif %}
+                    </span>
+                </h3>
+                <p>Miembro desde: <span>{{user.date_joined}}</span></p>
+            </div>
+        </div>
+        <div class="card-profile-stats-intro float-right alig-self-middle">
+            <div class="card-profile-stats-intro-content">
+                <h3 class="float-right" 
+                data-tooltip tabindex="1" title="Editar perfil." data-position="left" data-alignment="center">
+                    <a  href="{% url 'intra:users' %}"><i class="fi-clipboard-pencil"></i></a>
+                </h3>
+            </div>
+        </div>
+        <hr />
+        <div class="card-profile-stats-container">
+            <div class="card-profile-stats-statistic">
+                <p>{{user.first_name}}</p>
+            </div>
+            <div class="card-profile-stats-statistic">
+                <p>{{user.last_name}}</p>
+            </div>
+            <div class="card-profile-stats-statistic">
+                <p>{{user.username}}</p>
+            </div>
+        </div>
+        <hr />
+        <div class="card-profile-stats-container">
+            <div class="card-profile-stats-statistic">
+                <p>
+                    <a href="{% url 'intra:profile' %}">
+                        Cambiar contraseña
+                    </a>
+                </p>
+            </div>
+        </div>
+        <hr />
+    </div>
+    
+    <div class="card-profile-stats" id="blog">
+        <div class="card-profile-stats-intro">
+            <div class="card-profile-stats-intro-content">
+                <h3>Mis Artículos</h3>
+            </div>
+        </div>
+        <hr />
+        <div class="card-profile-stats-intro">
+            <div class="card-profile-stats-intro-content">
+                <div class="card-profile-stats-container float-left">
+                    <div class="">
+                        <p>Miembro desde: <span><a href="#">Lorem ipsum dolor sit ameto!</a></span></p>
+                    </div>
+                </div>
+                <div class="card-profile-stats-container float-right">
+                    <div class="ml-5">
+                        <p
+                        data-tooltip tabindex="1" title="Editar." data-position="left" data-alignment="center">
+                            <a  href="{% url 'intra:profile' %}"><i class="fi-clipboard-pencil"></i></a>
+                        </p>
+                        <p
+                        data-tooltip tabindex="1" title="Eliminar." data-position="right" data-alignment="center">
+                            <a  href="{% url 'intra:profile' %}"><i class="fi-x red"></i></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+    </div>
+    
+    <div class="card-profile-stats" id="comments">
+        <div class="card-profile-stats-intro">
+            <div class="card-profile-stats-intro-content">
+                <h3>Mis Comentarios</h3>
+            </div>
+        </div>
+        <hr />
+        <div class="card-profile-stats-intro">
+            <div class="card-profile-stats-intro-content">
+                <div class="card-profile-stats-container float-left">
+                    <div class="">
+                        <p>Miembro desde: <span><a href="#">Lorem ipsum dolor sit ameto!</a></span></p>
+                    </div>
+                </div>
+                <div class="card-profile-stats-container float-right">
+                    <div class="ml-5">
+                        <p
+                        data-tooltip tabindex="1" title="Editar." data-position="left" data-alignment="center">
+                            <a  href="{% url 'intra:profile' %}"><i class="fi-clipboard-pencil"></i></a>
+                        </p>
+                        <p
+                        data-tooltip tabindex="1" title="Eliminar." data-position="right" data-alignment="center">
+                            <a  href="{% url 'intra:profile' %}"><i class="fi-x red"></i></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+    </div>
+    
+    <div class="card-profile-stats" id="tickets">
+        <div class="card-profile-stats-intro">
+            <div class="card-profile-stats-intro-content">
+                <h3>Mis Tickets</h3>
+            </div>
+        </div>
+        <hr />
+        <div class="card-profile-stats-intro">
+            <div class="card-profile-stats-intro-content">
+                <div class="card-profile-stats-container float-left">
+                    <div class="">
+                        <p>Miembro desde: <span><a href="#">Lorem ipsum dolor sit ameto!</a></span></p>
+                    </div>
+                </div>
+                <div class="card-profile-stats-container float-right">
+                    <div class="ml-5">
+                        <p
+                        data-tooltip tabindex="1" title="Editar." data-position="left" data-alignment="center">
+                            <a  href="{% url 'intra:profile' %}"><i class="fi-clipboard-pencil"></i></a>
+                        </p>
+                        <p
+                        data-tooltip tabindex="1" title="Eliminar." data-position="right" data-alignment="center">
+                            <a  href="{% url 'intra:profile' %}"><i class="fi-x red"></i></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script>
+    $('.card-profile-stats-more-link').click(function (e) {
+        e.preventDefault();
+        if ($(".card-profile-stats-more-content").is(':hidden')) {
+            $('.card-profile-stats-more-link').find('i').removeClass('fa-angle-down').addClass('fa-angle-up');
+        } else {
+            $('.card-profile-stats-more-link').find('i').removeClass('fa-angle-up').addClass('fa-angle-down');
+        }
+        $(this).next('.card-profile-stats-more-content').slideToggle();
+    });
+
+</script>
+{% endblock %}

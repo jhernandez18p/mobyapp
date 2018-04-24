@@ -9,7 +9,13 @@
         {% for object in errors %}
             
         {% endfor %}
+        {% if messages %}
+            {% for message in messages %}
+                <p class="{% if message.tags %} {{ message.tags }}{% endif %} h4">{{ message }}</h2>
+            {% endfor %}
+        {% endif %}
     </div>
+
 {% endblock %}
 
 {% block js %}

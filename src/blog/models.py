@@ -55,7 +55,8 @@ class Post(models.Model):
     title = models.CharField(max_length=120,verbose_name=_('Titulo del post'))
     sub_title = models.CharField(max_length=120, blank=True,verbose_name=_('Subtitulo'))
     text = RichTextField(verbose_name="Contenido del post")
-    draft = models.BooleanField(default=False,verbose_name=_('¿Es borrador?'))
+    is_public = models.BooleanField(default=False,verbose_name=_('¿Es público?'))
+    draft = models.BooleanField(default=True,verbose_name=_('¿Es borrador?'))
     published = models.DateField(auto_now=True, auto_now_add=False,verbose_name=_('Fecha de publicación'))
     read_time =  models.IntegerField(null=True, blank=True, verbose_name='Tiempo de lectura (Minutos)') #assume minutes
     updated = models.DateTimeField(auto_now=True, auto_now_add=False,verbose_name=_('Ultima actualización'))

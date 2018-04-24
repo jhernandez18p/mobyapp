@@ -1,0 +1,48 @@
+{% extends 'intra/base/index.html' %}{% load staticfiles %}
+
+{% block css %}
+{% endblock %}
+
+{% block content %}
+<div class="app-dashboard-body-content off-canvas-content" data-off-canvas-content>
+    <div class="card-profile-stats" id="products">
+        <div class="card-profile-stats-intro">
+            <div class="card-profile-stats-intro-content">
+                <h3>Artículos</h3>
+            </div>
+        </div>
+        {% for product in products %}
+        <hr />
+        <div class="card-profile-stats-intro">
+            <div class="card-profile-stats-intro-content">
+                <div class="card-profile-stats-container float-left">
+                    <div class="">
+                        <p>{{product.name}}</p>
+                        <p class="text-justify">{{product.description|safe}}</p>
+                    </div>
+                </div>
+                {% if user.profile.role == 'ADMIN' or user.profile.role ==  'SUPERVISOR' %}
+                <div class="card-profile-stats-container float-right">
+                    <div class="ml-5">
+                        <p
+                        data-tooltip tabindex="1" title="Editar." data-position="left" data-alignment="center">
+                            <a  href="{% url 'intra:profile' %}"><i class="fi-clipboard-pencil"></i></a>
+                        </p>
+                        <p
+                        data-tooltip tabindex="1" title="Eliminar." data-position="right" data-alignment="center">
+                            <a  href="{% url 'intra:profile' %}"><i class="fi-x red"></i></a>
+                        </p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+        <hr>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

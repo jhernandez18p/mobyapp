@@ -14,8 +14,8 @@ DEBUG = config('DEBUG', cast=bool)
 ALLOWED_HOSTS = ['localhost','moby.dev2tech.xyz','*']
 
 DJANGO_APPS = (
-    'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.admin',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -31,9 +31,10 @@ DJANGO_APPS = (
 LOCAL_APPS = (
     'src.base',
     'src.blog',
-    'src.intra',
     'src.gallery',
+    'src.intra',
     'src.services',
+    'src.support',
     'src.user',
     'src.ventas',
 )
@@ -155,7 +156,10 @@ if config('STATIC_ROOT', cast=bool) == True:
 else:
     STATICFILES_DIRS = (os.path.abspath(os.path.join(os.path.join(BASE_DIR,os.pardir), 'staticfiles')),)
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
@@ -185,6 +189,8 @@ SESSION_COOKIE_AGE = 43200
 
 SESSION_COOKIE_NAME = 'session'
 
+PASSWORD_RESET_TIMEOUT_DAYS = 3
+
 # Django Rest Framework Setup
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -210,7 +216,6 @@ APPEND_SLASH = True
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'
-
 # CKEDITOR_CONFIGS = {
 #     'default': {
 #         'skin': 'Moono-Lisa',
@@ -276,5 +281,4 @@ CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'
 #     }
 # }
 
-
-
+GOOGLE_RECAPTCHA_SECRET_KEY = config('GOOGLE_SECRET_KEY')

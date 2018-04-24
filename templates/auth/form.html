@@ -1,58 +1,48 @@
 {% extends 'auth/base/index.html' %}{% load staticfiles %}{% load widget_tweaks %}
 
 {% block css %}
+
 {% endblock %}
 
 {% block content %}
-
-<script language="JavaScript">
-    function hasWhiteSpace(s) {
-
-        reWhiteSpace = new RegExp(/^\s+$/);
-
-        // Check for white space
-        if (reWhiteSpace.test(s)) {
-            alert("Please Check Your Fields For Spaces");
-            return false;
-        }
-        return true;
-        console.log('false');
-    }
-    var username = document.getElementById('id_username');
-    $(username).change(hasWhiteSpace(this.value));
-</script>
-
-    <form method="post" novalidate>
-        {% csrf_token %} 
-        {% for field in form %}
-            <div class="form-group">
-                {{ field.label_tag | safe }}
-                {% if form.is_bound %}
-                    {% if field.errors %}
-                        {% render_field field class="form-control is-invalid" %}
-                        {% for error in field.errors %}
-                            <div class="invalid-feedback">
-                                {{ error |safe }}
-                            </div>
-                        {% endfor %}
-                    {% else %}
-                        {% render_field field class="form-control is-valid" %}
-                    {% endif %}
+<form method="post" id="auth-form">
+    {% csrf_token %} 
+    {% for field in form %}
+        <div class="form-group">
+            {{ field.label_tag | safe }}
+            {% if form.is_bound %}
+                {% if field.errors %}
+                    {% render_field field class="form-control is-invalid" %}
+                    {% for error in field.errors %}
+                        <div class="invalid-feedback">
+                            {{ error |safe }}
+                        </div>
+                    {% endfor %}
                 {% else %}
-                    {% render_field field class="form-control" %}
-                {% endif %} 
-                {% if field.help_text %}
-                <small class="form-text text-muted">
-                    {{ field.help_text |safe}}
-                </small>
+                    {% render_field field class="form-control is-valid" %}
                 {% endif %}
-            </div>
-        {% endfor %}
-    
-        <button type="submit" class="btn btn-primary">{{form_button}}</button>
-    </form>
+            {% else %}
+                {% render_field field class="form-control" %}
+            {% endif %} 
+            {% if field.help_text %}
+            <small class="form-text text-muted">
+                {{ field.help_text |safe}}
+            </small>
+            {% endif %}
+        </div>
+    {% endfor %}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <div class="text-center">
+        <button class="btn btn-primary g-recaptcha"
+            data-sitekey="6LfVkVQUAAAAANXxvWC0gEyxTctYXtw06_pWsH9M"
+            data-callback="onSubmit">
+            {{form_button}}
+        </button>
+    </div>
+</form>
 
 {% endblock %}
 
 {% block js %}
+<script>function onSubmit(token) {document.getElementById("auth-form").submit();}</script>
 {% endblock %}

@@ -1,0 +1,11 @@
+{% autoescape off %}
+<h2>Hola {{ USER_FULLNAME }},</h2>
+<p>
+Por favor hacer click en el enlace a continuación, para activar su usuario:
+
+<br>
+    <a href="{{ protocol }}://{{ domain }}{% url 'auth:activate' uidb64=uid token=token %}">
+        Haga click Aqui
+    </a>
+</p>
+{% endautoescape %}

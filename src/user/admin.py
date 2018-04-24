@@ -6,6 +6,6 @@ from .models import (
 )
 # Register your models here.
 
-admin.site.register(Frecuency)
+# admin.site.register(Frecuency)
 admin.site.register(Newsletter)
-# admin.site.register(Profile)
+admin.site.register(Profile)

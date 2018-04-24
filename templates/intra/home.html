@@ -1,115 +1,215 @@
 {% extends 'intra/base/index.html' %}{% load staticfiles %}
 
+/* #carrousel {padding-left:10px; padding-right: 10px; } */
+/* #carrousel .orbit-wrapper, #carrousel .orbit-container, #carrousel .orbit-figure,  */
 {% block css %}
-
 <style>
-    /*
-    Removes white gap between slides - chagnge to base color of slide images
-    */
-    .carousel {
-        background:#007aeb;
+    #carrousel .orbit-image{
+        max-height: 400px;
     }
-
-    /*
-    Forces image to be 100% width and not max width of 100%
-    */
-    .carousel-item .img-fluid {
-        width:100%;
+    .marketing-site-three-up {text-align: center;padding: 2rem 0;}
+    .marketing-site-three-up .row {max-width: 900px;}
+    .marketing-site-three-up .columns {margin-bottom: 1rem;}
+    .marketing-site-three-up .fa {font-size: 3rem;margin-bottom: 1rem;color: #1779ba;}
+    .marketing-site-three-up-headline {margin-bottom: 2rem;font-size: 24px;}
+    .body-content {margin-top: 25px;}
+    @media screen and (min-width: 40em) {
+        .marketing-site-three-up .columns {margin-bottom: 0;}
     }
-
-
-    /* 
-    anchors are inline so you need ot make them block to go full width
-    */
-    .carousel-item a {
-        display: block;
-        width:100%;
-    }
-
-    /* 
-    Fixing the height
-    */
-    .carousel,
-    .item,
-    .active {
-        height: 800px;
-        width: auto;
-    }
-
-    .carousel-inner {
-        height: 100%;
-    }
-
-    /* 
-    Swiper
-    */
-    .swiper-container {
-      width: 100%;
-      height: 100%;
-    }
-    .swiper-slide {
-      text-align: center;
-      font-size: 18px;
-      background: #fff;
-      /* Center slide text vertically */
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: -webkit-flex;
-      display: flex;
-      -webkit-box-pack: center;
-      -ms-flex-pack: center;
-      -webkit-justify-content: center;
-      justify-content: center;
-      -webkit-box-align: center;
-      -ms-flex-align: center;
-      -webkit-align-items: center;
-      align-items: center;
-    }
-
 </style>
 {% endblock %}
 
-{% block full_screen %}
-
-{% endblock %}
-
 {% block content %}
+<div class="app-dashboard-body-content off-canvas-content" data-off-canvas-content>
+    
+    {% if posts %}
+        <div class="body-content grid-container" id="carrousel">
+            <div class="grid-x grid-margin-x" data-equalizer data-equalize-on="medium">
+                <div class="cell small-12">
+                    <div id="carrousel">
+                        <div class="orbit home-orbit" role="region" aria-label="Favorite Space Pictures" data-orbit>
+                            <div class="orbit-wrapper">
+                                <div class="orbit-controls">
+                                    <button class="orbit-previous">
+                                        <span class="show-for-sr">Previous Slide</span>&#9664;&#xFE0E;
+                                    </button>
+                                    <button class="orbit-next">
+                                        <span class="show-for-sr">Next Slide</span>&#9654;&#xFE0E;
+                                    </button>
+                                </div>
+                                <ul class="orbit-container" data-equalizer data-equalize-on="medium">
+                                    {% if have_many_posts %}
+                                        {% for post in posts %}
+                                        <li class="{% if forloop.first %}is-active{% endif %} orbit-slide" data-equalizer-watch>
+                                            <figure class="orbit-figure">
+                                                <img class="orbit-image" src="{{ post.background.url }}" alt="Space">
+                                                <figcaption class="orbit-caption">{{ post.title }}</figcaption>
+                                            </figure>
+                                        </li>
+                                        {% endfor %}
+                                    {% else %}
+                                        <li class="is-active orbit-slide" data-equalizer-watch>
+                                            <figure class="orbit-figure">
+                                                <img class="orbit-image" src="{{ posts.background.url }}" alt="Space">
+                                                <figcaption class="orbit-caption">{{ posts.title }}</figcaption>
+                                            </figure>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="body-content grid-container" id="analitics">
+        <div class="grid-x grid-margin-x" data-equalizer data-equalize-on="medium">
+            <div class="cell small-12 medium-4">
+                <div class="card shadow blue" data-equalizer-watch>
+                    <div class="card-section">
+                        <h4 class="hero-text">{{users_len}}</h4>
+                        <p class="lead">Usuarios registrados</p>
+                    </div>
+                </div>
+            </div>
+            <div class="cell small-12 medium-4">
+                <div class="card shadow green" data-equalizer-watch>
+                    <div class="card-section green">
+                        <h4 class="hero-text">{{post_len}}</h4>
+                        <p class="lead">Articulos del blog</p>
+                    </div>
+                </div>
+            </div>
+            <div class="cell small-12 medium-4">
+                <div class="card shadow green" data-equalizer-watch>
+                    <div class="card-section">
+                        <h4 class="hero-text">1</h4>
+                        <p class="lead">Ticket abierto(s)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
+    <!-- <div class="body-content grid-container" id="support">
+        <div class="grid-x grid-margin-x" data-equalizer data-equalize-on="medium">
+            <div class="cell small-12 medium-6">
+                <div class="card shadow blue" data-equalizer-watch>
+                    <div class="card-section">
+                        <h4 class="h2">This is a card.</h4>
+                        <p>It has an easy to override visual style, and is appropriately subdued.</p>
+                        <p>It has an easy to override visual style, and is appropriately subdued.</p>
+                        <p>It has an easy to override visual style, and is appropriately subdued.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="cell small-12 medium-6">
+                <div class="card shadow blue" data-equalizer-watch>
+                    <div class="card-section">
+                        <h4 class="h2">This is a card.</h4>
+                        <p>It has an easy to override visual style, and is appropriately subdued.</p>
+                        <p>It has an easy to override visual style, and is appropriately subdued.</p>
+                        <p>It has an easy to override visual style, and is appropriately subdued.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="body-content grid-container" id="sales">
+        <div class="grid-x grid-margin-x" data-equalizer data-equalize-on="medium">
+            <div class="cell small-12 medium-8">
+                <div class="card shadow green" data-equalizer-watch>
+                    <div class="card-section">
+                        <h4>This is a card.</h4>
+                        <p>It has an easy to override visual style, and is appropriately subdued.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="cell small-12 medium-4">
+                <div class="card shadow green" data-equalizer-watch>
+                    <div class="card-section">
+                        <h4>This is a card.</h4>
+                        <p>It has an easy to override visual style, and is appropriately subdued.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="body-content grid-container" id="docs">
+        <div class="grid-x grid-margin-x" data-equalizer data-equalize-on="medium">
+            <div class="cell small-12 medium-4">
+                <div class="card shadow blue" data-equalizer-watch>
+                    <div class="card-section">
+                        <h4>This is a card.</h4>
+                        <p>It has an easy to override visual style, and is appropriately subdued.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="cell small-12 medium-8">
+                <div class="card shadow blue" data-equalizer-watch>
+                    <div class="card-section">
+                        <h4>This is a card.</h4>
+                        <p>It has an easy to override visual style, and is appropriately subdued.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="body-content grid-container" id="">
+        <div class="grid-x grid-margin-x" data-equalizer data-equalize-on="medium">
+            <div class="cell small-12 medium-8">
+                <div class="card shadow green" data-equalizer-watch>
+                    <div class="card-section">
+                        <h4>This is a card.</h4>
+                        <p>It has an easy to override visual style, and is appropriately subdued.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="cell small-12 medium-4">
+                <div class="card shadow green" data-equalizer-watch>
+                    <div class="card-section">
+                        <h4>This is a card.</h4>
+                        <p>It has an easy to override visual style, and is appropriately subdued.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="body-content grid-container" id="support">
+        <div class="grid-x grid-margin-x" data-equalizer data-equalize-on="medium">
+            <div class="cell small-12 medium-6">
+                <div class="card shadow blue" data-equalizer-watch>
+                    <div class="card-section">
+                        <h4 class="h2">This is a card.</h4>
+                        <p>It has an easy to override visual style, and is appropriately subdued.</p>
+                        <p>It has an easy to override visual style, and is appropriately subdued.</p>
+                        <p>It has an easy to override visual style, and is appropriately subdued.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="cell small-12 medium-6">
+                <div class="card shadow blue" data-equalizer-watch>
+                    <div class="card-section">
+                        <h4 class="h2">This is a card.</h4>
+                        <p>It has an easy to override visual style, and is appropriately subdued.</p>
+                        <p>It has an easy to override visual style, and is appropriately subdued.</p>
+                        <p>It has an easy to override visual style, and is appropriately subdued.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+</div>
 {% endblock %}
 
 {% block js %}
 
-<!-- <script>
-    $(document).ready(function(){
-        var owl = $('.owl-carousel');
-        owl.owlCarousel({
-            items: 6,
-            loop: true,
-            margin: 10,
-            autoplay: true,
-            autoplayTimeout: 3000,
-            autoplayHoverPause: true,
-            lazyLoad:true,
-            dots:false,
-            responsiveClass:true,
-            responsive:{
-                0:{
-                    items:2,
-                    nav:false
-                },
-                600:{
-                    items:3,
-                    nav:false
-                },
-                1000:{
-                    items:6,
-                    nav:false,
-                    loop:false
-                }
-            }
-        });
-        
-    });
-</script> -->
 {% endblock %}

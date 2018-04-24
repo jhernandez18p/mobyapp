@@ -1,5 +1,11 @@
 from django.urls import reverse
 from src.base.models import (Pages,Position,Site,SocialMedia)
+from src.user.tokens import account_activation_token
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+from django.core.mail import send_mail
 
 def site(request):
     # Site info preprocessor 
@@ -7,6 +13,14 @@ def site(request):
     context['SITE_TITLE'] = 'Moby Group'
     context['SITE_URL'] = ''
     context['SITE_LOGO'] = '/static/base/img/logo.png'
+
+    if request.user.profile.exists():
+        if request.user.profile.get_fullname:
+            context['USER_FULLNAME'] = request.user.profile.get_fullname
+
+        if request.user.profile.get_avatar:
+            context['USER_AVATAR'] = request.user.profile.get_avatar
+
 
     pages = Pages.objects.all()
     if pages.exists():
@@ -66,8 +80,6 @@ def site(request):
             url='https://www.mobby-group.com',
         )
         info_site.save()
-
-
     return context
 
 def menu(request):

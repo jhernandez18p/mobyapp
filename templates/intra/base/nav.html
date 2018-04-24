@@ -1,5 +1,30 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light navbar-custom fixed-top">{% load staticfiles %}
-    <div class="container">
-        <a href="{% url 'intra:home' %}" class="navbar-brand"><img id="menuLogo" src="{% static 'base/img/logo.png' %}" alt="{{SITE_TITLE}}"></a>
+<nav data-sticky-container >{% load staticfiles %}
+    <div class="top-bar topbar-responsive" data-sticky data-options="marginTop:0;">
+        <div class="top-bar-title" >
+            <span data-responsive-toggle="topbar-responsive" data-hide-for="medium">
+                <button class="menu-icon" type="button" data-toggle></button>
+            </span>
+            <a href="{% url 'intra:home' %}" class="navbar-brand topbar-responsive-logo">
+                <img id="menuLogo" src="{% static 'intra/img/isotipo.png' %}" alt="{{SITE_TITLE}}">
+                <strong>Moby Supply</strong>
+            </a>
+        </div>
+        <div id="topbar-responsive" class="topbar-responsive-links">
+            <div class="top-bar-right">
+                <ul class="menu simple vertical medium-horizontal">
+                    <li>
+                        <a href="{% url 'intra:profile' %}" class="button hollow topbar-responsive-button">
+                            <strong>{{USER_FULLNAME}}</strong>
+                            <img id="menuLogo" class="circleImg" src="{% if USER_AVATAR %}{{ USER_AVATAR }}{% else %}{% static 'base/img/avatar.png' %}{% endif %}" alt="{{USER_FULLNAME}}">
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'auth:logout' %}" class="button hollow topbar-responsive-button">
+                            <strong>Salir</strong>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </nav>

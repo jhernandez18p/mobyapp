@@ -1,10 +1,14 @@
+import urllib
+import json
+
 from django.conf import settings
-from django.contrib import auth
+from django.contrib import auth, messages
+from django.contrib.messages import get_messages
 from django.contrib.auth import login, authenticate,REDIRECT_FIELD_NAME, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
 from django.db.models import Q
-from django.http import HttpResponse ,HttpResponseRedirect ,JsonResponse 
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse 
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
@@ -12,34 +16,44 @@ from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
-from django.views.generic import ListView, FormView, TemplateView, RedirectView
-from urllib.parse import urlparse
+from django.views.generic import View, ListView, FormView, TemplateView, RedirectView
 
 from .models import Newsletter
 from .auth import account_activation_token
 from .forms import SignUpForm,NewsletterForm
 from src.utils.libs import newsletter_email
 
-def activate(request, uidb64, token):
-    try:
-        uid = force_text(urlsafe_base64_decode(uidb64))
-        user = User.objects.get(pk=uid)
-    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
-        user = None
+from src.user.tokens import account_activation_token
 
-    if user is not None and account_activation_token.check_token(user, token):
-        user.is_active = True
-        user.profile.email_confirmed = True
-        user.save()
-        login(request, user)
-        return redirect('home')
-    else:
-        return render(request, 'account_activation_invalid.html')
+class ActivateAccountView(View):
+    def get(self, request, uidb64, token):
+        try:
+            uid = force_text(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=uid)
+        except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+            user = None
+
+        if user is not None and account_activation_token.check_token(user, token):
+            user.profile.email_confirmed = True
+            user.profile.status = 'ACTIVE'
+            user.save()
+            login(request, user)
+            return redirect('intra')
+        else:
+            # invalid link
+            return render(request, 'auth/invalid.html')
+
+
+class SignUp(FormView):
+    """
+    Custom user creation
+    """
+
 
 def modal_cookie(request):
     username = request.GET.get('username', None)
 
-    return JsonResponse(data)
+    return JsonResponse(username)
 
 def error(request):
     context = {}
@@ -58,23 +72,48 @@ def custom_login(request):
     context['form'] = AuthenticationForm
 
     if request.method == "GET":
+        # Method Get
         return render(request, "auth/form.html", context)
+    
     elif request.method == "POST":
+        # Method Post
         username = request.POST['username']
         password = request.POST['password']
-        user = auth.authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                auth.login(request, user)
-                _next = "/auth/gracias"
-                if "next" in request.GET:
-                    _next = request.GET["next"]
-                if _next == None or _next == "":
-                    _next = "/"
-                return HttpResponseRedirect(_next)
+
+        ''' Begin reCAPTCHA validation '''
+        recaptcha_response = request.POST.get('g-recaptcha-response')
+        url = 'https://www.google.com/recaptcha/api/siteverify'
+        values = {
+            'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+            'response': recaptcha_response
+        }
+        data = urllib.parse.urlencode(values).encode()
+        req =  urllib.request.Request(url, data=data)
+        response = urllib.request.urlopen(req)
+        result = json.loads(response.read().decode())
+        ''' End reCAPTCHA validation '''
+        # print(result)
+        if result['success']:
+            user = auth.authenticate(username=username, password=password)
+            if user is not None:
+                if user.is_active:
+                    auth.login(request, user)
+                    _next = "/auth/gracias"
+                    if "next" in request.GET:
+                        _next = request.GET["next"]
+                    if _next == None or _next == "":
+                        _next = "/"
+                    return HttpResponseRedirect(_next)
+                else:
+                    return render(request, "auth/form.html", { "warning": "Su Cuenta no esta activa" })
             else:
-                return render(request, "auth/form.html", { "warning": "Your account is disabled" })
+                #User is None
+                messages.add_message(request, messages.INFO, 'Ha ocurrido un error con su nombre de usuario o contraseña, por favor vuelva a intentar.')
+                return HttpResponseRedirect('/auth/error')
+
         else:
+            # Error reCAPTCHA
+            messages.add_message(request, messages.INFO, 'Ha ocurrido un error con la validación de sus datos, por favor vuelva a intentar.')
             return HttpResponseRedirect('/auth/error')
 
 def custom_logout(request):
@@ -96,13 +135,27 @@ def custom_register(request):
 
     if request.method == "POST":
         if form.is_valid():
+            
+            ''' Begin reCAPTCHA validation '''
+            recaptcha_response = request.POST.get('g-recaptcha-response')
+            url = 'https://www.google.com/recaptcha/api/siteverify'
+            values = {
+                'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+                'response': recaptcha_response
+            }
+            data = urllib.parse.urlencode(values).encode()
+            req =  urllib.request.Request(url, data=data)
+            response = urllib.request.urlopen(req)
+            result = json.loads(response.read().decode())
+            ''' End reCAPTCHA validation '''
+
             useremail = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password1')
-            try:
-                User.objects.get(email=useremail)
-                print('User exists')
-                return HttpResponseRedirect('/auth/error')
-            except User.DoesNotExist:
+            
+            if result['success']:
+                if User.objects.get(email=useremail):
+                    messages.add_message(request, messages.INFO, 'Ups... Ha ocurrido un error el usuario que introdujo ya existe.')
+                    return HttpResponseRedirect('/auth/error')
                 form.save()
                 user = auth.authenticate(username = useremail, password = password)
                 if user is not None:
@@ -115,19 +168,17 @@ def custom_register(request):
                             _next = "/auth/gracias"
                         return HttpResponseRedirect(_next)
                     else:
+                        # User is not active
+                        messages.add_message(request, messages.INFO, 'Ups... Parece que no ha activado su cuenta aún.')
                         return HttpResponseRedirect('/auth/error')
                 else:
-                    if "next" in request.GET:
-                        _next = request.GET["next"]
-                    if _next == None or _next == "":
-                        _next = "/auth/error"
-                    print('Error user is None')
-                    return HttpResponseRedirect(_next)
+                    messages.add_message(request, messages.INFO, 'No ha sido posible validar el nombre de usuario, por favor vuelva a intentarlo.')
+                    return HttpResponseRedirect('/auth/error')
         else:
-            print('Form invalid')
+            messages.add_message(request, messages.INFO, 'Ups... Ha ocurrido un error, los datos puede que sean invalidos.')
             return HttpResponseRedirect('/auth/error')
-
-    return render(request, "auth/form.html", context)
+    else:
+        return render(request, "auth/form.html", context)
 
 def newsletter(request):
     if request.method == 'POST':
@@ -180,3 +231,19 @@ def bad_request_view(request):
     context = {}
     context['error_code'] = "400"
     return render(request,template,context)
+
+def activate(request, uidb64, token):
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.profile.email_confirmed = True
+        user.save()
+        login(request, user)
+        return redirect('home')
+    else:
+        return render(request, 'auth/error.html')
