@@ -14,13 +14,15 @@
         <div class="container-fluid">
             <div class="row justify-content-center" id="auth">
                 <div class="col-12 col-sm-6 mt-5">
-                    <h2 class="text-center text-info mb-4">Autenticación Moby Supply</h2>
+                    <h2 class="text-center mb-4">
+                        <a class="text-info" href="{% url 'front:home' %}" >Autenticación Moby Supply</a>
+                    </h2>
                     <span class="anchor" id="formLogin"></span>
                     <div class="card rounded-0 mt-3 mb-5">
                         <div class="card-header text-center">
                             <h3 class="mb-0">{% if form_name %}{{form_name}}{% else %}{{title}}{% endif %}</h3>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body pt-5">
                             {% block content %}{% endblock %}
                         </div>
                         <div class="card-footer text-center">
@@ -28,11 +30,11 @@
                                 <small class="text-muted">¿Ya tiene una cuenta? <a href="{% url 'auth:login' %}">Iniciar Sesión</a></small> -
                                 <small class="text-muted">¿Aun no se ha registrado? <a href="{% url 'auth:register' %}">Registrese</a></small>
                             {% elif SITE_URL == 'Registrarse' %}
-                                <small class="text-muted">¿Ya tiene una cuenta? <a href="{% url 'auth:login' %}">Iniciar Sesión</a></small> -
-                                <small class="text-muted">¿Olvido su contraseña? <a href="{% url 'auth:password_reset' %}">Recuperar contraseña</a></small>
+                            <small class="text-muted">¿Olvido su contraseña? <a href="{% url 'auth:password_reset' %}">Recuperar contraseña</a></small> -
+                                <small class="text-muted">¿Ya tiene una cuenta? <a href="{% url 'auth:login' %}">Iniciar Sesión</a></small>
                             {% elif SITE_URL == 'Iniciar Sesión'  %}
-                                <small class="text-muted">¿Aun no se ha registrado? <a href="{% url 'auth:register' %}">Registrese</a></small> -
-                                <small class="text-muted">¿Olvido su contraseña? <a href="{% url 'auth:password_reset' %}">Recuperar contraseña</a></small>
+                            <small class="text-muted">¿Olvido su contraseña? <a href="{% url 'auth:password_reset' %}">Recuperar contraseña</a></small> -
+                            <small class="text-muted">¿Aun no se ha registrado? <a href="{% url 'auth:register' %}">Registrese</a></small>
                             {% else %}
                                 <small class="text-muted">¿Ya tiene una cuenta? <a href="{% url 'auth:login' %}">Iniciar Sesión</a></small> -
                                 <small class="text-muted">¿Aun no se ha registrado? <a href="{% url 'auth:register' %}">Registrese</a></small>
@@ -43,10 +45,16 @@
             </div>
         </div>
     </section>
+    
     <script src="{% static 'base/js/popper.min.js' %}"></script>
     <script src="{% static 'base/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'base/js/mdb.min.js' %}"></script>
     <script src="{% static 'auth/js/app.js' %}"></script>
     {% block js %}{% endblock %}
+    {% if messages %}
+        <script>
+            toastr["{{messages.level}}"]("{{messages.message}}");
+        </script>
+    {% endif  %}
 </body>
 </html>

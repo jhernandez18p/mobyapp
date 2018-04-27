@@ -7,6 +7,8 @@ from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 
 
+from src.user.models import Profile
+
 class EmailBackend(ModelBackend):
     def authenticate(self, request, username=None, password=None, **kwargs):
         UserModel = get_user_model()
@@ -14,18 +16,19 @@ class EmailBackend(ModelBackend):
             username = kwargs.get(UserModel.USERNAME_FIELD)
         try:
             user = UserModel.objects.get(email=username)
+            
+            if getattr(user, 'is_active', False) and  user.check_password(password):
+                # send_mail(
+                #     'User Login',
+                #     'Here is the message.',
+                #     username,
+                #     [username],
+                #     fail_silently=False,
+                # )
+                return user
+            else:
+                return None
         except UserModel.DoesNotExist:
-            return None
-        if getattr(user, 'is_active', False) and  user.check_password(password):
-            # send_mail(
-            #             'User Login',
-            #             'Here is the message.',
-            #             username,
-            #             [username],
-            #             fail_silently=False,
-            #         )
-            return user
-        else:
             return None
 
     def get_user(self, user_id):

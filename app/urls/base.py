@@ -50,7 +50,7 @@ urlpatterns = [
 admin.site.site_title = 'Dev2tech CMS'
 admin.site.site_header = 'CMS Moby Supply'
 
-handler404 = 'src.user.views.page_not_found_view'
-handler500 = 'src.user.views.error_view'
-handler403 = 'src.user.views.permission_denied_view'
-handler400 = 'src.user.views.bad_request_view'
+handler404 = 'app.urls.views.page_not_found_view'
+handler500 = 'app.urls.views.error_view'
+handler403 = 'app.urls.views.permission_denied_view'
+handler400 = 'app.urls.views.bad_request_view'

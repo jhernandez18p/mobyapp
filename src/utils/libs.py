@@ -1,3 +1,6 @@
+import urllib
+import json
+
 import datetime,math,re,os
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
@@ -106,7 +109,7 @@ def newsletter_email(self, *args, **kwargs):
     to = self[1]
     to2 = settings.EMAIL_TO_USER
 
-
+    subject = ''
     from_email = settings.EMAIL_HOST_USER
     text_content = '%s \nSe ha registrado para recibir las newsletters' % (name)
     html_content = loader.render_to_string(
@@ -122,3 +125,20 @@ def newsletter_email(self, *args, **kwargs):
     msg.send()
 
     return True
+
+def reCAPTCHA(recaptcha_response):
+
+    ''' Begin reCAPTCHA validation '''
+    recaptcha_response = recaptcha_response
+    url = 'https://www.google.com/recaptcha/api/siteverify'
+    values = {
+        'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+        'response': recaptcha_response
+    }
+    data = urllib.parse.urlencode(values).encode()
+    req =  urllib.request.Request(url, data=data)
+    response = urllib.request.urlopen(req)
+    result = json.loads(response.read().decode())
+    ''' End reCAPTCHA validation '''
+
+    return result

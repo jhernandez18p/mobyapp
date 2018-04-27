@@ -8,12 +8,12 @@
 <form method="post" id="auth-form">
     {% csrf_token %} 
     {% for field in form %}
-        <div class="form-group">
+        <div class="md-form">
             {{ field.label_tag | safe }}
             {% if form.is_bound %}
                 {% if field.errors %}
-                    {% render_field field class="form-control is-invalid" %}
-                    {% for error in field.errors %}
+                    {% render_field field class="form-control is-valid" %}
+                    {% for error in field.errorss %}
                         <div class="invalid-feedback">
                             {{ error |safe }}
                         </div>
@@ -24,9 +24,9 @@
             {% else %}
                 {% render_field field class="form-control" %}
             {% endif %} 
-            {% if field.help_text %}
+            {% if field.help_texts %}
             <small class="form-text text-muted">
-                {{ field.help_text |safe}}
+                {{ field.help_text | safe}}
             </small>
             {% endif %}
         </div>
