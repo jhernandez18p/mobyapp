@@ -1,5 +1,8 @@
 from __future__ import unicode_literals
-from ckeditor.fields import RichTextField
+
+import os
+import random
+
 from datetime import datetime
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -12,12 +15,17 @@ from django.utils import timezone
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
-from sorl.thumbnail import ImageField
-import os
 
-from src.utils.libs import (upload_location)
+from ckeditor.fields import RichTextField
+from sorl.thumbnail import ImageField
+# from src.utils.libs import (upload_location)
 
 def get_upload_path(instance, filename):
+    _filename = filename.split('.')
+    _filename_ext = _filename[-1]
+    _filename_name = ''.join(random.choice(_filename[0]) for _ in range(5))
+    filename = '%s.%s' % (_filename_name,_filename_ext)
+    print(filename)
     try:
         a = instance.__class__.__name__
         print(instance.__class__.objects.all())
@@ -249,6 +257,9 @@ class Article(models.Model):
 
     def get_absolute_url(self):
         return reverse('sales:product_detail', kwargs={'slug': self.slug})
+
+    def counter(self):
+        return len(self.objects.all())
 
 pre_save.connect(pre_save_receiver, sender=Article)
 pre_save.connect(pre_save_receiver, sender=Category)

@@ -91,17 +91,46 @@ class ArticleResource(resources.ModelResource):
         import_id_fields = ('code',)
 
         export_order = (
-            'code','description','line__code','category__description','sub_line',\
-            'color__code','ref','model','origin','provider__code',\
-            'sales_unit','stock','price_1','price_2','price_3',\
-            'price_4','price_5','img',
+            'code',
+            'description',
+            'line__code',
+            'category__description',
+            'sub_line',
+            'color__code',
+            'ref',
+            'model',
+            'provider__code',
+            'sales_unit',
+            'stock',
+            'price_1',
+            'price_2',
+            'price_3',
+            'price_4',
+            'price_5',
+            'img',
         )
 
         fields = [
-            'category__description','code','color__code','description',\
-            'img','item_type','line__code','model','price_1','price_2','price_3',\
-            'price_4','price_5','provider__code','ref','sales_unit','stock','sub_line',
-            'origin','img',
+            'category__description',
+            'code',
+            'color__code',
+            'description',
+            'img',
+            'item_type',
+            'line__code',
+            'model',
+            'price_1',
+            'price_2',
+            'price_3',
+            'price_4',
+            'price_5',
+            'provider__code',
+            'ref',
+            'sales_unit',
+            'stock',
+            'sub_line',
+            'origin',
+            'img',
         ]
 
         exclude = (

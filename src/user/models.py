@@ -1,22 +1,17 @@
 from __future__ import unicode_literals
+
 import os
-import codecs
 import random
-import string
-from django.conf import settings
-from django.contrib.auth.models import Group, AbstractUser,User
-from django.db import models
-from django.db.models.signals import post_save, pre_save
-from django.dispatch import receiver
-from django.urls import reverse
-from django.utils import timezone
-from django.utils.safestring import mark_safe
-from django.utils.text import slugify
-from datetime import datetime, date
+
+from datetime import (datetime, date)
+from django.contrib.auth.models import (User)
+from django.db import (models)
+from django.db.models.signals import (post_save, pre_save)
+from django.dispatch import (receiver)
 from django.utils.translation import gettext_lazy as _
 
-from ckeditor.fields import RichTextField
-from src.user.tokens import AccountActivationTokenGenerator
+from ckeditor.fields import (RichTextField)
+from src.user.tokens import (AccountActivationTokenGenerator)
 
 
 def get_upload_path(instance, filename):
@@ -53,13 +48,6 @@ class Newsletter(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('Usuario'), blank=True, null=True)
     updated = models.DateTimeField(auto_now=True, auto_now_add=False, verbose_name=_('Ultima actualización'))
 
-    def save(self, request, *args, **kwargs):
-        users = User.objects.all()
-        for x in users:
-            if self.email == x.email:
-                self.user = x.id
-        super(Newsletter, self).save(*args, **kwargs)
-
     def __str__(self):
         return self.name
 
@@ -82,7 +70,6 @@ class Profile(models.Model):
         ('BUYER', 'comprador'),
         ('PROVIDER', 'proveedor'),
     )
-
     ACTIVE = 1
     INACTIVE = 2
     BLOCKED = 3
@@ -91,7 +78,6 @@ class Profile(models.Model):
         ('INACTIVE',"inactivo"),
         ('BLOCKED',"bloqueado"),
     )
-
     COUNTRY_CHOICES = (
         ('AFG','Afganistán'),
         ('ALA','Islas de Åland'),
@@ -358,10 +344,11 @@ class Profile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name=_('Usuario'))
     code = models.CharField(max_length=144, blank=True, verbose_name=_('Codigo de usuario'))
-    avatar = models.ImageField(verbose_name=_('Avatar de usuario'),
-        upload_to=get_upload_path, 
-        null=True, 
-        blank=True, 
+    avatar = models.ImageField(
+        verbose_name=_('Avatar de usuario'),
+        upload_to=get_upload_path,
+        null=True,
+        blank=True,
         default='/profile/avatar.png',
     )
     bio = RichTextField( blank=True, verbose_name=_('Biografia'))
@@ -394,6 +381,7 @@ class Profile(models.Model):
 
     def get_fullname(self):
         """
+        Method to get the fullname of user
         """
         if self.user.last_name and self.user.first_name:
             fullname = '%s %s' % (self.user.first_name, self.user.last_name)
@@ -403,14 +391,17 @@ class Profile(models.Model):
 
     def get_avatar(self):
         """
+        Easy method to get user avatar
         """
         avatar = self.user.profile.avatar
+        img = 'staticfiles/base/img/avatar.png'
         if avatar.url:
-            return avatar.url
-        return avatar
+            img = avatar.url
+        return img
 
     def get_age(self):
         """
+        This method calculate the age of user
         """
         if self.user.profile.birth_date:
             today = datetime.today()
@@ -419,12 +410,14 @@ class Profile(models.Model):
 
     def get_user_status(self):
         """
+        Easy method to get user status
         """
         status = '%s' % (self.user.profile.status)
         return status
 
     def exists(self):
         """
+        Method to verify if user has profile
         """
         user = Profile.objects.get(user=self.user.pk)
         if user:
@@ -440,6 +433,9 @@ class Profile(models.Model):
 
 
 class Frecuency(models.Model):
+    """
+    User frecuency
+    """
     user = models.ForeignKey(User, default=1, on_delete=models.CASCADE,)
     average = models.CharField(max_length=144, blank=True)
     monday = models.CharField(max_length=144, blank=True)
@@ -456,3 +452,4 @@ class Frecuency(models.Model):
     class Meta:
         verbose_name = 'Frecuencia de visita'
         verbose_name_plural = 'Frecuencia de visitas'
+

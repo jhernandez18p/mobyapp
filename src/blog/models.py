@@ -16,7 +16,7 @@ from datetime import datetime
 from django.db.models import Q
 import os
 
-from src.utils.libs import (upload_location)
+# from src.utils.libs import (get_upload_path)
 
 def get_upload_path(instance, filename):
     try:

@@ -10,7 +10,7 @@ from django.views.generic.edit import CreateView
 from src.base.forms import ContactForm
 from src.base.models import Position, Carousel, CarouselImage, Site
 from src.blog.models import Comment, Post
-from src.utils.libs import contact_email
+# from src.utils.libs import contact_email
 from src.ventas.models import Department
 
 

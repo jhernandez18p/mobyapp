@@ -5,7 +5,7 @@ from django.views.generic import ListView, DetailView
 
 from .models import (Service, ServiceImage)
 from .forms import ServiceForm
-from src.utils.libs import contact_email
+# from src.utils.libs import contact_email
 
 # Create your views here.
 class Home(ListView):

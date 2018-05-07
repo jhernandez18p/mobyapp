@@ -1,20 +1,24 @@
 from __future__ import unicode_literals
-from ckeditor.fields import RichTextField
+
+import os
+
+from datetime import datetime
 from django.contrib.flatpages.models import FlatPage
 from django.db import models
+from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from sorl.thumbnail import ImageField
-from django.utils.text import slugify
-from datetime import datetime
-import os
-# Create your models here.
+
+from ckeditor.fields import RichTextField
 
 def get_upload_path(instance, filename):
+    my_date = datetime.now().date().strftime("%Y/%m/%d")
     try:
         a = instance.__class__.__name__
     except:
         a = 'frontend'
-    return os.path.join('frontend/%s/'%(a.lower()), datetime.now().date().strftime("%Y/%m/%d"), filename)
+    path = os.path.join('%s/%s/'%( a.lower(), my_date),filename)
+    return path
 
 def create_slug(instance, new_slug=None):
     slug = slugify(instance.name)
@@ -74,8 +78,15 @@ class CarouselImage(models.Model):
     image = models.ImageField(upload_to=get_upload_path,verbose_name = _('Imágen'))
     name = models.CharField(max_length=144, blank=True,verbose_name = _('Nombre'))
     text = RichTextField(blank=True, verbose_name = _('Testo para mostrar sobre la imágen'))
-    call_to_action_url = models.ForeignKey(FlatPage, on_delete=models.CASCADE, blank=True, null=True,verbose_name = _('Llamado a acción'))
+    call_to_action_url = models.ForeignKey(
+        FlatPage, 
+        on_delete=models.CASCADE, 
+        blank=True, 
+        null=True,
+        verbose_name = _('Llamado a acción')
+    )
     uploaded_at = models.DateTimeField(auto_now=True,verbose_name = _('¿Cuando fue creado?'))
+    
     
     def __str__(self):
         return self.name

@@ -23,7 +23,7 @@
                                             <h2>{{object.name}}</h2>
                                             {{object.text | safe}}
                                             {% if object.call_to_action_url != None %}
-                                            <a class="btn btn-outline-white waves-effect" href="{{object.call_to_action_url}}">Ver más</a>
+                                            <a class="btn btn-outline-white waves-effect" href="{{object.call_to_action_url.url}}">Ver más</a>
                                             {% endif %}
                                         </div>
                                     </div>
