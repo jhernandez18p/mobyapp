@@ -34,14 +34,23 @@ def get_upload_path(instance, filename):
     return os.path.join('sales/%s/'%(a.lower()), datetime.now().date().strftime("%Y/%m/%d"), filename)
 
 def create_slug(instance, new_slug=None):
-    slug = slugify(instance.name)
+
+    if instance.name:
+        slug = slugify(instance.name)
+    else:
+        slug = slugify(instance.code)
+
     if new_slug is not None:
         slug = new_slug
+    
     qs = instance.__class__.objects.filter(slug=slug).order_by("-id")
     exists = qs.exists()
     if exists:
         new_slug = "%s-%s" %(slug, qs.first().id)
         return create_slug(instance, new_slug=new_slug)
+    # else:
+    #     new_slug = "%s-%s" %(instance.__class__, instance.id)
+    #     return create_slug(instance, new_slug=new_slug)
     return slug
 
 def pre_save_receiver(sender, instance, *args, **kwargs):
@@ -211,41 +220,91 @@ class Category(models.Model):
 
 
 class Article(models.Model):
-    # bo_category = models.CharField(blank=True, max_length=144, verbose_name=_('Categoría \"se importación\"'))
-    # bo_color = models.CharField(blank=True, max_length=144, verbose_name=_('Color \"se importación\"'))
-    # bo_department = models.CharField(blank=True, max_length=144, verbose_name=_('Departamento \"se importación\"'))
-    # bo_item_type = models.CharField(blank=True, max_length=144, verbose_name=_('Tipo de articulo \"se importación\"'))
-    # bo_line = models.CharField(blank=True, max_length=144, verbose_name=_('Linea \"se importación\"'))
-    # bo_provider = models.CharField(blank=True, max_length=144, verbose_name=_('Proveedor \"se importación\"'))
-    # bo_sub_line = models.CharField(blank=True, max_length=144, verbose_name=_('Sublinea \"se importación\"'))
-    category = models.ForeignKey(Category, on_delete=models.CASCADE,verbose_name=_('Categoría'))
+
     code = models.CharField(max_length=144, blank=True, verbose_name=_('Código de articulo'))
-    color = models.ForeignKey(Color, on_delete=models.CASCADE,verbose_name=_('Color'))
-    created_at = models.DateTimeField(auto_now=False, auto_now_add=True, verbose_name=_('Creado'))
-    department = models.ForeignKey(Department, on_delete=models.CASCADE,verbose_name=_('Departamento'))
-    description = RichTextField(blank=True, verbose_name=_('Descripción'))
-    img = models.CharField(max_length=144, blank=True, verbose_name=_('Imagen de articulo'))
-    imported = models.BooleanField(default=False, verbose_name=_('Importado'))
-    is_shipping_required = models.BooleanField(default=False, verbose_name=_('Requiere envio'))
-    item_type = models.ForeignKey(Type, on_delete=models.CASCADE,verbose_name=_('Tipo de articulo'))
-    line = models.ForeignKey(Line, on_delete=models.CASCADE,verbose_name=_('Linea'))
     model = models.CharField(max_length=144, blank=True, verbose_name=_('Modelo'))
-    name = models.CharField(max_length=144, blank=False, verbose_name=_('Nombre'))
+    name = models.CharField(max_length=144, blank=True, verbose_name=_('Nombre'))
     origin = models.CharField(max_length=144, blank=True, verbose_name=_('Origen'))
+    sales_unit = models.CharField(max_length=144, blank=True, verbose_name=_('Unidad de ventas'))
+    ref = models.CharField(max_length=144, blank=True, verbose_name=_('Referencia')) # 
+    description = RichTextField(blank=True, verbose_name=_('Descripción'))
+    item_type = models.ForeignKey(
+        Type,
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        verbose_name=_('Tipo de articulo'),
+
+    )
+    line = models.ForeignKey(
+        Line,
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        verbose_name=_('Linea')
+    )
+    category = models.ForeignKey(
+        Category,
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        verbose_name=_('Categoría')
+    )
+    color = models.ForeignKey(
+        Color,
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        verbose_name=_('Color')
+    )
+    department = models.ForeignKey(
+        Department,
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        verbose_name=_('Departamento')
+    )
+    brand = models.ForeignKey(
+        Brands,
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        verbose_name=_('Marca'),
+        default=1
+    )
+    provider = models.ForeignKey(
+        Provider,
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        verbose_name=_('Proveedor')
+    )
+    sub_line = models.ForeignKey(
+        SubLine,
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        verbose_name=_('Sublinea')
+    )
+    slug = models.SlugField(unique=True, blank=True, verbose_name=_('URL \"SEO\"'))
+    stock = models.IntegerField(default=0, blank=True, verbose_name=_('Stock'))
     picture = models.ImageField(blank=True, upload_to=get_upload_path, verbose_name=_('Foto de articulo'))
     price_1 = models.DecimalField(decimal_places=2, max_digits=99, blank=True, null=True, verbose_name=_('Precio 1'))
     price_2 = models.DecimalField(decimal_places=2, max_digits=99, blank=True, null=True, verbose_name=_('Precio 2'))
     price_3 = models.DecimalField(decimal_places=2, max_digits=99, blank=True, null=True, verbose_name=_('Precio 3'))
     price_4 = models.DecimalField(decimal_places=2, max_digits=99, blank=True, null=True, verbose_name=_('Precio 4'))
     price_5 = models.DecimalField(decimal_places=2, max_digits=99, blank=True, null=True, verbose_name=_('Precio 5'))
-    provider = models.ForeignKey(Provider, on_delete=models.CASCADE,verbose_name=_('Proveedor'))
-    brand = models.ForeignKey(Brands, on_delete=models.CASCADE,null=True,verbose_name=_('Marca'))
-    ref = models.CharField(max_length=144, blank=True, verbose_name=_('Referencia')) # 
-    sales_unit = models.CharField(max_length=144, blank=True, verbose_name=_('Unidad de ventas'))
-    slug = models.SlugField(unique=True, blank=True, verbose_name=_('URL \"SEO\"'))
-    stock = models.IntegerField(default=0, blank=True, verbose_name=_('Stock'))
-    sub_line = models.ForeignKey(SubLine, on_delete=models.CASCADE,verbose_name=_('Sublinea'))
     updated = models.DateTimeField(auto_now=True, auto_now_add=False, verbose_name=_('Ultima actualización'))
+    created_at = models.DateTimeField(auto_now=False, auto_now_add=True, verbose_name=_('Creado'))
+    img = models.ImageField( 
+        upload_to="sales/arts/",
+        blank=True, 
+        verbose_name=_('Imagen de articulo'), 
+        default='sales/arts/base.jpg'
+    )
+    active = models.BooleanField(default=False, verbose_name=_('Activo'))
+    imported = models.BooleanField(default=False, verbose_name=_('Importado'))
+    is_shipping_required = models.BooleanField(default=False, verbose_name=_('Requiere envio'))
 
     def __str__(self):
         return self.name
