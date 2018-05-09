@@ -121,3 +121,5 @@ media/*
 **/rest_fr*/*
 **/im*ex*/*
 **/ck*/*
+
+!media/sales/arts/base.jpg
