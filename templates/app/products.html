@@ -88,18 +88,20 @@
                             <img src="{% if object.background.url != None %}{{object.background.url}}{% else %}/static/base/img/img-base-m.png{% endif %}"
                                 alt="{{object.title}}" class="img-fluid">
                         </div>
-                        <div class="d-flex align-items-center py-2 px-1">
-                            <div class="text-center">
-                                <h3 class="card-title pt-2">
+                        <div class="py-1 px-2">
+                            <div class="heading">
+                                <h3 class="card-title pt-2 ">
                                     <a href="{{object.get_absolute_url}}" class="black-text">
                                         <strong>{{object.name}}</strong>
                                     </a>
                                 </h3>
+                            </div>
+                            <div class="desc">
                                 <p>{{object.description|safe|truncatechars:120}}</p>
                             </div>
                         </div>
                         <hr>
-                        <div class="text-center pb-2">
+                        <div class="text-center pb-3">
                             <a class="btn btn-outline-black text-dark btn-sm" href="{{object.get_absolute_url}}">
                                 <i class="fa fa-clone left"></i>
                                 Ver más
@@ -122,23 +124,25 @@
                             </h2>
                         </header>
                     </div>
-                </div>
-            </div>
-            <div class="rgba-green-strong py-5">
-                <div class="container">
                     <div class="row">
                         {% for object in products %}
                             <div class="col-sm-4 align-self-center">
                                 <div class="item">
-                                    <a href="{{object.get_absolute_url}}">
-                                        <img src="{% if object.img != '' %}/media/{{object.img}}{% else %}{% static 'base/img/base-m.png' %}{% endif %}" alt="{{object.name}}" class="img-fluid rounded mx-auto d-block"></img>
-                                    </a>
+                                    <div class="picture">
+                                        <a href="{{object.get_absolute_url}}">
+                                            <img src="{% if object.img != '' %}/media/{{object.img}}{% else %}{% static 'base/img/base-m.png' %}{% endif %}" alt="{{object.name}}" class="img-fluid rounded mx-auto d-block"></img>
+                                        </a>
+                                    </div>
+                                    <hr>
+                                    <div class="item-footer px-2 pb-5">
+                                        {{object.description|safe}}{{object.get_img}}
+                                    </div>
                                 </div>
                             </div>
                         {% endfor %}
                     </div>
                     <div class="row pb-1">
-                        <div class="col-12 ">
+                        <div class="col-12">
                             <div class="text-center">
                                 <a href="{% url 'sales:all' %}" class="btn btn-outline-black text-white btn-lg">Ver más</a>
                             </div>

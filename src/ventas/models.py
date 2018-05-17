@@ -3,11 +3,13 @@ from __future__ import unicode_literals
 import os
 import random
 
+
 from datetime import datetime
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from django.contrib.sites.models import Site
 from django.db import models
 from django.db.models.signals import pre_save
 from django.urls import reverse
@@ -319,6 +321,11 @@ class Article(models.Model):
 
     def counter(self):
         return len(self.objects.all())
+    
+    def get_img(self, request):
+        url = '/media/sales/arts/base.jpg'
+        print(url)
+        return url
 
 pre_save.connect(pre_save_receiver, sender=Article)
 pre_save.connect(pre_save_receiver, sender=Category)

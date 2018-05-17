@@ -113,34 +113,30 @@ class ArticleResource(resources.ModelResource):
         """
         return resources.Diff
     
-    def import_row(self, row, instance_loader, using_transactions=True, dry_run=False, **kwargs):
+    def before_import_row(self, row, **kwargs):
         """
-        Imports data from ``tablib.Dataset``. Refer to :doc:`import_workflow`
-        for a more complete description of the whole import process.
-        :param row: A ``dict`` of the row to import
-        :param instance_loader: The instance loader to be used to load the row
-        :param using_transactions: If ``using_transactions`` is set, a transaction
-            is being used to wrap the import
-        :param dry_run: If ``dry_run`` is set, or error occurs, transaction
-            will be rolled back.
+        Override to add additional logic. Does nothing by default.
         """
-        row_result = self.get_row_result_class()()
+        # print('Before import row')
+        # print(row)
+        # print('\n\n')
         new_row = dict(row)
         # print(new_row)
         
         try:
             try:
-                _type = str(new_row['type'])
+                _type = int(new_row['type'])
                 row_type_header = 'type'
             except KeyError:
-                _type = str(new_row['item_type'])
+                _type = int(new_row['item_type'])
                 row_type_header = 'item_type'
             try:
-                int(_type)
+                _type>1
             except Exception:
                 _type = 1
-            _Type = Type.objects.get( Q(id=int(_type)) | Q(name=_type) )
-            _type = _Type.code
+            _Type = Type.objects.get( Q(id=_type) | Q(name__startswith=_type) )
+            _type = _Type
+            print(_type)
         except ObjectDoesNotExist: 
             _type = 1
         
@@ -151,10 +147,13 @@ class ArticleResource(resources.ModelResource):
             except KeyError:
                 _line = str(new_row['line__code'])
                 row_line_header = 'line__code'
-            line = Line.objects.get( Q(code=_line) | Q(name=_line) )
-            _line = line.code
+            _line = ''.join(_line.split())
+            line = Line.objects.get( Q(code__startswith=_line) | Q(name__startswith=_line) )
+            _line = line.id
         except ObjectDoesNotExist:
-            _line = ''
+            _line = Line.objects.first().id
+            # print('x')
+        
         
         try:
             try:
@@ -169,8 +168,8 @@ class ArticleResource(resources.ModelResource):
                     new_row['category__description']
                     _cat = str(new_row['category__description'])
                     row_cat_header = 'category__description'
-            cat = Category.objects.get( Q( code=_cat ) | Q( name=_cat ))
-            _cat = cat.code
+            cat = Category.objects.get( Q( code__startswith=_cat ) | Q( name__startswith=_cat ))
+            _cat = cat.id
         except ObjectDoesNotExist:
             _cat = ''
         
@@ -185,8 +184,8 @@ class ArticleResource(resources.ModelResource):
                 except Exception:
                     _sublin = str(new_row['sub_line'])
                     row_sublin_header = 'sub_line'
-            sublin = SubLine.objects.get( Q( code=_sublin ) | Q( name=_sublin ))
-            _sublin = sublin.code
+            sublin = SubLine.objects.get( Q( code__startswith=_sublin ) | Q( name__startswith=_sublin ))
+            _sublin = sublin.id
         except ObjectDoesNotExist:
             _sublin = ''
 
@@ -197,8 +196,8 @@ class ArticleResource(resources.ModelResource):
             except KeyError:
                 _color = str(new_row['color__code'])
                 row_color_header = 'color__code'
-            color = Color.objects.get( Q( code=_color ) | Q( name=_color ))
-            _color = color.code
+            color = Color.objects.get( Q( code__startswith=_color ) | Q( name__startswith=_color ))
+            _color = color.id
         except ObjectDoesNotExist:
             _color = ''
 
@@ -209,8 +208,8 @@ class ArticleResource(resources.ModelResource):
             except KeyError:
                 _prov = str(new_row['provider__code'])
                 row_prov_header = 'provider__code'
-            prov = Provider.objects.get( Q( code=_prov ) | Q( name=_prov ))
-            _prov = prov.code
+            prov = Provider.objects.get( Q( code__startswith=_prov ) | Q( name__startswith=_prov ))
+            _prov = prov.id
         except ObjectDoesNotExist:
             _prov = ''
         
@@ -222,11 +221,34 @@ class ArticleResource(resources.ModelResource):
         new_row[row_prov_header] = _prov
 
         new_row = OrderedDict(new_row)
-        row = new_row
+        # row = new_row
+        # print('Import the new row')
+        # print(new_row)
+        # print('\n')
 
+
+
+        return new_row
+
+    def import_row(self, row, instance_loader, using_transactions=True, dry_run=False, **kwargs):
+        """
+        Imports data from ``tablib.Dataset``. Refer to :doc:`import_workflow`
+        for a more complete description of the whole import process.
+        :param row: A ``dict`` of the row to import
+        :param instance_loader: The instance loader to be used to load the row
+        :param using_transactions: If ``using_transactions`` is set, a transaction
+            is being used to wrap the import
+        :param dry_run: If ``dry_run`` is set, or error occurs, transaction
+            will be rolled back.
+        """
+        # print(row)
+        # print('\n\n')
+        row_result = self.get_row_result_class()()
+        
         try:
-            self.before_import_row(row, **kwargs)
-            instance, new = self.get_or_init_instance(instance_loader, row)
+            new_row = self.before_import_row(row, **kwargs)
+            instance, new = self.get_or_init_instance(instance_loader, new_row)
+
             self.after_import_instance(instance, new, **kwargs)
 
             if new:
@@ -238,7 +260,7 @@ class ArticleResource(resources.ModelResource):
             original = deepcopy(instance)
             diff = self.get_diff_class()(self, original, new)
 
-            if self.for_delete(row, instance):
+            if self.for_delete(new_row, instance):
                 
                 if new:
                     row_result.import_type = RowResult.IMPORT_TYPE_SKIP
@@ -249,13 +271,13 @@ class ArticleResource(resources.ModelResource):
                     diff.compare_with(self, None, dry_run)
 
             else:
-                self.import_obj(instance, row, dry_run)
+                self.import_obj(instance, new_row, dry_run)
 
                 if self.skip_row(instance, original):
                     row_result.import_type = RowResult.IMPORT_TYPE_SKIP
                 else:
                     self.save_instance(instance, using_transactions, dry_run)
-                    self.save_m2m(instance, row, using_transactions, dry_run)
+                    self.save_m2m(instance, new_row, using_transactions, dry_run)
                 
                 diff.compare_with(self, instance, dry_run)
             
@@ -266,7 +288,7 @@ class ArticleResource(resources.ModelResource):
                 row_result.object_id = instance.pk
                 row_result.object_repr = force_text(instance)
 
-            self.after_import_row(row, row_result, **kwargs)
+            self.after_import_row(new_row, row_result, **kwargs)
 
         except Exception as e:
             row_result.import_type = RowResult.IMPORT_TYPE_ERROR
@@ -279,51 +301,6 @@ class ArticleResource(resources.ModelResource):
             row_result.errors.append(self.get_error_result_class()(e, tb_info, row))
 
         return row_result
-    
-    
-    # def get_fields(self, **kwargs):
-    #     print(self)
-    # def get_result_class(self):
-    #     print(dir(self))
-    # if header == 'line__code' or header == 'co_lin':
-    #     line_list = dataset[header]
-    # line = fields.Field(
-    #     column_name='line',
-    #     attribute='line',
-    #     widget=ForeignKeyWidget(Line, 'code')
-    # )
-
-    # if header == 'category__description' or header == 'co_cat':
-    #     category_list = dataset[header]
-    # category = fields.Field(
-    #     column_name='category',
-    #     attribute='category',
-    #     widget=ForeignKeyWidget(Category, 'code')
-    # )
-
-    # if header == 'sub_line' or header == 'co_subl':
-    #     sub_line_list = dataset[header]
-    # sub_line = fields.Field(
-    #     column_name='sub_line',
-    #     attribute='sub_line',
-    #     widget=ForeignKeyWidget(SubLine, 'code')
-    # )
-    
-    # if header == 'color__code' or header == 'co_color':
-    #     color_list = dataset[header]
-    # color = fields.Field(
-    #     column_name='color',
-    #     attribute='color',
-    #     widget=ForeignKeyWidget(Color, 'code')
-    # )
-
-    # if header == 'provider__code' or header == 'co_prov': 
-    #     provider_list = dataset[header]
-    # provider = fields.Field(
-    #     column_name='provider',
-    #     attribute='provider',
-    #     widget=ForeignKeyWidget(Provider, 'code')
-    # )
         
     class Meta:
         model = Article
@@ -348,7 +325,7 @@ class ArticleResource(resources.ModelResource):
             'price_4',
             'price_5',
             'img',
-            'item_type',
+            'item_type__id',
             'origin',
         )
         export_order = (
@@ -369,98 +346,12 @@ class ArticleResource(resources.ModelResource):
             'price_4',
             'price_5',
             'img',
-            'item_type',
+            'item_type__id',
             'origin',
         )
         exclude = (
             'name','updated','created_at','slug','picture',\
             'is_shipping_required','department','imported'
         )
-
-
-    #     for header in dataset.headers:
-
-    #     lin_list = []
-    #     for n in line_list:
-    #         try:
-    #             line = Line.objects.get( Q( name__startswith=str(n) ) | Q( code__startswith=str(n) ) ).code
-    #             # print('line %s existe' % (n))
-    #         except ObjectDoesNotExist:
-    #             line = Line.objects.all()[0].code
-    #             # print('line %s no existe except' % (n))
-    #         lin_list.append(line)
-    #     line_list = lin_list
-
-    #     cat_list = []
-    #     for n in category_list:
-    #         try:
-    #             category = Category.objects.get( Q( name__startswith=str(n) ) | Q( code__startswith=str(n) ) ).code
-    #             # print('category %s existe' % (n))
-    #         except:
-    #             category = Category.objects.all()[0].code
-    #             # print('category %s no existe except' % (n))
-    #         cat_list.append(category)
-    #     category_list = cat_list
-
-    #     sub_lin_list = []
-    #     for n in sub_line_list:
-    #         try:
-    #             sub_line = SubLine.objects.get( Q( name__startswith=str(n) ) | Q( code__startswith=str(n) ) ).code
-    #             # print('sub_line %s existe' % (n))
-    #         except ObjectDoesNotExist:
-    #             sub_line = SubLine.objects.all()[0].code
-    #             # print('sub_line %s no existe except' % (n))
-    #         sub_lin_list.append(sub_line)
-    #     sub_line_list = sub_lin_list
-                
-    #     col_list = []
-    #     for n in color_list:
-    #         try:
-    #             color = Color.objects.get( Q(name__startswith=str(n)) | Q(code__startswith=str(n))).code
-    #             # print('color %s existe' % (n))
-    #         except ObjectDoesNotExist:
-    #             color = Color.objects.all()[0].code
-    #             # print('color %s no existe except' % (n))
-    #         col_list.append(color)
-    #     color_list = col_list
-
-    #     prov_list = []
-    #     for n in provider_list:
-    #         try:
-    #             provider = Provider.objects.get( Q( name__startswith=str(n) ) | Q( code__startswith=str(n) ) ).code
-    #             # print('provider %s existe' % (n))
-    #         except ObjectDoesNotExist:
-    #             # print('provider %s no existe except' % (n))
-    #             provider = Provider.objects.all()[0].code
-    #         prov_list.append(provider)
-    #     provider_list = prov_list
-
-
-    #     # print(dir(result.rows))
-    #     # print((result.rows.extend))
-                
-            
-
-    # def before_import_row(self, row, **kwargs):
-    #     print(row)
-
-    #     pass
-
-    # def after_import_row(self, row, row_result, **kwargs):
-    #     # print('after_import_row -- ', dir(row_result))
-    #     # print(row['line__code'])
-    #     pass
-    
-    # def save_instance(self, instance, using_transactions=True, dry_run=False):
-
-    #     data = self.before_save_instance(instance, using_transactions, dry_run)
-    #     # print(data)
-    #     if not using_transactions and dry_run:
-    #         # we don't have transactions and we want to do a dry_run
-    #         pass
-    #     else:
-    #         # instance.save()
-    #         pass
-    #     self.after_save_instance(instance, using_transactions, dry_run)
 
 
