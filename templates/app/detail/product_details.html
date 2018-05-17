@@ -78,11 +78,11 @@
                         </div>
                         <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" style="">
                             <div class="dark-grey-text pl-0">
-                                {{object.art_des | safe}}
+                                {{object.description | safe}} {{object.get_img}}
                             </div>
                         </div>
                     </div>
-                    <div class="card">
+                    <!-- <div class="card">
                         <div class="card-header pl-0" role="tab" id="headingTwo">
                             <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                 <h5 class="mb-0">
@@ -93,48 +93,49 @@
                         </div>
                         <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" style="">
                             <div class="dark-grey-text pl-0">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente nesciunt atque nemo neque
-                                    ut officiis nostrum incidunt maiores, magni optio et sunt suscipit iusto nisi totam quis,
-                                    nobis mollitia necessitatibus.</p>
+                                <p>
+                                    
+                                </p>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 {% if has_colors %}
-                <section class="color">
-                    <div class="mt-5">
-                        <p class="grey-text">Colores</p>
-                        <div class="row center-on-small-only">
+                    <section class="color">
+                        <div class="mt-5">
+                            <p class="grey-text">Colores</p>
+                            <div class="row center-on-small-only">
 
-                            <div class="col-md-4 col-12 ">
-                                <div class="form-group">
-                                    <input name="group100" type="radio" id="radio100">
-                                    <label for="radio100" class="dark-grey-text">Azul</label>
+                                <div class="col-md-4 col-12 ">
+                                    <div class="form-group">
+                                        <input name="group100" type="radio" id="radio100">
+                                        <label for="radio100" class="dark-grey-text">Azul</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <input name="group100" type="radio" id="radio101">
+                                        <label for="radio101" class="dark-grey-text">Amarillo</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <input name="group100" type="radio" id="radio102">
+                                        <label for="radio102" class="dark-grey-text">Rojo</label>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <input name="group100" type="radio" id="radio101">
-                                    <label for="radio101" class="dark-grey-text">Amarillo</label>
+                            {% if can_add_to_cart %}
+                                <div class="row mt-3 mb-r">
+                                    <div class="col-md-12 center-on-small-only text-md-right">
+                                        <button class="btn btn-primary waves-effect waves-light">
+                                            <i class="fa fa-cart-plus mr-2" aria-hidden="true"></i> Agregar al carrito
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <input name="group100" type="radio" id="radio102">
-                                    <label for="radio102" class="dark-grey-text">Rojo</label>
-                                </div>
-                            </div>
+                            {% endif %}
                         </div>
-                        {% if can_add_to_cart %}
-                        <div class="row mt-3 mb-r">
-                            <div class="col-md-12 center-on-small-only text-md-right">
-                                <button class="btn btn-primary waves-effect waves-light">
-                                    <i class="fa fa-cart-plus mr-2" aria-hidden="true"></i> Agregar al carrito</button>
-                            </div>
-                        </div>
-                        {% endif %}
-                    </div>
-                </section>
+                    </section>
                 {% endif %}
             </div>
         </div>

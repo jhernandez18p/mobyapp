@@ -22,6 +22,12 @@ from ckeditor.fields import RichTextField
 from sorl.thumbnail import ImageField
 # from src.utils.libs import (upload_location)
 
+def get_img(isinstance):
+
+    url = 'sales/arts/base.jpg'
+
+    return url
+
 def get_upload_path(instance, filename):
     _filename = filename.split('.')
     _filename_ext = _filename[-1]
@@ -34,6 +40,22 @@ def get_upload_path(instance, filename):
     except:
         a = 'frontend'
     return os.path.join('sales/%s/'%(a.lower()), datetime.now().date().strftime("%Y/%m/%d"), filename)
+
+def get_art_upload_path(instance, filename):
+    if filename:
+        _filename = filename.split('.')
+        _filename_ext = _filename[-1]
+        _filename_name = ''.join(random.choice(_filename[0]) for _ in range(5))
+        filename = '%s.%s' % (_filename_name,_filename_ext)
+        print(filename)
+    else:
+        filename = instance.code + '.jpg'
+    try:
+        a = instance.__class__.__name__
+        print(instance.__class__.objects.all())
+    except:
+        a = 'frontend'
+    return os.path.join('sales/arts/', filename)
 
 def create_slug(instance, new_slug=None):
 
@@ -56,6 +78,12 @@ def create_slug(instance, new_slug=None):
     return slug
 
 def pre_save_receiver(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = create_slug(instance)
+
+def art_pre_save_receiver(sender, instance, *args, **kwargs):
+    # if instance.img == 'sales/arts/base.jpg':
+    #     instance.img = get_img(instance)
     if not instance.slug:
         instance.slug = create_slug(instance)
 
@@ -223,12 +251,36 @@ class Category(models.Model):
 
 class Article(models.Model):
 
-    code = models.CharField(max_length=144, blank=True, verbose_name=_('Código de articulo'))
-    model = models.CharField(max_length=144, blank=True, verbose_name=_('Modelo'))
-    name = models.CharField(max_length=144, blank=True, verbose_name=_('Nombre'))
-    origin = models.CharField(max_length=144, blank=True, verbose_name=_('Origen'))
-    sales_unit = models.CharField(max_length=144, blank=True, verbose_name=_('Unidad de ventas'))
-    ref = models.CharField(max_length=144, blank=True, verbose_name=_('Referencia')) # 
+    code = models.CharField(
+        max_length=144,
+        blank=True,
+        verbose_name=_('Código de articulo')
+    )
+    model = models.CharField(
+        max_length=144,
+        blank=True,
+        verbose_name=_('Modelo')
+    )
+    name = models.CharField(
+        max_length=144,
+        blank=True,
+        verbose_name=_('Nombre')
+    )
+    origin = models.CharField(
+        max_length=144,
+        blank=True,
+        verbose_name=_('Origen')
+    )
+    sales_unit = models.CharField(
+        max_length=144,
+        blank=True,
+        verbose_name=_('Unidad de ventas')
+    )
+    ref = models.CharField(
+        max_length=144,
+        blank=True,
+        verbose_name=_('Referencia')
+    ) #   
     description = RichTextField(blank=True, verbose_name=_('Descripción'))
     item_type = models.ForeignKey(
         Type,
@@ -236,7 +288,6 @@ class Article(models.Model):
         blank=True,
         on_delete=models.CASCADE,
         verbose_name=_('Tipo de articulo'),
-
     )
     line = models.ForeignKey(
         Line,
@@ -288,33 +339,87 @@ class Article(models.Model):
         on_delete=models.CASCADE,
         verbose_name=_('Sublinea')
     )
-    slug = models.SlugField(unique=True, blank=True, verbose_name=_('URL \"SEO\"'))
-    stock = models.IntegerField(default=0, blank=True, verbose_name=_('Stock'))
-    picture = models.ImageField(blank=True, upload_to=get_upload_path, verbose_name=_('Foto de articulo'))
-    price_1 = models.DecimalField(decimal_places=2, max_digits=99, blank=True, null=True, verbose_name=_('Precio 1'))
-    price_2 = models.DecimalField(decimal_places=2, max_digits=99, blank=True, null=True, verbose_name=_('Precio 2'))
-    price_3 = models.DecimalField(decimal_places=2, max_digits=99, blank=True, null=True, verbose_name=_('Precio 3'))
-    price_4 = models.DecimalField(decimal_places=2, max_digits=99, blank=True, null=True, verbose_name=_('Precio 4'))
-    price_5 = models.DecimalField(decimal_places=2, max_digits=99, blank=True, null=True, verbose_name=_('Precio 5'))
-    updated = models.DateTimeField(auto_now=True, auto_now_add=False, verbose_name=_('Ultima actualización'))
-    created_at = models.DateTimeField(auto_now=False, auto_now_add=True, verbose_name=_('Creado'))
+    slug = models.SlugField(
+        unique=True,
+        blank=True,
+        verbose_name=_('URL \"SEO\"')
+    )
+    stock = models.IntegerField(
+        default=0,
+        blank=True,
+        verbose_name=_('Stock')
+    )
+    picture = models.ImageField(
+        blank=True,
+        upload_to=get_upload_path,
+        verbose_name=_('Foto de articulo')
+    )
+    price_1 = models.DecimalField(
+        decimal_places=2,
+        max_digits=99,
+        blank=True,
+        null=True,
+        verbose_name=_('Precio 1')
+    )
+    price_2 = models.DecimalField(
+        decimal_places=2,
+        max_digits=99,
+        blank=True,
+        null=True,
+        verbose_name=_('Precio 2')
+    )
+    price_3 = models.DecimalField(
+        decimal_places=2,
+        max_digits=99,
+        blank=True,
+        null=True,
+        verbose_name=_('Precio 3')
+    )
+    price_4 = models.DecimalField(
+        decimal_places=2,
+        max_digits=99,
+        blank=True,
+        null=True,
+        verbose_name=_('Precio 4')
+    )
+    price_5 = models.DecimalField(
+        decimal_places=2,
+        max_digits=99,
+        blank=True,
+        null=True,
+        verbose_name=_('Precio 5')
+    )
+    updated = models.DateTimeField(
+        auto_now=True,
+        auto_now_add=False,
+        verbose_name=_('Ultima actualización')
+    )
+    created_at = models.DateTimeField(
+        auto_now=False,
+        auto_now_add=True,
+        verbose_name=_('Creado')
+    )
     img = models.ImageField( 
-        upload_to="sales/arts/",
+        upload_to=get_art_upload_path,#"sales/arts/",
         blank=True, 
         verbose_name=_('Imagen de articulo'), 
-        default='sales/arts/base.jpg'
+        # default='sales/arts/%s.jpg'
     )
-    active = models.BooleanField(default=False, verbose_name=_('Activo'))
-    imported = models.BooleanField(default=False, verbose_name=_('Importado'))
-    is_shipping_required = models.BooleanField(default=False, verbose_name=_('Requiere envio'))
+    active = models.BooleanField(
+        default=False,
+        verbose_name=_('Activo')
+    )
+    imported = models.BooleanField(
+        default=False,
+        verbose_name=_('Importado')
+    )
+    is_shipping_required = models.BooleanField(
+        default=False,
+        verbose_name=_('Requiere envio')
+    )
 
     def __str__(self):
         return self.name
-
-    class Meta:
-        ordering = ["-created_at", "-updated"]
-        verbose_name = _('Producto')
-        verbose_name_plural = _('Productos')
 
     def get_absolute_url(self):
         return reverse('sales:product_detail', kwargs={'slug': self.slug})
@@ -322,12 +427,12 @@ class Article(models.Model):
     def counter(self):
         return len(self.objects.all())
     
-    def get_img(self, request):
-        url = '/media/sales/arts/base.jpg'
-        print(url)
-        return url
+    class Meta:
+        ordering = ["-created_at", "-updated"]
+        verbose_name = _('Producto')
+        verbose_name_plural = _('Productos')
 
-pre_save.connect(pre_save_receiver, sender=Article)
+pre_save.connect(art_pre_save_receiver, sender=Article)
 pre_save.connect(pre_save_receiver, sender=Category)
 pre_save.connect(pre_save_receiver, sender=Department)
 pre_save.connect(pre_save_receiver, sender=Brands)
