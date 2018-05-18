@@ -130,7 +130,7 @@
                                 <div class="item">
                                     <div class="picture">
                                         <a href="{{object.get_absolute_url}}">
-                                            <img src="{% if object.img != '' %}/media/{{object.img}}{% else %}{% static 'base/img/base-m.png' %}{% endif %}" alt="{{object.name}}" class="img-fluid rounded mx-auto d-block"></img>
+                                            <img src="{% if object.img != '' %}/{{object.img}}{% else %}{% static 'base/img/base-m.png' %}{% endif %}" alt="{{object.name}}" class="img-fluid rounded mx-auto d-block"></img>
                                         </a>
                                     </div>
                                     <hr>
