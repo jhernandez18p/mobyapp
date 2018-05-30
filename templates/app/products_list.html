@@ -153,9 +153,9 @@
                                 </h5>
                                 <p>{{object.description | safe | truncatechars:120}}</p>
                                 <div class="clearfix">
-                                    <p class="badge badge-info float-left">
+                                    <!-- <p class="badge badge-info float-left">
                                         <a href="{% url 'sales:departments' %}{{object.department.slug }}" class="text-light">{{object.department}}</a>
-                                    </p>
+                                    </p> -->
                                     {% if user.can_see_price %}
                                     <div class="price float-right">
                                         <h5 class="">${{object.price_4}}</h5>
@@ -169,8 +169,8 @@
             </div>
         </div>
     </div>
+    {% include 'app/base/paginator.html' %}
 </div>
-{% include 'app/base/paginator.html' %}
 {% endblock %}
 
 {% block js %}

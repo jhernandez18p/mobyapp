@@ -1,6 +1,11 @@
 {% extends 'intra/base/index.html' %}{% load staticfiles %}
 
 {% block css %}
+<style>
+    .thumbnail{
+        height: 80px
+    }
+</style>
 {% endblock %}
 
 {% block content %}
@@ -11,34 +16,40 @@
                 <h3>Artículos</h3>
             </div>
         </div>
-        {% for product in products %}
+        {% for product in object_list %}
         <hr />
         <div class="card-profile-stats-intro">
             <div class="card-profile-stats-intro-content">
                 <div class="card-profile-stats-container float-left">
-                    <div class="">
+                    <div class="card-profile-stats-statistic">
+                        <img class="thumbnail" src="{% if product.img != '' %}/{{product.img}}{% else %}{% static 'base/img/base-m.png' %}{% endif %}" alt="{{product.name}}">
+                    </div>
+                    <div class="card-profile-stats-statistic">
                         <p>{{product.name}}</p>
+                    </div>
+                    <div class="card-profile-stats-statistic">
                         <p class="text-justify">{{product.description|safe}}</p>
                     </div>
-                </div>
-                {% if user.profile.role == 'ADMIN' or user.profile.role ==  'SUPERVISOR' %}
-                <div class="card-profile-stats-container float-right">
-                    <div class="ml-5">
-                        <p
-                        data-tooltip tabindex="1" title="Editar." data-position="left" data-alignment="center">
-                            <a  href="{% url 'intra:profile' %}"><i class="fi-clipboard-pencil"></i></a>
-                        </p>
-                        <p
-                        data-tooltip tabindex="1" title="Eliminar." data-position="right" data-alignment="center">
-                            <a  href="{% url 'intra:profile' %}"><i class="fi-x red"></i></a>
-                        </p>
+                    <div class="card-profile-stats-statistic text-right">
+                        {% if user.profile.role == 'ADMIN' or user.profile.role ==  'SUPERVISOR' %}
+                            <div class="ml-5">
+                                <p
+                                data-tooltip tabindex="1" title="Editar." data-position="left" data-alignment="center">
+                                    <a  href="{% url 'intra:profile' %}"><i class="fi-clipboard-pencil"></i></a>
+                                </p>
+                                <p
+                                data-tooltip tabindex="1" title="Eliminar." data-position="right" data-alignment="center">
+                                    <a  href="{% url 'intra:profile' %}"><i class="fi-x red"></i></a>
+                                </p>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
-                {% endif %}
             </div>
         </div>
         {% endfor %}
         <hr>
+        {% include 'intra/base/paginator.html' %}
     </div>
 </div>
 {% endblock %}

@@ -24,14 +24,14 @@
         </div>
     </div>
 </div>
-<div class="container">
+<div class="container-fluid">
     <div class="card my-5 border-primary hoverable">
         <div class="row mx-3 my-3">
             <div class="col-lg-6">
                 <div id="carousel-thumb" class="carousel slide carousel-fade carousel-thumbnails" data-ride="carousel">
                     <div class="carousel-inner center-on-small-only" role="listbox">
                         <div class="carousel-item active">
-                            <img src="{% if object.img != '' %}/media/{{object.img}}{% else %}{% static 'base/img/base-m.png' %}{% endif %}" alt="First slide" class="img-fluid">
+                            <img src="{% if object.img != '' %}/{{object.img}}{% else %}{% static 'base/img/base-m.png' %}{% endif %}" alt="{{object.name}}" class="img-fluid rounded mx-auto d-block"></img>
                         </div>
                     </div>
                     <a class="carousel-control-prev" href="#carousel-thumb" role="button" data-slide="prev">

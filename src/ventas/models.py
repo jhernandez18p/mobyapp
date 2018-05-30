@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 import os
 import random
 
-
 from datetime import datetime
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -249,6 +248,9 @@ class Category(models.Model):
         return reverse('sales:category_detail', kwargs={'slug': self.name.lower()})
 
 
+
+
+
 class Article(models.Model):
 
     code = models.CharField(
@@ -403,7 +405,7 @@ class Article(models.Model):
         upload_to=get_art_upload_path,#"sales/arts/",
         blank=True, 
         verbose_name=_('Imagen de articulo'), 
-        # default='sales/arts/%s.jpg'
+        default='sales/arts/base.jpg'
     )
     active = models.BooleanField(
         default=False,

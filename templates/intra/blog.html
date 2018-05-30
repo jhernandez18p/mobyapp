@@ -4,14 +4,14 @@
 {% endblock %}
 
 {% block content %}
-<div class="app-dashboard-body-content off-canvas-content" data-off-canvas-content>
+    <div class="app-dashboard-body-content off-canvas-content" data-off-canvas-content>
         <div class="card-profile-stats" id="blog">
             <div class="card-profile-stats-intro">
                 <div class="card-profile-stats-intro-content">
                     <h3>Articlulos del blog</h3>
                 </div>
             </div>
-            {% for post in posts %}
+            {% for post in object_list %}
             <hr />
             <div class="card-profile-stats-intro">
                 <div class="card-profile-stats-intro-content">
@@ -40,6 +40,7 @@
             </div>
             {% endfor %}
             <hr>
+            {% include 'intra/base/paginator.html' %}
         </div>
     </div>
 {% endblock %}

@@ -56,19 +56,20 @@ class Profile(ListView):
 
 @method_decorator(login_required, name='dispatch')
 class Users(ListView):
-    # model =
+    model = User
     # context_object_name = 'boards'
-    queryset = ''
+    # queryset = ''
     template_name = 'intra/users.html'
+    paginate_by = 5
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
-        users = User.objects.all()
+        # users = User.objects.all()
         # Add in a QuerySet of all the books
         context['SITE_URL'] = 'Intra'
         context['APP'] = 'Users'
-        context['ALL_USERS'] = users
+        # context['ALL_USERS'] = users
         return context
 
 
@@ -90,18 +91,19 @@ class Conf(ListView):
 
 @method_decorator(login_required, name='dispatch')
 class Blog(ListView):
-    # model =
+    model = Post
     # context_object_name = 'boards'
-    queryset = ''
+    # queryset = ''
     template_name = 'intra/blog.html'
+    paginate_by = 5
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
-        blog_posts = Post.objects.all()
-        if blog_posts.exists():
-            context['posts'] = blog_posts
+        # blog_posts = Post.objects.all()
+        # if blog_posts.exists():
+        #     context['posts'] = blog_posts
         context['SITE_URL'] = 'Blog'
         context['APP'] = 'Blog'
         return context
@@ -109,18 +111,19 @@ class Blog(ListView):
 
 @method_decorator(login_required, name='dispatch')
 class Products(ListView):
-    # model =
+    model = Article
     # context_object_name = 'boards'
-    queryset = ''
+    # queryset = ''
     template_name = 'intra/products.html'
+    paginate_by = 20
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
-        products = Article.objects.all()
+        # products = Article.objects.all()
         # Add in a QuerySet of all the books
-        if products.exists():
-            context['products'] = products
+        # if products.exists():
+            # context['products'] = products
         context['SITE_URL'] = 'Intra'
         context['APP'] = 'Products'
         return context
@@ -128,18 +131,19 @@ class Products(ListView):
 
 @method_decorator(login_required, name='dispatch')
 class Services(ListView):
-    # model =
+    model = Service
     # context_object_name = 'boards'
-    queryset = ''
+    # queryset = ''
     template_name = 'intra/services.html'
+    paginate_by = 5
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # Add in a QuerySet of all the books
-        services = Service.objects.all()
-        if services.exists():
-            context['services'] = services
+        # services = Service.objects.all()
+        # if services.exists():
+        #     context['services'] = services
         context['SITE_URL'] = 'Intra'
         context['APP'] = 'Services'
         return context

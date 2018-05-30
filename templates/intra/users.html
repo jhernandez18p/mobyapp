@@ -11,7 +11,7 @@
                 <h3>Usuarios</h3>
             </div>
         </div>
-        {% for USER in ALL_USERS %}
+        {% for USER in object_list %}
         <hr />
         <div class="card-profile-stats-intro">
             <div class="card-profile-stats-intro-content">
@@ -39,6 +39,7 @@
             </div>
         </div>
         {% endfor %}
+        {% include 'intra/base/paginator.html' %}
         <hr>
     </div>
 </div>
