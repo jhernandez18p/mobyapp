@@ -153,10 +153,10 @@ class CategoryAdmin(ImportExportModelAdmin):
         'name','parent'
     ]
     list_filter = [
-        'name'
+        'parent'
     ]
     search_fields = [
-        'name'
+        'name','parent'
     ]
     resource_class = CategoryResource
 
