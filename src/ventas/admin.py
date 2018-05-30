@@ -11,10 +11,10 @@ from src.ventas.resources import ArticleResource, LineResource,\
 
 class LineAdmin(ImportExportModelAdmin):
     list_display = [
-        'code','name','id'
+        'id','code','name'
     ]
     list_display_links = [
-        'code'
+        'id'
     ]
     list_editable = [
         'name'
@@ -87,10 +87,10 @@ class ColorAdmin(ImportExportModelAdmin):
 
 class ProviderAdmin(ImportExportModelAdmin):
     list_display = [
-        'code','name'
+        'id','code','name'
     ]
     list_display_links = [
-        'code'
+        'id'
     ]
     list_editable = [
         'name'
