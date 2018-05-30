@@ -213,10 +213,18 @@ class Department(models.Model):
     name = models.CharField(max_length=144, blank=True, verbose_name=_('Nombre'))
     slug = models.CharField(max_length=144, blank=True, verbose_name=_('Slug \"SEO\"'))
     code = models.CharField(max_length=144, blank=True, verbose_name=_('Código'))
+    order = models.IntegerField(blank=True, verbose_name=_('Orden'), default=1)
 
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['-order']
+
+    def save(self):
+        if self.order == 1:
+            self.order = self.id
+        super(Department, self).save()
 
     class Meta:
         verbose_name = _('Departamento')

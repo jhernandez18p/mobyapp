@@ -27,45 +27,45 @@
 {% block full_screen %}
 {% endblock %}
 {% block content %}
-        {% if products_header_carousel %}
-            <div class="container">
-                <div class="shadow" id="carousel-header">
-                    <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="8000">
-                        <ol class="carousel-indicators">
-                            {% for object in products_header_carousel_images %}
-                                <li data-target="#carousel" data-slide-to="{{forloop.counter0}}" {% if forloop.counter0 == 0 %}class="active" {% endif %}></li>
-                            {% endfor %}
-                        </ol>
-                        <div class="carousel-inner view" role="listbox">
-                            {% for object in products_header_carousel_images %}
-                                <div class="carousel-item view hm-black-strong {% if forloop.counter == 1 %}active {% endif %}">
-                                    <img src="{{ object.image.url }}" alt="{{object.name}}" class="">
-                                    <div class="carousel-caption">
-                                        <div>
-                                            <h2>{{object.name}}</h2>
-                                            {{object.text | safe}}
-                                            {% if object.call_to_action_url != None %}
-                                                <a class="btn btn-outline-white waves-effect" href="{{object.call_to_action_url}}">Ver más</a>
-                                            {% endif %}
-                                        </div>
+    {% if products_header_carousel %}
+        <div class="container">
+            <div class="shadow" id="carousel-header">
+                <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="8000">
+                    <ol class="carousel-indicators">
+                        {% for object in products_header_carousel_images %}
+                            <li data-target="#carousel" data-slide-to="{{forloop.counter0}}" {% if forloop.counter0 == 0 %}class="active" {% endif %}></li>
+                        {% endfor %}
+                    </ol>
+                    <div class="carousel-inner view" role="listbox">
+                        {% for object in products_header_carousel_images %}
+                            <div class="carousel-item view hm-black-strong {% if forloop.counter == 1 %}active {% endif %}">
+                                <img src="{{ object.image.url }}" alt="{{object.name}}" class="">
+                                <div class="carousel-caption">
+                                    <div>
+                                        <h2>{{object.name}}</h2>
+                                        {{object.text | safe}}
+                                        {% if object.call_to_action_url != None %}
+                                            <a class="btn btn-outline-white waves-effect" href="{{object.call_to_action_url}}">Ver más</a>
+                                        {% endif %}
                                     </div>
                                 </div>
-                            {% endfor %}
-                        </div>
-                        <a class="carousel-control-prev" role="button" data-slide="prev"  href="#carousel">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Anterior</span>
-                        </a>
-                        <a class="carousel-control-next" role="button" data-slide="next"  href="#carousel">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Siguiente</span>
-                        </a>
+                            </div>
+                        {% endfor %}
                     </div>
+                    <a class="carousel-control-prev" role="button" data-slide="prev"  href="#carousel">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Anterior</span>
+                    </a>
+                    <a class="carousel-control-next" role="button" data-slide="next"  href="#carousel">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Siguiente</span>
+                    </a>
                 </div>
             </div>
-        {% endif %}
-        
-        {% if departments %}
+        </div>
+    {% endif %}
+    
+    {% if departments %}
         <div class="container" id="cate">
             <div class="categories">
                 <div class="row">
@@ -114,98 +114,101 @@
                 </div>
             </div>
         </div>
-        {% endif %}
-        
-        {% if products %}
-            <div class="container">
-                <div class="row mt-5 justify-content-md-center">
-                    <div class="col-sm-12">
-                        <header class="text-center">
-                            <h2 class="text-uppercase">
-                                <a href="{% url 'sales:all' %}" class="text-dark">Nuestros productos</a>
-                            </h2>
-                        </header>
-                    </div>
-                    <div class="row">
-                        {% for object in products %}
-                            <div class="col-sm-4 align-self-center">
-                                <div class="item">
-                                    <div class="picture">
-                                        <a href="{{object.get_absolute_url}}">
-                                            <img src="{% if object.img != '' %}/{{object.img}}{% else %}{% static 'base/img/base-m.png' %}{% endif %}" alt="{{object.name}}" class="img-fluid rounded mx-auto d-block"></img>
-                                        </a>
-                                    </div>
-                                    <hr>
-                                    <div class="item-footer px-2 pb-5">
-                                        {{object.description|safe}}{{object.get_img}}
-                                    </div>
+    {% endif %}
+    
+    {% if products %}
+        <div class="container">
+            <div class="row mt-5 justify-content-md-center">
+                <div class="col-sm-12">
+                    <header class="text-center">
+                        <h2 class="text-uppercase">
+                            <a href="{% url 'sales:all' %}" class="text-dark">Nuestros productos</a>
+                        </h2>
+                    </header>
+                </div>
+                <div class="row">
+                    {% for object in products %}
+                        <div class="col-sm-4 align-self-center">
+                            <div class="item">
+                                <div class="picture">
+                                    <a href="{{object.get_absolute_url}}">
+                                        <img src="{% if object.img != '' %}/{{object.img}}{% else %}{% static 'base/img/base-m.png' %}{% endif %}" alt="{{object.name}}" class="img-fluid rounded mx-auto d-block"></img>
+                                    </a>
+                                </div>
+                                <hr>
+                                <div class="item-footer px-2 pb-5">
+                                    {{object.description|safe}}{{object.get_img}}
                                 </div>
                             </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="row pb-1">
+                    <div class="col-12">
+                        <div class="text-center">
+                            <a href="{% url 'sales:all' %}" class="btn btn-outline-black text-white btn-lg">Ver más</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %} 
+    {# Proveedores #}
+    {% if brands %}
+        <div class="container">
+            <div class="row pb-5" id="providers">
+                <div class="col-sm-12">
+                    <header class="text-center">
+                        <h2 class="text-uppercase">
+                            <a href="{% url 'sales:brands' %}" class="text-dark">Marcas</a>
+                        </h2>
+                    </header>
+                </div>
+                <div class="col-12">
+                    <div class="owl-carousel owl-theme">
+                        {% for object in brands %}
+                            <a href="{{object.get_absolute_url}}">                                    
+                                <img class="owl-lazy brands-img-logo" data-src="{% if object.logo.url != None %}{{object.logo.url}}{% else %} /static/base/img/img-base-s.png {% endif %}" alt="{{object.name}}" data-toggle="tooltip" data-placement="top" title="{{object.name}}">
+                            </a>
                         {% endfor %}
                     </div>
-                    <div class="row pb-1">
-                        <div class="col-12">
-                            <div class="text-center">
-                                <a href="{% url 'sales:all' %}" class="btn btn-outline-black text-white btn-lg">Ver más</a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
-        {% endif %} 
-        {# Proveedores #}
-        {% if brands %}
-            <div class="container">
-                <div class="row pb-5" id="providers">
-                    <div class="col-sm-12">
-                        <header class="text-center">
-                            <h2 class="text-uppercase">
-                                <a href="{% url 'sales:brands' %}" class="text-dark">Marcas</a>
-                            </h2>
-                        </header>
-                    </div>
-                    <div class="col-12">
-                        <div class="owl-carousel owl-theme">
-                            {% for object in brands %}
-                                <a href="{{object.get_absolute_url}}">                                    
-                                    <img class="owl-lazy brands-img-logo" data-src="{% if object.logo.url != None %}{{object.logo.url}}{% else %} /static/base/img/img-base-s.png {% endif %}" alt="{{object.name}}" data-toggle="tooltip" data-placement="top" title="{{object.name}}">
-                                </a>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
-        {# proveedores #} {% endblock %} {% block js %}
-        <script src="{% static 'base/js/owl/owl.carousel.min.js' %}"></script>
-        <script>
-            $(document).ready(function () {
-                var owl = $('.owl-carousel');
-                owl.owlCarousel({
-                    items: 6,
-                    loop: true,
-                    margin: 10,
-                    autoplay: true,
-                    autoplayTimeout: 3000,
-                    autoplayHoverPause: true,
-                    lazyLoad: true,
-                    dots: false,
-                    responsiveClass: true,
-                    responsive: {
-                        0: {
-                            items: 2,
-                            nav: false
-                        },
-                        600: {
-                            items: 3,
-                            nav: false
-                        },
-                        1000: {
-                            items: 6,
-                            nav: false,
-                            loop: true
-                        }
+        </div>
+    {% endif %}
+    {# proveedores #} 
+{% endblock %} 
+{% block js %}
+    <script src="{% static 'base/js/owl/owl.carousel.min.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            var owl = $('.owl-carousel');
+            owl.owlCarousel({
+                items: 6,
+                loop: true,
+                margin: 10,
+                autoplay: true,
+                autoplayTimeout: 3000,
+                autoplayHoverPause: true,
+                lazyLoad: true,
+                dots: false,
+                responsiveClass: true,
+                responsive: {
+                    0: {
+                        items: 2,
+                        nav: false
+                    },
+                    600: {
+                        items: 3,
+                        nav: false
+                    },
+                    1000: {
+                        items: 6,
+                        nav: false,
+                        loop: true
                     }
-                });
+                }
             });
-        </script> {% endblock %}
+        });
+    </script> 
+{% endblock %}
