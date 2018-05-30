@@ -218,15 +218,13 @@ class Department(models.Model):
     def __str__(self):
         return self.name
 
-    class Meta:
-        ordering = ['-order']
-
     def save(self):
         if self.order == 1:
             self.order = self.id
         super(Department, self).save()
 
     class Meta:
+        ordering = ['-order']
         verbose_name = _('Departamento')
         verbose_name_plural = _('Departamentos')
 
@@ -241,7 +239,7 @@ class Category(models.Model):
     description = RichTextField(blank=True, verbose_name=_('Descripción'))
     img = models.ImageField(max_length=144, blank=True, verbose_name=_('Imágen'))
     name = models.CharField(max_length=144, blank=True, verbose_name=_('Nombre'))
-    parent = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE, verbose_name=_('Categoría padre'))
+    parent = models.ForeignKey(Department, null=True, blank=True, on_delete=models.CASCADE, verbose_name=_('Categoría padre'))
     slug = models.CharField(max_length=144, blank=True, verbose_name=_('Slug \"SEO\"'))
     code = models.CharField(max_length=144, blank=True, verbose_name=_('Código'))
     
