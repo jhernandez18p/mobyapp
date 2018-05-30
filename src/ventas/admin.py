@@ -30,19 +30,19 @@ class LineAdmin(ImportExportModelAdmin):
 
 class SubLineAdmin(ImportExportModelAdmin):
     list_display = [
-        'code','name'
+        'code','name','parent'
     ]
     list_display_links = [
         'code'
     ]
     list_editable = [
-        'name'
+        'name','parent'
     ]
     list_filter = [
-        'name'
+        'name','parent'
     ]
     search_fields = [
-        'name'
+        'name','parent'
     ]
     resource_class = SubLineResource
 

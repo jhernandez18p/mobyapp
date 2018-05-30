@@ -129,8 +129,8 @@ class SubLine(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = _('Sublinea')
-        verbose_name_plural = _('SubLineas')
+        verbose_name = _('Sub linea')
+        verbose_name_plural = _('Sub Lineas')
 
 
 class Color(models.Model):
