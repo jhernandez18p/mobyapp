@@ -39,7 +39,7 @@ class SubLineAdmin(ImportExportModelAdmin):
         'name','parent'
     ]
     list_filter = [
-        'name','parent'
+        'parent'
     ]
     search_fields = [
         'name','parent'
