@@ -106,13 +106,13 @@ class ProviderAdmin(ImportExportModelAdmin):
 
 class BrandsAdmin(ImportExportModelAdmin):
     list_display = [
-        'id','name','img'
+        'id','name','logo'
     ]
     list_display_links = [
         'id'
     ]
     list_editable = [
-        'name','img'
+        'name','logo'
     ]
     list_filter = [
         'name'
