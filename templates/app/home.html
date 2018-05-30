@@ -11,13 +11,13 @@
                     <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="8000">
                         <ol class="carousel-indicators">
                             {% for object in home_header_carousel_images %}
-                                <li data-target="#carousel" data-slide-to="{{object.id}}"></li>
+                                <li data-target="carousel" data-slide-to="{{forloop.counter0}}" {% if forloop.counter0 == 0 %}class="active" {% endif %}></li>
                             {% endfor %}
                         </ol>
                         <div class="carousel-inner view" role="listbox">
                             {% for object in home_header_carousel_images %}
-                                <div class="carousel-item view hm-black-strong {% if forloop.counter == 1 %}active {% endif %}">
-                                    <img src="{{ object.image.url }}" alt="{{object.name}}" class="">
+                                <div class="carousel-item view hm-black-strong {% if forloop.counter0 == 0 %}active {% endif %}">
+                                    <img src="{{ object.image.url }}" alt="{{object.id}}" class="" id="carousel{{object.id}}">
                                     <div class="carousel-caption">
                                         <div>
                                             <h2>{{object.name}}</h2>

@@ -18,7 +18,7 @@
         .item img{text-align: center}
         .item .price{margin-right: 0px;margin-bottom: 0px;background-color: #8a7e5f;padding: 5px 20px 0px 20px;color: #FFF;}
         #ch{margin-top: 25px;}
-
+        .brands-img-logo{height: 120px;}
         #carousel-header{
             margin-top: 50px;
         }
@@ -33,7 +33,7 @@
                     <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="8000">
                         <ol class="carousel-indicators">
                             {% for object in products_header_carousel_images %}
-                                <li data-target="#carousel" data-slide-to="{{object.id}}"></li>
+                                <li data-target="#carousel" data-slide-to="{{forloop.counter0}}" {% if forloop.counter0 == 0 %}class="active" {% endif %}></li>
                             {% endfor %}
                         </ol>
                         <div class="carousel-inner view" role="listbox">
@@ -166,7 +166,7 @@
                         <div class="owl-carousel owl-theme">
                             {% for object in brands %}
                                 <a href="{{object.get_absolute_url}}">                                    
-                                    <img class="owl-lazy" data-src="{% if object.logo.url != None %}{{object.logo.url}}{% else %} /static/base/img/img-base-s.png {% endif %}" alt="{{object.name}}" data-toggle="tooltip" data-placement="top" title="{{object.name}}">
+                                    <img class="owl-lazy brands-img-logo" data-src="{% if object.logo.url != None %}{{object.logo.url}}{% else %} /static/base/img/img-base-s.png {% endif %}" alt="{{object.name}}" data-toggle="tooltip" data-placement="top" title="{{object.name}}">
                                 </a>
                             {% endfor %}
                         </div>
