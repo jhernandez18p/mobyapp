@@ -1,0 +1,32 @@
+TODO 
+1- CRUD
+    1- Clientes
+        1- Perfil
+    2- Usuarios
+        1- Log-In
+        2- Sugn-Up
+        3- Log-Out
+    3- Productos
+        1- Marcas
+        2- Departamentos
+        3- Articulos
+        4- Lineas
+        5- Sub Lineas
+        6- Proveedores
+        7- Colores
+        8- Categorías
+    4- Blog
+        1- Artículos
+        2- Comentarios
+    5- Servicios
+    6- Páginas
+    7- Carrusel
+    8- Grupos
+    9- Paginas 
+    10- Newsletters
+        1- Validar formulario
+        2- reCAPCHA
+2- Interfaz
+    1- UI/UX
+    2- Metricas
+    3- 
