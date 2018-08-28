@@ -15,6 +15,22 @@ def upload_location(instance, filename, *args, **kwargs):
         a = 'frontend'
     return os.path.join('sales/%s/'%(a.lower()), datetime.datetime.now().date().strftime("%Y/%m/%d"), filename)
 
+def reCAPTCHA(recaptcha_response):
+
+    ''' Begin reCAPTCHA validation '''
+    recaptcha_response = recaptcha_response
+    url = 'https://www.google.com/recaptcha/api/siteverify'
+    values = {
+        'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+        'response': recaptcha_response
+    }
+    data = urllib.parse.urlencode(values).encode()
+    req =  urllib.request.Request(url, data=data)
+    response = urllib.request.urlopen(req)
+    result = json.loads(response.read().decode())
+    ''' End reCAPTCHA validation '''
+
+    return result
 
 def contact_email(self, *args, **kwargs):
 
@@ -125,20 +141,3 @@ def newsletter_email(self, *args, **kwargs):
     msg.send()
 
     return True
-
-def reCAPTCHA(recaptcha_response):
-
-    ''' Begin reCAPTCHA validation '''
-    recaptcha_response = recaptcha_response
-    url = 'https://www.google.com/recaptcha/api/siteverify'
-    values = {
-        'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
-        'response': recaptcha_response
-    }
-    data = urllib.parse.urlencode(values).encode()
-    req =  urllib.request.Request(url, data=data)
-    response = urllib.request.urlopen(req)
-    result = json.loads(response.read().decode())
-    ''' End reCAPTCHA validation '''
-
-    return result

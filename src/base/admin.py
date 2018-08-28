@@ -1,15 +1,8 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-from .models import (
-    Site,
-    SocialMedia,
-    Position,
-    Pages,
-    Carousel,
-    CarouselImage,
-    Widget,
-)
+from .models import Site,SocialMedia,Position,Pages,Carousel,\
+    CarouselImage,Widget
 
 class SocialMediaInline(admin.StackedInline):
     model = SocialMedia

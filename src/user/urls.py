@@ -2,7 +2,8 @@ from django.contrib.auth import views as auth_views
 from django.urls import path, re_path, include
 
 from .views import custom_login,custom_logout,custom_register, \
-    ActivateAccountView, modal_cookie, error, thanks, newsletter, activate
+    ActivateAccountView, modal_cookie, error, thanks, newsletter,\
+    activate, current_user, UserList
 
 app_name = 'auth'
 urlpatterns = [
@@ -35,4 +36,9 @@ urlpatterns = [
     re_path(r'^activar/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         activate, name='activate'
     ),
+    
+    # JWT
+    path('current_user/', current_user),
+    path('users/', UserList.as_view()),
+    
 ]

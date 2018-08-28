@@ -8,22 +8,12 @@ from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path, re_path
 from django.views.static import serve
 
-from src.base import views as base_views
-from rest_framework import routers
 from app.urls import rest
-
-router = routers.DefaultRouter()
-router.register(r'users', rest.UserViewSet)
-router.register(r'groups', rest.GroupViewSet)
-router.register(r'posts', rest.BlogPostViewSet)
-router.register(r'comments', rest.BlogPostCommetViewSet)
-router.register(r'carousel', rest.FrontendCarouselViewSet)
-router.register(r'carousel-image', rest.FrontendCarouselImageViewSet)
+from src.base import views as base_views
 
 sitemaps = {
     'flatpages': FlatPageSitemap,
 }
-
 
 urlpatterns = [
     path('', include('src.base.urls', namespace='front')),
@@ -33,17 +23,11 @@ urlpatterns = [
     path('productos/', include('src.ventas.urls', namespace='sales')),
     path('intra/', include('src.intra.urls', namespace='intra')),
     path('auth/', include('src.user.urls',namespace='auth')),
+    path('api/v2/', include('src.api.urls',namespace='api')),
     path('adminsite/', admin.site.urls),
-    path('api/', include(router.urls)),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
-    path('api/auth/', include('rest_framework.urls', 
-        namespace='rest_framework')),
-    path('sitemap.xml', sitemap,
-        {'sitemaps': sitemaps},
-        name='django.contrib.sitemaps.views.sitemap'),
-    re_path(r'^media/(?P<path>.*)$', serve, {
-        'document_root': settings.MEDIA_ROOT,
-    }),
+
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    re_path(r'^media/(?P<path>.*)$', serve, { 'document_root': settings.MEDIA_ROOT }),
     path('<path:url>', flats.flatpage),
 ]
     

@@ -3,7 +3,6 @@ from django.db.models.signals import post_migrate
 from django.utils.translation import gettext_lazy as _
 
 
-class SitesConfig(AppConfig):
-    name = 'src.base'
-    verbose_name = _("Modulo de Frontend")
-    
+class ApiConfig(AppConfig):
+    name = 'src.api'
+    verbose_name = _("Api")

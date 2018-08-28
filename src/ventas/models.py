@@ -254,9 +254,6 @@ class Category(models.Model):
         return reverse('sales:category_detail', kwargs={'slug': self.name.lower()})
 
 
-
-
-
 class Article(models.Model):
 
     code = models.CharField(

@@ -21,11 +21,17 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic import View, ListView, FormView, TemplateView, RedirectView
 
+from rest_framework import permissions, status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
 from .forms import SignUpForm,NewsletterForm
 from .models import Newsletter
 from src.user.models import Profile
 from src.user.tokens import account_activation_token
 from src.utils.libs import newsletter_email, reCAPTCHA
+from src.api.serializers import UserSerializer, UserSerializerWithToken
 
 class ActivateAccountView(View):
     def get(self, request, uidb64, token):
@@ -235,3 +241,33 @@ def error(request):
 
 def thanks(request):
     return HttpResponseRedirect('/')
+
+
+"""
+JWT
+"""
+
+@api_view(['GET'])
+def current_user(request):
+    """
+    Determine the current user by their token, and return their data
+    """
+    
+    serializer = UserSerializer(request.user)
+    return Response(serializer.data)
+
+
+class UserList(APIView):
+    """
+    Create a new user. It's called 'UserList' because normally we'd have a get
+    method here too, for retrieving a list of all User objects.
+    """
+
+    permission_classes = (permissions.AllowAny,)
+
+    def post(self, request, format=None):
+        serializer = UserSerializerWithToken(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

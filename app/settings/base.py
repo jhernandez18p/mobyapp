@@ -4,16 +4,54 @@ from django.contrib.messages import constants as message_constants
 from django.contrib.messages import constants as messages
 
 SITE_ID = 1
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 SECRET_KEY = config('SECRET_KEY')
-
+ROOT_URLCONF = 'app.urls.base'
+WSGI_APPLICATION = 'app.wsgi.application'
 DEBUG = config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = ['localhost','moby.dev2tech.xyz','*']
+LOGIN_URL = '/auth/login/'
+LOGIN_REDIRECT_URL = '/intra/'
+SITE_URL = 'http://www.moby-group.com'
+SESSION_COOKIE_AGE = 43200
+SESSION_COOKIE_NAME = 'session'
 
-DJANGO_APPS = (
+if DEBUG:
+    # Debug True
+    CORS_ORIGIN_ALLOW_ALL = True
+    ALLOWED_HOSTS = ['*']
+    MESSAGE_LEVEL = message_constants.DEBUG
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    
+else:
+    # Debug False
+    ALLOWED_HOSTS = ['www.moby-group.com','*']
+    SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+    EMAIL_HOST = config('EMAIL_HOST')
+    EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+    EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+    EMAIL_PORT = config('EMAIL_PORT')
+    EMAIL_USE_SSL = config('EMAIL_USE_SSL',cast=bool)
+    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+    EMAIL_TO_USER = EMAIL_HOST_USER
+    LOGOUT_REDIRECT_URL = SITE_URL
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    PASSWORD_RESET_TIMEOUT_DAYS = 3
+    MESSAGE_LEVEL = message_constants.INFO
+    CORS_ORIGIN_WHITELIST = (
+        'localhost:9000',
+        'localhost:3000',
+    )
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'info',
+    messages.INFO: 'info',
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.ERROR: 'danger',
+}
+
+DJANGO_APPS = [
     'django.contrib.auth',
     'django.contrib.admin',
     'django.contrib.contenttypes',
@@ -26,9 +64,9 @@ DJANGO_APPS = (
     'django.contrib.humanize',
     'django.contrib.redirects',
     # 'django.contrib.gis',
-)
+]
 
-LOCAL_APPS = (
+LOCAL_APPS = [
     'src.base',
     'src.blog',
     'src.gallery',
@@ -37,36 +75,36 @@ LOCAL_APPS = (
     'src.support',
     'src.user',
     'src.ventas',
-)
+]
 
-THIRD_PARTY_APPS = (
-    'rest_framework',
-    'ckeditor',
+THIRD_PARTY_APPS = [
     'ckeditor_uploader',
+    'ckeditor',
+    'corsheaders', # JWT
     'import_export',
-    'widget_tweaks',
+    'django_filters',
+    'rest_framework.authtoken',
+    'rest_framework',
     'social_django',
     'sorl.thumbnail',
-)
+    'widget_tweaks',
+]
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware', # JWT
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
-    'social_django.middleware.SocialAuthExceptionMiddleware',
+    # 'django.middleware.locale.LocaleMiddleware',
+    # 'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
-
-ROOT_URLCONF = 'app.urls.base'
-
-WSGI_APPLICATION = 'app.wsgi.application'
 
 TEMPLATES = [
     {
@@ -93,10 +131,6 @@ TEMPLATES = [
 ]
 
 DATABASES = {
-    'frontend': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(os.path.join(BASE_DIR, 'dbs'), 'db.sqlite3'),
-    },
     'default': {
         'ENGINE': config('DB_ENGINE'),
         'NAME': config('DB_NAME'),
@@ -104,13 +138,6 @@ DATABASES = {
         'PASSWORD': config('DB_USER_PASSWORD'),
         'PORT': config('DB_PORT'),
         'HOST': config('DB_HOST'),
-    }
-}
-
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
     }
 }
 
@@ -130,86 +157,52 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    'social_core.backends.github.GithubOAuth2',
-    'social_core.backends.twitter.TwitterOAuth',
-    'social_core.backends.facebook.FacebookOAuth2',
+    # 'social_core.backends.github.GithubOAuth2',
+    # 'social_core.backends.twitter.TwitterOAuth',
+    # 'social_core.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend',
     'app.settings.EmailBackend.EmailBackend',
 ]
 
 LANGUAGE_CODE = 'es-PA'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
-
 MEDIA_URL = '/media/'
-
 MEDIA_ROOT = os.path.join(os.path.join(BASE_DIR,os.pardir), 'media')
-
 STATIC_URL = '/static/'
-
 
 if config('STATIC_ROOT', cast=bool) == True:
     STATIC_ROOT = os.path.abspath(os.path.join(os.path.join(BASE_DIR,os.pardir), 'staticfiles'))
 else:
     STATICFILES_DIRS = (os.path.abspath(os.path.join(os.path.join(BASE_DIR,os.pardir), 'staticfiles')),)
 
-if DEBUG:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-else:
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-SESSION_EXPIRE_AT_BROWSER_CLOSE = True
-
-EMAIL_HOST = config('EMAIL_HOST')
-
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-
-EMAIL_PORT = config('EMAIL_PORT')
-
-EMAIL_USE_SSL = config('EMAIL_USE_SSL',cast=bool)
-
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
-EMAIL_TO_USER = EMAIL_HOST_USER
-
-LOGIN_URL = '/auth/login/'
-
-LOGIN_REDIRECT_URL = '/intra/'
-
-SITE_URL = 'http://www.moby-group.com'
-
-LOGOUT_REDIRECT_URL = SITE_URL
-
-SESSION_COOKIE_AGE = 43200
-
-SESSION_COOKIE_NAME = 'session'
-
-PASSWORD_RESET_TIMEOUT_DAYS = 3
-
 # Django Rest Framework Setup
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAdminUser',
-    ],
+#    'DEFAULT_PERMISSION_CLASSES': (
+#         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+#         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+#         'rest_framework.permissions.IsAuthenticated',
+#    ),
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+#         'rest_framework.authentication.TokenAuthentication',
+#         'rest_framework.authentication.SessionAuthentication',
+#         'rest_framework.authentication.BasicAuthentication',
+#     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 20,
+    # 'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    )
 }
 
-MESSAGE_LEVEL = message_constants.INFO
-
-MESSAGE_TAGS = {
-    messages.DEBUG: 'info',
-    messages.INFO: 'info',
-    messages.SUCCESS: 'success',
-    messages.WARNING: 'warning',
-    messages.ERROR: 'danger',
+JWT_AUTH = {
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'src.user.tokens.my_jwt_response_handler'
 }
+
 
 IMPORT_EXPORT_USE_TRANSACTIONS = True
 
@@ -217,69 +210,5 @@ APPEND_SLASH = True
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'
-# CKEDITOR_CONFIGS = {
-#     'default': {
-#         'skin': 'Moono-Lisa',
-#         # 'skin': 'office2013',
-#         'toolbar_Basic': [
-#             ['Source', '-', 'Bold', 'Italic']
-#         ],
-#         'toolbar_YourCustomToolbarConfig': [
-#             {'name': 'document', 'items': ['Source', '-', 'Save', 'Print', '-', 'Templates']},
-#             {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
-#             {'name': 'editing', 'items': ['Find', 'Replace', '-', 'SelectAll']},
-#             {'name': 'forms',
-#              'items': ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton',
-#                        'HiddenField']},
-#             '/',
-#             {'name': 'basicstyles',
-#              'items': ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
-#             {'name': 'paragraph',
-#              'items': ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-',
-#                        'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl',
-#                        'Language']},
-#             {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
-#             {'name': 'insert',
-#              'items': ['Image', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe']},
-#             {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
-#             {'name': 'colors', 'items': ['TextColor', 'BGColor']},
-#             {'name': 'tools', 'items': ['Maximize', 'ShowBlocks']},
-#             {'name': 'about', 'items': ['About']},
-#             '/',  # put this to force next toolbar on new line
-#             {'name': 'yourcustomtools', 'items': [
-#                 # put the name of your editor.ui.addButton here
-#                 'Preview',
-#                 'Maximize',
-#                 'uploadfile',
-
-#             ]},
-#         ],
-#         'toolbar': 'YourCustomToolbarConfig',  # put selected toolbar config here
-#         # 'toolbarGroups': [{ 'name': 'document', 'groups': [ 'mode', 'document', 'doctools' ] }],
-#         # 'height': 291,
-#         # 'width': '100%',
-#         # 'filebrowserWindowHeight': 725,
-#         # 'filebrowserWindowWidth': 940,
-#         # 'toolbarCanCollapse': True,
-#         # 'mathJaxLib': '//cdn.mathjax.org/mathjax/2.2-latest/MathJax.js?config=TeX-AMS_HTML',
-#         'tabSpaces': 4,
-#         'extraPlugins': ','.join([
-#             'uploadimage', # the upload image feature
-#             # your extra plugins here
-#             'div',
-#             'autolink',
-#             'autoembed',
-#             'embedsemantic',
-#             'autogrow',
-#             # 'devtools',
-#             'widget',
-#             'lineutils',
-#             'clipboard',
-#             'dialog',
-#             'dialogui',
-#             'elementspath'
-#         ]),
-#     }
-# }
 
 GOOGLE_RECAPTCHA_SECRET_KEY = config('GOOGLE_SECRET_KEY')

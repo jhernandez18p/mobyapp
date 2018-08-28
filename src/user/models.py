@@ -11,7 +11,7 @@ from django.dispatch import (receiver)
 from django.utils.translation import gettext_lazy as _
 
 from ckeditor.fields import (RichTextField)
-from src.user.tokens import (AccountActivationTokenGenerator)
+# from src.user.tokens import (AccountActivationTokenGenerator)
 
 
 def get_upload_path(instance, filename):
