@@ -33,6 +33,7 @@ router.register(r'department', viewset.DepartmentViewSet)
 router.register(r'category', viewset.CategoryViewSet)
 router.register(r'article', viewset.ArticleViewSet)
 router.register(r'carousel-image', viewset.FrontendCarouselImageViewSet)
+router.register(r'services', viewset.ServiceViewSet)
 
 app_name = 'api'
 urlpatterns = [

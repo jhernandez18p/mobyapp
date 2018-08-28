@@ -6,6 +6,7 @@ from rest_framework.validators import UniqueValidator
 from src.blog.models  import Post, Comment
 from src.base.models  import Carousel, CarouselImage
 from src.user.models import Profile
+from src.services.models import Service
 from src.ventas.models import Photo, Line, SubLine, Color, \
     Type, Provider, Brands, Department, Category, Article
 
@@ -30,6 +31,13 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'username', 'email', 'password')
         # fields = '__all__'
+
+
+class ServiceSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Service
+        fields = '__all__'
 
 
 class BrandsSerializer(serializers.ModelSerializer):
