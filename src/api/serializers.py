@@ -4,7 +4,7 @@ from rest_framework_jwt.settings import api_settings
 from rest_framework.validators import UniqueValidator
 
 from src.blog.models  import Post, Comment
-from src.base.models  import Carousel, CarouselImage
+from src.base.models  import Carousel, CarouselImage, Site
 from src.user.models import Profile
 from src.services.models import Service
 from src.ventas.models import Photo, Line, SubLine, Color, \
@@ -31,6 +31,13 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'username', 'email', 'password')
         # fields = '__all__'
+
+
+class SiteSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Site
+        fields = '__all__'
 
 
 class ServiceSerializer(serializers.ModelSerializer):
@@ -62,6 +69,13 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class ArticleSerializer(serializers.ModelSerializer):
+
+    def create(self, validated_data):
+        return Article.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.save()
+        return instance
 
     class Meta:
         model = Article
@@ -158,12 +172,13 @@ class FrontendCarouselSerializer(serializers.ModelSerializer):
 
 class FrontendCarouselImageSerializer(serializers.ModelSerializer):
 
-    call_to_action_url = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    call_to_action_url = serializers.PrimaryKeyRelatedField( read_only=True)
 
     class Meta:
         model = CarouselImage
         # fields = ('image','name','text','call_to_action_url','uploaded_at')
-        fields = '__all__'
+        # fields = '__all__'
+        exclude = (('call_to_action_url'),)
 
 
 class UserSerializerWithToken(serializers.ModelSerializer):

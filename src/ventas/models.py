@@ -354,6 +354,11 @@ class Article(models.Model):
         blank=True,
         verbose_name=_('Stock')
     )
+    views = models.SmallIntegerField(
+        default=0,
+        blank=True,
+        verbose_name=_('Numero de visitas')
+    )
     picture = models.ImageField(
         blank=True,
         upload_to=get_upload_path,
@@ -414,6 +419,10 @@ class Article(models.Model):
         default=False,
         verbose_name=_('Activo')
     )
+    featured = models.BooleanField(
+        default=False,
+        verbose_name=_('Destacado')
+    )
     imported = models.BooleanField(
         default=False,
         verbose_name=_('Importado')
@@ -433,9 +442,10 @@ class Article(models.Model):
         return len(self.objects.all())
     
     class Meta:
-        ordering = ["-created_at", "-updated"]
+        ordering = ["id","views"]
         verbose_name = _('Producto')
         verbose_name_plural = _('Productos')
+
 
 pre_save.connect(art_pre_save_receiver, sender=Article)
 pre_save.connect(pre_save_receiver, sender=Category)
