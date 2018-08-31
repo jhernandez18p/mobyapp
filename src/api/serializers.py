@@ -4,7 +4,7 @@ from rest_framework_jwt.settings import api_settings
 from rest_framework.validators import UniqueValidator
 
 from src.blog.models  import Post, Comment
-from src.base.models  import Carousel, CarouselImage, Site
+from src.base.models  import Carousel, CarouselImage, Site, Pages, Position
 from src.user.models import Profile
 from src.services.models import Service
 from src.ventas.models import Photo, Line, SubLine, Color, \
@@ -31,6 +31,20 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'username', 'email', 'password')
         # fields = '__all__'
+
+
+class PagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Pages
+        fields = '__all__'
+
+
+class PositionSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Position
+        fields = '__all__'
 
 
 class SiteSerializer(serializers.ModelSerializer):
