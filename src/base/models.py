@@ -118,6 +118,7 @@ class Site(models.Model):
     email = models.CharField(max_length=144, blank=True, null=True,verbose_name = _('Correo electronico principal'))
     email2 = models.CharField(max_length=144, blank=True, null=True,verbose_name = _('Correo electronico secundario'))
     schedule = models.CharField(max_length=144, blank=True, null=True,verbose_name = _('Horario de atención'))
+    schedule2 = models.CharField(max_length=144, blank=True, null=True,verbose_name = _('Horario de atención 2'))
     workday = models.CharField(max_length=144, blank=True, null=True,verbose_name = _('Días laborales'))
     address = models.CharField(max_length=144, blank=True, null=True,verbose_name = _('Dirección principal'))
     address1 = models.CharField(max_length=144, blank=True, null=True,verbose_name = _('Dirección secundaria'))
@@ -125,6 +126,9 @@ class Site(models.Model):
     site_img = models.ImageField(upload_to=get_upload_path, verbose_name = _('Imágen destacada'))
     services_img = models.ImageField(upload_to=get_upload_path, verbose_name = _('Imágen para servicios'))
     products_img = models.ImageField(upload_to=get_upload_path, verbose_name = _('Imágen para productos'))
+    is_undercostruction = models.BooleanField( default=False,verbose_name = _('en construcción'))
+    direction = models.CharField(max_length=144, blank=True, null=True,verbose_name = _('direction'))
+    direction_city = models.CharField(max_length=144, blank=True, null=True,verbose_name = _('direction_city'))
 
     def __str__(self):
         return self.name

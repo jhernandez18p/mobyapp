@@ -3,7 +3,7 @@ from rest_framework import viewsets
 
 from src.api import serializers
 from src.blog.models import Post, Comment
-from src.base.models import Carousel, CarouselImage, Site, Pages, Position
+from src.base.models import Carousel, CarouselImage, Site, Pages, Position, SocialMedia
 from src.services.models import Service
 from src.ventas.models import Photo, Line, SubLine, Color, \
     Type, Provider, Brands, Department, Category, Article
@@ -13,6 +13,13 @@ class PagesViewSet(viewsets.ModelViewSet):
     """ """
     queryset = Pages.objects.all()
     serializer_class = serializers.PagesSerializer
+
+
+class SocialMediaViewSet(viewsets.ModelViewSet):
+    """ """
+    queryset = SocialMedia.objects.all()
+    serializer_class = serializers.SocialMediaSerializer
+
 
 class PositionViewSet(viewsets.ModelViewSet):
     """ """

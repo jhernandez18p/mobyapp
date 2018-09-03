@@ -4,11 +4,29 @@ from rest_framework_jwt.settings import api_settings
 from rest_framework.validators import UniqueValidator
 
 from src.blog.models  import Post, Comment
-from src.base.models  import Carousel, CarouselImage, Site, Pages, Position
+from src.base.models  import Carousel, CarouselImage, Site, Pages, Position, SocialMedia
 from src.user.models import Profile
 from src.services.models import Service
 from src.ventas.models import Photo, Line, SubLine, Color, \
     Type, Provider, Brands, Department, Category, Article
+
+
+"""
+User & auth Serializers
+"""
+class ProfileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Profile
+        fields = '__all__'
+
+
+class GroupSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Group
+        fields = '__all__'
+        # fields = ('url', 'name')
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -33,6 +51,92 @@ class UserSerializer(serializers.ModelSerializer):
         # fields = '__all__'
 
 
+class UserSerializerWithToken(serializers.ModelSerializer):
+
+    token = serializers.SerializerMethodField()
+    password = serializers.CharField(write_only=True, required=False)
+
+    def get_token(self, obj):
+        jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
+        jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
+
+        payload = jwt_payload_handler(obj)
+        token = jwt_encode_handler(payload)
+        return token
+
+    def create(self, validated_data):
+        password = validated_data.pop('password', None)
+        instance = self.Meta.model(**validated_data)
+        if password is not None:
+            instance.set_password(password)
+        instance.save()
+        return instance
+
+    class Meta:
+        model = User
+        # fields = '__all__'
+        # fields = (
+        #     'token', 'username', 'first_name', 'last_name', 'email', 'groups', 'is_superuser', 'is_active', 'password'
+        # )
+        exclude = ('groups','user_permissions')
+
+
+"""
+Blog  Serializers
+"""
+class BlogPostSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Post
+        fields = '__all__'
+        # fields = (
+        #     'author','updated_by','title','sub_title',
+        #     'text','draft','published','updated','created_at',
+        #     'img','background','slug',
+        # )
+
+
+class BlogPostCommentsSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Comment
+        fields = '__all__'
+
+
+"""
+Services Serializers
+"""
+class ServiceSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Service
+        fields = '__all__'
+
+
+"""
+Site Serializers
+"""
+class FrontendCarouselSerializer(serializers.ModelSerializer):
+
+    # page = serializers.PrimaryKeyRelatedField( read_only=True )
+    # position = serializers.PrimaryKeyRelatedField( read_only=True )
+    # images = serializers.PrimaryKeyRelatedField(many=True,)
+
+    class Meta:
+        model = Carousel
+        fields = '__all__'
+
+
+class FrontendCarouselImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CarouselImage
+        fields = '__all__'
+
+
+
+
+
 class PagesSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -54,17 +158,27 @@ class SiteSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ServiceSerializer(serializers.ModelSerializer):
+class SocialMediaSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Service
+        model = SocialMedia
         fields = '__all__'
 
 
-class BrandsSerializer(serializers.ModelSerializer):
+"""
+Ventas Serializers
+"""
+class SubLineSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Brands
+        model = SubLine
+        fields = '__all__'
+
+
+class ColorSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Color
         fields = '__all__'
 
 
@@ -96,10 +210,10 @@ class ArticleSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ProfileSerializer(serializers.ModelSerializer):
+class BrandsSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Profile
+        model = Brands
         fields = '__all__'
 
 
@@ -117,17 +231,10 @@ class LineSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class SubLineSerializer(serializers.ModelSerializer):
+class ProviderSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = SubLine
-        fields = '__all__'
-
-
-class ColorSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Color
+        model = Provider
         fields = '__all__'
 
 
@@ -136,90 +243,3 @@ class TypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Type
         fields = '__all__'
-
-
-class ProviderSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Provider
-        fields = '__all__'
-
-
-class GroupSerializer(serializers.ModelSerializer):
-    
-    class Meta:
-        model = Group
-        fields = '__all__'
-        # fields = ('url', 'name')
-
-
-class BlogPostSerializer(serializers.ModelSerializer):
-    
-    class Meta:
-        model = Post
-        fields = '__all__'
-        # fields = (
-        #     'author','updated_by','title','sub_title',
-        #     'text','draft','published','updated','created_at',
-        #     'img','background','slug',
-        # )
-
-
-class BlogPostCommentsSerializer(serializers.ModelSerializer):
-    
-    class Meta:
-        model = Comment
-        fields = '__all__'
-
-
-class FrontendCarouselSerializer(serializers.ModelSerializer):
-
-    page = serializers.PrimaryKeyRelatedField( read_only=True )
-    position = serializers.PrimaryKeyRelatedField( read_only=True )
-    images = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-
-    class Meta:
-        model = Carousel
-        fields = '__all__'
-        # fields = ('name','description','page','position','crated_at','images',)
-
-
-class FrontendCarouselImageSerializer(serializers.ModelSerializer):
-
-    call_to_action_url = serializers.PrimaryKeyRelatedField( read_only=True)
-
-    class Meta:
-        model = CarouselImage
-        # fields = ('image','name','text','call_to_action_url','uploaded_at')
-        # fields = '__all__'
-        exclude = (('call_to_action_url'),)
-
-
-class UserSerializerWithToken(serializers.ModelSerializer):
-
-    token = serializers.SerializerMethodField()
-    password = serializers.CharField(write_only=True, required=False)
-
-    def get_token(self, obj):
-        jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
-        jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
-
-        payload = jwt_payload_handler(obj)
-        token = jwt_encode_handler(payload)
-        return token
-
-    def create(self, validated_data):
-        password = validated_data.pop('password', None)
-        instance = self.Meta.model(**validated_data)
-        if password is not None:
-            instance.set_password(password)
-        instance.save()
-        return instance
-
-    class Meta:
-        model = User
-        # fields = '__all__'
-        # fields = (
-        #     'token', 'username', 'first_name', 'last_name', 'email', 'groups', 'is_superuser', 'is_active', 'password'
-        # )
-        exclude = ('groups','user_permissions')

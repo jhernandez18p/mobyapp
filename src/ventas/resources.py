@@ -7,10 +7,9 @@ from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.transaction import TransactionManagementError
 
-from import_export.results import Error, Result, RowResult
 from import_export import resources,fields
-from import_export.widgets import ForeignKeyWidget, CharWidget,\
-    IntegerWidget, DecimalWidget
+from import_export.results import Error, Result, RowResult
+from import_export.widgets import ForeignKeyWidget, CharWidget, IntegerWidget, DecimalWidget
 
 from .models import Line,SubLine,Type,Color,\
     Provider,Department,Category,Article,Brands
@@ -20,8 +19,8 @@ try:
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
 
-# Set default logging handler to avoid "No handler found" warnings.
-import logging  # isort:skip
+
+import logging
 from logging import NullHandler
 
 class LineResource(resources.ModelResource):
@@ -105,203 +104,26 @@ class CategoryResource(resources.ModelResource):
 
     
 class ArticleResource(resources.ModelResource):
-
-    @classmethod
-    def get_diff_class(self):
-        """
-        Returns the class used to display the diff for an imported instance.
-        """
-        return resources.Diff
     
-    def before_import_row(self, row, **kwargs):
-        """
-        Override to add additional logic. Does nothing by default.
-        """
-        # print('Before import row')
-        # print(row)
-        # print('\n\n')
-        new_row = dict(row)
-        # print(new_row)
-        
-        try:
-            try:
-                _type = int(new_row['type'])
-                row_type_header = 'type'
-            except KeyError:
-                _type = int(new_row['item_type'])
-                row_type_header = 'item_type'
-            try:
-                _type>1
-            except Exception:
-                _type = 1
-            _Type = Type.objects.get( Q(id=_type) | Q(name__startswith=_type) )
-            _type = _Type
-            print(_type)
-        except ObjectDoesNotExist: 
-            _type = 1
-        
-        try:
-            try:
-                _line = str(new_row['co_lin'])
-                row_line_header = 'co_lin'
-            except KeyError:
-                _line = str(new_row['line__code'])
-                row_line_header = 'line__code'
-            _line = ''.join(_line.split())
-            line = Line.objects.get( Q(code__startswith=_line) | Q(name__startswith=_line) )
-            _line = line.id
-        except ObjectDoesNotExist:
-            _line = Line.objects.first().id
-            # print('x')
-        
-        
-        try:
-            try:
-                _cat = str(new_row['co_cat'])
-                row_cat_header = 'co_cat'
-            except KeyError:
-                try:
-                    new_row['category__code']
-                    _cat = str(new_row['category__code'])
-                    row_cat_header = 'category__code'
-                except Exception:
-                    new_row['category__description']
-                    _cat = str(new_row['category__description'])
-                    row_cat_header = 'category__description'
-            cat = Category.objects.get( Q( code__startswith=_cat ) | Q( name__startswith=_cat ))
-            _cat = cat.id
-        except ObjectDoesNotExist:
-            _cat = ''
-        
-        try:
-            try:
-                _sublin = str(new_row['co_subl'])
-                row_sublin_header = 'co_subl'
-            except KeyError:
-                try:
-                    _sublin = str(new_row['sub_line__code'])
-                    row_sublin_header = 'sub_line__code'
-                except Exception:
-                    _sublin = str(new_row['sub_line'])
-                    row_sublin_header = 'sub_line'
-            sublin = SubLine.objects.get( Q( code__startswith=_sublin ) | Q( name__startswith=_sublin ))
-            _sublin = sublin.id
-        except ObjectDoesNotExist:
-            _sublin = ''
+    category = fields.Field(column_name='co_cat',attribute='category',widget=ForeignKeyWidget(Category, 'code'),saves_null_values=True)
+    code = fields.Field(column_name='co_art',attribute='code') 
+    color = fields.Field(column_name='co_color',attribute='color',widget=ForeignKeyWidget(Color, 'code'),saves_null_values=True)
+    description = fields.Field(column_name='art_des',attribute='description')
+    img = fields.Field(column_name='imagen',attribute='img')
+    item_type = fields.Field(column_name='item_type',attribute='item_type',widget=ForeignKeyWidget(Provider, 'code'),saves_null_values=True)
+    line = fields.Field(column_name='co_lin',attribute='line',widget=ForeignKeyWidget(Line, 'code'),saves_null_values=True)
+    model = fields.Field(column_name='modelo',attribute='model')
+    price_1 = fields.Field(column_name='prec_vta1',attribute='price_1')
+    price_2 = fields.Field(column_name='prec_vta2',attribute='price_2')
+    price_3 = fields.Field(column_name='prec_vta3',attribute='price_3')
+    price_4 = fields.Field(column_name='prec_vta4',attribute='price_4')
+    price_5 = fields.Field(column_name='prec_vta5',attribute='price_5')
+    provider = fields.Field(column_name='co_prov',attribute='provider',widget=ForeignKeyWidget(Provider, 'code'),saves_null_values=True)
+    ref = fields.Field(column_name='ref',attribute='ref')
+    sales_unit = fields.Field(column_name='uni_venta',attribute='sales_unit')
+    stock = fields.Field(column_name='stock_act',attribute='stock')
+    sub_line = fields.Field(column_name='co_subl',attribute='sub_line',widget=ForeignKeyWidget(SubLine, 'code'),saves_null_values=True)
 
-        try:
-            try:
-                _color = str(new_row['co_color'])
-                row_color_header = 'co_color'
-            except KeyError:
-                _color = str(new_row['color__code'])
-                row_color_header = 'color__code'
-            color = Color.objects.get( Q( code__startswith=_color ) | Q( name__startswith=_color ))
-            _color = color.id
-        except ObjectDoesNotExist:
-            _color = ''
-
-        try:
-            try:
-                _prov = str(new_row['co_prov'])
-                row_prov_header = 'co_prov'
-            except KeyError:
-                _prov = str(new_row['provider__code'])
-                row_prov_header = 'provider__code'
-            prov = Provider.objects.get( Q( code__startswith=_prov ) | Q( name__startswith=_prov ))
-            _prov = prov.id
-        except ObjectDoesNotExist:
-            _prov = ''
-        
-        new_row[row_type_header] = _type
-        new_row[row_line_header] = _line
-        new_row[row_cat_header] = _cat
-        new_row[row_sublin_header] = _sublin
-        new_row[row_color_header] = _color
-        new_row[row_prov_header] = _prov
-
-        new_row = OrderedDict(new_row)
-        # row = new_row
-        # print('Import the new row')
-        # print(new_row)
-        # print('\n')
-
-
-
-        return new_row
-
-    def import_row(self, row, instance_loader, using_transactions=True, dry_run=False, **kwargs):
-        """
-        Imports data from ``tablib.Dataset``. Refer to :doc:`import_workflow`
-        for a more complete description of the whole import process.
-        :param row: A ``dict`` of the row to import
-        :param instance_loader: The instance loader to be used to load the row
-        :param using_transactions: If ``using_transactions`` is set, a transaction
-            is being used to wrap the import
-        :param dry_run: If ``dry_run`` is set, or error occurs, transaction
-            will be rolled back.
-        """
-        # print(row)
-        # print('\n\n')
-        row_result = self.get_row_result_class()()
-        
-        try:
-            new_row = self.before_import_row(row, **kwargs)
-            instance, new = self.get_or_init_instance(instance_loader, new_row)
-
-            self.after_import_instance(instance, new, **kwargs)
-
-            if new:
-                row_result.import_type = RowResult.IMPORT_TYPE_NEW
-            else:
-                row_result.import_type = RowResult.IMPORT_TYPE_UPDATE
-
-            row_result.new_record = new
-            original = deepcopy(instance)
-            diff = self.get_diff_class()(self, original, new)
-
-            if self.for_delete(new_row, instance):
-                
-                if new:
-                    row_result.import_type = RowResult.IMPORT_TYPE_SKIP
-                    diff.compare_with(self, None, dry_run)
-                else:
-                    row_result.import_type = RowResult.IMPORT_TYPE_DELETE
-                    self.delete_instance(instance, using_transactions, dry_run)
-                    diff.compare_with(self, None, dry_run)
-
-            else:
-                self.import_obj(instance, new_row, dry_run)
-
-                if self.skip_row(instance, original):
-                    row_result.import_type = RowResult.IMPORT_TYPE_SKIP
-                else:
-                    self.save_instance(instance, using_transactions, dry_run)
-                    self.save_m2m(instance, new_row, using_transactions, dry_run)
-                
-                diff.compare_with(self, instance, dry_run)
-            
-            row_result.diff = diff.as_html()
-            # Add object info to RowResult for LogEntry
-            if row_result.import_type != RowResult.IMPORT_TYPE_SKIP:
-
-                row_result.object_id = instance.pk
-                row_result.object_repr = force_text(instance)
-
-            self.after_import_row(new_row, row_result, **kwargs)
-
-        except Exception as e:
-            row_result.import_type = RowResult.IMPORT_TYPE_ERROR
-
-            # There is no point logging a transaction error for each row
-            # when only the original error is likely to be relevant
-            if not isinstance(e, TransactionManagementError):
-                logging.exception(e)
-            tb_info = traceback.format_exc()
-            row_result.errors.append(self.get_error_result_class()(e, tb_info, row))
-
-        return row_result
-        
     class Meta:
         model = Article
         skip_unchanged = True
@@ -310,11 +132,11 @@ class ArticleResource(resources.ModelResource):
         fields = (
             'code',
             'description',
-            'line__code',
-            'category__code',
-            'sub_line__code',
-            'color__code',
-            'provider__code',
+            'line',
+            'category',
+            'sub_line',
+            'color',
+            'provider',
             'ref',
             'model',
             'sales_unit',
@@ -325,17 +147,16 @@ class ArticleResource(resources.ModelResource):
             'price_4',
             'price_5',
             'img',
-            'item_type__id',
-            'origin',
+            'item_type',
         )
         export_order = (
             'code',
             'description',
-            'line__code',
-            'category__code',
-            'sub_line__code',
-            'color__code',
-            'provider__code',
+            'line',
+            'category',
+            'sub_line',
+            'color',
+            'provider',
             'ref',
             'model',
             'sales_unit',
@@ -346,12 +167,146 @@ class ArticleResource(resources.ModelResource):
             'price_4',
             'price_5',
             'img',
-            'item_type__id',
-            'origin',
+            'item_type',
         )
         exclude = (
             'name','updated','created_at','slug','picture',\
-            'is_shipping_required','department','imported'
+            'is_shipping_required','department','imported','origin'
         )
+    
+    def before_import(self, dataset, using_transactions, dry_run, **kwargs):
+        data = []
+        new_data = []
+        for x in dataset._data:
+            # print(x[9])
+            # new_data.append(x[0])
+            '''
+                [
+                    0 '0615501                       ',
+                    1 'DESLIZADOR AJUSTABLE DE 6X17 MM. BLANCO                                                                                 ',
+                    2 'INDAUX',
+                    3 'FITT  ',
+                    4 'FTTING',
+                    5 '069   ',
+                    6 '                        ',
+                    7 '                    ',
+                    8 'P00049    ',
+                    9 'PZA   ',
+                    10 -95,
+                    11 0.16,
+                    12 0.18,
+                    13 0.21,
+                    14 0.26,
+                    15 0.21,
+                    16 None,
+                    17 0
+                ]
+            '''
+            co_art = str(x[0]).rstrip() #
+            # print('co_art -->', co_art)
 
+            art_des = str(x[1]).rstrip() #
+            # print('art_des -->', art_des)
+
+            co_lin = str(x[2]).rstrip() #
+            # print('co_lin -->', co_lin)
+
+            co_cat = str(x[3]).rstrip() #
+            # print('co_cat -->', co_cat)
+
+            co_subl = str(x[4]).rstrip() #
+            # print('co_subl -->', co_subl)
+
+            co_color = str(x[5]).rstrip() #
+            try:
+                co_color = int(co_color)
+            except:                
+                co_color = None
+            # print('co_color -->', co_color)
+
+            ref = str(x[6]).rstrip() #
+            # print('ref -->', ref)
+
+            modelo = str(x[7]).rstrip() #
+            # print('modelo -->', modelo)
+
+            co_prov = str(x[8]).rstrip() #
+            try:
+                co_prov = int(co_prov)
+            except:
+                co_prov = co_prov
+            # print('co_prov -->', co_prov)
+
+            uni_venta = str(x[9]).rstrip() #
+            # print('uni_venta -->', uni_venta)
+
+            stock_act = int(x[10]) #
+            # print('stock_act -->', stock_act)
+
+            prec_vta1 = int(x[11]) #
+            # print('prec_vta1 -->', prec_vta1)
+
+            prec_vta2 = int(x[12]) #
+            # print('prec_vta2 -->', prec_vta2)
+
+            prec_vta3 = int(x[13]) #
+            # print('prec_vta3 -->', prec_vta3)
+
+            prec_vta4 = int(x[14]) #
+            # print('prec_vta4 -->', prec_vta4)
+
+            prec_vta5 = int(x[15]) #
+            # print('prec_vta5 -->', prec_vta5)
+
+            imagen = x[16] #
+            # print('imagen -->', imagen)
+
+            item_type = int(x[17]) #
+            # print('item_type -->', item_type)
+
+            new_data.append(co_art) # 
+            new_data.append(art_des) # 
+            new_data.append(co_lin) # 
+            new_data.append(co_cat) # 
+            new_data.append(co_subl) # 
+            new_data.append(co_color) # 
+            new_data.append(ref) # 
+            new_data.append(modelo) # 
+            new_data.append(co_prov) # 
+            new_data.append(uni_venta) # 
+            new_data.append(stock_act) # 
+            new_data.append(prec_vta1) # 
+            new_data.append(prec_vta2) # 
+            new_data.append(prec_vta3) # 
+            new_data.append(prec_vta4) # 
+            new_data.append(prec_vta5) # 
+            new_data.append(imagen) # 
+            new_data.append(item_type) # 
+
+            data.append(new_data)
+
+            new_data = []
+            co_art = ''
+            art_des = ''
+            co_lin = ''
+            co_cat = ''
+            co_subl = ''
+            co_color = ''
+            ref = ''
+            modelo = ''
+            co_prov = ''
+            uni_venta = ''
+            stock_act = ''
+            prec_vta1 = ''
+            prec_vta2 = ''
+            prec_vta3 = ''
+            prec_vta4 = ''
+            prec_vta5 = ''
+            imagen = ''
+            item_type = ''
+        
+        # print(dataset._data)
+        dataset._data = data
+        # print('-----------------')
+        # print(dataset._data)
 

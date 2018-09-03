@@ -58,10 +58,18 @@ def get_art_upload_path(instance, filename):
 
 def create_slug(instance, new_slug=None):
 
-    if instance.name:
-        slug = slugify(instance.name)
+    if instance.__class__.__name__ == 'Article':
+        name = instance.description
+        try:
+            name = name.split('<p>')
+            name = name[1].split('<')
+            name = name[0]
+        except:
+            pass
+        slug = slugify(name)
     else:
         slug = slugify(instance.code)
+            
 
     if new_slug is not None:
         slug = new_slug
@@ -77,12 +85,16 @@ def create_slug(instance, new_slug=None):
     return slug
 
 def pre_save_receiver(sender, instance, *args, **kwargs):
+    if instance.name == None:
+        instance.name = instance.code
+
+def pre_save_receiver_with_slug(sender, instance, *args, **kwargs):
+
     if not instance.slug:
         instance.slug = create_slug(instance)
 
 def art_pre_save_receiver(sender, instance, *args, **kwargs):
-    # if instance.img == 'sales/arts/base.jpg':
-    #     instance.img = get_img(instance)
+
     if not instance.slug:
         instance.slug = create_slug(instance)
 
@@ -106,11 +118,11 @@ class Line(models.Model):
     # Business logic art. key 
     description = RichTextField(blank=True, verbose_name=_('Descripción'))
     img = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
-    name = models.CharField(max_length=144, blank=True, verbose_name=_('Nombre'))
-    code = models.CharField(max_length=144, blank=True, verbose_name=_('Código'))
+    name = models.CharField(max_length=256, blank=True, verbose_name=_('Nombre'))
+    code = models.CharField(max_length=256, blank=True, verbose_name=_('Código'))
 
     def __str__(self):
-        return self.name
+        return self.code
 
     class Meta:
         verbose_name = _('Linea')
@@ -121,12 +133,12 @@ class SubLine(models.Model):
     # Business logic art. key 
     description = RichTextField(blank=True, verbose_name=_('Descripción'))
     img = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
-    name = models.CharField(max_length=144, blank=True, verbose_name=_('Nombre'))
-    code = models.CharField(max_length=144, blank=True, verbose_name=_('Código'))
+    name = models.CharField(max_length=256, blank=True, verbose_name=_('Nombre'))
+    code = models.CharField(max_length=256, blank=True, verbose_name=_('Código'))
     parent = models.ForeignKey(Line, null=True, blank=True, on_delete=models.CASCADE, verbose_name=_('Linea padre'))
 
     def __str__(self):
-        return self.name
+        return self.code
 
     class Meta:
         verbose_name = _('Sub linea')
@@ -136,11 +148,11 @@ class SubLine(models.Model):
 class Color(models.Model):
     description = RichTextField(blank=True, verbose_name=_('Descripción'))
     hex_code = models.CharField(max_length=9, blank=True, verbose_name=_('Código Hexadecimal'))
-    name = models.CharField(max_length=144, blank=True, verbose_name=_('Nombre'))
-    code = models.CharField(max_length=144, blank=True, verbose_name=_('Código'))
+    name = models.CharField(max_length=256, blank=True, verbose_name=_('Nombre'))
+    code = models.CharField(max_length=256, blank=True, verbose_name=_('Código'))
 
     def __str__(self):
-        return self.name
+        return self.code
 
     class Meta:
         verbose_name = _('Color')
@@ -152,11 +164,11 @@ class Type(models.Model):
     background = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Foto de fondo'))
     description = RichTextField(blank=True, verbose_name=_('Descripción'))
     img = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
-    name = models.CharField(max_length=144, blank=True, verbose_name=_('Nombre'))
-    code = models.CharField(max_length=144, blank=True, verbose_name=_('Código'))
+    name = models.CharField(max_length=256, blank=True, verbose_name=_('Nombre'))
+    code = models.CharField(max_length=256, blank=True, verbose_name=_('Código'))
 
     def __str__(self):
-        return self.name
+        return self.code
 
     class Meta:
         verbose_name = _('Tipo de artículo')
@@ -168,13 +180,13 @@ class Provider(models.Model):
     description = RichTextField(blank=True, verbose_name=_('Descripción'))
     img = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
     logo = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Logo'))
-    name = models.CharField(max_length=144, blank=True, verbose_name=_('Nombre'))
-    slug = models.CharField(max_length=144, blank=True, verbose_name=_('Slug \"SEO\"'))
-    website = models.CharField(max_length=144, blank=True, verbose_name=_('Dirección url'))
-    code = models.CharField(max_length=144, blank=True, verbose_name=_('Código'))
+    name = models.CharField(max_length=256, blank=True, verbose_name=_('Nombre'))
+    slug = models.CharField(max_length=256, blank=True, verbose_name=_('Slug \"SEO\"'))
+    website = models.CharField(max_length=256, blank=True, verbose_name=_('Dirección url'))
+    code = models.CharField(max_length=256, blank=True, verbose_name=_('Código'))
 
     def __str__(self):
-        return self.name
+        return self.code
 
     class Meta:
         verbose_name = _('Proveedor')
@@ -189,13 +201,13 @@ class Brands(models.Model):
     description = RichTextField(blank=True, verbose_name=_('Descripción'))
     img = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
     logo = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Logo'))
-    name = models.CharField(max_length=144, blank=True, verbose_name=_('Nombre'))
-    slug = models.CharField(max_length=144, blank=True, verbose_name=_('Slug \"SEO\"'))
-    website = models.CharField(max_length=144, blank=True, verbose_name=_('Dirección url'))
-    code = models.CharField(max_length=144, blank=True, verbose_name=_('Código'))
+    name = models.CharField(max_length=256, blank=True, verbose_name=_('Nombre'))
+    slug = models.CharField(max_length=256, blank=True, verbose_name=_('Slug \"SEO\"'))
+    website = models.CharField(max_length=256, blank=True, verbose_name=_('Dirección url'))
+    code = models.CharField(max_length=256, blank=True, verbose_name=_('Código'))
 
     def __str__(self):
-        return self.name
+        return self.code
 
     class Meta:
         verbose_name = _('Marca')
@@ -210,13 +222,13 @@ class Department(models.Model):
     background = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Foto de fondo'))
     description = RichTextField(blank=True, verbose_name=_('Descripción'))
     img = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
-    name = models.CharField(max_length=144, blank=True, verbose_name=_('Nombre'))
-    slug = models.CharField(max_length=144, blank=True, verbose_name=_('Slug \"SEO\"'))
-    code = models.CharField(max_length=144, blank=True, verbose_name=_('Código'))
+    name = models.CharField(max_length=256, blank=True, verbose_name=_('Nombre'))
+    slug = models.CharField(max_length=256, blank=True, verbose_name=_('Slug \"SEO\"'))
+    code = models.CharField(max_length=256, blank=True, verbose_name=_('Código'))
     order = models.IntegerField(blank=True, verbose_name=_('Orden'), default=1)
 
     def __str__(self):
-        return self.name
+        return self.code
 
     def save(self):
         if self.order == 1:
@@ -237,14 +249,14 @@ class Category(models.Model):
     # Business Logic art. cat.
     background = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Foto de fondo'))
     description = RichTextField(blank=True, verbose_name=_('Descripción'))
-    img = models.ImageField(max_length=144, blank=True, verbose_name=_('Imágen'))
-    name = models.CharField(max_length=144, blank=True, verbose_name=_('Nombre'))
+    img = models.ImageField(max_length=256, blank=True, verbose_name=_('Imágen'))
+    name = models.CharField(max_length=256, blank=True, verbose_name=_('Nombre'))
     parent = models.ForeignKey(Department, null=True, blank=True, on_delete=models.CASCADE, verbose_name=_('Categoría padre'))
-    slug = models.CharField(max_length=144, blank=True, verbose_name=_('Slug \"SEO\"'))
-    code = models.CharField(max_length=144, blank=True, verbose_name=_('Código'))
+    slug = models.CharField(max_length=256, blank=True, verbose_name=_('Slug \"SEO\"'))
+    code = models.CharField(max_length=256, blank=True, verbose_name=_('Código'))
     
     def __str__(self):
-        return self.name
+        return self.code
     
     class Meta:
         verbose_name = 'Categoría'
@@ -257,36 +269,42 @@ class Category(models.Model):
 class Article(models.Model):
 
     code = models.CharField(
-        max_length=144,
+        max_length=256,
+        null=True,
         blank=True,
         verbose_name=_('Código de articulo')
     )
     model = models.CharField(
-        max_length=144,
+        max_length=256,
+        null=True,
         blank=True,
         verbose_name=_('Modelo')
     )
     name = models.CharField(
-        max_length=144,
+        max_length=256,
+        null=True,
         blank=True,
         verbose_name=_('Nombre')
     )
     origin = models.CharField(
-        max_length=144,
+        max_length=256,
+        null=True,
         blank=True,
         verbose_name=_('Origen')
     )
     sales_unit = models.CharField(
-        max_length=144,
+        max_length=256,
+        null=True,
         blank=True,
         verbose_name=_('Unidad de ventas')
     )
     ref = models.CharField(
-        max_length=144,
+        max_length=256,
+        null=True,
         blank=True,
         verbose_name=_('Referencia')
     ) #   
-    description = RichTextField(blank=True, verbose_name=_('Descripción'))
+    description = RichTextField(blank=True, verbose_name=_('Descripción'), max_length=2000)
     item_type = models.ForeignKey(
         Type,
         null=True,
@@ -347,11 +365,14 @@ class Article(models.Model):
     slug = models.SlugField(
         unique=True,
         blank=True,
+        null=True,
+        max_length=500,
         verbose_name=_('URL \"SEO\"')
     )
     stock = models.IntegerField(
         default=0,
         blank=True,
+        null=True,
         verbose_name=_('Stock')
     )
     views = models.SmallIntegerField(
@@ -361,6 +382,7 @@ class Article(models.Model):
     )
     picture = models.ImageField(
         blank=True,
+        null=True,
         upload_to=get_upload_path,
         verbose_name=_('Foto de articulo')
     )
@@ -412,6 +434,7 @@ class Article(models.Model):
     img = models.ImageField( 
         upload_to=get_art_upload_path,#"sales/arts/",
         blank=True, 
+        null=True, 
         verbose_name=_('Imagen de articulo'), 
         default='sales/arts/base.jpg'
     )
@@ -432,8 +455,8 @@ class Article(models.Model):
         verbose_name=_('Requiere envio')
     )
 
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.code
 
     def get_absolute_url(self):
         return reverse('sales:product_detail', kwargs={'slug': self.slug})
@@ -442,13 +465,17 @@ class Article(models.Model):
         return len(self.objects.all())
     
     class Meta:
-        ordering = ["id","views"]
+        ordering = ["active","id","views","featured","code"]
         verbose_name = _('Producto')
         verbose_name_plural = _('Productos')
 
 
 pre_save.connect(art_pre_save_receiver, sender=Article)
-pre_save.connect(pre_save_receiver, sender=Category)
-pre_save.connect(pre_save_receiver, sender=Department)
-pre_save.connect(pre_save_receiver, sender=Brands)
+pre_save.connect(pre_save_receiver, sender=Line)
+pre_save.connect(pre_save_receiver, sender=SubLine)
+pre_save.connect(pre_save_receiver, sender=Color)
+pre_save.connect(pre_save_receiver, sender=Type)
 pre_save.connect(pre_save_receiver, sender=Provider)
+pre_save.connect(pre_save_receiver_with_slug, sender=Category)
+pre_save.connect(pre_save_receiver_with_slug, sender=Department)
+pre_save.connect(pre_save_receiver_with_slug, sender=Brands)

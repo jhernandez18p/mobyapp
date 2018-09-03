@@ -8,7 +8,6 @@ from src.ventas.resources import ArticleResource, LineResource,\
     DepartmentResource, CategoryResource, BrandsResource
 
 
-
 class LineAdmin(ImportExportModelAdmin):
     list_display = [
         'id','code','name'
@@ -200,11 +199,11 @@ class ArticleAdmin(ImportExportModelAdmin):
 
 
 admin.site.register(Article, ArticleAdmin)
-admin.site.register(Line,LineAdmin)
-admin.site.register(SubLine,SubLineAdmin)
-admin.site.register(Type,TypeAdmin)
-admin.site.register(Color,ColorAdmin)
-admin.site.register(Provider,ProviderAdmin)
-admin.site.register(Brands,BrandsAdmin)
-admin.site.register(Department,DepartmentAdmin)
-admin.site.register(Category,CategoryAdmin)
+admin.site.register(Line, LineAdmin)
+admin.site.register(SubLine, SubLineAdmin)
+admin.site.register(Type, TypeAdmin)
+admin.site.register(Color, ColorAdmin)
+admin.site.register(Provider, ProviderAdmin)
+admin.site.register(Brands, BrandsAdmin)
+admin.site.register(Department, DepartmentAdmin)
+admin.site.register(Category, CategoryAdmin)
