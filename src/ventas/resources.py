@@ -285,9 +285,15 @@ class ArticleResource(resources.ModelResource):
 
             imagen = x[16] #
             # print('imagen -->', imagen)
+            try:
+                if x[17] == '':
+                    x[17] = 1
+                item_type = int(x[17]) #
+                # print('item_type -->', item_type)
+            except:
+                item_type = 1 #
 
-            item_type = int(x[17]) #
-            # print('item_type -->', item_type)
+            
 
             new_data.append(co_art) # 
             new_data.append(art_des) # 
