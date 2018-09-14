@@ -167,17 +167,7 @@ class ArticleAdmin(ImportExportModelAdmin):
         'category',
         'sub_line',
         'color',
-        'ref',
-        'model',
         'provider',
-        'sales_unit',
-        'stock',
-        'price_1',
-        'price_2',
-        'price_3',
-        'price_4',
-        'price_5',
-        'img',
     ]
     list_display_links = [
         'code',
@@ -193,7 +183,7 @@ class ArticleAdmin(ImportExportModelAdmin):
         'department',
     ]
     search_fields = [
-        'provider',
+        'code',
     ]
     resource_class = ArticleResource
 

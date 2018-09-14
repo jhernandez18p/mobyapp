@@ -309,4 +309,3 @@ class ArticleResource(resources.ModelResource):
         dataset._data = data
         # print('-----------------')
         # print(dataset._data)
-

@@ -19,5 +19,13 @@ class ServiceModelAdmin(admin.ModelAdmin):
         model = Service
 
 
+class ServiceImageModelAdmin(admin.ModelAdmin):
+    list_display = ['name',]
+
+    class Meta:
+        model = Service
+
+
 
 admin.site.register(Service, ServiceModelAdmin)
+admin.site.register(ServiceImage, ServiceImageModelAdmin)

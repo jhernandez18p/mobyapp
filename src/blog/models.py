@@ -38,15 +38,27 @@ def create_slug(instance, new_slug=None):
     return slug
 
 def pre_save_post_receiver(sender, instance, *args, **kwargs):
-    if not instance.slug:
+    if not instance.slug or instance.slug != instance.title :
         instance.slug = create_slug(instance)
     if not instance.updated_by:
         instance.updated_by = instance.author
+
 
 class PostManager(models.Manager):
     def active(self, *args, **kwargs):
         # Post.objects.all() = super(PostManager, self).all()
         return super(PostManager, self).filter(draft=False).filter(published__lte=timezone.now())
+
+
+class Tag(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE,verbose_name=_('Autor'))
+    title = models.CharField(max_length=144, blank=True)
+    slug = models.SlugField(unique=True, blank=True,verbose_name=_('Nombre url SEO'))
+    updated_by = models.ForeignKey(User, null=True, related_name='+', on_delete=models.CASCADE,verbose_name=_('Actualizado por'), blank=True)
+    created_at = models.DateTimeField(auto_now=False, auto_now_add=True,verbose_name=_('Fecha de creación'))
+
+    def __str__(self):
+        return self.title
 
 
 class Post(models.Model):
@@ -74,6 +86,7 @@ class Post(models.Model):
         default='',
     )
     slug = models.SlugField(unique=True, blank=True,verbose_name=_('Nombre url SEO'))
+    tag = models.ForeignKey(Tag, on_delete=models.CASCADE,null=True,verbose_name=_('Tag asociado'))
 
     objects = PostManager()
 
@@ -99,7 +112,7 @@ class Post(models.Model):
         return content_type
 
     class Meta:
-        ordering = ["created_at"]
+        ordering = ["-updated","-created_at"]
         verbose_name = 'Articulo del blog'
         verbose_name_plural = 'Articulos del blog'
 
@@ -156,3 +169,4 @@ class Comment(models.Model):
 #Post.objects.all()
 #Post.objects.create(user=user, title="Some time")
 pre_save.connect(pre_save_post_receiver, sender=Post)
+pre_save.connect(pre_save_post_receiver, sender=Tag)

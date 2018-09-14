@@ -228,7 +228,7 @@ class Department(models.Model):
     order = models.IntegerField(blank=True, verbose_name=_('Orden'), default=1)
 
     def __str__(self):
-        return self.code
+        return self.name
 
     def save(self):
         if self.order == 1:
@@ -236,7 +236,7 @@ class Department(models.Model):
         super(Department, self).save()
 
     class Meta:
-        ordering = ['-order']
+        ordering = ['order']
         verbose_name = _('Departamento')
         verbose_name_plural = _('Departamentos')
 
@@ -256,7 +256,7 @@ class Category(models.Model):
     code = models.CharField(max_length=256, blank=True, verbose_name=_('Código'))
     
     def __str__(self):
-        return self.code
+        return str(self.name)
     
     class Meta:
         verbose_name = 'Categoría'
@@ -465,7 +465,7 @@ class Article(models.Model):
         return len(self.objects.all())
     
     class Meta:
-        ordering = ["active","id","views","featured","code"]
+        ordering = ["-featured", "code"]
         verbose_name = _('Producto')
         verbose_name_plural = _('Productos')
 

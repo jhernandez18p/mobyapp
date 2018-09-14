@@ -39,13 +39,17 @@ def pre_save_receiver(sender, instance, *args, **kwargs):
         instance.slug = create_slug(instance)
 
 
-
 class Service(models.Model):
     name = models.CharField(max_length=140, blank=True, verbose_name=_('Nombre'))
     title = models.CharField(max_length=140, blank=True, verbose_name=_('Título'))
     content = RichTextField(blank=True, verbose_name=_('Descripción'))
     slug = models.CharField(max_length=140, blank=True, verbose_name=_('Slug \"SEO\"'))
     image = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
+    featured = models.BooleanField(
+        default=False,
+        verbose_name=_('Servicio destacado')
+    )
+    position = models.PositiveIntegerField(verbose_name=_('Posición'), blank=True, null=True)
     background = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Foto de fondo'))
 
     def __str__(self):

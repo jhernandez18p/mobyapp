@@ -1,14 +1,44 @@
 from django.contrib.auth.models import User, Group
+from django.contrib.flatpages.models import FlatPage
+
 from rest_framework import serializers
 from rest_framework_jwt.settings import api_settings
 from rest_framework.validators import UniqueValidator
 
-from src.blog.models  import Post, Comment
+from src.faq.models  import Answer, Question
+from src.blog.models  import Post, Comment, Tag
 from src.base.models  import Carousel, CarouselImage, Site, Pages, Position, SocialMedia
 from src.user.models import Profile
 from src.services.models import Service
+from src.testimonials.models import Testimonial
 from src.ventas.models import Photo, Line, SubLine, Color, \
     Type, Provider, Brands, Department, Category, Article
+
+
+"""
+Flatpages Serializers
+"""
+class FlatpagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = FlatPage
+        fields = '__all__'
+
+
+"""
+Frecuente Asked Questions Serializers
+"""
+class QuestionsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Question
+        fields = '__all__'
+
+class AnswersSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Answer
+        fields = '__all__'
 
 
 """
@@ -103,6 +133,13 @@ class BlogPostCommentsSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class BlogTagSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Tag
+        fields = '__all__'
+
+
 """
 Services Serializers
 """
@@ -110,6 +147,16 @@ class ServiceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Service
+        fields = '__all__'
+
+
+"""
+Testimonial Serializers
+"""
+class TestimonialSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Testimonial
         fields = '__all__'
 
 
@@ -132,9 +179,6 @@ class FrontendCarouselImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = CarouselImage
         fields = '__all__'
-
-
-
 
 
 class PagesSerializer(serializers.ModelSerializer):
@@ -197,13 +241,6 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class ArticleSerializer(serializers.ModelSerializer):
-
-    def create(self, validated_data):
-        return Article.objects.create(**validated_data)
-
-    def update(self, instance, validated_data):
-        instance.save()
-        return instance
 
     class Meta:
         model = Article
