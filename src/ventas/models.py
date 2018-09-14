@@ -346,7 +346,6 @@ class Article(models.Model):
         blank=True,
         on_delete=models.CASCADE,
         verbose_name=_('Marca'),
-        default=1
     )
     provider = models.ForeignKey(
         Provider,
