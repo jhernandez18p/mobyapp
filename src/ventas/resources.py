@@ -106,23 +106,23 @@ class CategoryResource(resources.ModelResource):
 class ArticleResource(resources.ModelResource):
     
     category = fields.Field(column_name='co_cat',attribute='category',widget=ForeignKeyWidget(Category, 'code'),saves_null_values=True)
-    code = fields.Field(column_name='co_art',attribute='code') 
+    item_type = fields.Field(column_name='item_type',attribute='item_type',widget=ForeignKeyWidget(Type, 'code'),saves_null_values=True)
     color = fields.Field(column_name='co_color',attribute='color',widget=ForeignKeyWidget(Color, 'code'),saves_null_values=True)
+    line = fields.Field(column_name='co_lin',attribute='line',widget=ForeignKeyWidget(Line, 'code'),saves_null_values=True)
+    provider = fields.Field(column_name='co_prov',attribute='provider',widget=ForeignKeyWidget(Provider, 'code'),saves_null_values=True)
+    sub_line = fields.Field(column_name='co_subl',attribute='sub_line',widget=ForeignKeyWidget(SubLine, 'code'),saves_null_values=True)
+    code = fields.Field(column_name='co_art',attribute='code') 
     description = fields.Field(column_name='art_des',attribute='description')
     img = fields.Field(column_name='imagen',attribute='img')
-    item_type = fields.Field(column_name='item_type',attribute='item_type',widget=ForeignKeyWidget(Provider, 'code'),saves_null_values=True)
-    line = fields.Field(column_name='co_lin',attribute='line',widget=ForeignKeyWidget(Line, 'code'),saves_null_values=True)
     model = fields.Field(column_name='modelo',attribute='model')
     price_1 = fields.Field(column_name='prec_vta1',attribute='price_1')
     price_2 = fields.Field(column_name='prec_vta2',attribute='price_2')
     price_3 = fields.Field(column_name='prec_vta3',attribute='price_3')
     price_4 = fields.Field(column_name='prec_vta4',attribute='price_4')
     price_5 = fields.Field(column_name='prec_vta5',attribute='price_5')
-    provider = fields.Field(column_name='co_prov',attribute='provider',widget=ForeignKeyWidget(Provider, 'code'),saves_null_values=True)
     ref = fields.Field(column_name='ref',attribute='ref')
     sales_unit = fields.Field(column_name='uni_venta',attribute='sales_unit')
     stock = fields.Field(column_name='stock_act',attribute='stock')
-    sub_line = fields.Field(column_name='co_subl',attribute='sub_line',widget=ForeignKeyWidget(SubLine, 'code'),saves_null_values=True)
 
     class Meta:
         model = Article
