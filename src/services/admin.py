@@ -12,7 +12,8 @@ class ServiceInline(admin.StackedInline):
 
 
 class ServiceModelAdmin(admin.ModelAdmin):
-    list_display = ['name',]
+    list_display = ['name','featured']
+    list_editable = ['featured',]
     inlines = [ServiceInline,]
 
     class Meta:
