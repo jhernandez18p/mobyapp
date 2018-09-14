@@ -161,10 +161,10 @@ class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.GroupSerializer
 
 
-class BlogPostViewSet(viewsets.ModelViewSet):
+class PublicBlogPostViewSet(viewsets.ModelViewSet):
     """ Blog Posts Viewset """
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    queryset = Post.objects.all()
+    queryset = Post.objects.all().filter(is_public=True)
     serializer_class = serializers.BlogPostSerializer
 
 

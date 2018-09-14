@@ -219,13 +219,13 @@ class Brands(models.Model):
 
 class Department(models.Model): 
     # Only for web use
-    background = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Foto de fondo'))
+    background = models.ImageField(upload_to=get_upload_path, blank=True, null=True, verbose_name=_('Foto de fondo'))
     description = RichTextField(blank=True, verbose_name=_('Descripción'))
-    img = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
-    name = models.CharField(max_length=256, blank=True, verbose_name=_('Nombre'))
-    slug = models.CharField(max_length=256, blank=True, verbose_name=_('Slug \"SEO\"'))
-    code = models.CharField(max_length=256, blank=True, verbose_name=_('Código'))
-    order = models.IntegerField(blank=True, verbose_name=_('Orden'), default=1)
+    img = models.ImageField(upload_to=get_upload_path, blank=True, null=True, verbose_name=_('Imágen'))
+    name = models.CharField(max_length=256, blank=True, null=True, verbose_name=_('Nombre'))
+    slug = models.CharField(max_length=256, blank=True, null=True, verbose_name=_('Slug \"SEO\"'))
+    code = models.CharField(max_length=256, blank=True, null=True, verbose_name=_('Código'))
+    order = models.IntegerField(blank=True, null=True, verbose_name=_('Orden'), default=1)
 
     def __str__(self):
         return self.name
