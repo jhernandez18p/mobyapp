@@ -1,7 +1,14 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
-from .models import (Comment, Post)
+from .models import Comment, Post, Tag
 # Register your models here.
+
+
+class TagModelAdmin(admin.ModelAdmin):
+    list_display = ['title',]
+
+    class Meta:
+        model = Tag
 
 
 class CommentModelAdmin(admin.ModelAdmin):
@@ -32,5 +39,6 @@ class PostModelAdmin(admin.ModelAdmin):
         model = Post
 
 
+admin.site.register(Tag, TagModelAdmin)
 admin.site.register(Comment, CommentModelAdmin)
 admin.site.register(Post, PostModelAdmin)
