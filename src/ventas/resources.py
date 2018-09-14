@@ -239,24 +239,49 @@ class ArticleResource(resources.ModelResource):
 
             uni_venta = str(x[9]).rstrip() #
             # print('uni_venta -->', uni_venta)
+            
+            try:
+                stock_act = int(x[10]) #
+                # print('stock_act -->', stock_act)
+            except:
+                stock_act = x[10].split('.')
+                stock_act = int(stock_act[0])
 
-            stock_act = int(x[10]) #
-            # print('stock_act -->', stock_act)
+            try:
+                prec_vta1 = int(x[11]) #
+                # print('prec_vta1 -->', prec_vta1)
+            except:
+                prec_vta1 = x[11].split('.') #
+                prec_vta1 = int(prec_vta1[0]) #
 
-            prec_vta1 = int(x[11]) #
-            # print('prec_vta1 -->', prec_vta1)
+            try:
+                prec_vta2 = int(x[12]) #
+                # print('prec_vta2 -->', prec_vta2)
+            except:
+                prec_vta2 = x[12].split('.') #
+                prec_vta2 = int(prec_vta2[0]) #
 
-            prec_vta2 = int(x[12]) #
-            # print('prec_vta2 -->', prec_vta2)
+            try:
+                prec_vta3 = int(x[13]) #
+                # print('prec_vta3 -->', prec_vta3)
+            except:
+                prec_vta3 = x[13].split('.') #
+                prec_vta3 = int(prec_vta3[0]) #
 
-            prec_vta3 = int(x[13]) #
-            # print('prec_vta3 -->', prec_vta3)
+            try:
+                prec_vta4 = int(x[14]) #
+                # print('prec_vta4 -->', prec_vta4)
+            except:
+                prec_vta4 = x[14].split('.') #
+                prec_vta4 = int(prec_vta4[0]) #
 
-            prec_vta4 = int(x[14]) #
-            # print('prec_vta4 -->', prec_vta4)
+            try:
+                prec_vta5 = int(x[15]) #
+                # print('prec_vta5 -->', prec_vta5)
+            except:
+                prec_vta5 = x[15].split('.') #
+                prec_vta5 = int(prec_vta5[0]) #
 
-            prec_vta5 = int(x[15]) #
-            # print('prec_vta5 -->', prec_vta5)
 
             imagen = x[16] #
             # print('imagen -->', imagen)
