@@ -101,9 +101,9 @@ ENV/
 
 
 # Media repo
-/media/*
 !/media/sales/arts/
 !media/sales/arts/
+/media/*
 
 # Exclude
 /*.pyc
