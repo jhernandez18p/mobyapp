@@ -84,14 +84,15 @@ THIRD_PARTY_APPS = [
     'ckeditor_uploader',
     'ckeditor',
     'corsheaders', # JWT
-    'import_export',
     'django_filters',
-    'rest_framework.authtoken',
+    'import_export',
+    'knox',
     'rest_framework',
     'social_django',
     'sorl.thumbnail',
     'storages',
     'widget_tweaks',
+    # 'rest_framework.authtoken',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
@@ -206,10 +207,11 @@ REST_FRAMEWORK = {
 #         'rest_framework.permissions.IsAuthenticated',
 #    ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'knox.auth.TokenAuthentication',
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
+        'app.settings.EmailBackend.EmailBackend',
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 20,

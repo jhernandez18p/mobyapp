@@ -24,6 +24,7 @@ urlpatterns = [
     path('intra/', include('src.intra.urls', namespace='intra')),
     path('auth/', include('src.user.urls',namespace='auth')),
     path('api/v2/', include('src.api.urls',namespace='api')),
+    path('api/v2/auth/', include('knox.urls')),
     path('adminsite/', admin.site.urls),
 
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),

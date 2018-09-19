@@ -1,7 +1,9 @@
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User, Group
 from django.contrib.flatpages.models import FlatPage
 
 from rest_framework import serializers
+from rest_framework.authtoken.models import Token
 from rest_framework_jwt.settings import api_settings
 from rest_framework.validators import UniqueValidator
 
@@ -60,25 +62,12 @@ class GroupSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(
-        required=True,
-        validators=[UniqueValidator(queryset=User.objects.all())]
-    )
-    username = serializers.CharField(
-        max_length=32,
-        validators=[UniqueValidator(queryset=User.objects.all())]
-    )
-    password = serializers.CharField(min_length=8, write_only=True)
-
-    def create(self, validated_data):
-        user = User.objects.create_user(validated_data['username'], validated_data['email'],
-             validated_data['password'])
-        return user
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'password')
+        # fields = ('id', 'username', 'email', 'password')
         # fields = '__all__'
+        exclude = ('groups','user_permissions')
 
 
 class UserSerializerWithToken(serializers.ModelSerializer):
@@ -109,6 +98,33 @@ class UserSerializerWithToken(serializers.ModelSerializer):
         #     'token', 'username', 'first_name', 'last_name', 'email', 'groups', 'is_superuser', 'is_active', 'password'
         # )
         exclude = ('groups','user_permissions')
+
+
+class CreateUserSerializer(serializers.ModelSerializer):
+
+    username = serializers.CharField()
+    password = serializers.CharField()
+    email = serializers.CharField()
+
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'password', 'email')
+        extra_kwargs = {'password': {'write_only': True}}
+
+    def create(self, validated_data):
+        user = User.objects.create_user(validated_data['username'], validated_data['password'], validated_data['email'])
+        return user
+
+
+class LoginUserSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField()
+
+    def validate(self, data):
+        user = authenticate(**data)
+        if user and user.is_active:
+            return user
+        raise serializers.ValidationError("Unable to log in with provided credentials.")
 
 
 """

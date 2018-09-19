@@ -102,7 +102,7 @@ ENV/
 
 # Media repo
 /media/*
-!/media/sales/arts/base.jpg
+!/media/sales/arts/*
 
 # Exclude
 /*.pyc
