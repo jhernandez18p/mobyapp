@@ -77,13 +77,13 @@ class Post(models.Model):
         upload_to=get_upload_path, 
         null=True, 
         blank=True, 
-        default='',
+        default='base.jpg',
     )
     background = models.ImageField(verbose_name=_('Imágen de fondo'),
         upload_to=get_upload_path,
         null=True, 
         blank=True, 
-        default='',
+        default='base.jpg',
     )
     slug = models.SlugField(unique=True, blank=True,verbose_name=_('Nombre url SEO'))
     tag = models.ForeignKey(Tag, on_delete=models.CASCADE,null=True,verbose_name=_('Tag asociado'))
