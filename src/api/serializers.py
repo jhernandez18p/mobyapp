@@ -7,9 +7,9 @@ from rest_framework.authtoken.models import Token
 from rest_framework_jwt.settings import api_settings
 from rest_framework.validators import UniqueValidator
 
-from src.faq.models  import Answer, Question
-from src.blog.models  import Post, Comment, Tag
-from src.base.models  import Carousel, CarouselImage, Site, Pages, Position, SocialMedia
+from src.faq.models import Answer, Question
+from src.blog.models import Post, Comment, Tag
+from src.base.models import Carousel, CarouselImage, Site, Pages, Position, SocialMedia
 from src.user.models import Profile
 from src.services.models import Service
 from src.testimonials.models import Testimonial
@@ -20,6 +20,8 @@ from src.ventas.models import Photo, Line, SubLine, Color, \
 """
 Flatpages Serializers
 """
+
+
 class FlatpagesSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -30,11 +32,14 @@ class FlatpagesSerializer(serializers.ModelSerializer):
 """
 Frecuente Asked Questions Serializers
 """
+
+
 class QuestionsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Question
         fields = '__all__'
+
 
 class AnswersSerializer(serializers.ModelSerializer):
 
@@ -46,6 +51,8 @@ class AnswersSerializer(serializers.ModelSerializer):
 """
 User & auth Serializers
 """
+
+
 class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -54,7 +61,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
 
 class GroupSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = Group
         fields = '__all__'
@@ -67,7 +74,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         # fields = ('id', 'username', 'email', 'password')
         # fields = '__all__'
-        exclude = ('groups','user_permissions')
+        exclude = ('groups', 'user_permissions')
 
 
 class UserSerializerWithToken(serializers.ModelSerializer):
@@ -97,7 +104,7 @@ class UserSerializerWithToken(serializers.ModelSerializer):
         # fields = (
         #     'token', 'username', 'first_name', 'last_name', 'email', 'groups', 'is_superuser', 'is_active', 'password'
         # )
-        exclude = ('groups','user_permissions')
+        exclude = ('groups', 'user_permissions')
 
 
 class CreateUserSerializer(serializers.ModelSerializer):
@@ -112,7 +119,8 @@ class CreateUserSerializer(serializers.ModelSerializer):
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
-        user = User.objects.create_user(validated_data['username'], validated_data['password'], validated_data['email'])
+        user = User.objects.create_user(
+            validated_data['username'], validated_data['password'], validated_data['email'])
         return user
 
 
@@ -124,33 +132,35 @@ class LoginUserSerializer(serializers.Serializer):
         user = authenticate(**data)
         if user and user.is_active:
             return user
-        raise serializers.ValidationError("Unable to log in with provided credentials.")
+        raise serializers.ValidationError(
+            "Unable to log in with provided credentials.")
 
 
 """
 Blog  Serializers
 """
+
+
 class BlogPostSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = Post
         fields = '__all__'
-        # fields = (
-        #     'author','updated_by','title','sub_title',
-        #     'text','draft','published','updated','created_at',
-        #     'img','background','slug',
-        # )
+        lookup_field = 'slug'
+        extra_kwargs = {
+            'url': {'lookup_field': 'slug'}
+        }
 
 
 class BlogPostCommentsSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = Comment
         fields = '__all__'
 
 
 class BlogTagSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = Tag
         fields = '__all__'
@@ -159,6 +169,8 @@ class BlogTagSerializer(serializers.ModelSerializer):
 """
 Services Serializers
 """
+
+
 class ServiceSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -169,6 +181,8 @@ class ServiceSerializer(serializers.ModelSerializer):
 """
 Testimonial Serializers
 """
+
+
 class TestimonialSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -179,6 +193,8 @@ class TestimonialSerializer(serializers.ModelSerializer):
 """
 Site Serializers
 """
+
+
 class FrontendCarouselSerializer(serializers.ModelSerializer):
 
     # page = serializers.PrimaryKeyRelatedField( read_only=True )
@@ -228,6 +244,8 @@ class SocialMediaSerializer(serializers.ModelSerializer):
 """
 Ventas Serializers
 """
+
+
 class SubLineSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -289,6 +307,10 @@ class ProviderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Provider
         fields = '__all__'
+        lookup_field = 'slug'
+        extra_kwargs = {
+            'url': {'lookup_field': 'slug'}
+        }
 
 
 class TypeSerializer(serializers.ModelSerializer):
