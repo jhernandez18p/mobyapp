@@ -42,7 +42,8 @@ def pre_save_receiver(sender, instance, *args, **kwargs):
 class Service(models.Model):
     name = models.CharField(max_length=140, blank=True, verbose_name=_('Nombre'))
     title = models.CharField(max_length=140, blank=True, verbose_name=_('Título'))
-    content = RichTextField(blank=True, verbose_name=_('Descripción'))
+    description = RichTextField(blank=True, verbose_name=_('Descripción'))
+    content = RichTextField(blank=True, verbose_name=_('Contenido'))
     slug = models.CharField(max_length=140, blank=True, verbose_name=_('Slug \"SEO\"'))
     image = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
     featured = models.BooleanField(

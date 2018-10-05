@@ -445,6 +445,10 @@ class Article(models.Model):
         default=False,
         verbose_name=_('Destacado')
     )
+    sale = models.BooleanField(
+        default=False,
+        verbose_name=_('Destacado')
+    )
     imported = models.BooleanField(
         default=False,
         verbose_name=_('Importado')
