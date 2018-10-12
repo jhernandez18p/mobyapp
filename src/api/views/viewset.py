@@ -175,13 +175,14 @@ class PhotoViewSet(viewsets.ModelViewSet):
 
 class LineViewSet(viewsets.ModelViewSet):
     """ Line Viewset """
-    # __basic_fields = ('name', 'menu__name', 'menu__description')
+    __filter_fields = ('description', 'name', 'code', 'count')
+    __basic_fields = ('description', 'name', 'code')
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Line.objects.all()
     serializer_class = serializers.LineSerializer
     filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
-    # filter_fields = __basic_fields
-    # search_fields = __basic_fields
+    filter_fields = __filter_fields
+    search_fields = __basic_fields
 
 
 class SubLineViewSet(viewsets.ModelViewSet):
