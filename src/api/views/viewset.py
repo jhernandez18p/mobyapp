@@ -193,7 +193,7 @@ class SubLineViewSet(viewsets.ModelViewSet):
     queryset = SubLine.objects.all()
     serializer_class = serializers.SubLineSerializer
     filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
-    # filter_fields = __filter_fields
+    filter_fields = __filter_fields
     # search_fields = __basic_fields
 
 
