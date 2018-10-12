@@ -120,6 +120,7 @@ class Line(models.Model):
     img = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
     name = models.CharField(max_length=256, blank=True, verbose_name=_('Nombre'))
     code = models.CharField(max_length=256, blank=True, verbose_name=_('Código'))
+    count = models.PositiveIntegerField(blank=True, default=0)
 
     def __str__(self):
         return self.code
@@ -136,6 +137,7 @@ class SubLine(models.Model):
     name = models.CharField(max_length=256, blank=True, verbose_name=_('Nombre'))
     code = models.CharField(max_length=256, blank=True, verbose_name=_('Código'))
     parent = models.ForeignKey(Line, null=True, blank=True, on_delete=models.CASCADE, verbose_name=_('Linea padre'))
+    count = models.PositiveIntegerField(blank=True, default=0)
 
     def __str__(self):
         return self.code
@@ -150,6 +152,7 @@ class Color(models.Model):
     hex_code = models.CharField(max_length=9, blank=True, verbose_name=_('Código Hexadecimal'))
     name = models.CharField(max_length=256, blank=True, verbose_name=_('Nombre'))
     code = models.CharField(max_length=256, blank=True, verbose_name=_('Código'))
+    count = models.PositiveIntegerField(blank=True, default=0)
 
     def __str__(self):
         return self.code
@@ -166,6 +169,7 @@ class Type(models.Model):
     img = models.ImageField(upload_to=get_upload_path, blank=True, verbose_name=_('Imágen'))
     name = models.CharField(max_length=256, blank=True, verbose_name=_('Nombre'))
     code = models.CharField(max_length=256, blank=True, verbose_name=_('Código'))
+    count = models.PositiveIntegerField(blank=True, default=0)
 
     def __str__(self):
         return self.code
@@ -205,6 +209,7 @@ class Brands(models.Model):
     slug = models.CharField(max_length=256, blank=True, verbose_name=_('Slug \"SEO\"'))
     website = models.CharField(max_length=256, blank=True, verbose_name=_('Dirección url'))
     code = models.CharField(max_length=256, blank=True, verbose_name=_('Código'))
+    count = models.PositiveIntegerField(blank=True, default=0)
 
     def __str__(self):
         return self.code
@@ -226,6 +231,7 @@ class Department(models.Model):
     slug = models.CharField(max_length=256, blank=True, null=True, verbose_name=_('Slug \"SEO\"'))
     code = models.CharField(max_length=256, blank=True, null=True, verbose_name=_('Código'))
     order = models.IntegerField(blank=True, null=True, verbose_name=_('Orden'), default=1)
+    count = models.PositiveIntegerField(blank=True, default=0)
 
     def __str__(self):
         return self.name
@@ -254,6 +260,7 @@ class Category(models.Model):
     parent = models.ForeignKey(Department, null=True, blank=True, on_delete=models.CASCADE, verbose_name=_('Categoría padre'))
     slug = models.CharField(max_length=256, blank=True, verbose_name=_('Slug \"SEO\"'))
     code = models.CharField(max_length=256, blank=True, verbose_name=_('Código'))
+    count = models.PositiveIntegerField(blank=True, default=0)
     
     def __str__(self):
         return str(self.name)
