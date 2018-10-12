@@ -187,12 +187,12 @@ class LineViewSet(viewsets.ModelViewSet):
 
 class SubLineViewSet(viewsets.ModelViewSet):
     """ Subline Viewset """
-    __filter_fields = ('parent')
+    # __filter_fields = ('parent')
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = SubLine.objects.all()
     serializer_class = serializers.SubLineSerializer
     filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
-    filter_fields = __filter_fields
+    # filter_fields = __filter_fields
     # search_fields = __basic_fields
 
 
