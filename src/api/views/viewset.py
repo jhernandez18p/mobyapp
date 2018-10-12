@@ -187,7 +187,8 @@ class LineViewSet(viewsets.ModelViewSet):
 
 class SubLineViewSet(viewsets.ModelViewSet):
     """ Subline Viewset """
-    # __filter_fields = ('parent')
+    __filter_fields = ('parent',)
+    # __basic_fields = ('parent',)
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = SubLine.objects.all()
     serializer_class = serializers.SubLineSerializer
