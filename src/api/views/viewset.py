@@ -165,12 +165,12 @@ class ArticleViewSet(viewsets.ModelViewSet):
 
 class PhotoViewSet(viewsets.ModelViewSet):
     """ Photo Viewset """
-    # __basic_fields = ('name', 'menu__name', 'menu__description')
+    __basic_fields = ('Service',)
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = ServiceImage.objects.all()
     serializer_class = serializers.PhotoSerializer
     filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
-    # filter_fields = __basic_fields
+    filter_fields = __basic_fields
     # search_fields = __basic_fields
 
 
