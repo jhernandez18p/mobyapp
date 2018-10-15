@@ -200,12 +200,12 @@ class SubLineViewSet(viewsets.ModelViewSet):
 
 class ColorViewSet(viewsets.ModelViewSet):
     """ Color Viewset """
-    # __basic_fields = ('name', 'menu__name', 'menu__description')
+    __basic_fields = ('active',)
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Color.objects.all()
     serializer_class = serializers.ColorSerializer
     filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
-    # filter_fields = __basic_fields
+    filter_fields = __basic_fields
     # search_fields = __basic_fields
 
 
