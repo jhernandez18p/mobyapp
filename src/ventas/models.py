@@ -121,6 +121,10 @@ class Line(models.Model):
     name = models.CharField(max_length=256, blank=True, verbose_name=_('Nombre'))
     code = models.CharField(max_length=256, blank=True, verbose_name=_('Código'))
     count = models.PositiveIntegerField(blank=True, default=0)
+    active = models.BooleanField(
+        default=True,
+        verbose_name=_('Activo')
+    )
 
     def __str__(self):
         return self.code
@@ -138,6 +142,10 @@ class SubLine(models.Model):
     code = models.CharField(max_length=256, blank=True, verbose_name=_('Código'))
     parent = models.ForeignKey(Line, null=True, blank=True, on_delete=models.CASCADE, verbose_name=_('Linea padre'))
     count = models.PositiveIntegerField(blank=True, default=0)
+    active = models.BooleanField(
+        default=True,
+        verbose_name=_('Activo')
+    )
 
     def __str__(self):
         return self.code
@@ -153,6 +161,10 @@ class Color(models.Model):
     name = models.CharField(max_length=256, blank=True, verbose_name=_('Nombre'))
     code = models.CharField(max_length=256, blank=True, verbose_name=_('Código'))
     count = models.PositiveIntegerField(blank=True, default=0)
+    active = models.BooleanField(
+        default=True,
+        verbose_name=_('Activo')
+    )
 
     def __str__(self):
         return self.code
@@ -170,6 +182,10 @@ class Type(models.Model):
     name = models.CharField(max_length=256, blank=True, verbose_name=_('Nombre'))
     code = models.CharField(max_length=256, blank=True, verbose_name=_('Código'))
     count = models.PositiveIntegerField(blank=True, default=0)
+    active = models.BooleanField(
+        default=True,
+        verbose_name=_('Activo')
+    )
 
     def __str__(self):
         return self.code
@@ -210,6 +226,10 @@ class Brands(models.Model):
     website = models.CharField(max_length=256, blank=True, verbose_name=_('Dirección url'))
     code = models.CharField(max_length=256, blank=True, verbose_name=_('Código'))
     count = models.PositiveIntegerField(blank=True, default=0)
+    active = models.BooleanField(
+        default=True,
+        verbose_name=_('Activo')
+    )
 
     def __str__(self):
         return self.code
@@ -232,6 +252,10 @@ class Department(models.Model):
     code = models.CharField(max_length=256, blank=True, null=True, verbose_name=_('Código'))
     order = models.IntegerField(blank=True, null=True, verbose_name=_('Orden'), default=1)
     count = models.PositiveIntegerField(blank=True, default=0)
+    active = models.BooleanField(
+        default=True,
+        verbose_name=_('Activo')
+    )
 
     def __str__(self):
         return self.name
@@ -261,6 +285,10 @@ class Category(models.Model):
     slug = models.CharField(max_length=256, blank=True, verbose_name=_('Slug \"SEO\"'))
     code = models.CharField(max_length=256, blank=True, verbose_name=_('Código'))
     count = models.PositiveIntegerField(blank=True, default=0)
+    active = models.BooleanField(
+        default=True,
+        verbose_name=_('Activo')
+    )
     
     def __str__(self):
         return str(self.name)

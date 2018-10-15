@@ -119,34 +119,34 @@ class SiteViewSet(viewsets.ModelViewSet):
 
 class BrandsViewSet(viewsets.ModelViewSet):
     """ Brand Viewset """
-    # __basic_fields = ('name', 'menu__name', 'menu__description')
+    __basic_fields = ('active',)
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Brands.objects.all()
     serializer_class = serializers.BrandsSerializer
     filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
-    # filter_fields = __basic_fields
+    filter_fields = __basic_fields
     # search_fields = __basic_fields
 
 
 class DepartmentViewSet(viewsets.ModelViewSet):
     """ Departments Viewset """
-    # __basic_fields = ('name', 'menu__name', 'menu__description')
+    __basic_fields = ('active',)
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Department.objects.all()
     serializer_class = serializers.DepartmentSerializer
     filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
-    # filter_fields = __basic_fields
+    filter_fields = __basic_fields
     # search_fields = __basic_fields
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
     """ Category Viewset """
-    # __basic_fields = ('name', 'menu__name', 'menu__description')
+    __basic_fields = ('active',)
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Category.objects.all()
     serializer_class = serializers.CategorySerializer
     filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
-    # filter_fields = __basic_fields
+    filter_fields = __basic_fields
     # search_fields = __basic_fields
 
 
