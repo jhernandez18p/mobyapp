@@ -152,7 +152,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
 
 class ArticleViewSet(viewsets.ModelViewSet):
     """ Article Viewset """
-    __basic_fields = ('code','description')
+    __basic_fields = ('code','description','active')
     __filter_fields = ('line','category','department','brand','color')
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Article.objects.all().order_by('-featured')
@@ -176,7 +176,7 @@ class PhotoViewSet(viewsets.ModelViewSet):
 
 class LineViewSet(viewsets.ModelViewSet):
     """ Line Viewset """
-    __filter_fields = ('description', 'name', 'code', 'count')
+    __filter_fields = ('description', 'name', 'code', 'count','active')
     __basic_fields = ('description', 'name', 'code')
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Line.objects.all()
@@ -188,7 +188,7 @@ class LineViewSet(viewsets.ModelViewSet):
 
 class SubLineViewSet(viewsets.ModelViewSet):
     """ Subline Viewset """
-    __filter_fields = ('parent',)
+    __filter_fields = ('parent','active')
     # __basic_fields = ('parent',)
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = SubLine.objects.all()
@@ -211,12 +211,12 @@ class ColorViewSet(viewsets.ModelViewSet):
 
 class TypeViewSet(viewsets.ModelViewSet):
     """ Type Viewset """
-    # __basic_fields = ('name', 'menu__name', 'menu__description')
+    __basic_fields = ('active',)
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Type.objects.all()
     serializer_class = serializers.TypeSerializer
     filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
-    # filter_fields = __basic_fields
+    filter_fields = __basic_fields
     # search_fields = __basic_fields
 
 
