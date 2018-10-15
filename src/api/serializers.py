@@ -11,9 +11,9 @@ from src.faq.models import Answer, Question
 from src.blog.models import Post, Comment, Tag
 from src.base.models import Carousel, CarouselImage, Site, Pages, Position, SocialMedia
 from src.user.models import Profile
-from src.services.models import Service
+from src.services.models import Service, ServiceImage
 from src.testimonials.models import Testimonial
-from src.ventas.models import Photo, Line, SubLine, Color, \
+from src.ventas.models import Line, SubLine, Color, \
     Type, Provider, Brands, Department, Category, Article
 
 
@@ -178,6 +178,13 @@ class ServiceSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class PhotoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ServiceImage
+        fields = '__all__'
+        
+
 """
 Testimonial Serializers
 """
@@ -285,13 +292,6 @@ class BrandsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Brands
-        fields = '__all__'
-
-
-class PhotoSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Photo
         fields = '__all__'
 
 

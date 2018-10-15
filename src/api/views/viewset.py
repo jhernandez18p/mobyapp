@@ -11,9 +11,9 @@ from src.api import serializers
 from src.base.models import Carousel, CarouselImage, Site, Pages, Position, SocialMedia
 from src.blog.models import Post, Comment, Tag
 from src.faq.models  import Answer, Question
-from src.services.models import Service
+from src.services.models import Service, ServiceImage
 from src.testimonials.models import Testimonial
-from src.ventas.models import Photo, Line, SubLine, Color, \
+from src.ventas.models import Line, SubLine, Color, \
     Type, Provider, Brands, Department, Category, Article
 
 
@@ -167,7 +167,7 @@ class PhotoViewSet(viewsets.ModelViewSet):
     """ Photo Viewset """
     # __basic_fields = ('name', 'menu__name', 'menu__description')
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    queryset = Photo.objects.all()
+    queryset = ServiceImage.objects.all()
     serializer_class = serializers.PhotoSerializer
     filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
     # filter_fields = __basic_fields
