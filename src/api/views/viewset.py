@@ -100,6 +100,7 @@ class ServiceViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Service.objects.all()
     serializer_class = serializers.ServiceSerializer
+    lookup_field = 'slug'
     filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
     # filter_fields = __basic_fields
     # search_fields = __basic_fields
