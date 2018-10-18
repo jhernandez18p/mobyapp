@@ -41,12 +41,13 @@ class QuestionsViewSet(viewsets.ModelViewSet):
 
 class AnswersViewSet(viewsets.ModelViewSet):
     """ Answers Viewset """
+    __filter_fields = ('question',)
     # __basic_fields = ('name', 'menu__name', 'menu__description')
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Answer.objects.all()
     serializer_class = serializers.AnswersSerializer
     filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
-    # filter_fields = __basic_fields
+    filter_fields = __filter_fields
     # search_fields = __basic_fields
 
 
