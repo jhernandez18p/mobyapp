@@ -24,6 +24,7 @@ class FlatpagesViewSet(viewsets.ModelViewSet):
     queryset = FlatPage.objects.all()
     serializer_class = serializers.FlatpagesSerializer
     filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
+    lookup_field = 'title'
     # filter_fields = __basic_fields
     # search_fields = __basic_fields
 
