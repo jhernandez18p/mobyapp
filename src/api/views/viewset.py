@@ -145,7 +145,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
     """ Category Viewset """
     __basic_fields = ('active',)
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    queryset = Category.objects.all()
+    queryset = Category.objects.all().order_by('description')
     serializer_class = serializers.CategorySerializer
     filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
     filter_fields = __basic_fields
@@ -204,7 +204,7 @@ class ColorViewSet(viewsets.ModelViewSet):
     """ Color Viewset """
     __basic_fields = ('active',)
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    queryset = Color.objects.all()
+    queryset = Color.objects.all().order_by('name')
     serializer_class = serializers.ColorSerializer
     filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
     filter_fields = __basic_fields
