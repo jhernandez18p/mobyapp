@@ -157,7 +157,7 @@ class ArticleViewSet(viewsets.ModelViewSet):
     __basic_fields = ('code','description','active')
     __filter_fields = ('line','category','department','brand','color')
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    queryset = Article.objects.all().order_by('-code', 'featured', 'views')
+    queryset = Article.objects.all().order_by('code', 'featured', 'views')
     serializer_class = serializers.ArticleSerializer
     lookup_field = 'slug'
     filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
