@@ -503,7 +503,7 @@ class Article(models.Model):
         return len(self.objects.all())
     
     class Meta:
-        ordering = ["-featured", "code"]
+        ordering = ["code"]
         verbose_name = _('Producto')
         verbose_name_plural = _('Productos')
 
