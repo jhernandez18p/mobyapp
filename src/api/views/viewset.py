@@ -138,7 +138,6 @@ class DepartmentViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.DepartmentSerializer
     filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
     filter_fields = __basic_fields
-    pagination_class = 50
     # search_fields = __basic_fields
 
 
@@ -150,7 +149,6 @@ class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.CategorySerializer
     filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
     filter_fields = __basic_fields
-    pagination_class = 50
     # search_fields = __basic_fields
 
 
@@ -188,7 +186,6 @@ class LineViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
     filter_fields = __filter_fields
     search_fields = __basic_fields
-    pagination_class = 50
 
 
 class SubLineViewSet(viewsets.ModelViewSet):
@@ -200,7 +197,6 @@ class SubLineViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.SubLineSerializer
     filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
     filter_fields = __filter_fields
-    pagination_class = 50
     # search_fields = __basic_fields
 
 
@@ -212,7 +208,6 @@ class ColorViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.ColorSerializer
     filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
     filter_fields = __basic_fields
-    pagination_class = 50
     # search_fields = __basic_fields
 
 
