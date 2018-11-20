@@ -29,6 +29,9 @@ if DEBUG:
     ALLOWED_HOSTS = ['*']
     MESSAGE_LEVEL = message_constants.DEBUG
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    CORS_ORIGIN_WHITELIST = (
+        'localhost:*'
+    )
     
 else:
     # Debug False
@@ -46,11 +49,11 @@ else:
     PASSWORD_RESET_TIMEOUT_DAYS = 3
     MESSAGE_LEVEL = message_constants.INFO
 
-CORS_ORIGIN_WHITELIST = (
-    'localhost:15100',
-    'localhost:9000',
-    'localhost:3000',
-)
+    CORS_ORIGIN_WHITELIST = (
+        'localhost:15100',
+        'localhost:9000',
+        'localhost:3000',
+    )
 
 
 DJANGO_APPS = [
