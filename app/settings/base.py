@@ -15,6 +15,14 @@ SITE_URL = 'http://www.moby-group.com'
 SESSION_COOKIE_AGE = 43200
 SESSION_COOKIE_NAME = 'session'
 
+MESSAGE_TAGS = {
+    message_constants.DEBUG: 'info',
+    message_constants.INFO: 'info',
+    message_constants.SUCCESS: 'success',
+    message_constants.WARNING: 'warning',
+    message_constants.ERROR: 'danger',
+}
+
 if DEBUG:
     # Debug True
     CORS_ORIGIN_ALLOW_ALL = True
@@ -37,19 +45,13 @@ else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     PASSWORD_RESET_TIMEOUT_DAYS = 3
     MESSAGE_LEVEL = message_constants.INFO
-    CORS_ORIGIN_WHITELIST = (
-        'localhost:15100',
-        'localhost:9000',
-        'localhost:3000',
-    )
 
-MESSAGE_TAGS = {
-    message_constants.DEBUG: 'info',
-    message_constants.INFO: 'info',
-    message_constants.SUCCESS: 'success',
-    message_constants.WARNING: 'warning',
-    message_constants.ERROR: 'danger',
-}
+CORS_ORIGIN_WHITELIST = (
+    'localhost:15100',
+    'localhost:9000',
+    'localhost:3000',
+)
+
 
 DJANGO_APPS = [
     'django.contrib.auth',
