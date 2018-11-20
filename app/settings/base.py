@@ -1,7 +1,6 @@
 import os
 from decouple import config
 from django.contrib.messages import constants as message_constants
-from django.contrib.messages import constants as messages
 
 SITE_ID = 1
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -10,8 +9,8 @@ ROOT_URLCONF = 'app.urls.base'
 WSGI_APPLICATION = 'app.wsgi.application'
 DEBUG = config('DEBUG', cast=bool)
 
-LOGIN_URL = '/auth/login/'
-LOGIN_REDIRECT_URL = '/intra/'
+# LOGIN_URL = '/auth/login/'
+# LOGIN_REDIRECT_URL = '/intra/'
 SITE_URL = 'http://www.moby-group.com'
 SESSION_COOKIE_AGE = 43200
 SESSION_COOKIE_NAME = 'session'
@@ -45,11 +44,11 @@ else:
     )
 
 MESSAGE_TAGS = {
-    messages.DEBUG: 'info',
-    messages.INFO: 'info',
-    messages.SUCCESS: 'success',
-    messages.WARNING: 'warning',
-    messages.ERROR: 'danger',
+    message_constants.DEBUG: 'info',
+    message_constants.INFO: 'info',
+    message_constants.SUCCESS: 'success',
+    message_constants.WARNING: 'warning',
+    message_constants.ERROR: 'danger',
 }
 
 DJANGO_APPS = [
@@ -64,7 +63,6 @@ DJANGO_APPS = [
     'django.contrib.sitemaps',
     'django.contrib.humanize',
     'django.contrib.redirects',
-    # 'django.contrib.gis',
 ]
 
 LOCAL_APPS = [
@@ -83,16 +81,16 @@ LOCAL_APPS = [
 THIRD_PARTY_APPS = [
     'ckeditor_uploader',
     'ckeditor',
-    'corsheaders', # JWT
+    # 'corsheaders', # JWT
     'django_filters',
     'import_export',
     'knox',
+    'rest_framework.authtoken',
     'rest_framework',
     'social_django',
     'sorl.thumbnail',
     'storages',
     'widget_tweaks',
-    # 'rest_framework.authtoken',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
@@ -100,7 +98,7 @@ INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware', # JWT
+    # 'corsheaders.middleware.CorsMiddleware', # JWT
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -162,9 +160,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    # 'social_core.backends.github.GithubOAuth2',
-    # 'social_core.backends.twitter.TwitterOAuth',
-    # 'social_core.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend',
     'app.settings.EmailBackend.EmailBackend',
 ]
@@ -205,29 +200,25 @@ else:
     # ]
 
 REST_FRAMEWORK = {
-#    'DEFAULT_PERMISSION_CLASSES': (
-#         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-#         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-#         'rest_framework.permissions.IsAuthenticated',
-#    ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'knox.auth.TokenAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
-        'app.settings.EmailBackend.EmailBackend',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 20,
-#     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
-    'DEFAULT_FILTER_BACKENDS': (
-        'django_filters.rest_framework.DjangoFilterBackend',
-    )
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
 }
 
-JWT_AUTH = {
-    'JWT_RESPONSE_PAYLOAD_HANDLER': 'src.user.tokens.my_jwt_response_handler'
-}
+# JWT_AUTH = {
+#     'JWT_RESPONSE_PAYLOAD_HANDLER': 'src.user.tokens.my_jwt_response_handler'
+# }
 
 
 IMPORT_EXPORT_USE_TRANSACTIONS = True

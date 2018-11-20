@@ -1,5 +1,6 @@
 import json
 
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
@@ -16,42 +17,51 @@ from src.api.serializers import CreateUserSerializer, UserSerializer, LoginUserS
 from knox.models import AuthToken
 
 
-class UserCreate(generics.GenericAPIView):
+class UserCreate(generics.CreateAPIView):
     """ 
     Creates the user. 
     """
 
-    serializer_class = CreateUserSerializer
-
-    def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.save()
-        return Response({
-            "user": UserSerializer(user, context=self.get_serializer_context()).data,
-            "token": AuthToken.objects.create(user)
-        })
+    authentication_classes = ()
+    permission_classes = ()
+    serializer_class = UserSerializer
 
 
-class LoginAPI(generics.GenericAPIView):
-    serializer_class = LoginUserSerializer
 
-    def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data
-        return Response({
-            "user": UserSerializer(user, context=self.get_serializer_context()).data,
-            "token": AuthToken.objects.create(user)
-        })
+class LoginAPI(APIView):
+    permission_classes = ()
+    
+    def post(self, request,):
+        username = request.data.get("username")
+        password = request.data.get("password")
+        user = authenticate(username=username, password=password)
+        
+        if user:
+            return Response({"token": user.auth_token.key})
+        else:
+            return Response({"error": "Credenciales incorrectas"}, status=status.HTTP_400_BAD_REQUEST)
+        
+# class LoginAPI(generics.GenericAPIView):
+#     serializer_class = LoginUserSerializer
+
+#     def post(self, request, *args, **kwargs):
+#         serializer = self.get_serializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         user = serializer.validated_data
+#         return Response({
+#             "user": UserSerializer(user, context=self.get_serializer_context()).data,
+#             "token": AuthToken.objects.create(user)
+#         })
 
 
 class UserAPI(generics.RetrieveAPIView):
     # permission_classes = [permissions.IsAuthenticated, ]
-    serializer_class = UserSerializer
+    # serializer_class = UserSerializer
+    serializer_class = LoginUserSerializer
 
     def get_object(self):
         return self.request.user
+
 
 @csrf_exempt
 def CheckEmail(request):

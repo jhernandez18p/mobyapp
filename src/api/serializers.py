@@ -7,6 +7,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework_jwt.settings import api_settings
 from rest_framework.validators import UniqueValidator
 
+
 from src.faq.models import Answer, Question
 from src.blog.models import Post, Comment, Tag
 from src.base.models import Carousel, CarouselImage, Site, Pages, Position, SocialMedia
@@ -72,9 +73,24 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        # fields = ('id', 'username', 'email', 'password')
-        # fields = '__all__'
-        exclude = ('groups', 'user_permissions')
+        fields = ('username', 'email', 'password')
+        extra_kwargs = {'password': {'write_only': True}}
+
+    def create(self, validated_data):
+        user = User(
+            email=validated_data['email'],
+            username=validated_data['username']
+        )
+        user.set_password(validated_data['password'])
+        user.save()
+        Token.objects.create(user=user)
+        return user
+
+    # class Meta:
+    #     model = User
+    #     exclude = ('groups', 'user_permissions')
+    #     fields = ('id', 'username', 'email', 'password')
+    #     fields = '__all__'
 
 
 class UserSerializerWithToken(serializers.ModelSerializer):

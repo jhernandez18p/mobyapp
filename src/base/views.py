@@ -14,7 +14,11 @@ from src.utils.libs import contact_email
 from src.ventas.models import Department
 
 
-class Home(ListView):
+def Home(request):
+    return HttpResponseRedirect('/api/v2/')
+
+
+class _Home(ListView):
     queryset = ''
     template_name = 'app/home.html'
 

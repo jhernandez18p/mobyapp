@@ -50,12 +50,12 @@ app_name = 'api'
 urlpatterns = [
     path('', include(router.urls)),
     # Token
-    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('token/auth/', obtain_jwt_token),
+    # path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    # path('token/auth/', obtain_jwt_token),
     # Auth
-    path('auth/login/', LoginAPI.as_view(), name='token_obtain_pair'),
+    # path('auth/user/', UserAPI.as_view(), name='register'),
     path('auth/register/', UserCreate.as_view(), name='register'),
-    path('auth/user/', UserAPI.as_view(), name='register'),
+    path('auth/login/', LoginAPI.as_view(), name='token_obtain_pair'),
     path('auth/check-email/', CheckEmail, name='register'),
     path('auth/check-username/', CheckUsername, name='register'),
     # path('/', include('rest_framework.urls', namespace='rest_framework')),
