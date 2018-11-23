@@ -155,7 +155,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
 class ArticleViewSet(viewsets.ModelViewSet):
     """ Article Viewset """
     __basic_fields = ('code','description','active')
-    __filter_fields = ('line','category','department','brand','color')
+    __filter_fields = ('line','sub_line','category','department','brand','color')
     # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Article.objects.all().order_by('featured','-code')
     serializer_class = serializers.ArticleSerializer
