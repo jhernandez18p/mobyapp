@@ -18,7 +18,7 @@ class Home(ListView):
     # model =
     # context_object_name = 'boards'
     queryset = ''
-    template_name = 'intra/home.html'
+    template_name = 'base/home.html'
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
