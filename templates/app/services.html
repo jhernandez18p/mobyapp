@@ -28,9 +28,9 @@
                             <hr class="rgba-green-strong is-green-line"></hr>
                             <div>
                                 {% if object.description != '' %}
-                                    {{ object.description | safe }}
+                                    {{ object.description | safe | truncatewords:18 }}
                                 {% elif object.content != '' %}
-                                    {{ object.content | safe }}
+                                    {{ object.content | safe | truncatewords:8 }}
                                 {% else %}
                                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos maiores quidem accusamus quia! Delectus, eligendi minus dicta ipsam facere explicabo libero recusandae fugiat pariatur. Quibusdam, quis amet! Dolore, placeat modi!
                                 {% endif %}
