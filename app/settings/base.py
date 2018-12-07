@@ -193,11 +193,11 @@ AWS S3 Conf.
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(os.path.join(BASE_DIR,os.pardir), 'media')
+STATIC_URL = '/static/'
 
 if config('STATIC_ROOT', cast=bool) == True:
     STATIC_ROOT = os.path.abspath(os.path.join(os.path.join(BASE_DIR,os.pardir), 'staticfiles'))
 else:
-    STATIC_URL = '/static/'
     STATICFILES_DIRS = (os.path.abspath(os.path.join(os.path.join(BASE_DIR,os.pardir), 'staticfiles')),)
     # STATICFILES_DIRS = [
     #     os.path.join(BASE_DIR, 'mysite/static'),
