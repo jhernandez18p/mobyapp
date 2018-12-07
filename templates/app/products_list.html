@@ -1,47 +1,6 @@
 {% extends 'app/base/index.html' %}{% load staticfiles %}
 
 {% block css %}
-<style>
-    .breadcrumb{margin-top: 0px;background-color: rgba(0, 0, 0, 0)}
-    .pagination{
-        margin-top: 45px; margin-bottom: 45px;
-    }
-    .item .content{
-        padding-left: 10px;
-        padding-top: 10px;
-        height: 45px;
-        width: 100%;
-        background-color: #3f4236;
-        box-shadow: -5px 4px black;
-        text-shadow: -4px 3px 3px black;
-    }
-    .item{
-        background: #FFF;
-        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-        margin-bottom: 45px;
-    }
-    .item .info{
-        padding-left: 10px;
-        padding-bottom: 10px;
-        padding-right: 10px;
-        padding-top: 10px;
-    }
-    .item img{
-        text-align: center
-    }
-    .item .price{
-        margin-right: 0px;
-        margin-bottom: 0px;
-        background-color: #8a7e5f;
-        padding: 5px 20px 0px 20px;
-        color: #FFF;
-    }
-    .accordion-body{
-        position: sticky;
-        top: 85px;
-        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-    }
-</style>
 {% endblock %}
 
 {% block full_screen %}
@@ -49,129 +8,512 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-12 mt-5">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{% url 'sales:home' %}">Productos</a></li>
-            </ol>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3 mb-5">
-            <div class="accordion-body" id="accordion">
-                <div class="card">
-                    <div class="card-header">
-                        <a class="card-link" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                            Filtros
-                        </a>
-                    </div>
-                </div>
-                {% if departments %}        
-                    <div class="card">
-                        <div class="card-header">
-                            <a class="card-link" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                Departamentos
-                            </a>
-                        </div>
-                        <div id="collapseOne" class="collapse show">
-                            <div class="card-body">
-                                {% for object in departments %}
-                                    <ul>
-                                        <li>
-                                            <a href="{{ object.get_absolute_url }}">{{object.name}}</a>
-                                        </li>
-                                    </ul>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
+
+{% if line != '' or sub_line != '' or category != '' or department != '' or brand != '' or color != '' or search != '' %}
+<div class="container is-padding-top-30">
+    <div class="columns is-centered">
+        <div class="column">
+            <div class="buttons">
+                {% if line != '' %}
+                <a class="button is-outlined is-dark is-rounded">
+                    <span>Linea: {{ line | lower | capfirst }}</span>
+                    <span class="icon is-small" id="lineDelete">
+                        <i class="fas fa-times"></i>
+                    </span>
+                </a>
                 {% endif %}
-                {% if categories %}
-                    <div class="card">
-                        <div class="card-header">
-                            <a class="collapsed card-link" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                                Categorías
-                            </a>
-                        </div>
-                        <div id="collapseTwo" class="collapse">
-                            <div class="card-body">
-                                {% for object in categories %}
-                                    <ul>
-                                        <li>
-                                            <a href="{% url 'sales:all' %}?cat={{object.id}}">{{object.name}}</a>
-                                        </li>
-                                    </ul>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
+                {% if sub_line != '' %}
+                <a class="button is-outlined is-dark is-rounded">
+                    <span>Sublinea: {{ sub_line | lower | capfirst }}</span>
+                    <span class="icon is-small" id="sub_lineDelete">
+                        <i class="fas fa-times"></i>
+                    </span>
+                </a>
                 {% endif %}
-                {% if brands %}
-                    <div class="card">
-                        <div class="card-header">
-                            <a class="collapsed card-link" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                                Marcas
-                            </a>
-                        </div>
-                        <div id="collapseThree" class="collapse">
-                            <div class="card-body">
-                                {% for object in brands %}
-                                    <ul>
-                                        <li>
-                                            <a href="{{object.get_absolute_url}}">{{object.name}}</a>
-                                        </li>
-                                    </ul>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
+                {% if category != '' %}
+                <a class="button is-outlined is-dark is-rounded">
+                    <span>Categoría: {{ category | lower | capfirst }}</span>
+                    <span class="icon is-small" id="categoryDelete">
+                        <i class="fas fa-times"></i>
+                    </span>
+                </a>
+                {% endif %}
+                {% if department != '' %}
+                <a class="button is-outlined is-dark is-rounded">
+                    <span>Departamento: {{ department | lower | capfirst }}</span>
+                    <span class="icon is-small" id="departmentDelete">
+                        <i class="fas fa-times"></i>
+                    </span>
+                </a> 
+                {% endif %}
+                {% if brand != '' %}
+                <a class="button is-outlined is-dark is-rounded">
+                    <span>Marca: {{ brand | lower | capfirst }}</span>
+                    <span class="icon is-small" id="brandDelete">
+                        <i class="fas fa-times"></i>
+                    </span>
+                </a>
+                {% endif %}
+                {% if color != '' %}
+                <a class="button is-outlined is-dark is-rounded">
+                    <span>Color: {{ color | lower | capfirst }}</span>
+                    <span class="icon is-small" id="colorDelete">
+                        <i class="fas fa-times"></i>
+                    </span>
+                </a>
+                {% endif %}
+                {% if search != '' %}
+                <a class="button is-outlined is-dark is-rounded">
+                    <span>Busqueda: {{ search | lower | capfirst }}</span>
+                    <span class="icon is-small" id="searchDelete">
+                        <i class="fas fa-times"></i>
+                    </span>
+                </a>
                 {% endif %}
             </div>
         </div>
-        <div class="col-sm-9">
-            <div class="row d-flex align-items-stretch">
-                {% for object in article_list %}
-                    {% if forloop.counter0 == 3 %}
-                    </div>
-                    <div class="row">
-                    {% endif %}
-                    {% if forloop.counter0 == 6 %}
-                    </div>
-                    <div class="row">
-                    {% endif %}
-                    <div class="col-sm-4 d-flex align-items-stretch">
-                        <div class="item">
-                            <a href="{{object.get_absolute_url}}">
-                                <img src="{% if object.img != '' %}/{{object.img}}{% else %}{% static 'base/img/base-m.png' %}{% endif %}" alt="{{object.name}}" class="img-fluid rounded mx-auto d-block"></img>
-                            </a>
-                            <div class="info">
-                                <h5>
-                                    <a href="{{object.get_absolute_url}}" class="text-dark">
-                                        {{object.name}}
-                                    </a>
-                                </h5>
-                                <p>{{object.description | safe | truncatechars:120}}</p>
-                                <div class="clearfix">
-                                    <!-- <p class="badge badge-info float-left">
-                                        <a href="{% url 'sales:departments' %}{{object.department.slug }}" class="text-light">{{object.department}}</a>
-                                    </p> -->
-                                    {% if user.can_see_price %}
-                                    <div class="price float-right">
-                                        <h5 class="">${{object.price_4}}</h5>
-                                    </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="container is-padding-top-30">
+    <div class="columns">
+        <div class="column is-3">
+            <div id="searchBox">
+                <div class="is-hidden-touch" id="productsSearcher">
+                    <div class="card box-animation">
+                        <div class="has-background-grey is-padding-y-10 has-text-centered">
+                            <h3 class="is-size-5 has-text-white">Busqueda avanzada</h3>
+                        </div>
+                        <div class="has-background-grey-lighter is-padding-top-10">
+                            <h3 class="is-size-6">Artículo por nombre</h3>
+                            <div class="field has-addons">
+                                <div class="control has-background-white">
+                                    {% if search == '' %}
+                                        <input class="input" type="text" placeholder="Buscar un producto" id='searchInput'></input>
+                                    {% else %}
+                                        <input class="input" type="text" placeholder="{{search}}" value="{{search}}" id='searchInput'></input>
                                     {% endif %}
+                                </div>
+                                <div class="control">
+                                    <a class="button is-info">
+                                        <span class="icon has-text-white tooltip is-tooltip-right" data-tooltip="Buscar">
+                                            <i class="fas fa-search"></i>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="has-background-grey-lighter is-padding-y-10">
+                                <h3 class="is-size-6">Lineas</h3>
+                                <div class="field has-addons has-text-centered">
+                                    <div class="select">
+                                        <form action="{% url 'sales:all' %}" method="get">
+                                            {% csrf_token %}
+                                            <select id="lineSelector">
+                                                {% if line != '' %}
+                                                    <option selected>{{ line | lower | capfirst}}</option>
+                                                {% else %}
+                                                    <option selected>Lineas</option>
+                                                {% endif %}
+                                                {% for obj in lines %}
+                                                    <option value="{{obj.id}}">{{ obj.name | lower | capfirst }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="has-background-grey-lighter is-padding-y-10">
+                                <h3 class="is-size-6">Sublineas</h3>
+                                <div class="field has-addons has-text-centered">
+                                    <div class="select">
+                                        <form action="{% url 'sales:all' %}" method="get">
+                                            {% csrf_token %}
+                                            <select id="sub_lineSelector">
+                                                {% if sub_line != '' %}
+                                                    <option selected>{{ sub_line | lower | capfirst}}</option>
+                                                {% else %}
+                                                    <option selected>Sublineas</option>
+                                                {% endif %}
+                                                {% for obj in sub_lines %}
+                                                    <option value="{{obj.id}}">{{ obj.name | lower | capfirst }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="has-background-grey-lighter is-padding-y-10">
+                                <h3 class="is-size-6">Departamentos</h3>
+                                <div class="field has-addons has-text-centered">
+                                    <div class="select">
+                                        <form action="{% url 'sales:all' %}" method="get">
+                                            {% csrf_token %}
+                                            <select id="departmentSelector">
+                                                {% if department != '' %}
+                                                    <option selected>{{ department | lower | capfirst}}</option>
+                                                {% else %}
+                                                    <option selected>Departamentos</option>                                             
+                                                {% endif %}
+                                                {% for obj in departments %}
+                                                    <option value="{{obj.id}}">{{ obj.name | lower | capfirst }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="has-background-grey-lighter is-padding-y-10">
+                                    <h3 class="is-size-6">Categorías</h3>
+                                    <div class="field has-addons has-text-centered">
+                                        <div class="select">
+                                            <form action="{% url 'sales:all' %}" method="get">
+                                                {% csrf_token %}
+                                                <select id="categorySelector">
+                                                {% if category != '' %}
+                                                    <option selected>{{ category | lower | capfirst}}</option>
+                                                {% else %}
+                                                    <option selected>Categorías</option>
+                                                {% endif %}
+                                                {% for obj in categories %}
+                                                    <option value="{{obj.id}}">{{ obj.name | lower | capfirst }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="has-background-grey-lighter is-padding-y-10">
+                                <h3 class="is-size-6">Marcas</h3>
+                                <div class="field has-addons has-text-centered">
+                                    <div class="select">
+                                        <form action="{% url 'sales:all' %}" method="get">
+                                            {% csrf_token %}
+                                            <select id="brandSelector">
+                                                {% if brand != '' %}
+                                                    <option selected>{{ brand | lower | capfirst}}</option>
+                                                {% else %}
+                                                    <option selected>Marcas</option>
+                                                {% endif %}
+                                                {% for obj in brands %}
+                                                    <option value="{{obj.id}}">{{ obj.name | lower | capfirst }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="has-background-grey-lighter is-padding-y-10">
+                                <h3 class="is-size-6">Colores</h3>
+                                <div class="field has-addons has-text-centered">
+                                    <div class="select">
+                                        <form action="{% url 'sales:all' %}" method="get">
+                                            {% csrf_token %}
+                                            <select id="colorSelector">
+                                                {% if color != '' %}
+                                                    <option selected>{{ color | lower | capfirst}}</option>
+                                                {% else %}
+                                                    <option selected>Colores</option>
+                                                {% endif %}
+                                                {% for obj in colors %}
+                                                    <option value="{{obj.id}}">{{ obj.name | lower | capfirst }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="column is-9">
+            <div class="columns">
+            {% for object in article_list %}
+                {% if forloop.counter0 == 4 or forloop.counter0 == 8 or forloop.counter0 == 12 or forloop.counter0 == 16 %}</div><div class="columns">{% endif %}
+                <div class="column is-3 {% if forloop.first or forloop.counter0 == 4 or forloop.counter0 == 7 %}{% endif %}">
+                    <div class="recent-feed">
+                        <div class="feed-img">
+                            <a href="{% url 'sales:product_detail' object.slug %}">
+                                {% if object.img.url != None %}
+                                    <img src="{{object.img.url}}" alt="{{ object.code }}" class="image is-128-256" ></img>
+                                {% else %}
+                                    <img src="/static/base/img/img-base-m.png" alt="{{ object.code }}" class="image is-128-256" ></img>
+                                {% endif %}
+                            </a>
+                        </div>
+                        <div class="feed-title">
+                            <h3 class="is-size-7">
+                                <a href="{% url 'sales:product_detail' object.slug %}" class="has-text-black">
+                                    {{ object.code }}
+                                </a>
+                            </h3>
+                        </div>
+                        <div class="feed-leyend is-clearfix">
+                            <p class="is-size-7 is-pulled-left">
+                                <span class="icon"><i class="fas fa-folder-open"></i></span>
+                                {% if object.line != None %}    
+                                    <a href="{% url 'sales:all' %}?page=1&line={{object.line.id}}" class="has-text-black">{{ object.line.name | lower | capfirst }}</a>
+                                {% elif object.category != None %}
+                                    <a href="{% url 'sales:all' %}?page=1&category={{object.category.id}}" class="has-text-black">{{ object.category.name | lower | capfirst }}</a>
+                                {% else %}
+                                    <a href="{% url 'sales:all' %}?page=1&" class="has-text-black">{{ info_site.title | lower | capfirst }}</a>
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="feed-content">
+                            <div class="is-size-6">{{ object.description }}</div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
             </div>
         </div>
     </div>
-    {% include 'app/base/paginator.html' %}
 </div>
+
+<div class="container is-margin-botton-50 is-padding-top-30" id="productsSearcherStopper">
+    <div class="columns">
+        <div class="column is-7 is-offset-4">
+            {% include 'app/base/paginator.html' %}
+        </div>
+    </div>
+</div>
+
+<div class="is-hidden-desktop has-background-grey-lighter" id="productsSearcherMov">
+    <div class="card box-animation">
+        <div class="has-background-grey is-padding-y-10 has-text-centered">
+            <h3 class="is-size-5 has-text-white">Busqueda avanzada</h3>
+        </div>
+        <div class="body-box has-background-grey-lighter">
+            <div class="has-background-grey-lighter is-padding-y-10 is-padding-x-10">
+                <div class="field has-addons has-text-centered">
+                    <div class="control has-background-white">
+                        {% if search == '' %}
+                            <input class="input" type="text" placeholder="Buscar un producto" id='searchInput'></input>
+                        {% else %}
+                            <input class="input" type="text" placeholder="{{search}}" value="{{search}}" id='searchInput'></input>
+                        {% endif %}
+                        <a class="button is-info">
+                            <span class="icon has-text-white tooltip is-tooltip-right" data-tooltip="Buscar">
+                                <i class="fas fa-search"></i>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="has-background-grey-lighter is-padding-y-10 is-padding-x-10">
+                <h3 class="is-size-6">Lineas</h3>
+                <div class="field has-addons has-text-centered">
+                    <div class="select">
+                        <form action="{% url 'sales:all' %}" method="get">
+                            {% csrf_token %}
+                            <select id="lineSelector">
+                                {% if line != '' %}
+                                    <option selected>{{ line | lower | capfirst}}</option>
+                                {% else %}
+                                    <option selected>Lineas</option>
+                                {% endif %}
+                                {% for obj in lines %}
+                                    <option value="{{obj.id}}">{{ obj.name | lower | capfirst }}</option>
+                                {% endfor %}
+                            </select>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="has-background-grey-lighter is-padding-y-10 is-padding-x-10">
+                <h3 class="is-size-6">Sublineas</h3>
+                <div class="field has-addons has-text-centered">
+                    <div class="select">
+                        <form action="{% url 'sales:all' %}" method="get">
+                            {% csrf_token %}
+                            <select id="sub_lineSelector">
+                                {% if sub_line != '' %}
+                                    <option selected>{{ sub_line | lower | capfirst}}</option>
+                                {% else %}
+                                    <option selected>Sublineas</option>
+                                {% endif %}
+                                {% for obj in sub_lines %}
+                                    <option value="{{obj.id}}">{{ obj.name | lower | capfirst }}</option>
+                                {% endfor %}
+                            </select>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="has-background-grey-lighter is-padding-y-10 is-padding-x-10">
+                <h3 class="is-size-6">Departamentos</h3>
+                <div class="field has-addons has-text-centered">
+                    <div class="select">
+                        <form action="{% url 'sales:all' %}" method="get">
+                            {% csrf_token %}
+                            <select id="departmentSelector">
+                                {% if department != '' %}
+                                    <option selected>{{ department | lower | capfirst}}</option>
+                                {% else %}
+                                    <option selected>Departamentos</option>                                             
+                                {% endif %}
+                                {% for obj in departments %}
+                                    <option value="{{obj.id}}">{{ obj.name | lower | capfirst }}</option>
+                                {% endfor %}
+                            </select>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="has-background-grey-lighter is-padding-y-10 is-padding-x-10">
+                    <h3 class="is-size-6">Categorías</h3>
+                    <div class="field has-addons has-text-centered">
+                        <div class="select">
+                            <form action="{% url 'sales:all' %}" method="get">
+                                {% csrf_token %}
+                                <select id="categorySelector">
+                                {% if category != '' %}
+                                    <option selected>{{ category | lower | capfirst}}</option>
+                                {% else %}
+                                    <option selected>Categorías</option>
+                                {% endif %}
+                                {% for obj in categories %}
+                                    <option value="{{obj.id}}">{{ obj.name | lower | capfirst }}</option>
+                                {% endfor %}
+                            </select>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="has-background-grey-lighter is-padding-y-10 is-padding-x-10">
+                <h3 class="is-size-6">Marcas</h3>
+                <div class="field has-addons has-text-centered">
+                    <div class="select">
+                        <form action="{% url 'sales:all' %}" method="get">
+                            {% csrf_token %}
+                            <select id="brandSelector">
+                                {% if brand != '' %}
+                                    <option selected>{{ brand | lower | capfirst}}</option>
+                                {% else %}
+                                    <option selected>Marcas</option>
+                                {% endif %}
+                                {% for obj in brands %}
+                                    <option value="{{obj.id}}">{{ obj.name | lower | capfirst }}</option>
+                                {% endfor %}
+                            </select>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="has-background-grey-lighter is-padding-y-10 is-padding-x-10">
+                <h3 class="is-size-6">Colores</h3>
+                <div class="field has-addons has-text-centered">
+                    <div class="select">
+                        <form action="{% url 'sales:all' %}" method="get">
+                            {% csrf_token %}
+                            <select id="colorSelector">
+                                {% if color != '' %}
+                                    <option selected>{{ color | lower | capfirst}}</option>
+                                {% else %}
+                                    <option selected>Colores</option>
+                                {% endif %}
+                                {% for obj in colors %}
+                                    <option value="{{obj.id}}">{{ obj.name | lower | capfirst }}</option>
+                                {% endfor %}
+                            </select>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="has-background-grey is-padding-y-10 has-text-centered" id="searchBoxClose">
+            <span class="icon is-small has-text-white">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+    </div>
+</div>
+<a class="button is-rounded is-hidden-desktop" id="productsSearchButton">
+    <span class="icon has-text-white tooltip is-tooltip-left" data-tooltip="Buscar">
+        <i class="fas fa-search"></i>
+    </span>
+</a>
 {% endblock %}
 
 {% block js %}
+<script>
+    var baseUrl = '{{url_arg | safe}}';
+    $(document).ready(function(){
+
+        // $('#productsSearcher').fadeIn();
+        $(function(){
+            $("#productsSearcher").sticky({
+                topSpacing: 90,
+                zIndex: 2, 
+                stopper: "#productsSearcherStopper"
+            });
+        });
+
+        function newLocation(newUrl){
+            let url;
+            if (baseUrl === '&'){
+                url = ('?' + newUrl);
+            }else{
+                url = ('?' + baseUrl + newUrl);
+            }
+            window.location = url;
+        };
+
+        $('#lineSelector').on('change', function(){
+            newLocation('page=1&line='+this.value+'');
+        });
+        $('#sub_lineSelector').on('change', function(){
+            newLocation('page=1&sub_line='+this.value+'');
+        });
+        $('#categorySelector').on('change', function(){
+            newLocation('page=1&category='+this.value+'');
+        });
+        $('#departmentSelector').on('change', function(){
+            newLocation('page=1&department='+this.value+'');
+        });
+        $('#brandSelector').on('change', function(){
+            newLocation('page=1&brand='+this.value+'');
+        });
+        $('#colorSelector').on('change', function(){
+            newLocation('page=1&color='+this.value+'');
+        });
+        $('#searchInput').on('change', function(){
+            newLocation('page=1&search='+this.value+'');
+        });
+
+        $('#lineDelete').on('click', function(){
+            newLocation('page=1&line=');
+        });
+        $('#sub_lineDelete').on('click', function(){
+            newLocation('page=1&sub_line=');
+        });
+        $('#categoryDelete').on('click', function(){
+            newLocation('page=1&category=');
+        });
+        $('#departmentDelete').on('click', function(){
+            newLocation('page=1&department=');
+        });
+        $('#brandDelete').on('click', function(){
+            newLocation('page=1&brand=');
+        });
+        $('#colorDelete').on('click', function(){
+            newLocation('page=1&color=');
+        });
+        $('#searchDelete').on('click', function(){
+            newLocation('page=1&search=');
+        });
+
+        $('#productsSearchButton').on('click', function(){
+            $('#productsSearcherMov').css('display','block')
+        });
+        $('#searchBoxClose').on('click', function(){
+            $('#productsSearcherMov').css('display','none')
+        });
+    });
+</script>
 {% endblock %}

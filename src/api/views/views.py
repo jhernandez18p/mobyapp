@@ -12,9 +12,22 @@ from rest_framework import viewsets, permissions, status, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from src.api.serializers import CreateUserSerializer, UserSerializer, LoginUserSerializer
+from src.api.serializers import CreateUserSerializer, UserSerializer, LoginUserSerializer, ArticleSerializer
+from src.ventas.models import Line, SubLine, Color, \
+    Type, Provider, Brands, Department, Category, Article
 
 from knox.models import AuthToken
+
+@csrf_exempt
+def UpdateViews(request):
+    if request.method == 'GET':
+        # product = request.GET['slug']
+        # if Article.objects.all().get(slug=product):
+        result = True
+    else:
+        result = False
+    print(result)
+    return JsonResponse({'result':result, 'request':'product'})
 
 
 class UserCreate(generics.CreateAPIView):

@@ -1,177 +1,286 @@
 {% extends 'app/base/index.html' %}{% load staticfiles %}
+<!-- <link rel="stylesheet" href="{% static 'base/css/home.css' %}"> -->
+
 {% block css %}
-    <link rel="stylesheet" href="{% static 'base/css/home.css' %}">
 {% endblock %}
+
 {% block full_screen %}
 {% endblock %}
+
 {% block content %}
-        {% if home_header_carousel %}
-            <div class="container">
-                <div class="shadow" id="carousel-header">
-                    <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="8000">
-                        <ol class="carousel-indicators">
-                            {% for object in home_header_carousel_images %}
-                                <li data-target="carousel" data-slide-to="{{forloop.counter0}}" {% if forloop.counter0 == 0 %}class="active" {% endif %}></li>
-                            {% endfor %}
-                        </ol>
-                        <div class="carousel-inner view" role="listbox">
-                            {% for object in home_header_carousel_images %}
-                                <div class="carousel-item view hm-black-strong {% if forloop.counter0 == 0 %}active {% endif %}">
-                                    <img src="{{ object.image.url }}" alt="{{object.id}}" class="" id="carousel{{object.id}}">
-                                    <div class="carousel-caption">
-                                        <div>
-                                            <h2>{{object.name}}</h2>
-                                            {{object.text | safe}}
-                                            {% if object.call_to_action_url != None %}
-                                            <a class="btn btn-outline-white waves-effect" href="{{object.call_to_action_url.url}}">Ver más</a>
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                        <a class="carousel-control-prev" role="button" data-slide="prev"  href="#carousel">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Anterior</span>
-                        </a>
-                        <a class="carousel-control-next" role="button" data-slide="next"  href="#carousel">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Siguiente</span>
-                        </a>
-                    </div>
+{% if home_header_carousel %}
+<div class="container is-margin-botton-50">
+    <div class="columns">
+        <div class="column is-8 is-offset-2">
+            <div class="carousel" id="homeCarrousel">
+                {% for object in home_header_carousel_images %}
+                <div class=''>
+                    <img class="is-background" src="{{ object.image.url }}" alt="{{object.name}}"></img>
+                    <div class="title">{{object.name}}</div>
                 </div>
+                {% endfor %}
             </div>
-        {% endif %}
-        <!-- Fin Bloque carrusel -->
-        {% if info_site %}
-            <div class="container">
-                <div class="row" id="about">
-                    <div class="col-md-6 col-12">
-                        <div class="img shadow">
-                            <img 
-                                {% if info_site.site_img.url != None %}
-                                    src="{{ info_site.site_img.url }}"
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if services %}
+<div class="container-fluid">    
+    <div class="container">
+        <div class="columns">
+            <div class="column is-4 is-offset-2">
+                <div id="whatWeDo">
+                    <div class="">
+                        <h3 class="is-size-2">Servicios</h3>
+                        <h3 class="is-size-3">Soluciones al alcance de sus manos. <br> ¡Moby Supply!</h3>
+                    </div>
+                    {% for object in services %}
+                        {% if object.featured %}
+                        <div>
+                            <a href="{{object.get_absolute_url}}" class="has-text-black">
+                                <h3 class="is-size-3">{{object.title}}</h3>
+                            </a>
+                            <hr class="rgba-green-strong is-green-line"></hr>
+                            <div>
+                                {% if object.description != '' %}
+                                    {{ object.description | safe }}
+                                {% elif object.content != '' %}
+                                    {{ object.content | safe }}
                                 {% else %}
-                                    src="{% static 'base/img/img-base-m.png' %}"
+                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos maiores quidem accusamus quia! Delectus, eligendi minus dicta ipsam facere explicabo libero recusandae fugiat pariatur. Quibusdam, quis amet! Dolore, placeat modi!
                                 {% endif %}
-                            alt="{{info_site.title}}" class="img-fluid">
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-12 align-self-center">
-                        <div class="card text-dark mb-3">
-                            <div class="card-body shadow">
-                                <p>
-                                    <span class="h3 moby-text-h-1">
-                                        {{info_site.name}}
-                                    </span> 
-                                    <br> {{info_site.short_description|safe|truncatechars:240}}
-                                </p>
                             </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="column is-4">
+                <div class="carousel" id="serviceCarrousel">
+                    {% for object in service_header_carousel_images %}
+                    <div class=''>
+                        <img class="is-background" src="{{ object.image.url }}" alt="{{object.name}}"></img>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if info_site %}
+<div>
+    <div class="container">
+        <div class="columns" id="about">
+            <div class="column is-8 is-offset-2">
+                <div class="card">
+                    <div class="card-content">
+                        <p class="title">{{ info_site.name | safe}}</p>
+                        <div class="subtitle">{{ info_site.short_description | safe }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="container" id="services">
+            <div class="columns">
+                <div class="column is-4 is-offset-2">
+                    <div class="card is-centered overlayer">
+                        <div class="content-overlay"></div>
+                        <img class="content-image" alt="Servicios de moby" src="{{ info_site.services_img.url }}"></img>
+                        <div class="content-details fadeIn-top">
+                            <Link to="/servicios">
+                            <h3>Conozca nuestros servicios</h3>
+                            </Link>
                         </div>
                     </div>
                 </div>
-                <div class="row" id="cards">
-                    <div class="col-sm-6 col-12">
-                        <div class="card text-center text-middle shadow view hm-black-strong">
-                            <img {% if info_site.services_img.url != None %}src="{{ info_site.services_img.url }}"{% else %}src="/static/base/img/img-base-m.png"{% endif %} alt="Nuestros servicios" class="card-img img-fluid">
-                        </div>
-                        <div class="card-img-overlay bg-light shadow">
-                            <h5 class="card-title">Nuestros Servicios</h5>
-                            <a href="{% url 'services:home' %}" class="btn btn-outline-black text-dark btn-sm">Ver más</a>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-12">
-                        <div class="card text-center text-middle shadow view hm-black-strong">
-                            <img {% if info_site.products_img.url != None %}src="{{ info_site.products_img.url }}"{% else %}src="/static/base/img/img-base-m.png"{% endif %} alt="Nuestros productos" class="card-img img-fluid">
-                        </div>
-                        <div class="card-img-overlay bg-light shadow">
-                            <h5 class="card-title">Nuestros productos</h5>
-                            <a href="{% url 'sales:all' %}" class="btn btn-outline-black text-dark btn-sm">Ver más</a>
+                <div class="column is-4">
+                    <div class="card is-centered overlayer">
+                        <div class="content-overlay"></div>
+                        <img class="content-image" alt="Productos de moby" src="{{ info_site.products_img.url }}"></img>
+                        <div class="content-details fadeIn-top">
+                            <Link to="/productos">
+                            <h3>Conozca nuestros Productos</h3>
+                            </Link>
                         </div>
                     </div>
                 </div>
             </div>
-        {% endif %}
-        <!-- Fin Bloque imgen corporativa y enlaces -->
-        {% if departments %}
-            <div class="moby-gradient py-5">
-                <div class="container-fluid py-5">
-                    <div class="row">
-                        {% for object in departments %}
-                            <div class="col-md-3 d-flex align-items-stretch">
-                                <div class="card">
-                                    <div class="view overlay">
-                                        <img 
-                                        {% if object.img.url != None %}
-                                            src="{{object.img.url}}"
-                                        {% else %}
-                                            src="/static/base/img/img-base-m.png"
-                                        {% endif %} alt="{{object.title}}" class="img-fluid">
-                                    </div>
-                                    <div class="d-flex align-items-center py-2 px-1">
-                                        <div class="text-center">
-                                            <h3 class="card-title pt-2">
-                                                <a href="{{object.get_absolute_url}}" class="black-text">
-                                                    <strong>{{object.name}}</strong>
-                                                </a>
-                                            </h3>
-                                            <p>{{object.description|safe|truncatechars:120}}</p>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <div class="text-center pb-2">
-                                        <a class="btn btn-outline-black text-dark btn-sm" href="{{object.get_absolute_url}}">
-                                            <i class="fa fa-clone left"></i>
-                                            Ver más
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if departments %}
+<div class="container-fluid">
+    <div class="container" id="categories">
+        <div class="is-centered">
+            <h3 class="is-size-2">Principales categorías de productos</h3>
+        </div>
+        <div>
+            <div class="columns is-home-categories">
+            {% for object in departments %}
+                {% if forloop.counter0 == 0 %}
+                <div class="column is-4 is-offset-2">
+                    <div class="card is-centered overlayer">
+                        <div class="content-overlay"></div>
+                        <img {% if object.background.url %} src="{{object.background.url}}" {% elif object.img.url %} src="{{object.img.url}}" {% else %} src="/static/base/img/img-base-m.png" {% endif %} alt="{{object.title}}" class="content-image"></img>
+                        <div class="content-details fadeIn-top">
+                            <a href="/productos/todos?departamento={{object.id}}">
+                                <h3>{{object.name}}</h3>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% elif forloop.counter0 == 2 %}
+                </div>
+                    <div class="columns is-home-categories">
+                        <div class="column is-4 is-offset-2">
+                                <div class="card is-centered overlayer">
+                                    <div class="content-overlay"></div>
+                                    <img {% if object.background.url %} src="{{object.background.url}}" {% elif object.img.url %} src="{{object.img.url}}" {% else %} src="/static/base/img/img-base-m.png" {% endif %} alt="{{object.title}}" class="content-image"></img>
+                                    <div class="content-details fadeIn-top">
+                                        <a href="/productos/todos?departamento={{object.id}}">
+                                            <h3>{{object.name}}</h3>
                                         </a>
                                     </div>
                                 </div>
                             </div>
-                        {% endfor %}
+                {% else %}
+                <div class="column is-4">
+                    <div class="card is-centered overlayer">
+                        <div class="content-overlay"></div>
+                        <img {% if object.background.url %} src="{{object.background.url}}" {% elif object.img.url %} src="{{object.img.url}}" {% else %} src="/static/base/img/img-base-m.png" {% endif %} alt="{{object.title}}" class="content-image"></img>
+                        <div class="content-details fadeIn-top">
+                            <a href="/productos/todos?departamento={{object.id}}">
+                                <h3>{{object.name}}</h3>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if blog_posts %}
+<div>
+    <div class="container" id="blog">
+        <div class="is-centered">
+            <h3 class="is-size-2">Moby tips y blog</h3>
+        </div>
+    </div>
+    <div class="container is-margin-botton-50 is-padding-y-30" id="feeds">
+        <div class="columns is-padding-y-30" id="blogPostCarrousel">
+            {% for object in blog_posts %}
+            <div class="column">
+                <div class="recent-feed">
+                    <div class="feed-img">
+                        <a href="{% url 'blog:blog_detail' object.slug %}">
+                            {% if object.img.url != None %}
+                            <img class="mb-4 img-fluid" src="{{object.img.url}}" alt="{{object.title}}">
+                            {% else %}
+                            <img class="mb-4 img-fluid" src="/static/base/img/img-base-m.png" alt="{{object.title}}">
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="feed-title">
+                        <h3 class="is-size-6">
+                            <a href="{% url 'blog:blog_detail' object.slug %}" class="has-text-black">
+                                {{object.title}}
+                            </a>
+                        </h3>
+                    </div>
+                    <div class="feed-leyend is-clearfix">
+                        <p class="is-size-7 is-pulled-left">
+                            <span class="icon">
+                                <i class="fas fa-folder-open"></i>
+                            </span>
+                            <a href="{% url 'blog:blog_detail' object.slug %}" class="has-text-black">
+                                {{object.tag}}
+                            </a>
+                        </p>
+                        <p class="is-size-7 is-pulled-right">
+                            <span class="icon">
+                                <i class="fa fa-clock"></i>
+                            </span>
+                            {{object.published}}
+                        </p>
+                    </div>
+                    <div class="feed-content">
+                        <div>{{object.text|truncatewords:8|safe }}</div>
                     </div>
                 </div>
             </div>
-        {% endif %}
-        <!-- Fin linea de departamentos -->
-        {% if blog_post %}
-            <div class="container" id="blog">
-                <div class="row justify-content-md-center">
-                    {% for object in blog_post %}
-                        <div class="col-md-4 align-self-center">
-                            <div class="item">
-                                <div class="header">
-                                    {% if object.img.url != None %}
-                                    <img class="mb-4 img-fluid" src="{{object.img.url}}" alt="{{object.title}}">
-                                    {% else %}
-                                    <img class="mb-4 img-fluid" src="/static/base/img/img-base-m.png" alt="{{object.title}}">
-                                    {% endif %}
-                                </div>
-                                <div class="body">
-                                    <h4>
-                                        <a href="{% url 'blog:blog_detail' object.slug %}" class="text-dark">
-                                            {{object.title}}
-                                        </a>
-                                    </h4>
-                                    <div class="mt-4 mb-4" style="min-height:50px;">
-                                        {{object.text|truncatewords:8|safe }}
-                                    </div>
-                                </div>
-                                <div class="footer">
-                                    <a class="btn btn-outline-black text-dark float-right btn-sm" href="{% url 'blog:blog_detail' object.slug %}" role="button">
-                                        Leer más
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor%}
-                </div>
-            </div>
-        {% endif %}
-        <!-- Fin Bloque noticias -->
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
 {% endblock %}
+
 {% block js %}
-    <script>
-        $('.item .body p img').addClass('img-fluid');
-        $( ".item .body table" ).wrap( "<div class='table-responsive'></div>" );
-    </script>
+<script src="{% static 'base/js/slick.min.js' %}"></script>
+<script>
+    $('#homeCarrousel').slick({
+        dots: false,
+        infinite: true,
+        speed: 300,
+        fade: true,
+        cssEase: 'linear',
+        autoplay: true,
+        autoplaySpeed: 2000
+    });
+    $('#serviceCarrousel').slick({
+        dots: true,
+        infinite: true,
+        speed: 300,
+        fade: true,
+        cssEase: 'linear',
+        autoplay: true,
+        autoplaySpeed: 2000
+    });
+    $('#blogPostCarrousel').slick({
+        dots: true,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ],
+        autoplay: true,
+        autoplaySpeed: 2000
+    });
+</script>
 {% endblock %}

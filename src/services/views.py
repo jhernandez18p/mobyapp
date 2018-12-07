@@ -1,24 +1,37 @@
-from django.http import (HttpResponseRedirect)
+from django.db.models import Q
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import ListView, DetailView
 
-from .models import (Service, ServiceImage)
-from .forms import ServiceForm
-# from src.utils.libs import contact_email
+
+from src.services.models import Service, ServiceImage
+from src.services.forms import ServiceForm
+from src.base.models import Position, Carousel, CarouselImage, Site
+from src.utils.libs import contact_email
 
 # Create your views here.
 class Home(ListView):
     model = Service
-    paginate_by = 6
     template_name = 'app/services.html'
+    paginate_by = 6
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        
+        service_header_carousel = Carousel.objects.filter(Q(page__name='servicios') & Q(position__name='header'))
+        if service_header_carousel.exists():
+            context['service_header_carousel'] = True
+            
+            service_header_carousel_images = CarouselImage.objects.filter(Carousel_id=service_header_carousel[0])
+            if service_header_carousel_images.exists():
+                context['service_header_carousel_images'] = service_header_carousel_images
+
         context['has_newsletter'] = True
         context['SITE_URL'] = 'Servicios'
         context['url'] = reverse('services:home')
         context['url_nav'] = 'servicios'
+
         return context
 
 
@@ -53,11 +66,17 @@ class ServiceDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         form = self.form_class
+        context['form'] = form
         images = ServiceImage.objects.filter(Service_id=context['object'].id)
         if images.exists():
             context['has_images'] = True
             context['images'] = images
-        context['form'] = form
+
+        obj = super().get_object()
+        services = Service.objects.exclude(slug=obj.slug)
+        if services.exists():
+            context['object_list'] = services
+
         context['url_nav'] = 'servicios'
         return context
 

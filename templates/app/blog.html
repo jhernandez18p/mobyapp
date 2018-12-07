@@ -2,8 +2,16 @@
 
 {% block css %}
 <style>
-    #blog{padding-top: 125px !important;background-color:unset;}
-    .item{margin-bottom: 45px;}
+    #blogBox{
+        background-color: #fff;
+        padding: 25px;
+        border-radius: 3px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    }
+    #blogBox:hover {
+       box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    }
 </style>
 {% endblock %}
 
@@ -12,93 +20,53 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="py-4" id="blog">
-        <h2 class="h1 text-center mb-5">Publicaciones recientes</h2>
-        <p class="text-center mb-5 pb-5">
-            Bienvenidos al blog de <span>{{SITE_TITLE}}</span> aqui encontraras contenido informativo.
-            esperamos sea de tu agrado.
-        </p>
-        {% if object_list %}
-            {% for object in object_list %}
-                <div class="row bg-light py-5 shadow mb-5">
-                    <div class=" col-lg-5 col-xl-4 mb-4 align-self-center">
-                        <div class="view overlay hm-white-slight ">
+<div class="container is-padding-top-30">
+    <div class="is-centered is-padding-top-30">
+        <h3 class="is-size-2">Moby tips y blog</h3>
+    </div>
+    {% if object_list %}
+        {% for object in object_list %}
+            <div class="columns is-padding-y-20">
+                <div class="column is-8 is-offset-2">
+                    <div id="blogBox">
+                        <div class="view overlay hm-white-slight is-centered">
                             <a href="{{object.get_absolute_url}}">
-                                <img class="mb-4 img-fluid" src="{% if object.img.url != None %}{{object.img.url}}{% else %}/static/base/img/img-base-m.png{% endif %}" alt="{{object.title}}">
+                                {% if object.img.url != None %}
+                                    <img class="mb-4 img-fluid" src="{{object.img.url}}" alt="{{object.title}}">
+                                {% elif object.background.url != None %}
+                                    <img class="mb-4 img-fluid" src="{{object.background.url}}" alt="{{object.title}}">
+                                {% else %}
+                                    <img class="mb-4 img-fluid" src="/static/base/img/img-base-m.png" alt="{{object.title}}">
+                                {% endif %}
                             </a>
                         </div>
-                    </div>
-                    <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
-                        <h3 class="mb-3 font-bold dark-grey-text">
-                            <strong>{{object.title}}</strong>
-                        </h3>
-                        <p class="grey-text">
-                            {{object.text|safe|truncatewords:50}}
-                        </p>
-                        <p>Escrito por 
-                            <a class="font-bold dark-grey-text">{{object.author}}</a>, {{object.created_at}}
-                        </p>
-                        <a href="{{object.get_absolute_url}}" class="btn btn-outline-dark btn-md">Leer más</a>
+                        <div class="col-lg-7 col-xl-7 ml-xl-4 mb-4">
+                            <h3 class="mb-3 font-bold dark-grey-text">
+                                <strong>{{object.title}}</strong>
+                            </h3>
+                            <p class="grey-text">
+                                {{object.text| safe | truncatewords:50}}
+                            </p>
+                            <p>Escrito por 
+                                <a class="font-bold dark-grey-text">{{object.author}}</a>, {{object.created_at}}
+                            </p>
+                            <a href="{{object.get_absolute_url}}" class="btn btn-outline-dark btn-md">Leer más</a>
+                        </div>
                     </div>
                 </div>
-
-            {% endfor %}
-        {% endif %}
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+<div class="container">
+    <div class="columns">
+        <div class="column is-8 is-offset-2 is-margin-botton-50">
+            {% include 'app/base/paginator.html' %}
+        </div>
     </div>
 </div>
-
-{% include 'app/base/paginator.html' %}
 
 {% endblock %}
 
 {% block js %}
 {% endblock %}
-
-
-<!-- <div class="row" id="blog">
-    <div class="col-sm-4">
-        <div class="item">
-            <div class="header">
-                <img class="mb-4 img-fluid" src="{{object.img}}">
-            </div>
-            <div class="body">
-                <h3>
-                    <a href="{% url 'blog:blog_detail' object.slug %}" class="text-dark">
-                        {{object.title}}
-                    </a>
-                </h3>
-                <p class="mt-4 mb-4">
-                    {{object.text|truncatewords:8 }}
-                </p>
-            </div>
-            <div class="footer">
-                <a class="btn btn-link text-dark float-right" href="{% url 'blog:blog_detail' object.slug %}" role="button">
-                    <i class="material-icons">launch</i>Leer más
-                </a>
-            </div>
-        </div>
-    </div>
-</div> -->
-<!-- <div class="col-sm-4">
-    <div class="item">
-        <div class="header">
-            <img class="mb-4 img-fluid" src="{{object.img}}">
-        </div>
-        <div class="body">
-            <h3>
-                <a href="{% url 'blog:blog_detail' object.slug %}" class="text-dark">
-                    {{object.title}}
-                </a>
-            </h3>
-                <p class="mt-4 mb-4">
-                    {{object.text|truncatewords:8 }}
-                </p>
-            </div>
-            <div class="footer">
-                <a class="btn btn-link text-dark float-right" href="{% url 'blog:blog_detail' object.slug %}" role="button">
-                    <i class="material-icons">launch</i>Leer más
-                </a>
-            </div>
-        </div>
-    </div> -->

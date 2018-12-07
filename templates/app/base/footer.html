@@ -1,221 +1,127 @@
 {% load staticfiles %}{% load flatpages %}{% get_flatpages as flatpages %}
-{% if has_newsletter %}
-    <div id="newsletter">
-        <div class="text-center">
-            <div class="card paral paralsec">
-                <div class="card-body">
-                    <h3 class="card-title text-white">Boletin de noticias</h3>
-                    <p class="card-text text-white">Manténgase actualizado con las noticias y publicaciones.</p>
-                    <div class="container">
-                        <div class="row justify-content-center">
-                            <div class="col-sm-6">
-                                <form action="{% url 'auth:newsletter' %}" method="POST">
-                                    <div class="input-group mb-6">
-                                        {% csrf_token %}
-                                        <input type="text" class="form-control" placeholder="Nombre" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                        <input type="text" class="form-control" placeholder="Correo" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                        <div class="input-group-append ml-3">
-                                            <button class="btn btn btn-outline-white btn-md" type="submit">Enviar
-                                                <i class="material-icons">send</i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+{% if social_media %}
+<div class="is-social-media level is-marginless is-mobile" id="SMStopper">
+    <div class="level-item">
+        <p class="navbar-item is-size-6-desktop has-text-white is-size-7-mobile">
+            Síguenos en nuestras redes sociales!
+        </p>
     </div>
+    <div class="level-item has-text-white">
+        {% for object in social_media %}
+        <a href="{{object.url}}" target="_blank">
+            <span class="icon is-size-6-desktop has-text-white is-size-7-mobile has-text-white">
+                <i class="fab {{object.icon}} has-text-white"></i>
+            </span>
+        </a>
+        {% endfor %}
+    </div>
+</div>
 {% endif %}
-<div class="bg-footer" style="z-index: 1050;">
-    <div class="bg-footer-dark">
-        <div class="container">
-            <div class="row d-flex align-items-center">
-                    <div class="col-md-6 col-lg-5 text-center text-md-left">
-                        <h6 class="mb-0 white-text">Siguenos en nuestras redes sociales!</h6>
-                    </div>
-                    {% if social_media %}
-                        <div class="col-md-6 col-lg-7 text-center text-md-right" id="SMStopper">
-                            {% for object in social_media %}
-                                <a class="icons-sm fb-ic ml-0" href="{{object.url}}" target="_blank">
-                                    <i class="fa {{object.icon}} white-text mr-lg-4"> </i>
-                                </a>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        <div class="col-md-6 col-lg-7 text-center text-md-right" id="SMStopper">
-                            <a class="icons-sm fb-ic ml-0" href="" target="_blank">
-                                <i class="fa fa-facebook white-text mr-lg-4"> </i>
-                            </a>
-                            <a class="icons-sm tw-ic" href="" target="_blank">
-                                <i class="fa fa-twitter white-text mr-lg-4"> </i>
-                            </a>
-                            <a class="icons-sm gplus-ic" href="" target="_blank">
-                                <i class="fa fa-google-plus white-text mr-lg-4"> </i>
-                            </a>
-                            <a class="icons-sm li-ic" href="" target="_blank">
-                                <i class="fa fa-linkedin white-text mr-lg-4"> </i>
-                            </a>
-                            <a class="icons-sm ins-ic" href="" target="_blank">
-                                <i class="fa fa-instagram white-text mr-lg-4"> </i>
-                            </a>
-                        </div>
-                    {% endif %}
+<footer class="is-fullhd has-footer-background has-text-white" style="margin-top: -1px;z-index: 92;">
+    <div class="container" id="overFooter">
+        <div class="columns">
+            <div class="column ">
+                <h2 class="is-size-4 has-text-white">
+                    {{info_site.name}}
+                </h2>
+                <hr class="rgba-green-strong is-green-line"></hr>
+                <ul>
+                    <li class="navbar-item has-text-white">
+                        <p>{{info_site.description|safe}}</p>
+                    </li>
+                </ul>
+            </div>
+            {% if blog_posts %}
+            <div class="column">
+                <h2 class="is-size-4 has-text-white">Artículos recientes</h2>
+                <hr class="rgba-green-strong is-green-line"></hr>
+                <ul>
+                    {% for posts in blog_posts %}
+                    <li class="navbar-item">
+                        <a href="{{posts.slug}}" class="is-uppercase has-text-white">{{posts.title}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            <div class="column">
+                <h2 class="is-size-4 has-text-white">Enlaces</h2>
+                <hr class="rgba-green-strong is-green-line"></hr>
+                <ul>
+                    <li class="navbar-item">
+                        <a href="/quienes-somos" class="is-uppercase has-text-white">¿Quienes somos?</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="/cookies" class="is-uppercase has-text-white">Política de cookies</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="/f-a-q" class="is-uppercase has-text-white">Preguntas Frecuentes</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="/terminos-de-servicio" class="is-uppercase has-text-white">Terminos y condiciones</Link>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="/privacidad" class="is-uppercase has-text-white">Política de privacidad</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="column">
+                <h2 class="is-size-4 has-text-white">Contacto</h2>
+                <hr class="rgba-green-strong is-green-line"></hr>
+                <li class="navbar-item">
+                    <p class="has-text-white">{{info_site.address|safe}}, {{info_site.address1|safe}}</p>
+                </li>
+                <li class="navbar-item">
+                    <p class="has-text-white">{{info_site.phone|safe}} - {{info_site.phone2|safe}}</p>
+                </li>
+                <li class="navbar-item">
+                    <p class="has-text-white">Abierto: {{info_site.workday|safe}}</p>
+                </li>
+                <li class="navbar-item">
+                    <p class="has-text-white">{{info_site.schedule|safe}} - {{info_site.schedule2|safe}}</p>
+                </li>
+                <li class="navbar-item">
+                    <p class="has-text-white"><a class="has-text-white" href="mailto:{{info_site.email}}">{{info_site.email|safe}}</a> <a class="has-text-white" href="mailto:{{info_site.email2}}">{{info_site.email2|safe}}</a></p>
+                </li>
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="header">
-                    <p class="h2 text-white">Moby Supply</p>
-                </div>
-                <hr class="rgba-green-strong mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-                <div class="body text-white">
-                    <p>{{info_site.description|safe}}
+    <div id="is-copyright">
+        <nav class="navbar has-footer-background-dark">
+            <div class="container is-centered">
+                <div class="navbar-brand">
+                    <p class="navbar-item is-size-7 has-text-white">
+                        © 2017 - {% now "Y" %} Moby Group | Todos los derechos reservados.
                     </p>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="header">
-                    <p class="h2 text-white">De interés</p>
-                </div>
-                <hr class="rgba-green-strong mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-                <div class="list">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link text-uppercase text-white" href="/quienes-somos">¿Quienes somos?</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-uppercase text-white" href="/preguntas-frecuentes">Preguntas frecuentes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-uppercase text-white" href="/terminos-y-condiciones">Terminos y condiciones</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-uppercase text-white" href="/privacidad">Política de privacidad</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-uppercase text-white" href="/sitemap.xml">Mapa del sitio</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- <div class="col-12 col-md-6 col-lg-4 ">
-                <div class="header">
-                    <p class="h2 text-white">Enlaces</p>
-                </div>
-                <hr class="rgba-green-strong mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-                <div class="list">
-                    <ul class="navbar-nav ml-auto">
-                        {% for page in flatpages %}
-                            {% if page.url == '/quienes-somos/' %}
-                            {% elif page.url == '/preguntas-frecuentes/' %}
-                            {% elif page.url == '/terminos-y-condiciones/' %}
-                            {% elif page.url == '/privacidad/' %}
-                            {% else %}
-                                <li class="nav-item">
-                                    <a href="{{ page.url }}" class="nav-link text-uppercase text-white">{{ page.title }}</a>
-                                </li>
-                            {% endif %}
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div> -->
-            <div class="col-12 col-md-6 col-lg-4 ">
-                <div class="header">
-                    <p class="h2 text-white">Contacto</p>
-                </div>
-                <hr class="rgba-green-strong mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-                <p class="text-white">
-                    {% if site_address == None %}
-                    Ernesto T. Lefevre, diagonal a Waikiki, Panama Panamá <br>Ciudad de Panamá
-                    {% else %}
-                    {{site_address | safe}}
-                    {% endif %}
-                </p>
-                <p class="text-white">
-                    {% if info_site.hone == None %}
-                    +(507)-800-MOBY 
-                    {% else %}
-                    {{info_site.phone |safe}}
-                    {% endif %}
-                    <br>
-                    {% if info_site.phone2 == None %}
-                    +(507)-800-6629
-                    {% else %}
-                    {{info_site.phone2 | safe}}
-                    {% endif %}
-                    <br>
-                    {% if info_site.workday == None %}
-                    Lun - Vie
-                    {% else %}
-                    {{info_site.workday | safe}}
-                    {% endif %}
-                    ,
-                    {% if info_site.schedule == None %}
-                    8:00 am - 5:00 pm
-                    {% else %}
-                    {{info_site.schedule | safe}}
-                    {% endif %}
-                </p>
-                <p class="text-white">
-                    {% if site_email == None %}
-                    info@moby-group.com
-                    {% else %}
-                    {{site_email | safe}}
-                    {% endif %}
-                    <br>
-                    {% if site_email2 == None %}
-                    sale@moby-group.com
-                    {% else %}
-                    {{site_email2 | safe}}
-                    {% endif %}
-                </p>
-            </div>
-        </div>
+        </nav>
     </div>
-    <div class="bg-footer-dark">
-        <div class="container">
-            <hr>
-            <div class="row">
-                <div class="col-12 col-sm-6">
-                    <div class="h-100 align-middle">
-                        <p class="font-weight-light text-light text-footer">
-                            Moby Group
-                            <i class="material-icons">copyright</i> Todos los derechos reservados {% now 'Y' %}.
-                        </p>
+</footer>
+<div>
+    <div class="container is-fullhd has-background-grey is-hidden" id="cookieBottomBox">
+        <div class="notification has-background-grey">
+            <div class="columns is-centered">
+                <div class="column">
+                    <div class="level">
+                        <div class="level-left">
+                            <p class="has-text-white has-text-centered">
+                                Este sitio utiliza
+                                <strong class="has-text-white"> cookies</strong> para ofrecer nuestros servicios,
+                                mostrarle anuncios relevantes
+                                y listados de artículos.
+                            </p>
+                        </div>
+                        <div class="level-right">
+                            <p class="button is-text" id="setSiteCookie">
+                                <span class="icon is-small has-text-success">
+                                    <i class="fas fa-thumbs-up"></i>
+                                </span>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="fixed-action-btn smooth-scroll" style="bottom: 45px; right: 24px; z-index: 1051;">
-    <a href="#top-section" class="btn-floating btn-large special-color-dark">
-        <i class="fa fa-arrow-up"></i>
-    </a>
-</div>
-{% if cookie_modals %}
-    <div class="modal fade bottom modal-content-clickable" id="modalCookie" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="false" style="display: block; padding-right: 17px;">
-        <div class="modal-dialog modal-frame modal-top modal-notify modal-info" role="document">
-            <div class="modal-content">
-                <div class="modal-body py-1 rgba-black-strong">
-                    <div class="row d-flex justify-content-center align-items-center">
-                        <p class="pt-3 pr-2 text-white">
-                            Hacemos uso de <span>cookies</span> para mejorar la experiencia de uso en la pagina.</p>
-                        <a href="/cookies"
-                        type="button" class="btn btn-outline-white btn-md" target="_blank">
-                            Ver más
-                        </a>
-                        <button id="cookieModalOK" type="button" class="btn btn-outline-white btn-md" >
-                            Ok, gracias
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-{% endif %}

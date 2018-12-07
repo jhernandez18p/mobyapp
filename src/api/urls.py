@@ -14,7 +14,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework_jwt.views import obtain_jwt_token
 
 from src.api.views import viewset
-from src.api.views.views import UserCreate, LoginAPI, UserAPI, CheckEmail, CheckUsername
+from src.api.views.views import UserCreate, LoginAPI, UserAPI, CheckEmail, CheckUsername, UpdateViews
 
 router = routers.DefaultRouter()
 router.register(r'answers', viewset.AnswersViewSet)
@@ -52,6 +52,7 @@ urlpatterns = [
     # Token
     # path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     # path('token/auth/', obtain_jwt_token),
+    # path('/update-views/', UpdateViews, name='update-view'),
     # Auth
     # path('auth/user/', UserAPI.as_view(), name='register'),
     path('auth/register/', UserCreate.as_view(), name='register'),

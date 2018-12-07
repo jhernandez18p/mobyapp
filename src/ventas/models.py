@@ -482,7 +482,7 @@ class Article(models.Model):
     )
     sale = models.BooleanField(
         default=False,
-        verbose_name=_('Destacado')
+        verbose_name=_('En descuento')
     )
     imported = models.BooleanField(
         default=False,
@@ -501,9 +501,14 @@ class Article(models.Model):
 
     def counter(self):
         return len(self.objects.all())
+
+    def update_counter(self):
+        self.views = self.views + 1
+        self.save()
+
     
     class Meta:
-        ordering = ["-code"]
+        ordering = ["-code","-views"]
         verbose_name = _('Producto')
         verbose_name_plural = _('Productos')
 

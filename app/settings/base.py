@@ -48,11 +48,8 @@ else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     PASSWORD_RESET_TIMEOUT_DAYS = 3
     MESSAGE_LEVEL = message_constants.INFO
-
     CORS_ORIGIN_WHITELIST = (
-        'localhost:15100',
-        'localhost:9000',
-        'localhost:3000',
+        '*',
     )
 
 
@@ -174,24 +171,25 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+"""
+AWS S3 Conf.
+# AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+# AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+# AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
 
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
-}
+# AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+# AWS_S3_OBJECT_PARAMETERS = {
+#     'CacheControl': 'max-age=86400',
+# }
 
-AWS_LOCATION = 'static'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-DEFAULT_FILE_STORAGE = 'app.settings.storage_backends.MediaStorage'  # <-- here is where we reference it
+# AWS_LOCATION = 'static'
+# DEFAULT_FILE_STORAGE = 'app.settings.storage_backends.MediaStorage'  # <-- here is where we reference it
+# STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+# STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+"""
 
-
-# STATIC_URL = '/static/'
-STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(os.path.join(BASE_DIR,os.pardir), 'media')
@@ -199,6 +197,7 @@ MEDIA_ROOT = os.path.join(os.path.join(BASE_DIR,os.pardir), 'media')
 if config('STATIC_ROOT', cast=bool) == True:
     STATIC_ROOT = os.path.abspath(os.path.join(os.path.join(BASE_DIR,os.pardir), 'staticfiles'))
 else:
+    STATIC_URL = '/static/'
     STATICFILES_DIRS = (os.path.abspath(os.path.join(os.path.join(BASE_DIR,os.pardir), 'staticfiles')),)
     # STATICFILES_DIRS = [
     #     os.path.join(BASE_DIR, 'mysite/static'),

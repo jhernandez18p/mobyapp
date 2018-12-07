@@ -1,0 +1,225 @@
+{% load staticfiles %}{% load flatpages %}{% get_flatpages as flatpages %}
+{% if has_newsletter %}
+<div id="newsletter">
+    <div class="text-center">
+        <div class="card paral paralsec">
+            <div class="card-body">
+                <h3 class="card-title text-white">Boletin de noticias</h3>
+                <p class="card-text text-white">Manténgase actualizado con las noticias y publicaciones.</p>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-sm-6">
+                            <form action="{% url 'auth:newsletter' %}" method="POST">
+                                <div class="input-group mb-6">
+                                    {% csrf_token %}
+                                    <input type="text" class="form-control" placeholder="Nombre" aria-label="Recipient's username"
+                                        aria-describedby="basic-addon2">
+                                    <input type="text" class="form-control" placeholder="Correo" aria-label="Recipient's username"
+                                        aria-describedby="basic-addon2">
+                                    <div class="input-group-append ml-3">
+                                        <button class="btn btn btn-outline-white btn-md" type="submit">Enviar
+                                            <i class="material-icons">send</i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+<div class="bg-footer" style="z-index: 1050;">
+    <div class="bg-footer-dark">
+        <div class="container">
+            <div class="row d-flex align-items-center">
+                <div class="col-md-6 col-lg-5 text-center text-md-left">
+                    <h6 class="mb-0 white-text">Siguenos en nuestras redes sociales!</h6>
+                </div>
+                {% if social_media %}
+                <div class="col-md-6 col-lg-7 text-center text-md-right" id="SMStopper">
+                    {% for object in social_media %}
+                    <a class="icons-sm fb-ic ml-0" href="{{object.url}}" target="_blank">
+                        <i class="fa {{object.icon}} white-text mr-lg-4"> </i>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="col-md-6 col-lg-7 text-center text-md-right" id="SMStopper">
+                    <a class="icons-sm fb-ic ml-0" href="" target="_blank">
+                        <i class="fa fa-facebook white-text mr-lg-4"> </i>
+                    </a>
+                    <a class="icons-sm tw-ic" href="" target="_blank">
+                        <i class="fa fa-twitter white-text mr-lg-4"> </i>
+                    </a>
+                    <a class="icons-sm gplus-ic" href="" target="_blank">
+                        <i class="fa fa-google-plus white-text mr-lg-4"> </i>
+                    </a>
+                    <a class="icons-sm li-ic" href="" target="_blank">
+                        <i class="fa fa-linkedin white-text mr-lg-4"> </i>
+                    </a>
+                    <a class="icons-sm ins-ic" href="" target="_blank">
+                        <i class="fa fa-instagram white-text mr-lg-4"> </i>
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="header">
+                    <p class="h2 text-white">Moby Supply</p>
+                </div>
+                <hr class="rgba-green-strong mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                <div class="body text-white">
+                    <p>{{info_site.description|safe}}
+                    </p>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="header">
+                    <p class="h2 text-white">De interés</p>
+                </div>
+                <hr class="rgba-green-strong mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                <div class="list">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link text-uppercase text-white" href="/quienes-somos">¿Quienes somos?</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-uppercase text-white" href="/preguntas-frecuentes">Preguntas
+                                frecuentes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-uppercase text-white" href="/terminos-y-condiciones">Terminos y
+                                condiciones</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-uppercase text-white" href="/privacidad">Política de privacidad</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-uppercase text-white" href="/sitemap.xml">Mapa del sitio</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- <div class="col-12 col-md-6 col-lg-4 ">
+                <div class="header">
+                    <p class="h2 text-white">Enlaces</p>
+                </div>
+                <hr class="rgba-green-strong mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                <div class="list">
+                    <ul class="navbar-nav ml-auto">
+                        {% for page in flatpages %}
+                            {% if page.url == '/quienes-somos/' %}
+                            {% elif page.url == '/preguntas-frecuentes/' %}
+                            {% elif page.url == '/terminos-y-condiciones/' %}
+                            {% elif page.url == '/privacidad/' %}
+                            {% else %}
+                                <li class="nav-item">
+                                    <a href="{{ page.url }}" class="nav-link text-uppercase text-white">{{ page.title }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div> -->
+            <div class="col-12 col-md-6 col-lg-4 ">
+                <div class="header">
+                    <p class="h2 text-white">Contacto</p>
+                </div>
+                <hr class="rgba-green-strong mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                <p class="text-white">
+                    {% if site_address == None %}
+                    Ernesto T. Lefevre, diagonal a Waikiki, Panama Panamá <br>Ciudad de Panamá
+                    {% else %}
+                    {{site_address | safe}}
+                    {% endif %}
+                </p>
+                <p class="text-white">
+                    {% if info_site.hone == None %}
+                    +(507)-800-MOBY
+                    {% else %}
+                    {{info_site.phone |safe}}
+                    {% endif %}
+                    <br>
+                    {% if info_site.phone2 == None %}
+                    +(507)-800-6629
+                    {% else %}
+                    {{info_site.phone2 | safe}}
+                    {% endif %}
+                    <br>
+                    {% if info_site.workday == None %}
+                    Lun - Vie
+                    {% else %}
+                    {{info_site.workday | safe}}
+                    {% endif %}
+                    ,
+                    {% if info_site.schedule == None %}
+                    8:00 am - 5:00 pm
+                    {% else %}
+                    {{info_site.schedule | safe}}
+                    {% endif %}
+                </p>
+                <p class="text-white">
+                    {% if site_email == None %}
+                    info@moby-group.com
+                    {% else %}
+                    {{site_email | safe}}
+                    {% endif %}
+                    <br>
+                    {% if site_email2 == None %}
+                    sale@moby-group.com
+                    {% else %}
+                    {{site_email2 | safe}}
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="bg-footer-dark">
+        <div class="container">
+            <hr>
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                    <div class="h-100 align-middle">
+                        <p class="font-weight-light text-light text-footer">
+                            Moby Group
+                            <i class="material-icons">copyright</i> Todos los derechos reservados {% now 'Y' %}.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="fixed-action-btn smooth-scroll" style="bottom: 45px; right: 24px; z-index: 1051;">
+    <a href="#top-section" class="btn-floating btn-large special-color-dark">
+        <i class="fa fa-arrow-up"></i>
+    </a>
+</div>
+{% if cookie_modals %}
+<div class="modal fade bottom modal-content-clickable" id="modalCookie" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    data-backdrop="false" style="display: block; padding-right: 17px;">
+    <div class="modal-dialog modal-frame modal-top modal-notify modal-info" role="document">
+        <div class="modal-content">
+            <div class="modal-body py-1 rgba-black-strong">
+                <div class="row d-flex justify-content-center align-items-center">
+                    <p class="pt-3 pr-2 text-white">
+                        Hacemos uso de <span>cookies</span> para mejorar la experiencia de uso en la pagina.</p>
+                    <a href="/cookies" type="button" class="btn btn-outline-white btn-md" target="_blank">
+                        Ver más
+                    </a>
+                    <button id="cookieModalOK" type="button" class="btn btn-outline-white btn-md">
+                        Ok, gracias
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}

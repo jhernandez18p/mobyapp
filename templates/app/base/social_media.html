@@ -1,0 +1,18 @@
+{% if social_media %}
+<div class="is-social-media level is-marginless is-mobile" id="stickySM">
+    <div class="level-item">
+        <p class="navbar-item is-size-6-desktop has-text-white is-size-7-mobile">
+            Síguenos en nuestras redes sociales!
+        </p>
+    </div>
+    <div class="level-item has-text-white">
+        {% for object in social_media %}
+        <a href="{{object.url}}" target="_blank">
+            <span class="icon is-size-6-desktop has-text-white is-size-7-mobile has-text-white">
+                <i class="fab {{object.icon}} has-text-white"></i>
+            </span>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}

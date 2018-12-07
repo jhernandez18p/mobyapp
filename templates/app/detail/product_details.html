@@ -1,10 +1,32 @@
-{% extends 'app/base/index.html' %}{% load staticfiles %}
+{% extends 'app/base/index.html' %}{% load staticfiles %}{% load widget_tweaks %}
 
 {% block css %}
 <style>
-    #breadcrumb{margin-top: 25px;}
-    .breadcrumb{background-color: rgba(0, 0, 0, 0)}
-    .carousel-thumbnails{margin-bottom: 0px !important;}
+    #serviceForm{
+        background-color: #FFF;
+        width: 80%;
+        margin: 0 auto;
+        padding: 1.9em 0;
+        border-radius: 5px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    }
+    #serviceForm form{
+        padding: 6px 20%;
+    }
+    #serviceForm form .field .control{
+        width: 100%;
+        border: solid 1px rgba(255,255,255,.8);
+        background-color: #f5f5f5;
+        padding: 5px;
+        border-radius: 8px;
+        margin-top: 25px
+    }
+    #serviceForm form button{width: 100%}
+
+    #serviceForm form .field label {
+        position: absolute;
+        margin-top: -75px
+    }
 </style>
 {% endblock %}
 
@@ -13,134 +35,130 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row" id="breadcrumb">
-        <div class="col-md-12">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{% url 'sales:all' %}">Productos</a></li>
-                <li class="breadcrumb-item">Detalles</li>
-                <li class="breadcrumb-item active">{{object.name | title}}</li>
-            </ol>
-        </div>
-    </div>
-</div>
-<div class="container-fluid">
-    <div class="card my-5 border-primary hoverable">
-        <div class="row mx-3 my-3">
-            <div class="col-lg-6">
-                <div id="carousel-thumb" class="carousel slide carousel-fade carousel-thumbnails" data-ride="carousel">
-                    <div class="carousel-inner center-on-small-only" role="listbox">
-                        <div class="carousel-item active">
-                            <img src="{% if object.img != '' %}/{{object.img}}{% else %}{% static 'base/img/base-m.png' %}{% endif %}" alt="{{object.name}}" class="img-fluid rounded mx-auto d-block"></img>
-                        </div>
-                    </div>
-                    <a class="carousel-control-prev" href="#carousel-thumb" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carousel-thumb" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
-            </div>
-            <div class="col-lg-5 my-3 center-on-small-only">
-                <h2 class="h2-responsive center-on-small-only product-name font-bold dark-grey-text mt-5">
-                    <strong>{{object.name}}</strong>
-                </h2>
-                {% if is_featured %}
-                <span class="badge badge-danger product my-2">bestseller</span>
-                {% endif %}
-                <h3 class="h3-responsive center-on-small-only my-3">
-                    {% if user.is_authenticated %}
-                    <span class="green-text font-bold">
-                        <!-- <strong>${{object.price_4}}</strong> -->
-                    </span>
-                    {% endif %}
-                    {% if has_descount %}
-                    <span class="grey-text">
-                        <small>
-                            <s>{{object.price_4}}}</s>
-                        </small>
-                    </span>
-                    {% endif %}
-                </h3>
-                <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
-                    <div class="card">
-                        <div class="card-header pl-0" role="tab" id="headingOne">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"
-                                class="collapsed">
-                                <h5 class="mb-0">
-                                    Descripción
-                                    <i class="fa fa-angle-down rotate-icon"></i>
-                                </h5>
-                            </a>
-                        </div>
-                        <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" style="">
-                            <div class="dark-grey-text pl-0">
-                                {{object.description | safe}} {{object.get_img}}
-                            </div>
-                        </div>
-                    </div>
-                    <!-- <div class="card">
-                        <div class="card-header pl-0" role="tab" id="headingTwo">
-                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                <h5 class="mb-0">
-                                    Detalles
-                                    <i class="fa fa-angle-down rotate-icon"></i>
-                                </h5>
-                            </a>
-                        </div>
-                        <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" style="">
-                            <div class="dark-grey-text pl-0">
-                                <p>
-                                    
-                                </p>
-                            </div>
-                        </div>
-                    </div> -->
-                </div>
-                {% if has_colors %}
-                    <section class="color">
-                        <div class="mt-5">
-                            <p class="grey-text">Colores</p>
-                            <div class="row center-on-small-only">
 
-                                <div class="col-md-4 col-12 ">
-                                    <div class="form-group">
-                                        <input name="group100" type="radio" id="radio100">
-                                        <label for="radio100" class="dark-grey-text">Azul</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <input name="group100" type="radio" id="radio101">
-                                        <label for="radio101" class="dark-grey-text">Amarillo</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <input name="group100" type="radio" id="radio102">
-                                        <label for="radio102" class="dark-grey-text">Rojo</label>
-                                    </div>
-                                </div>
-                            </div>
-                            {% if can_add_to_cart %}
-                                <div class="row mt-3 mb-r">
-                                    <div class="col-md-12 center-on-small-only text-md-right">
-                                        <button class="btn btn-primary waves-effect waves-light">
-                                            <i class="fa fa-cart-plus mr-2" aria-hidden="true"></i> Agregar al carrito
-                                        </button>
-                                    </div>
-                                </div>
-                            {% endif %}
+<div class="container is-padding-top-30">
+    <div class="columns">
+        <div class="column is-8 is-offset-2">
+            <div class="card box-animation">
+                <div class="columns is-marginless is-centered">
+                    <div class="column is-marginless">
+                        <figure class="image">
+                            <img src={{object.img.url}} alt={{object.code}}></img>
+                        </figure>
+                        
+                    </div>
+                    <div class="column is-padding-y-30">
+                        <div class="">
+                            <h1 class="is-size-4">
+                                {{object.name}}
+                            </h1>
                         </div>
-                    </section>
-                {% endif %}
+                        <div class="">
+                            <!-- <p class="is-size-5">
+                                Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de
+                                texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el
+                                año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta)
+                                desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un
+                                libro de textos especimen.
+                            </p> -->
+                            <p>Descripción: <strong>{{ object.description | safe }}</strong></p>
+                            <p>Linea de producto: </p><p><strong>{{ object.line.name }}</strong></p>
+                            <p>Categoría de producto: </p><p><strong>{{ object.category.name }}</strong></p>
+                            <p>Codigo de producto: </p><p><strong>{{object.code}}</strong></p>
+                            <p>Marca: </p><p><strong>{{object.brand.name}}</strong></p>
+                            {% if object.sale %}<p>Antes: </p><p><strong>B./{{object.price_5}}</strong></p>{% endif %}
+                            <p>Precio: </p><p><strong>B./{{object.price_4}}</strong></p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<!-- <div class="column">
+    <div class="" id="serviceForm">
+        <form action="{% url 'services:detail' object.slug  %}?name={{object.name}}" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="field">
+                    {% if form.is_bound %}
+                        {% if field.errors %}
+                            {% render_field field class="control is-danger" %}
+                                {% for error in field.errors %}
+                                    <p class="help is-danger"><small>{{ error |safe }}<small</p>
+                                {% endfor %}
+                            {% else %}
+                            % render_field field class="control is-valid" %}
+                        {% endif %}
+                        {% else %}
+                            {% render_field field class="control" %}
+                        {% endif %} 
+                    {% if field.help_text %}
+                        <p class="help is-success"><small>{{ field.help_text |safe}}</small></p>
+                    {% endif %}
+                    {{ field.label_tag | safe  }}
+                </div>
+            {% endfor %}
+            <input type="hidden" name="service" value="{{object.name}}">
+            
+            <div class="control">
+                <button class="button is-primary">Enviar</button>
+            </div>
+        </form>
+    </div>
+</div> -->
+<div class="container is-padding-top-10">
+    <div id="feeds">
+        <div class="is-padding-top-60 has-text-centered">
+            <h2 class="is-size-2">Productos relacionados</h2>
+        </div>
+
+        <div class="columns is-padding-top-50">
+            {% for object in object_list %}
+            {% if forloop.counter0 == 4 or forloop.counter0 == 8 or forloop.counter0 == 12 or forloop.counter0 == 16 %}</div><div class="columns">{% endif %}
+            <div class="column is-3 {% if forloop.first or forloop.counter0 == 4 or forloop.counter0 == 7 %}{% endif %}">
+                <div class="recent-feed">
+                    <div class="feed-img">
+                        <a href="{% url 'sales:product_detail' object.slug %}">
+                            {% if object.img.url != None %}
+                                <img src="{{object.img.url}}" alt="{{ object.code }}" class="image is-128-256" ></img>
+                            {% else %}
+                                <img src="/static/base/img/img-base-m.png" alt="{{ object.code }}" class="image is-128-256" ></img>
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="feed-title">
+                        <h3 class="is-size-7">
+                            <a href="{% url 'sales:product_detail' object.slug %}" class="has-text-black">
+                                {{ object.code }}
+                            </a>
+                        </h3>
+                    </div>
+                    <div class="feed-leyend is-clearfix">
+                        <p class="is-size-7 is-pulled-left">
+                            <span class="icon"><i class="fas fa-folder-open"></i></span>
+                            {% if object.line != None %}    
+                                <a href="{% url 'sales:all' %}?page=1&line={{object.line.id}}" class="has-text-black">{{ object.line.name | lower | capfirst }}</a>
+                            {% elif object.category != None %}
+                                <a href="{% url 'sales:all' %}?page=1&category={{object.category.id}}" class="has-text-black">{{ object.category.name | lower | capfirst }}</a>
+                            {% else %}
+                                <a href="{% url 'sales:all' %}?page=1&" class="has-text-black">{{ info_site.title | lower | capfirst }}</a>
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="feed-content">
+                        <div class="is-size-6">{{ object.description }}</div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="has-text-centered is-padding-top-60">
+        </div>
+    </div>
+</div>
+
+{{context}}
 {% endblock %}
 
 {% block js %}

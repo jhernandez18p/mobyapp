@@ -12,34 +12,43 @@ from src.base.models import Position, Carousel, CarouselImage, Site
 from src.blog.models import Comment, Post
 from src.utils.libs import contact_email
 from src.ventas.models import Department
+from src.services.models import Service
 
 
-def Home(request):
+def _Home(request):
     return HttpResponseRedirect('/api/v2/')
 
 
-class _Home(ListView):
+class Home(ListView):
     queryset = ''
     template_name = 'app/home.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        home_header_carousel = Carousel.objects.filter(Q(page_id=1) & Q(position_id=1))
+        home_header_carousel = Carousel.objects.filter(Q(page__name='inicio') & Q(position__name='header'))
         if home_header_carousel.exists():
             context['home_header_carousel'] = True
             
             home_header_carousel_images = CarouselImage.objects.filter(Carousel_id=1)
             if home_header_carousel_images.exists():
                 context['home_header_carousel_images'] = home_header_carousel_images
+        
+        service_header_carousel = Carousel.objects.filter(Q(page__name='servicios') & Q(position__name='header'))
+        if service_header_carousel.exists():
+            context['service_header_carousel'] = True
+            
+            service_header_carousel_images = CarouselImage.objects.filter(Carousel_id=service_header_carousel[0])
+            if service_header_carousel_images.exists():
+                context['service_header_carousel_images'] = service_header_carousel_images
 
         departments = Department.objects.all()
         if departments.exists():
             context['departments'] = departments[:4]
 
-        posts = Post.objects.filter(draft=False)
-        if posts.exists():
-            context['blog_post'] = posts[:3]
+        services = Service.objects.all().order_by('-featured')
+        if services.exists():
+            context['services'] = services
 
         context['has_newsletter'] = True
         context['SITE_URL'] = 'Inicio'

@@ -8,6 +8,7 @@ from django.utils.encoding import force_bytes
 from django.core.mail import send_mail
 
 from src.user.models import Profile
+from src.blog.models import Post
 
 def user(request):
     """
@@ -40,9 +41,7 @@ def site(request):
     context['SITE_LOGO'] = '/static/base/img/logo.png'
 
     pages = Pages.objects.all()
-    if pages.exists():
-        pass
-    else:
+    if not pages.exists():
         new_pages = [
             {'name':'inicio','url':reverse('front:home'),'have_icon':False},
             {'name':'servicios','url':reverse('services:home'),'have_icon':False},
@@ -60,9 +59,7 @@ def site(request):
             new_page.save()
 
     positions = Position.objects.all()
-    if positions.exists():
-        pass
-    else:
+    if not positions.exists():
         default_positions = [
             {'name':'header','description':''},
             {'name':'section','description':''},
@@ -81,7 +78,6 @@ def site(request):
         sm = SocialMedia.objects.filter(site=info_site[0].id)
         if sm.exists():
             context['social_media'] = sm
-        pass
     else:
         info_site = Site(
             name='Moby Supply',
@@ -89,6 +85,10 @@ def site(request):
             url='https://www.mobby-group.com',
         )
         info_site.save()
+
+    blog_posts = Post.objects.all()[:5]
+    if blog_posts.exists():
+        context['blog_posts'] = blog_posts
     return context
 
 def menu(request):

@@ -1,113 +1,115 @@
 {% load staticfiles %}
-<nav class="navbar navbar-expand-md fixed-top navbar-custom shadow navbar-light bg-light">
-    <div class="container">
-        <a href="{% url 'front:home' %}" class="navbar-brand">
-            <img id="menuLogo" src="{{SITE_LOGO}}" alt="{{SITE_TITLE}}">
-        </a>
-        <button class="navbar-toggler float-right" type="button" data-toggle="collapse" data-target="#navbar9">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="navbar-collapse">
-            <ul class="navbar-nav ml-auto navbar-nav-custom-1">
-                {% for item in FRONT_HEADER_MENU %}
-                    <li class="nav-item {% if url_nav == item.name %}text-green-active{% endif %}">
-                        <a class="nav-link text-uppercase text-green" href="{{item.url}}">
-                            {% if item.have_icon %}
-                            <i class="material-icons">{{item.name}}</i>
-                            {% else %} {{item.name}} {% endif %}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-            <ul class="navbar-nav ml-auto navbar-nav-custom-2">
-                <li>
-                    <a href="{% url 'front:contact' %}" class="">
-                        <i class="material-icons">phone</i>
-                        <span>+(507) 800 MOBY</span>
+<div class="has-background-white" style="z-index:92;">
+    <nav class="navbar is-fixed-top  has-background-transparent is-hidden-touch" id="authNavbar">
+        <div class="container">
+            <div class="navbar-menu">
+                <div class="navbar-end">
+                    <a href="{% url 'front:contact' %}" class="is-uppercase is-size-7 has-text-black">
+                        <span class="icon has-text-black tooltip is-tooltip-left" data-tooltip="Contáctenos">
+                            <i class="fas fa-phone"></i>
+                        </span>
+                        +(507) 800 MOBY
                     </a>
-                </li>
-                {% if user.is_authenticated %}
-                    {% if user.is_staff %}
-                        <li>
-                            <a href="{% url 'intra:home' %}">
-                                <i class="material-icons">launch</i>
-                                Panel
-                            </a>
-                        </li>
-                    {% endif %}
-                    <li>
-                        <a href="{% url 'auth:logout' %}?next={{ request.path }}">
-                            <i class="material-icons">exit_to_app</i>
+                    <div class="iis-fullnav-auth">
+                    {% if user.is_authenticated %}
+                        {% if user.is_staff %}
+                        <a href="{% url 'intra:home' %}" class="is-uppercase is-size-7 has-text-black">
+                            <span class="icon has-text-black tooltip is-tooltip-bottom" data-tooltip="Intranet">
+                                <i class="fas fa-sign-in-alt"></i>
+                            </span>
+                            Intra
+                        </a>
+                        {% endif %}
+                        <a href="{% url 'auth:logout' %}?next={{ request.path }}" class="is-uppercase is-size-7 has-text-black">
+                            <span class="icon has-text-black tooltip is-tooltip-bottom" data-tooltip="Cerrar sesión">
+                                <i class="fas fa-user-plus"></i>
+                            </span>
                             Salir
                         </a>
-                    </li>
-                {% else %}
-                    <li>
-                        <a href="{% url 'auth:login' %}?next={{ request.path }}">
-                            <i class="material-icons">account_circle</i>
-                            Inicio de sesión
+                    {% else %}
+                        <a href="{% url 'auth:login' %}?next={{ request.path }}" class="is-uppercase is-size-7 has-text-black">
+                            <spanclass="icon has-text-black tooltip is-tooltip-bottom" data-tooltip="Iniciar sesión">
+                                <i class="fas fa-sign-in-alt"></i>
+                            </span>
+                            Iniciar sesión
                         </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'auth:register' %}?next={{ request.path }}">
-                            <i class="material-icons">assignment_ind</i>
-                            Registro
+                        <a href="{% url 'auth:register' %}?next={{ request.path }}" class="is-uppercase is-size-7 has-text-black">
+                            <span class="icon has-text-black tooltip is-tooltip-bottom" data-tooltip="Registrarse">
+                                <i class="fas fa-user-plus"></i>
+                            </span>
+                            Registrarse
                         </a>
-                    </li>
-                {% endif %}
-            </ul>
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</nav>
-
-<div class="navbar-collapse collapse" id="navbar9">
-    <button type="button" class="close" aria-label="Close" data-toggle="collapse" data-target="#navbar9">
-        <span class="close-btn" aria-hidden="true">&times;</span>
-    </button>
-    <ul class="navbar-nav ml-auto navbar-nav-custom-1">
-        {% for item in FRONT_HEADER_MENU %}
-            <li class="nav-item">
-                <a class="nav-link text-uppercase" href="{{item.url}}">
-                    {% if item.have_icon %}
+    </nav>
+    <nav class="navbar is-fixed-top has-navbar-gradient" id="fullNavbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <a href="{% url 'front:home' %}" class="navbar-item">
+                    <img src="{{SITE_LOGO}}" alt="{{SITE_TITLE}}" id="is-logo"></img>
+                </a>
+                <span class="navbar-burger" ref="isBurger" data-target="navMenu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+            </div>
+            <div id="navMenu" class="navbar-menu">
+                <div class="navbar-end is-hidden-touch">
+                    {% for item in FRONT_HEADER_MENU %}
+                    <a data-target="navMenu" href="{{item.url}}" class="is-uppercase navbar-item is-nav-link text-green {% if url_nav == item.name %}selected text-green-active{% endif %}">
+                        {% if item.have_icon %}
                         <i class="material-icons">{{item.name}}</i>
-                    {% else %} {{item.name}} {% endif %}
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
-    <ul class="navbar-nav ml-auto navbar-nav-custom-2">
-        <li>
-            <a href="{% url 'front:contact' %}">
-                <i class="material-icons">phone</i>
-                <span>+(507) 397 9180</span>
-            </a>
-        </li>
-        {% if user.is_authenticated %}
-            <li>
-                <a href="{% url 'intra:home' %}">
-                    <i class="material-icons">launch</i>
-                    Panel
-                </a>
-            </li>
-            <li>
-                <a href="{% url 'auth:logout' %}?next={{ request.path }}">
-                    <i class="material-icons">exit_to_app</i>
-                    Salir
-                </a>
-            </li>
-        {% else %}
-            <li>
-                <a href="{% url 'auth:login' %}?next={{ request.path }}">
-                    <i class="material-icons">account_circle</i>
-                    Inicio de sesión
-                </a>
-            </li>
-            <li>
-                <a href="{% url 'auth:register' %}?next={{ request.path }}">
-                    <i class="material-icons">assignment_ind</i>
-                    Registro
-                </a>
-            </li>
-        {% endif %}
-    </ul>
+                        {% else %} {{item.name}} {% endif %}
+                    </a>
+                    {% endfor %}
+                </div>
+                <div class="navbar-end is-hidden-desktop">
+                    <a href="{% url 'front:home' %}" class="navbar-item">
+                        <img src="{{SITE_LOGO}}" alt="{{SITE_TITLE}}" id="is-logo"></img>
+                    </a>
+                    {% for item in FRONT_HEADER_MENU %}
+                    <a data-target="navMenu" href="{{item.url}}" class="is-uppercase navbar-item">
+                        {{item.name}}
+                    </a>
+                    {% endfor %}
+                </div>
+                <div class="is-hidden-desktop is-fullnav-auth">
+                    {% if user.is_authenticated %}
+                        {% if user.is_staff %}
+                        <a href="{% url 'intra:home' %}" class="is-uppercase is-size-7 has-text-black">
+                            <span class="icon has-text-black tooltip is-tooltip-bottom" data-tooltip="Intranet">
+                                <i class="fas fa-sign-in-alt"></i>
+                            </span>
+                            Intra
+                        </a>
+                        {% endif %}
+                        <a href="{% url 'auth:logout' %}?next={{ request.path }}" class="is-uppercase is-size-7 has-text-black">
+                            <span class="icon has-text-black tooltip is-tooltip-bottom" data-tooltip="Cerrar sesión">
+                                <i class="fas fa-user-plus"></i>
+                            </span>
+                            Salir
+                        </a>
+                    {% else %}
+                        <a href="{% url 'auth:login' %}?next={{ request.path }}" class="is-uppercase is-size-7 has-text-black">
+                            <span class="icon has-text-black tooltip is-tooltip-bottom" data-tooltip="Iniciar sesión">
+                                <i class="fas fa-sign-in-alt"></i>
+                            </span>
+                            Iniciar sesión
+                        </a>
+    
+                        <a href="{% url 'auth:register' %}?next={{ request.path }}" class="is-uppercase is-size-7 has-text-black">
+                            <span class="icon has-text-black tooltip is-tooltip-bottom" data-tooltip="Registrarse">
+                                <i class="fas fa-user-plus"></i>
+                            </span>
+                            Registrarse
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
 </div>

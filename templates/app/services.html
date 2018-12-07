@@ -1,13 +1,6 @@
 {% extends 'app/base/index.html' %}{% load staticfiles %}
 
 {% block css %}
-<style>
-    #services{margin-top: 120px;}
-    #services .row{
-        margin-bottom: 45px;
-    }
-    footer{margin-top: -6px;}
-</style>
 {% endblock %}
 
 {% block full_screen %}
@@ -16,225 +9,96 @@
 
 {% block content %}
 
-<div class="container" id="services">
-    {% if object_list  %}
-        {% for object in object_list  %}
-            <div class="row align-items-center shadow">
-                <div class="col-12 col-sm-6 align-items-stretch">
-                    <div class="my-3 p-3">
-                        <h2 class="display-5">
-                            <a href="{{object.get_absolute_url}}">
-                                {{object.name}}
-                            </a>
-                        </h2>
-                        <p class="lead">
-                            {{object.content|safe|truncatechars:160}}
-                        </p>
-                        <a href="{{object.get_absolute_url}}" type="button" class="btn btn-outline-black waves-effect">Ver más</a>
+{% if object_list %}
+<div class="container-fluid">    
+    <div class="container is-margin-botton-50">
+        <div class="columns">
+            <div class="column is-4 is-offset-2">
+                <div id="whatWeDo">
+                    <div class="">
+                        <h3 class="is-size-2">Servicios</h3>
+                        <h3 class="is-size-3">Soluciones al alcance de sus manos. <br> ¡Moby Supply!</h3>
                     </div>
-                </div>
-                <div class="col-12 col-sm-6 align-items-stretch">
-                    <div class="serv-img">
-                        <div class="img">
-                            <a href="{{object.get_absolute_url}}">
-                            {% if object.background %}
-                                <img class="img-fluid" src="{{object.background.url}}" alt="{{object.name}}">
-                            {% else %}
-                                <img class="img-fluid" src="/static/base/img/moby-background-04.png" alt="services">
-                            {% endif %}
+                    {% for object in object_list %}
+                        {% if object.featured %}
+                        <div>
+                            <a href="{{object.get_absolute_url}}" class="has-text-black">
+                                <h3 class="is-size-3">{{object.title}}</h3>
                             </a>
+                            <hr class="rgba-green-strong is-green-line"></hr>
+                            <div>
+                                {% if object.description != '' %}
+                                    {{ object.description | safe }}
+                                {% elif object.content != '' %}
+                                    {{ object.content | safe }}
+                                {% else %}
+                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos maiores quidem accusamus quia! Delectus, eligendi minus dicta ipsam facere explicabo libero recusandae fugiat pariatur. Quibusdam, quis amet! Dolore, placeat modi!
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="column is-4">
+                <div class="carousel" id="serviceCarrousel">
+                    {% for object in service_header_carousel_images %}
+                    <div class=''>
+                        <img class="is-background" src="{{ object.image.url }}" alt="{{object.name}}"></img>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="columns">
+            {% for object in object_list %}
+                {% if not object.featured %}
+                {% if forloop.counter0 == 4 or forloop.counter0 == 7 %}</div><div class="columns">{% endif %}
+                <div class="column is-3 {% if forloop.first or forloop.counter0 == 4 or forloop.counter0 == 7 %}is-offset-2{% endif %}">
+                    <div>
+                        <a href="{{object.get_absolute_url}}" class="has-text-black">
+                            <h3 class="is-size-3">{{object.title}}</h3>
+                        </a>
+                        <hr class="rgba-green-strong is-green-line"></hr>
+                        <div>
+                            {% if object.description != '' %}
+                                {{ object.description | safe }}
+                            {% elif object.content != '' %}
+                                {{ object.content | safe }}
+                            {% else %}
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos maiores quidem accusamus quia! Delectus, eligendi minus dicta ipsam facere explicabo libero recusandae fugiat pariatur. Quibusdam, quis amet! Dolore, placeat modi!
+                            {% endif %}
                         </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
-    {% else %}
-        <div class="row align-items-center shadow">
-            <div class="col-12 col-sm-6">
-                <div class="my-3 p-3">
-                    <h2 class="display-5">
-                        <a href="{% url 'services:home' %}" class="">
-                            Cortes
-                        </a>
-                    </h2>
-                    <p class="lead">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate dolores ipsa, eos mollitia tempore aliquid repudiandae placeat ratione molestias, perspiciatis nobis consequatur ex voluptate unde minus quae repellendus. Ab.
-                    </p>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6">
-                <div class="serv-img">
-                    <div class="img">
-                        <a href="{% url 'services:home' %}">
-                            <img class="img-fluid" src="/static/base/img/moby-background-04.png" alt="services">
-                        </a>
-                    </div>
-                </div>
-            </div>
+                {% endif %}
+            {% endfor %}
         </div>
-
-        <div class="row align-items-center shadow">
-            <div class="col-12 col-sm-6">
-                <div class="my-3 p-3">
-                    <h2 class="display-5">
-                        <a href="{% url 'services:home' %}" class="">
-                            Canteo
-                        </a>
-                    </h2>
-                    <p class="lead">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate dolores ipsa, eos mollitia tempore aliquid repudiandae placeat ratione molestias, perspiciatis nobis consequatur ex voluptate unde minus quae repellendus. Ab.
-                    </p>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6">
-                <div class="serv-img">
-                    <div class="img">
-                        <a href="{% url 'services:home' %}">
-                            <img class="img-fluid" src="/static/base/img/moby-background-04.png" alt="services">
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row align-items-center shadow">
-            <div class="col-12 col-sm-6">
-                <div class="my-3 p-3">
-                    <h2 class="display-5">
-                        <a href="{% url 'services:home' %}" class="">
-                            Perforación
-                        </a>
-                    </h2>
-                    <p class="lead">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate dolores ipsa, eos mollitia tempore aliquid repudiandae placeat ratione molestias, perspiciatis nobis consequatur ex voluptate unde minus quae repellendus. Ab.
-                    </p>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6">
-                <div class="serv-img">
-                    <div class="img">
-                        <a href="{% url 'services:home' %}">
-                            <img class="img-fluid" src="/static/base/img/moby-background-04.png" alt="services">
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row align-items-center shadow">
-            <div class="col-12 col-sm-6">
-                <div class="my-3 p-3">
-                    <h2 class="display-5">
-                        <a href="{% url 'services:home' %}" class="">
-                            Ranurado
-                        </a>
-                    </h2>
-                    <p class="lead">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate dolores ipsa, eos mollitia tempore aliquid repudiandae placeat ratione molestias, perspiciatis nobis consequatur ex voluptate unde minus quae repellendus. Ab.
-                    </p>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6">
-                <div class="serv-img">
-                    <div class="img">
-                        <a href="{% url 'services:home' %}">
-                            <img class="img-fluid" src="/static/base/img/moby-background-04.png" alt="services">
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="row align-items-center shadow">
-            <div class="col-12 col-sm-6">
-                <div class="my-3 p-3">
-                    <h2 class="display-5">
-                        <a href="{% url 'services:home' %}" class="">
-                            Fresado
-                        </a>
-                    </h2>
-                    <p class="lead">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate dolores ipsa, eos mollitia tempore aliquid repudiandae placeat ratione molestias, perspiciatis nobis consequatur ex voluptate unde minus quae repellendus. Ab.
-                    </p>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6">
-                <div class="serv-img">
-                    <div class="img">
-                        <a href="{% url 'services:home' %}">
-                            <img class="img-fluid" src="/static/base/img/moby-background-04.png" alt="services">
-                        </a>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-
-        <div class="row align-items-center shadow">
-            <div class="col-12 col-sm-6">
-                <div class="my-3 p-3">
-                    <h2 class="display-5">
-                        <a href="{% url 'services:home' %}" class="">
-                            Armado
-                        </a>
-                    </h2>
-                    <p class="lead">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate dolores ipsa, eos mollitia tempore aliquid repudiandae placeat ratione molestias, perspiciatis nobis consequatur ex voluptate unde minus quae repellendus. Ab.
-                    </p>
-                </div>
-            </div>
-           <div class="col-12 col-sm-6">
-                <div class="serv-img">
-                    <div class="img">
-                        <a href="{% url 'services:home' %}">
-                            <img class="img-fluid" src="/static/base/img/moby-background-04.png" alt="services">
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row align-items-center shadow">
-            <div class="col-12 col-sm-6">
-                <div class="my-3 p-3">
-                    <h2 class="display-5">
-                        <a href="{% url 'services:home' %}" class="">
-                            Fresado
-                        </a>
-                    </h2>
-                    <p class="lead">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae cupiditate dolores ipsa, eos mollitia tempore aliquid repudiandae placeat ratione molestias, perspiciatis nobis consequatur ex voluptate unde minus quae repellendus. Ab.
-                    </p>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6">
-                <div class="serv-img">
-                    <div class="img">
-                        <a href="{% url 'services:home' %}">
-                            <img class="img-fluid" src="/static/base/img/moby-background-04.png" alt="services">
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    {% endif %}
-    
+    </div>
 </div>
-{% include 'app/base/paginator.html' %}
+{% endif %}
+<div class="container">
+    <div class="columns">
+        <div class="column is-8 is-offset-2">
+        {% include 'app/base/paginator.html' %}
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block js %}
+<script src="{% static 'base/js/slick.min.js' %}"></script>
 <script>
-$('#services .row:nth-child(odd)').addClass('bg-light');
-$('#services .row:nth-child(odd) .col-12').addClass('text-center text-middle overflow-hidden text-dark');
-$('#services .row:nth-child(odd) a').addClass('text-dark');
-$('#services .row:nth-child(even)').addClass('bg-dark');
-$('#services .row:nth-child(even) .col-12').addClass('text-center text-middle overflow-hidden text-white');
-$('#services .row:nth-child(even) a').addClass('text-white');
-$('#services .row:nth-child(even) .col-12:nth-child(odd)').addClass('order-first order-sm-12');
-$('#services .row:nth-child(even) .col-12:nth-child(even)').addClass('order-last order-sm-1');
-$('#services .row .img').css('margin-left','-16px');
-$('#services .row .img').css('margin-right','-16px');
-
+    $('#serviceCarrousel').slick({
+        dots: true,
+        infinite: true,
+        speed: 300,
+        fade: true,
+        cssEase: 'linear',
+        autoplay: true,
+        autoplaySpeed: 2000
+    });
 </script>
 {% endblock %}
+
+

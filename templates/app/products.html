@@ -1,214 +1,163 @@
 {% extends 'app/base/index.html' %}{% load staticfiles %}
+
 {% block css %}
-    <link rel="stylesheet" href="{% static 'base/css/owl/owl.carousel.min.css' %}">
-    <link rel="stylesheet" href="{% static 'base/css/owl/owl.theme.default.min.css' %}">
-    <link rel="stylesheet" href="{% static 'base/css/home.css' %}">
-    <style>
-        .categories{padding-top: 3rem;}
-        /*  .categories */
-        .container header{ margin: 2rem; padding-bottom: 45px;}
-        .categories .item {min-height: 200px;background-color: #f5f5f5;background-position: top right !important;background-size: cover;background-repeat: no-repeat;}
-        .categories a {display: block;color: rgb(240, 240, 240);text-decoration: none;}
-        .categories .item span {color: #e7e4e4;font-weight: 300;display: block;}
-        #demo{margin-top: 125px;box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);}
-        #demo .carousel-inner img {min-width: 110%;max-height: 400px;}
-        .item .content{padding-left: 10px;padding-top: 10px;height: 45px;width: 100%;background-color: #3f4236;box-shadow: -5px 4px black;text-shadow: -4px 3px 3px black;}
-        .item{background: #FFF;box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);margin-bottom: 45px;}
-        .item .info{padding-left: 10px;padding-bottom: 10px;padding-right: 10px;padding-top: 10px;}
-        .item img{text-align: center}
-        .item .price{margin-right: 0px;margin-bottom: 0px;background-color: #8a7e5f;padding: 5px 20px 0px 20px;color: #FFF;}
-        #ch{margin-top: 25px;}
-        .brands-img-logo{height: 120px;}
-        #carousel-header{
-            margin-top: 50px;
-        }
-    </style>
 {% endblock %}
+
 {% block full_screen %}
 {% endblock %}
+
 {% block content %}
-    {% if products_header_carousel %}
-        <div class="container">
-            <div class="shadow" id="carousel-header">
-                <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel" data-interval="8000">
-                    <ol class="carousel-indicators">
-                        {% for object in products_header_carousel_images %}
-                            <li data-target="#carousel" data-slide-to="{{forloop.counter0}}" {% if forloop.counter0 == 0 %}class="active" {% endif %}></li>
-                        {% endfor %}
-                    </ol>
-                    <div class="carousel-inner view" role="listbox">
-                        {% for object in products_header_carousel_images %}
-                            <div class="carousel-item view hm-black-strong {% if forloop.counter == 1 %}active {% endif %}">
-                                <img src="{{ object.image.url }}" alt="{{object.name}}" class="">
-                                <div class="carousel-caption">
-                                    <div>
-                                        <h2>{{object.name}}</h2>
-                                        {{object.text | safe}}
-                                        {% if object.call_to_action_url != None %}
-                                            <a class="btn btn-outline-white waves-effect" href="{{object.call_to_action_url}}">Ver más</a>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                    <a class="carousel-control-prev" role="button" data-slide="prev"  href="#carousel">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Anterior</span>
-                    </a>
-                    <a class="carousel-control-next" role="button" data-slide="next"  href="#carousel">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Siguiente</span>
-                    </a>
-                </div>
+
+{% if products_header_carousel %}
+    <div class="container is-padding-y-30">
+        <div class="carousel" id="productsCarrousel">
+            {% for object in products_header_carousel_images %}
+            <div class=''>
+                <img class="is-background" src="{{ object.image.url }}" alt="{{object.name}}"></img>
             </div>
+            {% endfor %}
         </div>
-    {% endif %}
+    </div>
+{% endif %}
     
-    {% if departments %}
-        <div class="container" id="cate">
-            <div class="categories">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <header class="text-center">
-                            <h2 class="text-uppercase">
-                                <a href="{% url 'sales:departments' %}" class="text-dark">Departamentos</a>
-                            </h2>
-                        </header>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="moby-gradient py-5">
-            <div class="container">
-                <div class="row">
-                    {% for object in departments %}
-                    <div class="col-md-6 col-lg-3 d-flex align-items-stretch">
-                        <div class="card">
-                            <div class="view overlay">
-                                <img src="{% if object.background.url != None %}{{object.background.url}}{% else %}/static/base/img/img-base-m.png{% endif %}"
-                                    alt="{{object.title}}" class="img-fluid">
-                            </div>
-                            <div class="py-1 px-2">
-                                <div class="heading">
-                                    <h3 class="card-title pt-2 ">
-                                        <a href="{{object.get_absolute_url}}" class="black-text">
-                                            <strong>{{object.name}}</strong>
-                                        </a>
-                                    </h3>
-                                </div>
-                                <div class="desc">
-                                    <p>{{object.description|safe|truncatechars:120}}</p>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="text-center pb-3">
-                                <a class="btn btn-outline-black text-dark btn-sm" href="{{object.get_absolute_url}}">
-                                    <i class="fa fa-clone left"></i>
-                                    Ver más
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-    {% endif %}
-    
-    {% if products %}
-        <div class="container">
-            <div class="row mt-5 justify-content-md-center">
-                <div class="col-sm-12">
-                    <header class="text-center">
-                        <h2 class="text-uppercase">
-                            <a href="{% url 'sales:all' %}" class="text-dark">Nuestros productos</a>
-                        </h2>
-                    </header>
-                </div>
-                <div class="row">
-                    {% for object in products %}
-                        <div class="col-sm-4 align-self-center">
-                            <div class="item">
-                                <div class="picture">
-                                    <a href="{{object.get_absolute_url}}">
-                                        <img src="{% if object.img != '' %}/{{object.img}}{% else %}{% static 'base/img/base-m.png' %}{% endif %}" alt="{{object.name}}" class="img-fluid rounded mx-auto d-block"></img>
-                                    </a>
-                                </div>
-                                <hr>
-                                <div class="item-footer px-2 pb-5">
-                                    {{object.description|safe}}{{object.get_img}}
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-                <div class="row pb-1">
-                    <div class="col-12">
-                        <div class="text-center">
-                            <a href="{% url 'sales:all' %}" class="btn btn-outline-black text-white btn-lg">Ver más</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    {% endif %} 
-    {# Proveedores #}
-    {% if brands %}
-        <div class="container">
-            <div class="row pb-5" id="providers">
-                <div class="col-sm-12">
-                    <header class="text-center">
-                        <h2 class="text-uppercase">
-                            <a href="{% url 'sales:brands' %}" class="text-dark">Marcas</a>
-                        </h2>
-                    </header>
-                </div>
-                <div class="col-12">
-                    <div class="owl-carousel owl-theme">
-                        {% for object in brands %}
-                            <a href="{{object.get_absolute_url}}">                                    
-                                <img class="owl-lazy brands-img-logo" data-src="{% if object.logo.url != None %}{{object.logo.url}}{% else %} /static/base/img/img-base-s.png {% endif %}" alt="{{object.name}}" data-toggle="tooltip" data-placement="top" title="{{object.name}}">
+{% if departments %}
+<div class="container">
+    <div class="columns bd-klmn-columns">
+        {% for object in departments %}
+            <div class="column is-3">
+                <div class="has-background-grey-lighter">
+                    <div class="card is-centered overlayer">
+                        <div class="content-overlay"></div>
+                        <img class="content-image" src="{% if object.background.url != None %}{{object.background.url}}{% else %}/static/base/img/img-base-m.png{% endif %}" alt="{{object.title}}"></img>
+                        <div class="content-details fadeIn-top">
+                            <a href="{% url 'sales:all' %}?department={{object.id}}">
+                                <h3>{{ object.name }}</h3>
                             </a>
-                        {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endif %}
+    
+{% if products %}
+<div class="container is-margin-botton-50 is-padding-top-50" id="feeds">
+    <div class="has-text-centered">
+        <h2 class="is-size-2">Nuestros productos</h2>
+    </div>
+    <div class="columns">
+        {% for object in products %}
+            {% if forloop.counter0 == 4 or forloop.counter0 == 8 %}</div><div class="columns">{% endif %}
+            <div class="column is-3 {% if forloop.first or forloop.counter0 == 4 or forloop.counter0 == 7 %}{% endif %}">
+            <div class="recent-feed">
+                <div class="feed-img">
+                    <a href="{% url 'sales:product_detail' object.slug %}">
+                        {% if object.img.url != None %}
+                        <img src="{{object.img.url}}" alt="{{ object.code }}" class="image is-128-256" ></img>
+                        {% else %}
+                        <img src="/static/base/img/img-base-m.png" alt="{{ object.code }}" class="image is-128-256" ></img>
+                        {% endif %}
+                    </a>
+                </div>
+                <div class="feed-title">
+                    <h3 class="is-size-7">
+                        <a href="{% url 'sales:product_detail' object.slug %}" class="has-text-black">
+                            {{ object.code }}
+                        </a>
+                    </h3>
+                </div>
+                <div class="feed-leyend is-clearfix">
+                    <p class="is-size-7 is-pulled-left">
+                        <span class="icon"><i class="fas fa-folder-open"></i></span>
+                        <a href="{% url 'sales:all' %}?page=1category={{object.category.id}}" class="has-text-black">
+                            {{ object.category | lower | capfirst }}
+                        </a>
+                    </p>
+                </div>
+                <div class="feed-content">
+                    <div class="is-size-6">{{ object.description }}</div>
+                </div>
+            </div>
         </div>
-    {% endif %}
-    {# proveedores #} 
+        {% endfor %}
+    </div>
+    <div class="has-text-centered is-padding-top-50">
+        <a href="{% url 'sales:all' %}" class="button is-fullwidth is-light  is-size-4 has-text-black">
+            Ver todos los productos
+        </a>
+    </div>
+</div>
+{% endif %} 
+
+{% if brands %}
+<div>
+    <div class="container is-margin-botton-50 is-padding-y-30">
+        <div class="is-padding-y-30" id="brandCarrousel">
+            {% for object in brands %}
+                <a href="{% url 'sales:all' %}">
+                    {% if object.img.url != None %}
+                    <img id="brandCarrouselImg" src="{{object.img.url}}" alt="{{object.name}}">
+                    {% elif object.logo.url != None %}
+                    <img id="brandCarrouselImg" src="{{object.logo.url}}" alt="{{object.name}}">
+                    {% else %}
+                    <img id="brandCarrouselImg" src="/static/base/img/img-base-m.png" alt="{{object.name}}">
+                    {% endif %}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
 {% endblock %} 
 {% block js %}
-    <script src="{% static 'base/js/owl/owl.carousel.min.js' %}"></script>
-    <script>
-        $(document).ready(function () {
-            var owl = $('.owl-carousel');
-            owl.owlCarousel({
-                items: 6,
-                loop: true,
-                margin: 10,
-                autoplay: true,
-                autoplayTimeout: 3000,
-                autoplayHoverPause: true,
-                lazyLoad: true,
-                dots: false,
-                responsiveClass: true,
-                responsive: {
-                    0: {
-                        items: 2,
-                        nav: false
-                    },
-                    600: {
-                        items: 3,
-                        nav: false
-                    },
-                    1000: {
-                        items: 6,
-                        nav: false,
-                        loop: true
-                    }
+<script src="{% static 'base/js/slick.min.js' %}"></script>
+<script>
+    $('#productsCarrousel').slick({
+        dots: true,
+        infinite: true,
+        speed: 300,
+        fade: true,
+        cssEase: 'linear',
+        autoplay: true,
+        autoplaySpeed: 2000
+    });
+    $('#brandCarrousel').slick({
+        dots: false,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    dots: true
                 }
-            });
-        });
-    </script> 
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ],
+        autoplay: true,
+        autoplaySpeed: 2000
+    });
+</script>
 {% endblock %}

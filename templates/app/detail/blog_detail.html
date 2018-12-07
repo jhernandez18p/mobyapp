@@ -2,151 +2,152 @@
 
 {% block css %}
 <style>
-    .paralsec {
-        height: 350px;
-        {% if object.img %}
-            background-image: url("{{object.background.url}}");
-        {% else %}
-            background-image: url("/static/base/img/img-base-l.png");
-        {% endif %}
+    #blogBox, #commentPostBox{
+        background-color: #fff;
+        padding: 25px;
+        border-radius: 3px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        transition: all 0.3s cubic-bezier(.25,.8,.25,1);
     }
-    #newsletter .card{margin-bottom: 0;margin-right: -15px;margin-left: -15px;}
-    .paral p {color:rgba(255, 255, 255, 0.8);}
-    .paral h5 {color: rgba(255, 255, 255, 0.8);margin-top: 50px;}
-    .mbr-figure img{max-height: 150px;}
-    .content-1, .content-2, .content-4, .content-5 {background: #fff;padding-bottom: 0.1rem;}
-    .cta-3 {color: #fff;padding: 7rem 0;}
-    .coments:first-child{margin-top: 45px;}
-    .coments:last-child{padding-bottom: 45px;}
-    .coment_body:first-child{margin-bottom: 15px;}
-    .coment_body{
-        padding: 2rem 0;
-        background-color: #00000008;
-        border-radius: 15px;
-        box-shadow: -1px 2px 5px -4px black;
+    #commentPostBox #cke_id_content{
+        width: 100% !important;
     }
-    .blog-commets-share a{color: #000;}
-    .blog-commets-share span a .material-icons{font-size: 18px;}
-    .-body{padding-top: 45px;padding-bottom: 45px;}
-    .row{margin-left: 0;margin-right: 0;}
-    .card .card-body h5{font-size: 5rem;}
-    .card .card-body p{font-size: 3rem;}
-    @media (max-width: 767px){.coment_body img{width: 70px;}}
+    #commentBox{
+        background-color: #f8f8f8;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        padding: 25px;
+    }
 </style>
 {% endblock %}
+
 {% block full_screen %}
 {% endblock %}
 {% block content %}
 
-    <div class="container_fluid">
-        <div class="row" id="newsletter">
-            <div class="col-12 text-center">
-                <div class="card paral paralsec">
-                    <div class="card-body">
-                        <h5 class="card-title display-4">{{object.title}}</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="bg-light">
-        <div class="container">
-            <div class="row content-4 justify-center py-5">
-                <div class="col-md-6 pl-5 pr-5 text-center">
-                    {% if object.img %}
-                        <img class="mb-4 img-fluid" src="{{object.img.url}}" alt="{{object.title}}">
+<div class="container is-padding-y-30">
+    <div class="columns">
+        <div class="column is-8 is-offset-2 is-padding-top-30">
+            <div id="blogBox">
+                <div class="view overlay hm-white-slight is-centered">
+                    {% if object.img.url != None %}
+                        <img class="" src="{{object.img.url}}" alt="{{object.title}}">
+                    {% elif object.background.url != None %}
+                        <img class="" src="{{object.background.url}}" alt="{{object.title}}">
                     {% else %}
-                        <img class="mb-4 img-fluid" src="/static/base/img/img-base-m.png" alt="{{object.title}}">
+                        <img class="" src="/static/base/img/img-base-m.png" alt="{{object.title}}">
                     {% endif %}
                 </div>
-                <div class="col-md-6 text-left">
-                    <p class="card-text text-dark h2">{{object.sub_title}}.</p>
-                    {{object.text|safe}}
-                </div>
-                <div class="col">
-
+                <div class="is-padding-top-20">
+                    <h1 class="is-size-3"><strong>{{object.title}}</strong></h1>
+                    <p class="">
+                        {{object.text| safe}}
+                    </p>
+                    <p>Escrito por 
+                        <a class="font-bold dark-grey-text">{{object.author}}</a>, {{object.created_at}}
+                    </p>
+                    <a href="{{object.get_absolute_url}}" class="btn btn-outline-dark btn-md">Leer más</a>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+<div class="container is-padding-y-30">
     {% if has_comments %}
-        <div class="container">
-            {% for object in comments %}
-                <div class="row justify-content-md-center coments">
-                    <div class="col-md-7 col-testimonial">
-                        <div class="row coment_body">
-                            <div class="col-3 col-sm-5 text-center">
-                                <img class="" src="/static/base/img/base-s.png">
-                            </div>
-                            <div class="col-9 col-sm-7">
-                                <div class="comment-body">
-                                    <p class="quote-text">
-                                        {{object.content|safe}}
-                                    </p>
-                                    <div class="footer">
-                                        <p><span class="quote-author">{{object.author}}</span></p>
-                                    </div>
-                                </div>
-                            </div>
+    {% for object in comments %}
+        <div class="columns">
+        <div class="column is-8 is-offset-2 is-padding-top-10">
+            <div id="commentBox">
+                <article class="media">
+                    <figure class="media-left">
+                        <p class="image is-64x64">
+                        <img src="https://bulma.io/images/placeholders/128x128.png">
+                        </p>
+                    </figure>
+                    <div class="media-content">
+                        <div class="content">
+                        <p>
+                            <strong>@{{object.author}}</strong> <small>31m</small>
+                            <br>
+                            {{ object.content|safe }}
+                        </p>
                         </div>
-                    </div>  
-                </div>
-            {% endfor %}
+                        <nav class="level is-mobile">
+                        <!-- <div class="level-left">
+                            <a class="level-item">
+                            <span class="icon is-small"><i class="fas fa-reply"></i></span>
+                            </a>
+                            <a class="level-item">
+                            <span class="icon is-small"><i class="fas fa-retweet"></i></span>
+                            </a>
+                            <a class="level-item">
+                            <span class="icon is-small"><i class="fas fa-heart"></i></span>
+                            </a>
+                        </div> -->
+                        </nav>
+                    </div>
+                    <div class="media-right">
+                        {% if user == object.author %}<button class="delete"></button>{% endif %}
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <div class="columns">
+        <div class="column is-8 is-offset-2 is-padding-y-30">
             {% include 'app/base/paginator.html' %}
         </div>
-    {% endif %}
+        {% endif %}
+    </div>
+</div>
 
-    <div class="rgba-green-light">
-        <div class="container">
-            <div class="row justify-content-md-center -body">
-                
-                <div class="cta-3 text-center justify-center">
-                    {% if user.is_authenticated %}
-                        <div class="container">
-                            <a class="btn btn-lg btn-info py" data-toggle="modal" data-target="#fullHeightModalRight">Hacer un comentario</a>
+<div class="container is-padding-y-30">
+    <div class="columns">
+        {% if user.is_authenticated %}
+        <div class="column is-8 is-offset-2 is-padding-y-10">
+            <div>
+                <div id="commentPostBox">
+                    <form action="{% url 'blog:add_comment' object.slug %}" method="post">
+                        <div class="has-text-centered">
+                            <h3 class="is-size-3">Hacer un comentario</h3>
                         </div>
-                    {% else %}
-                        <div class="container">
-                            <h2 class="mb-4">Debe registrate o iniciar sesión para comentar en esta publicación</h2>
-                            <a class="btn btn-lg btn-success py" href="{% url 'auth:login' %}?next={{ request.path }}">Iniciar Sesión</a>
-                            <a class="btn btn-lg btn-primary py" href="{% url 'auth:register' %}?next={{ request.path }}">Registrarse</a>
+                        <div>
+                            <div>
+                                {% csrf_token %}
+                                {{ form.media }}
+                                {{ form.as_p }}
+                            </div>
                         </div>
-                    {% endif %}
+                        <div>
+                            <div class="control">
+                                <button class="button is-success is-fullwidth">Enviar</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="modal fade top" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-full-height modal-bottom" role="document">
-            <div class="modal-content container">
-                <form action="{% url 'blog:add_comment' object.slug %}" method="post">
-                    <div class="modal-header">
-                        <h5 class=" text-center" id="emyModalLabel">Hacer un comentario</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+        {% else %}
+        <div class="column is-8 is-offset-2 is-padding-y-10">
+            <div>
+                <div id="commentPostBox">
+                    <div class="has-text-centered is-padding-y-10">
+                        <h3 class="is-size-4">Para poder publicar debe estar registrado o iniciar sesión</h3>
                     </div>
-                    <div class="modal-body">
-                        <div class="text-center">
-                            {% csrf_token %}
-                            {{ form.media }}
-                            {{ form.as_p }}
+                    <div class="is-centered is-padding-y-10">
+                        <div class="buttons">
+                            <a class="button is-primary is-outlined" href="{% url 'auth:login' %}?next={{ request.path }}">Iniciar Sesión</a>
+                            <a class="button is-success is-outlined" href="{% url 'auth:register' %}?next={{ request.path }}">Registrarse</a>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <div class="text-center">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                            <button class="btn btn-success">Publicar
-                                <i class="fa fa-paper-plane-o ml-1"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
+        {% endif %}
     </div>
+</div>
+
 {% endblock %}
 
 {% block js %}
@@ -154,25 +155,116 @@
     // new WOW().init();
     // $( ".wow" ).addClass( "fadeInUp" );
 </script>
-{% load static %}
-<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
-<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
-<script>
-    $('.comment-body p img').addClass('img-fluid');
-    $( ".comment-body table" ).wrap( "<div class='table-responsive'></div>" );
-</script>
 {% endblock %}
 
+                        
 
-<div class="col-12">
-        <p class="h2 text-dark text-center">Dejar un comentario</p>
-    </div>
-    <div class="col-12 col-sm-10 my-4">
-        <form >
-            
-
-            
-                
-            </div>
-        </form>
-    </div>
+<div class="container_fluid">
+                            <div class="row" id="newsletter">
+                                <div class="col-12 text-center">
+                                    <div class="card paral paralsec">
+                                        <div class="card-body">
+                                            <h5 class="card-title display-4">{{object.title}}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-light">
+                            <div class="container">
+                                <div class="row content-4 justify-center py-5">
+                                    <div class="col-md-6 pl-5 pr-5 text-center">
+                                        {% if object.img %}
+                                            <img class="mb-4 img-fluid" src="{{object.img.url}}" alt="{{object.title}}">
+                                        {% else %}
+                                            <img class="mb-4 img-fluid" src="/static/base/img/img-base-m.png" alt="{{object.title}}">
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-6 text-left">
+                                        <p class="card-text text-dark h2">{{object.sub_title}}.</p>
+                                        {{object.text|safe}}
+                                    </div>
+                                    <div class="col">
+                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% if has_commentss %}
+                            <div class="container">
+                                {% for object in comments %}
+                                    <div class="row justify-content-md-center coments">
+                                        <div class="col-md-7 col-testimonial">
+                                            <div class="row coment_body">
+                                                <div class="col-3 col-sm-5 text-center">
+                                                    <img class="" src="/static/base/img/base-s.png">
+                                                </div>
+                                                <div class="col-9 col-sm-7">
+                                                    <div class="comment-body">
+                                                        <p class="quote-text">
+                                                            {{object.content|safe}}
+                                                        </p>
+                                                        <div class="footer">
+                                                            <p><span class="quote-author">{{object.author}}</span></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>  
+                                    </div>
+                                {% endfor %}
+                                {% include 'app/base/paginator.html' %}
+                            </div>
+                        {% endif %}
+                        
+                        <div class="rgba-green-light">
+                            <div class="container">
+                                <div class="row justify-content-md-center -body">
+                                    
+                                    <div class="cta-3 text-center justify-center">
+                                        {% if user.is_authenticated %}
+                                            <div class="container">
+                                                <a class="btn btn-lg btn-info py" data-toggle="modal" data-target="#fullHeightModalRight">Hacer un comentario</a>
+                                            </div>
+                                        {% else %}
+                                            <div class="container">
+                                                <h2 class="mb-4">Debe registrate o iniciar sesión para comentar en esta publicación</h2>
+                                                <a class="btn btn-lg btn-success py" href="{% url 'auth:login' %}?next={{ request.path }}">Iniciar Sesión</a>
+                                                <a class="btn btn-lg btn-primary py" href="{% url 'auth:register' %}?next={{ request.path }}">Registrarse</a>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="modal fade top" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-full-height modal-bottom" role="document">
+                                <div class="modal-content container">
+                                    <form action="{% url 'blog:add_comment' object.slug %}" method="post">
+                                        <div class="modal-header">
+                                            <h5 class=" text-center" id="emyModalLabel">Hacer un comentario</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="text-center">
+                                                {% csrf_token %}
+                                                {{ form.media }}
+                                                {{ form.as_p }}
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <div class="text-center">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                                <button class="btn btn-success">Publicar
+                                                    <i class="fa fa-paper-plane-o ml-1"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>

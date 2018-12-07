@@ -33,27 +33,31 @@ class BlogDetail(DetailView):
 
     model = Post
     template_name = 'app/detail/blog_detail.html'
-    comments_paginate_by = 1
+    comments_paginate_by = 4
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         context['form'] = CommentForm
         context['url_nav'] = 'blog'
+        
         comments = Comment.objects.filter(content_type=17, approved=True,object_id=context['object'].id)
         if comments.exists():
             context['has_comments'] = True
-            page = self.request.GET.get('page')
-            comments_paginator = Paginator(comments, self.comments_paginate_by)
             context['comments'] = comments
-            try:
-                comments_page_obj = comments_paginator.page(page)
-            except (PageNotAnInteger, EmptyPage):
-                comments_page_obj = comments_paginator.page(1)
-            # context['is_paginated'] = True
-            context['page_obj'] = comments_page_obj
         else:
             context['has_comments'] = False
+        
+        page = self.request.GET.get('page')
+        comments_paginator = Paginator(comments, self.comments_paginate_by)
+        try:
+            comments_page_obj = comments_paginator.page(page)
+            # context['is_paginated'] = True
+        except (PageNotAnInteger, EmptyPage):
+            comments_page_obj = comments_paginator.page(1)
+        
+        context['page_obj'] = comments_page_obj
+
         return context
 
 
