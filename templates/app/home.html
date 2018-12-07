@@ -156,7 +156,7 @@
                         <div class="content-overlay"></div>
                         <img {% if object.background.url %} src="{{object.background.url}}" {% elif object.img.url %} src="{{object.img.url}}" {% else %} src="/static/base/img/img-base-m.png" {% endif %} alt="{{object.title}}" class="content-image"></img>
                         <div class="content-details fadeIn-top">
-                            <a href="/productos/todos?departamento={{object.id}}">
+                            <a href="/productos/todos?department={{object.id}}">
                                 <h3>{{object.name}}</h3>
                             </a>
                         </div>
