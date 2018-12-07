@@ -49,7 +49,7 @@
         <div class="container">
             <div class="navbar-brand">
                 <a href="{% url 'front:home' %}" class="navbar-item">
-                    <img src="{{info_site.logo.url}}" alt="{{SITE_TITLE}}" id="is-logo"></img>
+                    <img src="/static/base/img/logo.png" alt="{{SITE_TITLE}}" id="is-logo"></img>
                 </a>
                 <span class="navbar-burger" ref="isBurger" data-target="navMenu">
                     <span></span>
@@ -69,7 +69,7 @@
                 </div>
                 <div class="navbar-end is-hidden-desktop">
                     <a href="{% url 'front:home' %}" class="navbar-item">
-                        <img src="{{info_site.logo.url}}" alt="{{SITE_TITLE}}" id="is-logo"></img>
+                        <img src="/static/base/img/logo.png" alt="{{SITE_TITLE}}" id="is-logo"></img>
                     </a>
                     {% for item in FRONT_HEADER_MENU %}
                     <a data-target="navMenu" href="{{item.url}}" class="is-uppercase navbar-item">
