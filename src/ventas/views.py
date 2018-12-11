@@ -45,6 +45,7 @@ class Home(ListView):
             context['brands'] = brands
 
         context['url_nav'] = 'productos'
+        print(self)
         return context
 
 

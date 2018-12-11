@@ -6,169 +6,62 @@
 </style>
 {% endblock %}
 
+{% block crumbs %}
+<li class="has-text-back"><a href="{% url 'intra:users' %}" aria-current="page">Usuarios</a></li>
+<li class="has-text-back"><a href="{% url 'intra:profile' %}" aria-current="page">{{USER_FULLNAME}}</a></li>
+{% endblock %}
+
 {% block content %}
-<div class="app-dashboard-body-content off-canvas-content" data-off-canvas-content>
-    
-    <div class="card-profile-stats" id="perfil">
-        <div class="card-profile-stats-intro float-left">
-            <a href="{% url 'intra:profile' %}">
-                <img class="card-profile-stats-intro-pic" src="{% if USER_AVATAR %}{{ USER_AVATAR }}{% else %}{% static 'base/img/avatar.png' %}{% endif %}" alt="{{USER_FULLNAME}}"/>
-            </a>
-            <div class="card-profile-stats-intro-content">
-                <h3>{{USER_FULLNAME}} 
-                    <span>
-                        {% if user.is_superuser %}
-                        <i class="fi-sheriff-badge gold"></i>
-                        {% endif %}
-                    </span>
-                </h3>
-                <p>Miembro desde: <span>{{user.date_joined}}</span></p>
-            </div>
-        </div>
 
-        <div class="card-profile-stats-intro float-right alig-self-middle">
-            <div class="card-profile-stats-intro-content">
-                <h3 class="float-right" 
-                data-tooltip tabindex="1" title="Editar perfil." data-position="left" data-alignment="center">
-                    <a  href="{% url 'intra:users' %}"><i class="fi-clipboard-pencil"></i></a>
-                </h3>
-            </div>
-        </div>
-        <hr/>
+<div class="card events-card">
+    <header class="card-header">
+        <figure class="image is-32x32 is-margin-y-5">
+        {% if USER_AVATAR.url %}
+            <img class="is-rounded is-margin-x-5" src="{{ USER_AVATAR }}" alt="{{USER_FULLNAME}}"/>
+        {% else %}
+            <img class="is-rounded is-margin-x-5" src="{% static 'base/img/avatar.png' %}" alt="{{USER_FULLNAME}}"/>
+        {% endif %}
+        </figure>
+        <p class="card-header-title">
+            Perfil de {{USER_FULLNAME}} {% if user.is_superuser %}<i class="fi-sheriff-badge gold"></i>{% endif %}
+        </p>
+        <p class="card-header-title">Miembro desde: <span>{{user.date_joined|date:"SHORT_DATE_FORMAT"}}</span></p>
+    </header>
+</div>
 
-        <div class="card-profile-stats-container">
-            <div class="card-profile-stats-statistic">
-                <p>{{user.first_name}}</p>
-            </div>
-            <div class="card-profile-stats-statistic">
-                <p>{{user.last_name}}</p>
-            </div>
-            <div class="card-profile-stats-statistic">
-                <p>{{user.username}}</p>
-            </div>
+<div class="card events-card">
+    <header class="card-header">
+        <p class="card-header-title">
+            Mis Comentarios
+        </p>
+    </header>
+    <div class="card-table">
+        <div class="content">
+            <table class="table is-fullwidth is-striped">
+                <tbody>
+                    {% for object in comments %}
+                    <tr>
+                        <td><a href="{% url 'intra:comment-update' object.id %}">{{object.id}}</a></td>
+                        <td>{{object.content | safe}}</td>
+                        <td>
+                            {{object.post.title}}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
-        <hr />
-
-        <div class="card-profile-stats-container">
-            <div class="card-profile-stats-statistic">
-                <p>
-                    <a href="{% url 'intra:profile' %}">
-                        Cambiar contraseña
-                    </a>
-                </p>
-            </div>
-        </div>
-        <hr/>
     </div>
-    
-    <div class="card-profile-stats" id="blog">
-        <div class="card-profile-stats-intro">
-            <div class="card-profile-stats-intro-content">
-                <h3>Mis Artículos</h3>
-            </div>
+    <footer class="card-footer">
+        <div class="content">
+            {% include 'intra/base/paginator.html' %}
         </div>
-        <hr />
-        <div class="card-profile-stats-intro">
-            <div class="card-profile-stats-intro-content">
-                <div class="card-profile-stats-container float-left">
-                    <div class="">
-                        <p>Miembro desde: <span><a href="#">Lorem ipsum dolor sit ameto!</a></span></p>
-                    </div>
-                </div>
-                <div class="card-profile-stats-container float-right">
-                    <div class="ml-5">
-                        <p
-                        data-tooltip tabindex="1" title="Editar." data-position="left" data-alignment="center">
-                            <a  href="{% url 'intra:profile' %}"><i class="fi-clipboard-pencil"></i></a>
-                        </p>
-                        <p
-                        data-tooltip tabindex="1" title="Eliminar." data-position="right" data-alignment="center">
-                            <a  href="{% url 'intra:profile' %}"><i class="fi-x red"></i></a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr>
-    </div>
-    
-    <div class="card-profile-stats" id="comments">
-        <div class="card-profile-stats-intro">
-            <div class="card-profile-stats-intro-content">
-                <h3>Mis Comentarios</h3>
-            </div>
-        </div>
-        <hr />
-        <div class="card-profile-stats-intro">
-            <div class="card-profile-stats-intro-content">
-                <div class="card-profile-stats-container float-left">
-                    <div class="">
-                        <p>Miembro desde: <span><a href="#">Lorem ipsum dolor sit ameto!</a></span></p>
-                    </div>
-                </div>
-                <div class="card-profile-stats-container float-right">
-                    <div class="ml-5">
-                        <p
-                        data-tooltip tabindex="1" title="Editar." data-position="left" data-alignment="center">
-                            <a  href="{% url 'intra:profile' %}"><i class="fi-clipboard-pencil"></i></a>
-                        </p>
-                        <p
-                        data-tooltip tabindex="1" title="Eliminar." data-position="right" data-alignment="center">
-                            <a  href="{% url 'intra:profile' %}"><i class="fi-x red"></i></a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr>
-    </div>
-    
-    <div class="card-profile-stats" id="tickets">
-        <div class="card-profile-stats-intro">
-            <div class="card-profile-stats-intro-content">
-                <h3>Mis Tickets</h3>
-            </div>
-        </div>
-        <hr />
-        <div class="card-profile-stats-intro">
-            <div class="card-profile-stats-intro-content">
-                <div class="card-profile-stats-container float-left">
-                    <div class="">
-                        <p>Miembro desde: <span><a href="#">Lorem ipsum dolor sit ameto!</a></span></p>
-                    </div>
-                </div>
-                <div class="card-profile-stats-container float-right">
-                    <div class="ml-5">
-                        <p
-                        data-tooltip tabindex="1" title="Editar." data-position="left" data-alignment="center">
-                            <a  href="{% url 'intra:profile' %}"><i class="fi-clipboard-pencil"></i></a>
-                        </p>
-                        <p
-                        data-tooltip tabindex="1" title="Eliminar." data-position="right" data-alignment="center">
-                            <a  href="{% url 'intra:profile' %}"><i class="fi-x red"></i></a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr>
-    </div>
-
+    </footer>
 </div>
 
 {% endblock %}
 
 {% block js %}
 <script>
-    $('.card-profile-stats-more-link').click(function (e) {
-        e.preventDefault();
-        if ($(".card-profile-stats-more-content").is(':hidden')) {
-            $('.card-profile-stats-more-link').find('i').removeClass('fa-angle-down').addClass('fa-angle-up');
-        } else {
-            $('.card-profile-stats-more-link').find('i').removeClass('fa-angle-up').addClass('fa-angle-down');
-        }
-        $(this).next('.card-profile-stats-more-content').slideToggle();
-    });
-
 </script>
 {% endblock %}

@@ -18,19 +18,24 @@ class Home(ListView):
     # model =
     # context_object_name = 'boards'
     queryset = ''
-    template_name = 'base/home.html'
+    template_name = 'intra/home.html'
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         users = User.objects.all()
         posts = Post.objects.all().filter(is_public=False)
+        products = Article.objects.all()
+
+        if products.exists():
+            context['products_len'] = products.count()
+
         if posts.exists():
             if len(posts)>1:
                 context['have_many_posts'] = True
             context['posts'] = posts
             context['post_len'] = len(posts)
-        # Add in a QuerySet of all the books
+
         context['SITE_URL'] = 'Intra'
         context['users_len'] = len(users)
 
@@ -46,9 +51,14 @@ class Profile(ListView):
     template_name = 'intra/profile.html'
 
     def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
-        # Add in a QuerySet of all the books
+        
+        user = self.request.user
+
+        comments = Comment.objects.all()
+        if comments.exists():
+            context['comments'] = comments.filter(author=user)
+
         context['SITE_URL'] = 'Perfil de %s' % (self.request.user.username)
         context['APP'] = 'Profile'
         return context
@@ -60,7 +70,7 @@ class Users(ListView):
     # context_object_name = 'boards'
     # queryset = ''
     template_name = 'intra/users.html'
-    paginate_by = 5
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
@@ -126,6 +136,126 @@ class Products(ListView):
             # context['products'] = products
         context['SITE_URL'] = 'Intra'
         context['APP'] = 'Products'
+        return context
+
+
+@method_decorator(login_required, name='dispatch')
+class ProductLines(ListView):
+    model = Line
+    # context_object_name = 'boards'
+    # queryset = ''
+    template_name = 'intra/products.html'
+    paginate_by = 20
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # products = Article.objects.all()
+        # Add in a QuerySet of all the books
+        # if products.exists():
+            # context['products'] = products
+        context['SITE_URL'] = 'lines'
+        context['APP'] = 'Lines'
+        return context
+
+
+@method_decorator(login_required, name='dispatch')
+class ProductSubLines(ListView):
+    model = SubLine
+    # context_object_name = 'boards'
+    # queryset = ''
+    template_name = 'intra/products.html'
+    paginate_by = 20
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # products = Article.objects.all()
+        # Add in a QuerySet of all the books
+        # if products.exists():
+            # context['products'] = products
+        context['SITE_URL'] = 'lines'
+        context['APP'] = 'Lines'
+        return context
+
+
+@method_decorator(login_required, name='dispatch')
+class ProductDepartment(ListView):
+    model = Department
+    # context_object_name = 'boards'
+    # queryset = ''
+    template_name = 'intra/products.html'
+    paginate_by = 20
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # products = Article.objects.all()
+        # Add in a QuerySet of all the books
+        # if products.exists():
+            # context['products'] = products
+        context['SITE_URL'] = 'lines'
+        context['APP'] = 'Lines'
+        return context
+
+
+@method_decorator(login_required, name='dispatch')
+class ProductCategory(ListView):
+    model = Category
+    # context_object_name = 'boards'
+    # queryset = ''
+    template_name = 'intra/products.html'
+    paginate_by = 20
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # products = Article.objects.all()
+        # Add in a QuerySet of all the books
+        # if products.exists():
+            # context['products'] = products
+        context['SITE_URL'] = 'lines'
+        context['APP'] = 'Lines'
+        return context
+
+
+@method_decorator(login_required, name='dispatch')
+class ProductBrand(ListView):
+    model = Brands
+    # context_object_name = 'boards'
+    # queryset = ''
+    template_name = 'intra/products.html'
+    paginate_by = 20
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # products = Article.objects.all()
+        # Add in a QuerySet of all the books
+        # if products.exists():
+            # context['products'] = products
+        context['SITE_URL'] = 'lines'
+        context['APP'] = 'Lines'
+        return context
+
+
+@method_decorator(login_required, name='dispatch')
+class ProductColor(ListView):
+    model = Color
+    # context_object_name = 'boards'
+    # queryset = ''
+    template_name = 'intra/products.html'
+    paginate_by = 20
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+        # products = Article.objects.all()
+        # Add in a QuerySet of all the books
+        # if products.exists():
+            # context['products'] = products
+        context['SITE_URL'] = 'lines'
+        context['APP'] = 'Lines'
         return context
 
 
@@ -325,9 +455,9 @@ class UserCreate(CreateView):
 class UserUpdate(UpdateView):
     """
     """
-    model = Profile
-    fields = ['']
-    queryset = ''
+    model = User
+    fields = ['first_name','last_name','email','username',]
+    # queryset = ''
     template = 'intra/edit.html'
 
     def form_valid(self, form):

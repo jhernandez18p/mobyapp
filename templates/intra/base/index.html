@@ -1,58 +1,92 @@
 <!DOCTYPE html>{% load staticfiles %}
 <html class="no-js" lang="es" dir="ltr">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
     {% include 'intra/base/head.html' %}
     <title>{{SITE_URL}} - {{SITE_TITLE}}</title>
-    {% block css %}{% endblock %}
+    {% block css %}
+    {% endblock %}
+    <style>
+        #menuLogo{height: 50px !important;}
+        .navbar-item.brand-text {font-weight: 300;}
+        .navbar-item, .navbar-link {font-size: 14px;font-weight: 700;}
+        .columns {width: 100%;height: 100%;margin-left: 0;}
+        .menu-label {color: #8F99A3;letter-spacing: 1.3;font-weight: 700;}
+        .menu-list a {color: #0F1D38;font-size: 14px;font-weight: 700;}
+        .menu-list a:hover {background-color: transparent;color: #276cda;}
+        .menu-list a.is-active {background-color: transparent;color: #276cda;font-weight: 700;}
+        .card {box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);margin-bottom: 2rem;}
+        .card-header-title {color: #8F99A3;font-weight: 400;}
+        .info-tiles {margin: 1rem 0;}
+        .info-tiles .subtitle {font-weight: 300;color: #8F99A3;}
+        .hero.welcome.is-info {background: #36D1DC;background: -webkit-linear-gradient(to right, #5B86E5, #36D1DC);background: linear-gradient(to right, #5B86E5, #36D1DC);}
+        .hero.welcome .title, .hero.welcome .subtitle {color: hsl(192, 17%, 99%);}
+        .card .content {font-size: 14px;}
+        .card-footer-item {font-size: 14px;font-weight: 700;color: #8F99A3;}
+        .card-footer-item:hover { }
+        .card-table .table {margin-bottom: 0;}
+        .events-card .card-table {max-height: 250px;overflow-y: scroll;}
+    </style>
 </head>
 <body>
-    <header>
-        {% block full_screen %}{% endblock %}
-        {% include 'intra/base/nav.html' %}
-    </header>
-    {% if USER_IS_ACTIVE == 'INACTIVE' %}
-        <div class="full reveal" id="statusModal" data-reveal>
-            <div class="card ">
-                <div class="card-divider">
-                    <p>Disculpe {{USER_FULLNAME}} debe activar su usuario</p>
-                </div>
-                <div class="card-section">
-                    <p>Por favor revisar en la bandeja de entrada de su correo, para activar su usuario</p>
-                </div>
+    {% include 'intra/base/nav.html' %}
+    {% if USER_IS_ACTIVE ==  'INACTIVE' %}
+        <div class="modal is-active">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <section class="modal-card-body">
+                    <div class="card-divider">
+                        <p>Disculpe {{USER_FULLNAME}}.</p>
+                    </div>
+                    <div class="card-section">
+                        <p>Por favor revise en la bandeja de entrada de {{user.email}}, para activar su usuario</p>
+                    </div>
+                </section>
             </div>
         </div>
     {% elif USER_IS_ACTIVE == 'BLOCKED' %}
-        <div class="full reveal" id="statusModal" data-reveal>
-            <div class="card ">
+    <div class="modal is-active">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <section class="modal-card-body">
                 <div class="card-divider">
                     <p>Ups... Disculpe {{USER_FULLNAME}} su usuario ha sido bloqueado</p>
                 </div>
                 <div class="card-section">
-                    <p>Por favor contactar al equipo de soporte</p>
-                    <a href="mailto:info@moby-group.com" class="primary button expanded">
-                        Contacto
+                    <p>Por favor contactar al equipo de soporte <a href="mailto:info@moby-group.com" class="has-text-grey">info@moby-group.com</a></p>
+                </div>
+            </section>
+        </div>
+    </div>
+    {% else %}
+    <div class="container">
+        <div class="columns">
+            <div class="column is-3 ">
+                {% include 'intra/base/sedenav.html' %}
+            </div>
+            <div class="column is-padding-top-20">
+                <nav class="breadcrumb" aria-label="breadcrumbs">
+                    <ul>
+                        <li><a href="{% url 'intra:home' %}">Intra</a></li>
+                        {% block crumbs %}{% endblock %}
+                    </ul>
+                </nav>                
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+        <div class="columns is-centered">
+            <div class="column is-half has-text-centered">
+                <div>
+                    <a href="{% url 'intra:home' %}">
+                        <img id="menuLogo" src="{% static 'base/img/logo.png' %}" alt="{{SITE_TITLE}}">
                     </a>
                 </div>
             </div>
         </div>
-    {% else %}
-        <section class="app-dashboard-body off-canvas-wrapper">
-            {% block slide %}{% endblock %}
-            {% block content %}{% endblock %}
-            {% include 'intra/base/footer.html' %}
-        </section>
+    </div>
     {% endif %}
     <script src="{% static 'intra/js/vendor/jquery.js' %}"></script>
     <script src="{% static 'intra/js/vendor/what-input.js' %}"></script>
     <script src="{% static 'intra/js/vendor/foundation.js' %}"></script>
     <script src="{% static 'intra/js/app.js' %}"></script>
-    {% if USER_IS_ACTIVE == 'BLOCKED' %}
-        <script>
-            var elem = $('#statusModal').foundation('open');
-        </script>
-    {% endif %}
 </body>
 </html>

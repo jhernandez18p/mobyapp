@@ -118,9 +118,8 @@
     </div>
     <div class="columns is-padding-top-30">
         {% for object in object_list %}
-            {% if not object.featured %}
-            {% if forloop.counter0 == 4 or forloop.counter0 == 7 %}</div><div class="columns">{% endif %}
-            <div class="column is-3 {% if forloop.counter0 == 1 or forloop.counter0 == 4 or forloop.counter0 == 7 %}is-offset-2{% endif %}">
+            {% if forloop.counter0 == 3 or forloop.counter0 == 6 %}</div><div class="columns">{% endif %}
+            <div class="column is-3 {% if forloop.first == 1 or forloop.counter0 == 3 or forloop.counter0 == 6 %}is-offset-2{% endif %}">
                 <div>
                     <a href="{{object.get_absolute_url}}" class="has-text-black">
                         <h3 class="is-size-3">{{object.title}}</h3>
@@ -137,7 +136,6 @@
                     </div>
                 </div>
             </div>
-            {% endif %}
         {% endfor %}
     </div>
 </div>

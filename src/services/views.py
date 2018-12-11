@@ -19,6 +19,10 @@ class Home(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         
+        service_list = self.model.objects.all()
+        if service_list.exists():
+            context = super().get_context_data(object_list=service_list.filter(featured=False),service_list=service_list.filter(featured=True),**kwargs)
+
         service_header_carousel = Carousel.objects.filter(Q(page__name='servicios') & Q(position__name='header'))
         if service_header_carousel.exists():
             context['service_header_carousel'] = True
@@ -39,6 +43,7 @@ class ServiceDetail(DetailView):
 
     model = Service
     form_class = ServiceForm
+    paginate_by = 6
     template_name = 'app/detail/service_detail.html'
 
     def post(self, request, *args, **kwargs):
@@ -73,7 +78,7 @@ class ServiceDetail(DetailView):
             context['images'] = images
 
         obj = super().get_object()
-        services = Service.objects.exclude(slug=obj.slug)
+        services = self.model.objects.exclude(slug=obj.slug).order_by('?')[:3]
         if services.exists():
             context['object_list'] = services
 

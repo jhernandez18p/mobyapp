@@ -8451,6 +8451,18 @@ header, .content, footer {
 .is-padding-top-100 {
   padding-top: 100px; }
 
+.is-margin-x-5 {
+  margin-left: 5px;
+  margin-right: 5px; }
+  
+.is-margin-y-5 {
+  margin-top: 5px;
+  margin-bottom: 5px; }
+
+.is-padding-y-5 {
+  padding-top: 5px;
+  padding-bottom: 5px; }
+
 .is-padding-y-10 {
   padding-top: 10px;
   padding-bottom: 10px; }
@@ -9156,6 +9168,8 @@ header, .content, footer {
 
 #productsSearcherMov .body-box .control{margin-bottom: 0px; margin-top: 0px; margin-left: 10px; display: inline-flex; width: 100%; margin-right: 10px;}
 #productsSearcherMov .body-box div h3{padding-left: 10px;margin-bottom: 5px !important;margin-top: 5px;}
+
+.is-primary {background-color: rgba(76, 175, 80, 0.7) !important;}
 
 @media only screen and (min-width: 1000px) {
   #serviceCarrousel{

@@ -3,46 +3,48 @@
 {% block css %}
 {% endblock %}
 
+{% block crumbs %}
+<li class="has-text-back"><a href="{% url 'intra:services' %}" aria-current="page">Servicios</a></li>
+{% endblock %}
+
 {% block content %}
-<div class="app-dashboard-body-content off-canvas-content" data-off-canvas-content>
-        <div class="card-profile-stats" id="blog">
-            <div class="card-profile-stats-intro">
-                <div class="card-profile-stats-intro-content">
-                    <h3>Servicios</h3>
-                </div>
-            </div>
-            {% for service in object_list %}
-            <hr />
-            <div class="card-profile-stats-intro">
-                <div class="card-profile-stats-intro-content">
-                    <div class="card-profile-stats-container float-left">
-                        <div class="">
-                            <p>{{service.name}}: <span>{{service.content | safe}}</span></p>
-                        </div>
-                    </div>
-                    {% if user.profile.role == 'ADMIN' or user.profile.role ==  'SUPERVISOR' %}
-                    <div class="card-profile-stats-container float-right">
-                        <div class="ml-5">
-                            <p data-tooltip tabindex="1" title="Editar." data-position="left" data-alignment="center">
-                                <a href="{% url 'intra:services' %}">
-                                    <i class="fi-clipboard-pencil"></i>
-                                </a>
-                            </p>
-                            <p data-tooltip tabindex="1" title="Eliminar." data-position="right" data-alignment="center">
-                                <a href="{% url 'intra:services' %}">
-                                    <i class="fi-x red"></i>
-                                </a>
-                            </p>
-                        </div>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-            {% endfor %}
-            <hr>
-            {% include 'intra/base/paginator.html' %}
+<div class="card events-card">
+    <header class="card-header">
+        <p class="card-header-title">
+            Servicios
+        </p>
+        <a href="#" class="card-header-icon" aria-label="more options">
+            <span class="icon">
+                <i class="fa fa-angle-down" aria-hidden="true"></i>
+            </span>
+        </a>
+    </header>
+    <div class="card-table">
+        <div class="content">
+            <table class="table is-fullwidth is-striped">
+                <tbody>
+                    {% for service in object_list %}
+                    <tr>
+                        <td width="5%"><i class="fa fa-bell-o"></i></td>
+                        <td><p>{{service.name}}: <span>{{service.content | safe}}</span></p></td>
+                        <td>
+                            {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' %}
+                            <a class="button is-small is-primary" href="{% url 'intra:service-update' pk=service.id %}">Editar</a>
+                            <a class="button is-small is-danger" href="{% url 'intra:service-delete' pk=service.id %}">Eliminar</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
+    <footer class="card-footer">
+        <div class="content">
+            {% include 'intra/base/paginator.html' %}
+        </div>
+    </footer>
+</div>
 {% endblock %}
 
 {% block js %}

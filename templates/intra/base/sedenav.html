@@ -1,0 +1,90 @@
+{% load staticfiles %}
+
+<aside class="menu is-hidden-mobile">
+    <p class="menu-label is-size-5 is-padding-top-30">Menú</p>
+    <p class="menu-label">Usuarios</p>
+    <ul class="menu-list">
+        {% if user.is_staff %}
+        <li><a href="{% url 'intra:users' %}"><span class="">Todos</span></a></li>
+        {% endif %}
+        <li><a href="{% url 'intra:profile' %}"><span class="">Mi Perfil</span></a></li>
+    </ul>
+    <p class="menu-label">Servicios</p>
+    <ul class="menu-list">
+        <li><a href="{% url 'intra:services' %}"><span class="">Todos</span></a></li>
+    </ul>
+    <p class="menu-label">Productos</p>
+    <ul class="menu-list">
+        <li>
+            <a href="{% url 'intra:products' %}"><span class="">Todos</span></a>
+            {% if user.is_staff %}
+                <ul>
+                    <li><a href="{% url 'intra:products-lines' %}"><span class="">Lineas</span></a></li>
+                    <li><a href="{% url 'intra:products-sublines' %}"><span class="">Sublineas</span></a></li>
+                    <li><a href="{% url 'intra:products-colors' %}"><span class="">Colores</span></a></li>
+                    <li><a href="{% url 'intra:products-brands' %}"><span class="">Marcas</span></a></li>
+                    <li><a href="{% url 'intra:products-categories' %}"><span class="">Categorías</span></a></li>
+                    <li><a href="{% url 'intra:products-departments' %}"><span class="">Departamentos</span></a></li>
+                    {% if user.profile.role == 'ADMIN' %}
+                        <li><a href="{% url 'intra:products' %}"><span class="">Importar bloque</span></a></li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+        </li>
+        <li><a href="{% url 'intra:products' %}"><span class="">Top 10</span></a></li>
+        
+    </ul>
+    <p class="menu-label">Blog</p>
+    <ul class="menu-list">
+        <li><a href="{% url 'intra:blog' %}"><span class="">Todos</span></a></li>
+        <li><a href="{% url 'intra:blog' %}"><span class="">Mis publicaciones</span></a></li>
+    </ul>
+    <p class="menu-label">Comentarios</p>
+    <ul class="menu-list">
+        {% if user.is_staff %}
+        <li><a href="{% url 'intra:comments' %}"><span class="">Todos</span></a></li>
+        {% endif %}
+        <li><a href="{% url 'intra:comments' %}"><span class="">Mis comentarios</span></a></li>
+    </ul>
+    <p class="menu-label">Multimedia</p>
+    <ul class="menu-list">
+        <li><a href="{% url 'intra:medias' %}"><span class="">Multimedia</span></a></li>
+    </ul>
+    {% if activated %}
+    <p class="menu-label">Soporte</p>
+    <ul class="menu-list">
+        <li><a href="{% url 'intra:support' %}"><span class="">Soporte</span></a></li>
+    </ul>
+    {% endif %}
+    <p class="menu-label">
+        <a href="{% url 'front:home' %}" class="has-text-black">Salir de Intra</a>
+    </p>
+</aside>
+
+{% block css %}
+<style>
+    .blue{background-color: #1e90ff !important;color: #fff;border:1px #1e90ff;}
+    .green{background-color: #2ed573 !important;color: #fff;border:1px #2ed573;}
+    .green2{background-color: #7bed9f !important;color: #fff;border:1px #7bed9f;}
+    .golden{background-color: #eccc68 !important;color: #fff;border:1px #eccc68;}
+    .menu-label {
+        color: #8F99A3;
+        letter-spacing: 1.3;
+        font-weight: 700;
+    }
+    .menu-list a {
+        color: #0F1D38;
+        font-size: 14px;
+        font-weight: 700;
+    }
+    .menu-list a:hover {
+        background-color: transparent;
+        color: #276cda;
+    }
+    .menu-list a.is-active {
+        background-color: transparent;
+        color: #276cda;
+        font-weight: 700;
+    }
+    </style>
+{% endblock %}

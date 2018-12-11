@@ -82,20 +82,20 @@
             <div id="searchBox">
                 <div class="is-hidden-touch" id="productsSearcher">
                     <div class="card box-animation">
-                        <div class="has-background-grey is-padding-y-10 has-text-centered">
-                            <h3 class="is-size-5 has-text-white">Busqueda avanzada</h3>
+                        <div class="has-background-grey has-text-centered is-padding-y-10">
+                            <h3 class="is-size-5 has-text-white is-marginless">Busqueda avanzada</h3>
                         </div>
-                        <div class="has-background-grey-lighter is-padding-top-10">
-                            <h3 class="is-size-6">Artículo por nombre</h3>
+                        <div class="has-background-grey-lighter is-padding-y-10">
+                            <h3 class="is-size-6 is-marginless">Artículo por nombre</h3>
                             <div class="field has-addons">
-                                <div class="control has-background-white">
+                                <div class="control has-background-white is-marginless">
                                     {% if search == '' %}
                                         <input class="input" type="text" placeholder="Buscar un producto" id='searchInput'></input>
                                     {% else %}
                                         <input class="input" type="text" placeholder="{{search}}" value="{{search}}" id='searchInput'></input>
                                     {% endif %}
                                 </div>
-                                <div class="control">
+                                <div class="control is-marginless">
                                     <a class="button is-info">
                                         <span class="icon has-text-white tooltip is-tooltip-right" data-tooltip="Buscar">
                                             <i class="fas fa-search"></i>
@@ -105,8 +105,8 @@
                             </div>
                         </div>
                         <div>
-                            <div class="has-background-grey-lighter is-padding-y-10">
-                                <h3 class="is-size-6">Lineas</h3>
+                            <div class="has-background-grey-lighter is-padding-bottom-10">
+                                <h3 class="is-size-6 is-marginless">Lineas</h3>
                                 <div class="field has-addons has-text-centered">
                                     <div class="select">
                                         <form action="{% url 'sales:all' %}" method="get">
@@ -125,8 +125,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="has-background-grey-lighter is-padding-y-10">
-                                <h3 class="is-size-6">Sublineas</h3>
+                            <div class="has-background-grey-lighter is-padding-bottom-10">
+                                <h3 class="is-size-6 is-marginless">Sublineas</h3>
                                 <div class="field has-addons has-text-centered">
                                     <div class="select">
                                         <form action="{% url 'sales:all' %}" method="get">
@@ -145,8 +145,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="has-background-grey-lighter is-padding-y-10">
-                                <h3 class="is-size-6">Departamentos</h3>
+                            <div class="has-background-grey-lighter is-padding-bottom-10">
+                                <h3 class="is-size-6 is-marginless">Departamentos</h3>
                                 <div class="field has-addons has-text-centered">
                                     <div class="select">
                                         <form action="{% url 'sales:all' %}" method="get">
@@ -165,8 +165,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="has-background-grey-lighter is-padding-y-10">
-                                    <h3 class="is-size-6">Categorías</h3>
+                            <div class="has-background-grey-lighter is-padding-bottom-10">
+                                    <h3 class="is-size-6 is-marginless">Categorías</h3>
                                     <div class="field has-addons has-text-centered">
                                         <div class="select">
                                             <form action="{% url 'sales:all' %}" method="get">
@@ -185,8 +185,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="has-background-grey-lighter is-padding-y-10">
-                                <h3 class="is-size-6">Marcas</h3>
+                            <div class="has-background-grey-lighter is-padding-bottom-10">
+                                <h3 class="is-size-6 is-marginless">Marcas</h3>
                                 <div class="field has-addons has-text-centered">
                                     <div class="select">
                                         <form action="{% url 'sales:all' %}" method="get">
@@ -205,8 +205,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="has-background-grey-lighter is-padding-y-10">
-                                <h3 class="is-size-6">Colores</h3>
+                            <div class="has-background-grey-lighter is-padding-bottom-10">
+                                <h3 class="is-size-6 is-marginless">Colores</h3>
                                 <div class="field has-addons has-text-centered">
                                     <div class="select">
                                         <form action="{% url 'sales:all' %}" method="get">
@@ -235,7 +235,7 @@
             {% for object in article_list %}
                 {% if forloop.counter0 == 4 or forloop.counter0 == 8 or forloop.counter0 == 12 or forloop.counter0 == 16 %}</div><div class="columns">{% endif %}
                 <div class="column is-3 {% if forloop.first or forloop.counter0 == 4 or forloop.counter0 == 7 %}{% endif %}">
-                    <div class="recent-feed">
+                    <div class="recent-feed" style="display:grid">
                         <div class="feed-img">
                             <a href="{% url 'sales:product_detail' object.slug %}">
                                 {% if object.img.url != None %}
@@ -245,27 +245,28 @@
                                 {% endif %}
                             </a>
                         </div>
-                        <div class="feed-title">
-                            <h3 class="is-size-7">
-                                <a href="{% url 'sales:product_detail' object.slug %}" class="has-text-black">
-                                    {{ object.code }}
-                                </a>
-                            </h3>
-                        </div>
-                        <div class="feed-leyend is-clearfix">
+                        <div class="feed-leyend is-clearfix is-paddingless">
                             <p class="is-size-7 is-pulled-left">
                                 <span class="icon"><i class="fas fa-folder-open"></i></span>
                                 {% if object.line != None %}    
-                                    <a href="{% url 'sales:all' %}?page=1&line={{object.line.id}}" class="has-text-black">{{ object.line.name | lower | capfirst }}</a>
+                                <a href="{% url 'sales:all' %}?page=1&line={{object.line.id}}" class="has-text-black">{{ object.line.name | lower | capfirst }}</a>
                                 {% elif object.category != None %}
-                                    <a href="{% url 'sales:all' %}?page=1&category={{object.category.id}}" class="has-text-black">{{ object.category.name | lower | capfirst }}</a>
+                                <a href="{% url 'sales:all' %}?page=1&category={{object.category.id}}" class="has-text-black">{{ object.category.name | lower | capfirst }}</a>
                                 {% else %}
-                                    <a href="{% url 'sales:all' %}?page=1&" class="has-text-black">{{ info_site.title | lower | capfirst }}</a>
+                                <a href="{% url 'sales:all' %}?page=1&" class="has-text-black">{{ info_site.title | lower | capfirst }}</a>
                                 {% endif %}
                             </p>
                         </div>
                         <div class="feed-content">
                             <div class="is-size-6">{{ object.description }}</div>
+                        </div>
+                        <div class="feed-title has-background-grey-lighter">
+                            <h3 class="is-size-7 is-marginless">
+                                Código: 
+                                <a href="{% url 'sales:product_detail' object.slug %}" class="has-text-grey">
+                                    {{ object.code }}
+                                </a>
+                            </h3>
                         </div>
                     </div>
                 </div>
@@ -285,11 +286,11 @@
 
 <div class="is-hidden-desktop has-background-grey-lighter" id="productsSearcherMov">
     <div class="card box-animation">
-        <div class="has-background-grey is-padding-y-10 has-text-centered">
-            <h3 class="is-size-5 has-text-white">Busqueda avanzada</h3>
+        <div class="has-background-grey has-text-centered is-padding-y-10">
+            <h3 class="is-size-5 has-text-white is-marginless">Busqueda avanzada</h3>
         </div>
         <div class="body-box has-background-grey-lighter">
-            <div class="has-background-grey-lighter is-padding-y-10 is-padding-x-10">
+            <div class="has-background-grey-lighter is-padding-y-5 is-padding-x-10">
                 <div class="field has-addons has-text-centered">
                     <div class="control has-background-white">
                         {% if search == '' %}
@@ -305,7 +306,7 @@
                     </div>
                 </div>
             </div>
-            <div class="has-background-grey-lighter is-padding-y-10 is-padding-x-10">
+            <div class="has-background-grey-lighter is-padding-y-5 is-padding-x-10">
                 <h3 class="is-size-6">Lineas</h3>
                 <div class="field has-addons has-text-centered">
                     <div class="select">
@@ -325,7 +326,7 @@
                     </div>
                 </div>
             </div>
-            <div class="has-background-grey-lighter is-padding-y-10 is-padding-x-10">
+            <div class="has-background-grey-lighter is-padding-y-5 is-padding-x-10">
                 <h3 class="is-size-6">Sublineas</h3>
                 <div class="field has-addons has-text-centered">
                     <div class="select">
@@ -345,7 +346,7 @@
                     </div>
                 </div>
             </div>
-            <div class="has-background-grey-lighter is-padding-y-10 is-padding-x-10">
+            <div class="has-background-grey-lighter is-padding-y-5 is-padding-x-10">
                 <h3 class="is-size-6">Departamentos</h3>
                 <div class="field has-addons has-text-centered">
                     <div class="select">
@@ -365,7 +366,7 @@
                     </div>
                 </div>
             </div>
-            <div class="has-background-grey-lighter is-padding-y-10 is-padding-x-10">
+            <div class="has-background-grey-lighter is-padding-y-5 is-padding-x-10">
                     <h3 class="is-size-6">Categorías</h3>
                     <div class="field has-addons has-text-centered">
                         <div class="select">
@@ -385,7 +386,7 @@
                     </div>
                 </div>
             </div>
-            <div class="has-background-grey-lighter is-padding-y-10 is-padding-x-10">
+            <div class="has-background-grey-lighter is-padding-y-5 is-padding-x-10">
                 <h3 class="is-size-6">Marcas</h3>
                 <div class="field has-addons has-text-centered">
                     <div class="select">
@@ -405,7 +406,7 @@
                     </div>
                 </div>
             </div>
-            <div class="has-background-grey-lighter is-padding-y-10 is-padding-x-10">
+            <div class="has-background-grey-lighter is-padding-y-5 is-padding-x-10">
                 <h3 class="is-size-6">Colores</h3>
                 <div class="field has-addons has-text-centered">
                     <div class="select">
@@ -464,25 +465,26 @@
             window.location = url;
         };
 
-        $('#lineSelector').on('change', function(){
+        $(document).on('change','#lineSelector', function(){
             newLocation('page=1&line='+this.value+'');
         });
-        $('#sub_lineSelector').on('change', function(){
+        $(document).on('change','#sub_lineSelector', function(){
+            console.log('click');
             newLocation('page=1&sub_line='+this.value+'');
         });
-        $('#categorySelector').on('change', function(){
+        $(document).on('change','#categorySelector', function(){
             newLocation('page=1&category='+this.value+'');
         });
-        $('#departmentSelector').on('change', function(){
+        $(document).on('change','#departmentSelector', function(){
             newLocation('page=1&department='+this.value+'');
         });
-        $('#brandSelector').on('change', function(){
+        $(document).on('change','#brandSelector', function(){
             newLocation('page=1&brand='+this.value+'');
         });
-        $('#colorSelector').on('change', function(){
+        $(document).on('change','#colorSelector', function(){
             newLocation('page=1&color='+this.value+'');
         });
-        $('#searchInput').on('change', function(){
+        $(document).on('change','#searchInput', function(){
             newLocation('page=1&search='+this.value+'');
         });
 
