@@ -12,14 +12,14 @@
                     </a>
                     <div class="iis-fullnav-auth">
                     {% if user.is_authenticated %}
-                        {% if user.is_staff %}
+                        {# if user.is_staff #}
                         <a href="{% url 'intra:home' %}" class="is-uppercase is-size-7 has-text-black">
                             <span class="icon has-text-black tooltip is-tooltip-bottom" data-tooltip="Intranet">
                                 <i class="fas fa-sign-in-alt"></i>
                             </span>
                             Intra
                         </a>
-                        {% endif %}
+                        {# endif #}
                         <a href="{% url 'auth:logout' %}?next={{ request.path }}" class="is-uppercase is-size-7 has-text-black">
                             <span class="icon has-text-black tooltip is-tooltip-bottom" data-tooltip="Cerrar sesión">
                                 <i class="fas fa-user-plus"></i>
