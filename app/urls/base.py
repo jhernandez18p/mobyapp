@@ -26,10 +26,9 @@ urlpatterns = [
     path('api/v2/', include('src.api.urls',namespace='api')),
     path('api/v2/auth/', include('knox.urls')),
     path('adminsite/', admin.site.urls),
-
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
-    re_path(r'^media/(?P<path>.*)$', serve, { 'document_root': settings.MEDIA_ROOT }),
     path('<path:url>', flats.flatpage),
+    re_path(r'^media/(?P<path>.*)$', serve, { 'document_root': settings.MEDIA_ROOT }),
 ]
     
 admin.site.site_title = 'Dev2tech CMS'

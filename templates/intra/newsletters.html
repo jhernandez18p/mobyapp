@@ -4,18 +4,18 @@
 {% endblock %}
 
 {% block crumbs %}
-<li class="has-text-back"><a href="{% url 'intra:users' %}" aria-current="page">Articlulos del blog</a></li>
+<li class="has-text-back"><a href="{% url 'intra:users' %}" aria-current="page">{{APP}}</a></li>
 {% endblock %}
 
 {% block content %}
 <div class="card events-card">
     <header class="card-header">
         <p class="card-header-title">
-            Articlulos del Blog
+            {{APP}}
         </p>
         <p class="card-header-title">
             {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' %}
-            <a class="button is-small is-primary" href="{% url 'intra:blog-create' %}?next={{ request.path }}">Agregar</a>
+            <a class="button is-small is-primary" href="{% url 'intra:conf-newsletter-create' %}?next={{ request.path }}">Agregar</a>
             {% endif %}
         </p>
     </header>
@@ -28,31 +28,27 @@
                 </tbody>
                 {% else %}
                 <thead>
-                    <td>Autor</td>
-                    <td>Actualizado por</td>
-                    <td>Titulo</td>
-                    <td>Subtitulo</td>
-                    <td>Contenido</td>
-                    <td>Público</td>
-                    <td>Borrador</td>
-                    <td>Etiquetras</td>
+                    <td>Nombre</td>
+                    <td>Asunto</td>
+                    <td>Email</td>
+                    <td>Mensaje</td>
+                    <td>Usuario</td>
+                    <td>Creado</td>
                     <td>Acciones</td>
                 </thead>
                 <tbody>
                     {% for post in object_list %}
                     <tr>
-                        <td>{{post.author}}</td>
-                        <td>{{post.updated_by}}</td>
-                        <td>{{post.title}}</td>
-                        <td>{{post.sub_title}}</td>
-                        <td>{{post.text|safe}}</td>
-                        <td>{{post.is_public}}</td>
-                        <td>{{post.draft}}</td>
-                        <td>{{post.tag}}</td>
+                        <td>{{post.name}}</td>
+                        <td>{{post.subject | safe}}</td>
+                        <td>{{post.email}}</td>
+                        <td>{{post.message | safe}}</td>
+                        <td>{{post.user}}</td>
+                        <td>{{post.updated}}</td>
                         <td>
                             {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' %}
-                            <a class="button is-small is-primary" href="{% url 'intra:blog-update' post.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-left" data-tooltip="Editar"><i class="fas fa fa-edit"></i></span></a>
-                            <a class="button is-small is-danger" href="{% url 'intra:blog-delete' post.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-right" data-tooltip="Eliminar"><i class="fas fa fa-eraser"></i></span></a>
+                            <a class="button is-small is-primary" href="{% url 'intra:conf-newsletter-update' post.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-left" data-tooltip="Editar"><i class="fas fa fa-edit"></i></span></a>
+                            <a class="button is-small is-danger" href="{% url 'intra:conf-newsletter-delete' post.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-right" data-tooltip="Eliminar"><i class="fas fa fa-eraser"></i></span></a>
                             {% endif %}
                         </td>
                     </tr>

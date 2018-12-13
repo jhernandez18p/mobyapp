@@ -11,40 +11,46 @@
 <div class="card events-card">
     <header class="card-header">
         <p class="card-header-title">
-            {{APP}}
+            Comentarios
         </p>
         <p class="card-header-title">
             {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' %}
-            <a class="button is-small is-primary" href="{% url 'intra:conf-create' %}?next={{ request.path }}">Agregar</a>
+            <a class="button is-small is-primary" href="{% url 'intra:comment-create' %}?next={{ request.path }}">Agregar</a>
             {% endif %}
         </p>
     </header>
     <div class="card-table">
         <div class="content">
             <table class="table is-fullwidth is-striped">
-                {% if not object_list %}
-                <tbody>
-                    <td class="is-centered"> <h3>No se han encontrado resultados</h3> </td>
-                </tbody>
-                {% else %}
                 <thead>
-                    <td>Título</td>
+                    <td>Autor</td>
+                    <td>Contenido</td>
+                    <td>Comentario relacionado</td>
+                    <td>Aprovado</td>
+                    <td>Publicado</td>
+                    <td>Articulo</td>
+                    <td>Typo de contenido</td>
                     <td>Acciones</td>
                 </thead>
                 <tbody>
                     {% for post in object_list %}
                     <tr>
-                        <td>{{post.title}}</td>
+                        <td>{{post.author}}</td>
+                        <td>{{post.content | safe}}</td>
+                        <td>{{post.parent}}</td>
+                        <td>{{post.approved}}</td>
+                        <td>{{post.timestamp}}</td>
+                        <td>{{post.post}}</td>
+                        <td>{{post.content_type}}</td>
                         <td>
                             {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' %}
-                            <a class="button is-small is-primary" href="{% url 'intra:conf-update' post.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-left" data-tooltip="Editar"><i class="fas fa fa-edit"></i></span></a>
-                            <a class="button is-small is-danger" href="{% url 'intra:conf-delete' post.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-right" data-tooltip="Eliminar"><i class="fas fa fa-eraser"></i></span></a>
+                            <a class="button is-small is-primary" href="{% url 'intra:comment-update' post.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-left" data-tooltip="Editar"><i class="fas fa fa-edit"></i></span></a>
+                            <a class="button is-small is-danger" href="{% url 'intra:comment-delete' post.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-right" data-tooltip="Eliminar"><i class="fas fa fa-eraser"></i></span></a>
                             {% endif %}
                         </td>
                     </tr>
                     {% endfor %}
                 </tbody>
-                {% endif %}
             </table>
         </div>
     </div>

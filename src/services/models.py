@@ -57,6 +57,7 @@ class Service(models.Model):
         return self.name
 
     class Meta:
+        ordering = ['-featured']
         verbose_name = _('Servicio')
         verbose_name_plural = _('Servicios')
 

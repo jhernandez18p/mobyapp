@@ -116,7 +116,7 @@
         <div class="columns is-padding-top-50">
             {% for object in object_list %}
             {% if forloop.counter0 == 4 or forloop.counter0 == 8 or forloop.counter0 == 12 or forloop.counter0 == 16 %}</div><div class="columns">{% endif %}
-            <div class="column is-3 {% if forloop.first or forloop.counter0 == 4 or forloop.counter0 == 7 %}{% endif %}">
+            <div class="column is-2 {% if forloop.first or forloop.counter0 == 4 or forloop.counter0 == 7 %}is-offset-2{% endif %}">
                 <div class="recent-feed">
                     <div class="feed-img">
                         <a href="{% url 'sales:product_detail' object.slug %}">

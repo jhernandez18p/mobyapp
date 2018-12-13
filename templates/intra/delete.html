@@ -1,0 +1,38 @@
+
+{% extends 'intra/base/index.html' %}{% load staticfiles %}
+
+{% block css %}
+{% endblock %}
+
+{% block content %}
+<div class="modal is-active">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <form method="post">{% csrf_token %}
+            <div class="modal-card-head">
+                <p class="modal-card-title">Eliminar</p>
+            </div>
+            
+            <div class="modal-card-body">
+                <p class="is-size-4">¿Desea eliminar "{{ object }}"?</p>
+            </div>
+
+            <div class="modal-card-foot">
+                <button class="button is-danger is-fullwidth">Eliminar</button>
+            </div>
+        </form>
+    </div>
+    <button class="modal-close is-large" aria-label="close" id="modalClose"></button>
+</div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(document).on('click','#modalClose', function(){
+            var next = window.location.search.substring(1).split('next=')[1] || '/intra/';
+            window.location = next;
+        });
+    });
+</script>
+{% endblock %}

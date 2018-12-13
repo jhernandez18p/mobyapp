@@ -4,46 +4,47 @@
 {% endblock %}
 
 {% block crumbs %}
-<li class="has-text-back"><a href="{% url 'intra:users' %}" aria-current="page">Usuarios</a></li>
+<li class="has-text-back"><a href="{% url 'intra:users' %}" aria-current="page">Articlulos del blog</a></li>
 {% endblock %}
 
 {% block content %}
-
 <div class="card events-card">
     <header class="card-header">
         <p class="card-header-title">
-            Usuarios
+            Etiquetas del Blog
         </p>
         <p class="card-header-title">
             {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' %}
-            <a class="button is-small is-primary" href="{% url 'intra:user-create' %}?next={{ request.path }}">Agregar</a>
+            <a class="button is-small is-primary" href="{% url 'intra:tag-create' %}?next={{ request.path }}">Agregar</a>
             {% endif %}
         </p>
     </header>
     <div class="card-table">
         <div class="content">
             <table class="table is-fullwidth is-striped">
+                {% if not object_list %}
+                <tbody>
+                    <td class="is-centered"> <h3>No se han encontrado resultados</h3> </td>
+                </tbody>
+                {% else %}
                 <thead>
-                    <td>ID</td>
-                    <td>Nombre de usuario</td>
-                    <td>Email</td>
+                    <td>Título</td>
                     <td>Acciones</td>
                 </thead>
                 <tbody>
-                    {% for USER in object_list %}
+                    {% for post in object_list %}
                     <tr>
-                        <td width="5%">{{USER.id}}</td>
-                        <td><p>{{USER.username}}</p></td>
-                        <td><p><span><a href="#">{{USER.email}}</a></span></p></td>
+                        <td>{{post.title}}</td>
                         <td>
                             {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' %}
-                            <a class="button is-small is-primary" href="{% url 'intra:user-update' pk=USER.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-left" data-tooltip="Editar"><i class="fas fa fa-edit"></i></span></a>
-                            <a class="button is-small is-danger" href="{% url 'intra:user-delete' pk=USER.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-right" data-tooltip="Eliminar"><i class="fas fa fa-eraser"></i></span></a>
+                            <a class="button is-small is-primary" href="{% url 'intra:tag-update' post.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-left" data-tooltip="Editar"><i class="fas fa fa-edit"></i></span></a>
+                            <a class="button is-small is-danger" href="{% url 'intra:tag-delete' post.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-right" data-tooltip="Eliminar"><i class="fas fa fa-eraser"></i></span></a>
                             {% endif %}
                         </td>
                     </tr>
                     {% endfor %}
                 </tbody>
+                {% endif %}
             </table>
         </div>
     </div>
@@ -53,8 +54,6 @@
         </div>
     </footer>
 </div>
-
-
 {% endblock %}
 
 {% block js %}

@@ -13,7 +13,7 @@
     <div class="modal-card is-clipped">
         <form method="post" enctype="multipart/form-data">
             <div class="modal-card-head">
-                <p class="modal-card-title">Editar</p>
+                <p class="modal-card-title">Agregar</p>
             </div>
             <div class="modal-card-body">
                 {% csrf_token %}{% for field in form %}
@@ -66,9 +66,9 @@
         });
         $('input[type=text]').addClass('input');
         $('input[type=number]').addClass('input');
-        // $('input[type=file]').wrap('<div class="file"><label class="file-label"></label></div');
-        // $('.file-label').append('<span class="file-cta"><span class="file-icon"><i class="fas fa-upload"></i></span><span class="file-label">Seleccionar una imagen…</span></span>');
-        // $('input[type=file]').addClass('file-input');
+        $('input[type=file]').wrap('<div class="file"><label class="file-label"></label></div');
+        $('.file-label').append('<span class="file-cta"><span class="file-icon"><i class="fas fa-upload"></i></span><span class="file-label">Seleccionar una imagen…</span></span>');
+        $('input[type=file]').addClass('file-input');
         $('select').wrap('<div class="select is-fullwidth"></div>');
     });
 </script>

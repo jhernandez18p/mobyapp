@@ -376,6 +376,7 @@ class Profile(models.Model):
 
     
     class Meta:
+        ordering = ['-id']
         verbose_name = _('Perfil de Usuario')
         verbose_name_plural = _('Perfiles de Usuarios')
 

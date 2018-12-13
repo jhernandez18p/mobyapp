@@ -1,24 +1,7 @@
 {% extends 'intra/base/index.html' %}{% load staticfiles %}
 
-/* #carrousel {padding-left:10px; padding-right: 10px; } */
-/* #carrousel .orbit-wrapper, #carrousel .orbit-container, #carrousel .orbit-figure,  */
 {% block css %}
 <style>
-    #carrousel .orbit-image{
-        max-height: 400px;
-    }
-    .marketing-site-three-up {text-align: center;padding: 2rem 0;}
-    .marketing-site-three-up .row {max-width: 900px;}
-    .marketing-site-three-up .columns {margin-bottom: 1rem;}
-    .marketing-site-three-up .fa {font-size: 3rem;margin-bottom: 1rem;color: #1779ba;}
-    .marketing-site-three-up-headline {margin-bottom: 2rem;font-size: 24px;}
-    .body-content {margin-top: 25px;}
-    .is-background{
-        width: 100%;
-    }
-    @media screen and (min-width: 40em) {
-        .marketing-site-three-up .columns {margin-bottom: 0;}
-    }
 </style>
 {% endblock %}
 
@@ -28,51 +11,51 @@
 
 
 {% block content %}
-    <div class="hero is-info welcome is-small is-margin-botton-50">
-        <div class="hero-body">
-            <div class="">
-                <h1 class="title">
-                    Hola, {{USER_FULLNAME}}.
-                </h1>
-                <h2 class="subtitle">
-                    Bienvenido a la Intranet
-                </h2>
+        <div class="hero is-info welcome is-small is-margin-botton-50">
+            <div class="hero-body">
+                <div class="">
+                    <h1 class="title">
+                        Hola, {{USER_FULLNAME}}.
+                    </h1>
+                    <h2 class="subtitle">
+                        Bienvenido a la Intranet
+                    </h2>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="info-tiles">
-        <div class="tile is-ancestor has-text-centered">
-            <div class="tile is-parent">
-                <article class="tile is-child box">
-                    <p class="title">{{users_len}}</p>
-                    <p class="subtitle">Usuarios</p>
-                </article>
-            </div>
-            <div class="tile is-parent">
-                <article class="tile is-child box">
-                    <p class="title">{{products_len}}</p>
-                    <p class="subtitle">Products</p>
-                </article>
-            </div>
-            <div class="tile is-parent">
-                <article class="tile is-child box">
-                    <p class="title">{{post_len}}</p>
-                    <p class="subtitle">Publicaciones</p>
-                </article>
-            </div>
-            <div class="tile is-parent">
-                <article class="tile is-child box">
-                    <p class="title">19</p>
-                    <p class="subtitle">Exceptions</p>
-                </article>
+        <div class="info-tiles">
+            <div class="tile is-ancestor has-text-centered">
+                <div class="tile is-parent">
+                    <article class="tile is-child box">
+                        <p class="title">{{users_len}}</p>
+                        <p class="subtitle">Usuarios</p>
+                    </article>
+                </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child box">
+                        <p class="title">{{products_len}}</p>
+                        <p class="subtitle">Products</p>
+                    </article>
+                </div>
+                <div class="tile is-parent">
+                    <article class="tile is-child box">
+                        <p class="title">{{post_len}}</p>
+                        <p class="subtitle">Publicaciones</p>
+                    </article>
+                </div>
+                <!-- <div class="tile is-parent">
+                    <article class="tile is-child box">
+                        <p class="title">19</p>
+                        <p class="subtitle">Exceptions</p>
+                    </article>
+                </div> -->
             </div>
         </div>
-    </div>
-
+    
     {% if posts %}
-        <div class="">
-            <div class="columns">
+    <div class="">
+        <div class="columns">
                 <div class="column is-12">
                     <div class="carousel" id="intraHomeCarousel">
                         {% for object in posts %}
@@ -88,23 +71,12 @@
                 </div>
             </div>
         </div>
-    {% endif %}
-
-
+        {% endif %}
 
 {% endblock %}
 
 {% block js %}
-<script src="{% static 'base/js/slick.min.js' %}"></script>
 <script>
-    $('#intraHomeCarousel').slick({
-        dots: false,
-        infinite: true,
-        speed: 300,
-        fade: true,
-        cssEase: 'linear',
-        autoplay: true,
-        autoplaySpeed: 2000
-    });
+
 </script>
 {% endblock %}

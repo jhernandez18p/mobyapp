@@ -15,7 +15,7 @@
 
 <div class="card events-card">
     <header class="card-header">
-        <figure class="image is-32x32 is-margin-y-5">
+        <figure class="image is-64x64 is-margin-y-5">
         {% if USER_AVATAR.url %}
             <img class="is-rounded is-margin-x-5" src="{{ USER_AVATAR }}" alt="{{USER_FULLNAME}}"/>
         {% else %}
@@ -39,12 +39,22 @@
         <div class="content">
             <table class="table is-fullwidth is-striped">
                 <tbody>
+                    <thead>
+                        <td>ID</td>
+                        <td>Artículo</td>
+                        <td>Comentario</td>
+                        <td>Acciones</td>
+                    </thead>
                     {% for object in comments %}
                     <tr>
                         <td><a href="{% url 'intra:comment-update' object.id %}">{{object.id}}</a></td>
+                        <td>{{object.post.title}}</td>
                         <td>{{object.content | safe}}</td>
                         <td>
-                            {{object.post.title}}
+                            {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' %}
+                                <a class="button is-small is-primary" href="{% url 'intra:comment-update' object.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-left" data-tooltip="Editar"><i class="fas fa fa-edit"></i></span></a>
+                                <a class="button is-small is-danger" href="{% url 'intra:comment-delete' object.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-right" data-tooltip="Eliminar"><i class="fas fa fa-eraser"></i></span></a>
+                            {% endif %}
                         </td>
                     </tr>
                     {% endfor %}

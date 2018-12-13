@@ -1,59 +1,75 @@
 {% load staticfiles %}
 
-<aside class="menu is-hidden-mobile">
-    <p class="menu-label is-size-5 is-padding-top-30">Menú</p>
+<aside class="menu is-hidden-mobile is-padding-top-30">
+    {% if user.is_staff %}
+    <p class="menu-label">Configuración</p>
+    <ul class="menu-list">
+        <li><a href="{% url 'intra:home' %}" class="{% if menu == 'home' %}is-active{% endif %}"><span class="">Inicio</span></a></li>
+        <li><a href="{% url 'intra:conf' %}" class="{% if menu == 'conf' %}is-active{% endif %}"><span class="">Sitio</span></a>
+            <ul>
+                <li><a href="{% url 'intra:conf-pages' %}" class="{% if menu == 'conf-pages' %}is-active{% endif %}"><span class="">Paginas</span></a></li>
+                <li><a href="{% url 'intra:conf-slides' %}" class="{% if menu == 'conf-slides' %}is-active{% endif %}"><span class="">Carruseles</span></a></li>
+                <li><a href="{% url 'intra:conf-faqs' %}" class="{% if menu == 'conf-faqs' %}is-active{% endif %}"><span class="">Preguntas Frecuentes</span></a></li>
+                <li><a href="{% url 'intra:conf-newsletters' %}" class="{% if menu == 'conf-newsletters' %}is-active{% endif %}"><span class="">Boletín Informativos</span></a></li>
+            </ul>
+        </li>
+    </ul>
+    {% endif %}
     <p class="menu-label">Usuarios</p>
     <ul class="menu-list">
         {% if user.is_staff %}
-        <li><a href="{% url 'intra:users' %}"><span class="">Todos</span></a></li>
+        <li><a href="{% url 'intra:users' %}" class="{% if menu == 'users' %}is-active{% endif %}"><span class="">Todos</span></a></li>
         {% endif %}
-        <li><a href="{% url 'intra:profile' %}"><span class="">Mi Perfil</span></a></li>
+        <li><a href="{% url 'intra:profile' %}" class="{% if menu == 'profile' %}is-active{% endif %}"><span class="">Mi Perfil</span></a></li>
     </ul>
     <p class="menu-label">Servicios</p>
     <ul class="menu-list">
-        <li><a href="{% url 'intra:services' %}"><span class="">Todos</span></a></li>
+        <li><a href="{% url 'intra:services' %}" class="{% if menu == 'services' %}is-active{% endif %}" class="{% if menu == 'services' %}is-active{% endif %}"><span class="">Todos</span></a></li>
     </ul>
     <p class="menu-label">Productos</p>
     <ul class="menu-list">
         <li>
-            <a href="{% url 'intra:products' %}"><span class="">Todos</span></a>
+            <a href="{% url 'intra:products' %}" class="{% if menu == 'products' %}is-active{% endif %}"><span class="">Todos</span></a>
             {% if user.is_staff %}
                 <ul>
-                    <li><a href="{% url 'intra:products-lines' %}"><span class="">Lineas</span></a></li>
-                    <li><a href="{% url 'intra:products-sublines' %}"><span class="">Sublineas</span></a></li>
-                    <li><a href="{% url 'intra:products-colors' %}"><span class="">Colores</span></a></li>
-                    <li><a href="{% url 'intra:products-brands' %}"><span class="">Marcas</span></a></li>
-                    <li><a href="{% url 'intra:products-categories' %}"><span class="">Categorías</span></a></li>
-                    <li><a href="{% url 'intra:products-departments' %}"><span class="">Departamentos</span></a></li>
-                    {% if user.profile.role == 'ADMIN' %}
-                        <li><a href="{% url 'intra:products' %}"><span class="">Importar bloque</span></a></li>
-                    {% endif %}
+                    <li><a href="{% url 'intra:products-lines' %}" class="{% if menu == 'lines' %}is-active{% endif %}"><span class="">Lineas</span></a></li>
+                    <li><a href="{% url 'intra:products-sublines' %}" class="{% if menu == 'sub-lines' %}is-active{% endif %}"><span class="">Sub-lineas</span></a></li>
+                    <li><a href="{% url 'intra:products-colors' %}" class="{% if menu == 'colors' %}is-active{% endif %}"><span class="">Colores</span></a></li>
+                    <li><a href="{% url 'intra:products-brands' %}" class="{% if menu == 'brands' %}is-active{% endif %}"><span class="">Marcas</span></a></li>
+                    <li><a href="{% url 'intra:products-categories' %}" class="{% if menu == 'categories' %}is-active{% endif %}"><span class="">Categorías</span></a></li>
+                    <li><a href="{% url 'intra:products-departments' %}" class="{% if menu == 'departments' %}is-active{% endif %}"><span class="">Departamentos</span></a></li>
                 </ul>
             {% endif %}
         </li>
-        <li><a href="{% url 'intra:products' %}"><span class="">Top 10</span></a></li>
+        <li><a href="{% url 'intra:products-top' %}" class="{% if menu == 'top-products' %}is-active{% endif %}"><span class="">Top 10</span></a></li>
         
     </ul>
     <p class="menu-label">Blog</p>
     <ul class="menu-list">
-        <li><a href="{% url 'intra:blog' %}"><span class="">Todos</span></a></li>
-        <li><a href="{% url 'intra:blog' %}"><span class="">Mis publicaciones</span></a></li>
+        <li><a href="{% url 'intra:blog' %}" class="{% if menu == 'blog' %}is-active{% endif %}"><span class="">Todos</span></a></li>
+        {% if user.is_staff %}
+        <li><a href="{% url 'intra:my-blog' %}" class="{% if menu == 'my-posts' %}is-active{% endif %}"><span class="">Mis publicaciones</span></a></li>
+        {% endif %}
     </ul>
     <p class="menu-label">Comentarios</p>
     <ul class="menu-list">
         {% if user.is_staff %}
-        <li><a href="{% url 'intra:comments' %}"><span class="">Todos</span></a></li>
+        <li><a href="{% url 'intra:comments' %}" class="{% if menu == 'comments' %}is-active{% endif %}"><span class="">Todos</span></a></li>
         {% endif %}
-        <li><a href="{% url 'intra:comments' %}"><span class="">Mis comentarios</span></a></li>
+        <li><a href="{% url 'intra:comments' %}" class="{% if menu == 'my-comments' %}is-active{% endif %}"><span class="">Mis comentarios</span></a></li>
     </ul>
-    <p class="menu-label">Multimedia</p>
+    <p class="menu-label">Etiquetas</p>
     <ul class="menu-list">
-        <li><a href="{% url 'intra:medias' %}"><span class="">Multimedia</span></a></li>
+        <li><a href="{% url 'intra:tags' %}" class="{% if menu == 'tags' %}is-active{% endif %}"><span class="">Todas</span></a></li>
     </ul>
     {% if activated %}
+    <p class="menu-label">Multimedia</p>
+    <ul class="menu-list">
+        <li><a href="{% url 'intra:medias' %}" class="{% if menu == 'multimedia' %}is-active{% endif %}"><span class="">Multimedia</span></a></li>
+    </ul>
     <p class="menu-label">Soporte</p>
     <ul class="menu-list">
-        <li><a href="{% url 'intra:support' %}"><span class="">Soporte</span></a></li>
+        <li><a href="{% url 'intra:support' %}" class="{% if menu == 'support' %}is-active{% endif %}"><span class="">Soporte</span></a></li>
     </ul>
     {% endif %}
     <p class="menu-label">

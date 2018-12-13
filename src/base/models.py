@@ -108,7 +108,7 @@ class Widget(models.Model):
 
 class Site(models.Model):
 
-    name = models.CharField(max_length = 140, blank=True,verbose_name = _('Nombre'))
+    name = models.CharField(max_length=140,blank=True,verbose_name=_('Nombre'))
     title = models.CharField(max_length=144, blank=True, null=True,verbose_name = _('Título'))
     description = RichTextField( blank=True, verbose_name = _('Descripción'))
     short_description = RichTextField( blank=True, verbose_name = _('Descripción corta'), max_length=240)

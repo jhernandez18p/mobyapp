@@ -4,45 +4,53 @@
 {% endblock %}
 
 {% block crumbs %}
-<li class="has-text-back"><a href="{% url 'intra:services' %}" aria-current="page">Servicios</a></li>
+<li class="has-text-back"><a href="{% url 'intra:users' %}" aria-current="page">{{APP}}</a></li>
 {% endblock %}
 
 {% block content %}
 <div class="card events-card">
     <header class="card-header">
         <p class="card-header-title">
-            Servicios
+            {{APP}}
         </p>
         <p class="card-header-title">
             {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' %}
-            <a class="button is-small is-primary" href="{% url 'intra:service-create' %}?next={{ request.path }}">Agregar</a>
+            <a class="button is-small is-primary" href="{% url 'intra:conf-slide-create' %}?next={{ request.path }}">Agregar</a>
             {% endif %}
         </p>
     </header>
     <div class="card-table">
         <div class="content">
             <table class="table is-fullwidth is-striped">
+                {% if not object_list %}
+                <tbody>
+                    <td class="is-centered"> <h3>No se han encontrado resultados</h3> </td>
+                </tbody>
+                {% else %}
                 <thead>
-                    <td>ID</td>
                     <td>Nombre</td>
                     <td>Descripción</td>
+                    <td>Página</td>
+                    <td>Posición</td>
                     <td>Acciones</td>
                 </thead>
                 <tbody>
-                    {% for service in object_list %}
+                    {% for post in object_list %}
                     <tr>
-                        <td width="5%">{{service.id}}</td>
-                        <td><p>{{service.name}}</p></td>
-                        <td><p><span>{{service.content | safe}}</span></p></td>
+                        <td>{{post.name}}</td>
+                        <td>{{post.description | safe}}</td>
+                        <td>{{post.page}}</td>
+                        <td>{{post.position}}</td>
                         <td>
                             {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' %}
-                            <a class="button is-small is-primary" href="{% url 'intra:service-update' pk=service.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-left" data-tooltip="Editar"><i class="fas fa fa-edit"></i></span></a>
-                            <a class="button is-small is-danger" href="{% url 'intra:service-delete' pk=service.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-right" data-tooltip="Eliminar"><i class="fas fa fa-eraser"></i></span></a>
+                            <a class="button is-small is-primary" href="{% url 'intra:conf-slide-update' post.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-left" data-tooltip="Editar"><i class="fas fa fa-edit"></i></span></a>
+                            <a class="button is-small is-danger" href="{% url 'intra:conf-slide-delete' post.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-right" data-tooltip="Eliminar"><i class="fas fa fa-eraser"></i></span></a>
                             {% endif %}
                         </td>
                     </tr>
                     {% endfor %}
                 </tbody>
+                {% endif %}
             </table>
         </div>
     </div>
@@ -56,11 +64,11 @@
 <div class="card events-card">
     <header class="card-header">
         <p class="card-header-title">
-            Servicios
+            Imagenes del Carrusel
         </p>
         <p class="card-header-title">
             {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' %}
-            <a class="button is-small is-primary" href="{% url 'intra:service-img-create' %}?next={{ request.path }}">Agregar</a>
+            <a class="button is-small is-primary" href="{% url 'intra:conf-slide-img-create' %}?next={{ request.path }}">Agregar</a>
             {% endif %}
         </p>
     </header>
@@ -73,31 +81,25 @@
                 </tbody>
                 {% else %}
                 <thead>
-                    <td>Servicio</td>
+                    <td>Carousel</td>
                     <td>Imagen</td>
                     <td>Nombre</td>
-                    <td>Contenido</td>
+                    <td>Testo</td>
+                    <td>Llamado a acción</td>
                     <td>Acciones</td>
                 </thead>
                 <tbody>
-                    {% for service in images %}
+                    {% for post in images %}
                     <tr>
-                        <td width="5%">{{service.Service.name}}</td>
-                        <td>
-                            {% if service.image.url != None %}
-                            <figure class="image is-64x64">
-                                <img src="{{service.image.url}}" alt="{{service.Service.name}}">
-                            </figure>
-                            {% else %}
-                            {{service.image}}
-                            {% endif %}
-                        </td>
-                        <td>{{service.name}}</td>
-                        <td>{{service.text | safe}}</td>
+                        <td>{{post.Carousel}}</td>
+                        <td><figure class="is-image is-96x96"><img src="{{post.image.url}}" alt="{{post.Carousel.name}}"/></figure></td>
+                        <td>{{post.name}}</td>
+                        <td>{{post.text | safe}}</td>
+                        <td>{{post.call_to_action_url}}</td>
                         <td>
                             {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' %}
-                            <a class="button is-small is-primary" href="{% url 'intra:service-img-update' pk=service.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-left" data-tooltip="Editar"><i class="fas fa fa-edit"></i></span></a>
-                            <a class="button is-small is-danger" href="{% url 'intra:service-img-delete' pk=service.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-right" data-tooltip="Eliminar"><i class="fas fa fa-eraser"></i></span></a>
+                            <a class="button is-small is-primary" href="{% url 'intra:conf-slide-img-update' post.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-left" data-tooltip="Editar"><i class="fas fa fa-edit"></i></span></a>
+                            <a class="button is-small is-danger" href="{% url 'intra:conf-slide-img-delete' post.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-right" data-tooltip="Eliminar"><i class="fas fa fa-eraser"></i></span></a>
                             {% endif %}
                         </td>
                     </tr>

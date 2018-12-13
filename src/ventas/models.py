@@ -130,6 +130,7 @@ class Line(models.Model):
         return self.code
 
     class Meta:
+        ordering = ['active','-count']
         verbose_name = _('Linea')
         verbose_name_plural = _('Lineas')
 
@@ -151,6 +152,7 @@ class SubLine(models.Model):
         return self.code
 
     class Meta:
+        ordering = ['code','-active','parent','-count']
         verbose_name = _('Sub linea')
         verbose_name_plural = _('Sub Lineas')
 
@@ -170,6 +172,7 @@ class Color(models.Model):
         return self.code
 
     class Meta:
+        ordering = ['name','active','-count']
         verbose_name = _('Color')
         verbose_name_plural = _('Colores')
 
@@ -235,6 +238,7 @@ class Brands(models.Model):
         return self.code
 
     class Meta:
+        ordering = ['name','-active','-count']
         verbose_name = _('Marca')
         verbose_name_plural = _('Marcas')
 
@@ -294,6 +298,7 @@ class Category(models.Model):
         return str(self.name)
     
     class Meta:
+        ordering = ['-active','-count']
         verbose_name = 'Categoría'
         verbose_name_plural = 'Categorías'
     

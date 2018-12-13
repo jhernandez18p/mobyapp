@@ -16,11 +16,11 @@
 <div class="card events-card">
     <header class="card-header">
         <p class="card-header-title">
-            Productos
+            Categorías
         </p>
         <p class="card-header-title">
             {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' %}
-            <a class="button is-small is-primary" href="{% url 'intra:product-create' %}?next={{ request.path }}">Agregar</a>
+            <a class="button is-small is-primary" href="{% url 'intra:category-create' %}?next={{ request.path }}">Agregar</a>
             {% endif %}
         </p>
     </header>
@@ -30,12 +30,10 @@
                 <thead>
                     <td>ID</td>
                     <td>Código</td>
-                    <td>Visitas</td>
-                    <td>Linea</td>
-                    <td>Sub-linea</td>
-                    <td>Color</td>
-                    <td>Marca</td>
-                    <td>Categoría</td>
+                    <td>Nombre</td>
+                    <td>Descripción</td>
+                    <td>Contador</td>
+                    <td>Activo</td>
                     <td>Departamento</td>
                     <td>Acciones</td>
                 </thead>
@@ -44,17 +42,15 @@
                     <tr>
                         <td>{{product.id}}</td>
                         <td>{{product.code}}</td>
-                        <td><p>{{product.views}}</p></td>
-                        <td><p>{{product.line}}</p></td>
-                        <td><p>{{product.sub_line}}</p></td>
-                        <td><p>{{product.color}}</p></td>
-                        <td><p>{{product.brand}}</p></td>
-                        <td><p>{{product.category}}</p></td>
-                        <td><p>{{product.department}}</p></td>
+                        <td><p>{{product.name}}</p></td>
+                        <td><p>{{product.description | safe}}</p></td>
+                        <td><p>{{product.count}}</p></td>
+                        <td><p>{{product.active}}</p></td>
+                        <td>{{product.parent}}</td>
                         <td>
                             {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' %}
-                            <a class="button is-small is-primary" href="{% url 'intra:product-update' pk=product.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-left" data-tooltip="Editar"><i class="fas fa fa-edit"></i></span></a>
-                            <a class="button is-small is-danger" href="{% url 'intra:product-delete' pk=product.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-right" data-tooltip="Eliminar"><i class="fas fa fa-eraser"></i></span></a>
+                            <a class="button is-small is-primary" href="{% url 'intra:category-update' pk=product.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-left" data-tooltip="Editar"><i class="fas fa fa-edit"></i></span></a>
+                            <a class="button is-small is-danger" href="{% url 'intra:category-delete' pk=product.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-right" data-tooltip="Eliminar"><i class="fas fa fa-eraser"></i></span></a>
                             {% endif %}
                         </td>
                     </tr>
