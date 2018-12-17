@@ -14,7 +14,7 @@
             Servicios
         </p>
         <p class="card-header-title">
-            {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' %}
+            {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' or user.is_staff %}
             <a class="button is-small is-primary" href="{% url 'intra:service-create' %}?next={{ request.path }}">Agregar</a>
             {% endif %}
         </p>
@@ -35,7 +35,7 @@
                         <td><p>{{service.name}}</p></td>
                         <td><p><span>{{service.content | safe}}</span></p></td>
                         <td>
-                            {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' %}
+                            {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' or user.is_staff %}
                             <a class="button is-small is-primary" href="{% url 'intra:service-update' pk=service.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-left" data-tooltip="Editar"><i class="fas fa fa-edit"></i></span></a>
                             <a class="button is-small is-danger" href="{% url 'intra:service-delete' pk=service.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-right" data-tooltip="Eliminar"><i class="fas fa fa-eraser"></i></span></a>
                             {% endif %}
@@ -59,7 +59,7 @@
             Servicios
         </p>
         <p class="card-header-title">
-            {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' %}
+            {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' or user.is_staff %}
             <a class="button is-small is-primary" href="{% url 'intra:service-img-create' %}?next={{ request.path }}">Agregar</a>
             {% endif %}
         </p>
@@ -95,7 +95,7 @@
                         <td>{{service.name}}</td>
                         <td>{{service.text | safe}}</td>
                         <td>
-                            {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' %}
+                            {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' or user.is_staff %}
                             <a class="button is-small is-primary" href="{% url 'intra:service-img-update' pk=service.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-left" data-tooltip="Editar"><i class="fas fa fa-edit"></i></span></a>
                             <a class="button is-small is-danger" href="{% url 'intra:service-img-delete' pk=service.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-right" data-tooltip="Eliminar"><i class="fas fa fa-eraser"></i></span></a>
                             {% endif %}

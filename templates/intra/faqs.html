@@ -14,7 +14,7 @@
             Preguntas
         </p>
         <p class="card-header-title">
-            {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' %}
+            {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' or user.is_staff %}
             <a class="button is-small is-primary" href="{% url 'intra:conf-faq-question-create' %}?next={{ request.path }}">Agregar</a>
             {% endif %}
         </p>
@@ -36,7 +36,7 @@
                     <tr>
                         <td>{{post.title}}</td>
                         <td>
-                            {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' %}
+                            {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' or user.is_staff %}
                             <a class="button is-small is-primary" href="{% url 'intra:conf-faq-question-update' post.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-left" data-tooltip="Editar"><i class="fas fa fa-edit"></i></span></a>
                             <a class="button is-small is-danger" href="{% url 'intra:conf-faq-question-delete' post.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-right" data-tooltip="Eliminar"><i class="fas fa fa-eraser"></i></span></a>
                             {% endif %}
@@ -61,7 +61,7 @@
             Respuestas
         </p>
         <p class="card-header-title">
-            {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' %}
+            {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' or user.is_staff %}
             <a class="button is-small is-primary" href="{% url 'intra:conf-faq-answer-create' %}?next={{ request.path }}">Agregar</a>
             {% endif %}
         </p>
@@ -85,7 +85,7 @@
                         <td>{{post.question.title}}</td>
                         <td>{{post.text | safe}}</td>
                         <td>
-                            {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' %}
+                            {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' or user.is_staff %}
                             <a class="button is-small is-primary" href="{% url 'intra:conf-faq-answer-update' post.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-left" data-tooltip="Editar"><i class="fas fa fa-edit"></i></span></a>
                             <a class="button is-small is-danger" href="{% url 'intra:conf-faq-answer-delete' post.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-right" data-tooltip="Eliminar"><i class="fas fa fa-eraser"></i></span></a>
                             {% endif %}

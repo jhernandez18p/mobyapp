@@ -14,7 +14,7 @@
             {{APP}}
         </p>
         <p class="card-header-title">
-            {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' %}
+            {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' or user.is_staff %}
             <a class="button is-small is-primary" href="{% url 'intra:conf-slide-create' %}?next={{ request.path }}">Agregar</a>
             {% endif %}
         </p>
@@ -42,7 +42,7 @@
                         <td>{{post.page}}</td>
                         <td>{{post.position}}</td>
                         <td>
-                            {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' %}
+                            {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' or user.is_staff %}
                             <a class="button is-small is-primary" href="{% url 'intra:conf-slide-update' post.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-left" data-tooltip="Editar"><i class="fas fa fa-edit"></i></span></a>
                             <a class="button is-small is-danger" href="{% url 'intra:conf-slide-delete' post.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-right" data-tooltip="Eliminar"><i class="fas fa fa-eraser"></i></span></a>
                             {% endif %}
@@ -67,7 +67,7 @@
             Imagenes del Carrusel
         </p>
         <p class="card-header-title">
-            {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' %}
+            {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' or user.is_staff %}
             <a class="button is-small is-primary" href="{% url 'intra:conf-slide-img-create' %}?next={{ request.path }}">Agregar</a>
             {% endif %}
         </p>
@@ -97,7 +97,7 @@
                         <td>{{post.text | safe}}</td>
                         <td>{{post.call_to_action_url}}</td>
                         <td>
-                            {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' %}
+                            {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' or user.is_staff %}
                             <a class="button is-small is-primary" href="{% url 'intra:conf-slide-img-update' post.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-left" data-tooltip="Editar"><i class="fas fa fa-edit"></i></span></a>
                             <a class="button is-small is-danger" href="{% url 'intra:conf-slide-img-delete' post.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-right" data-tooltip="Eliminar"><i class="fas fa fa-eraser"></i></span></a>
                             {% endif %}

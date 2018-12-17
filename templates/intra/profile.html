@@ -51,7 +51,7 @@
                         <td>{{object.post.title}}</td>
                         <td>{{object.content | safe}}</td>
                         <td>
-                            {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' %}
+                            {% if user.profile.role == 'ADMIN' or user.profile.role == 'SUPERVISOR' or user.is_staff %}
                                 <a class="button is-small is-primary" href="{% url 'intra:comment-update' object.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-left" data-tooltip="Editar"><i class="fas fa fa-edit"></i></span></a>
                                 <a class="button is-small is-danger" href="{% url 'intra:comment-delete' object.id %}?next={{ request.path }}"><span class="icon tooltip is-tooltip-right" data-tooltip="Eliminar"><i class="fas fa fa-eraser"></i></span></a>
                             {% endif %}
