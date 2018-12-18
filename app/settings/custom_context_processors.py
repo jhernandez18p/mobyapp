@@ -29,6 +29,10 @@ def user(request):
             if current_user.exists():
                 USER_FULLNAME = current_user.get_fullname
                 USER_AVATAR = current_user.get_avatar
+                if current_user.avatar == '':
+                    USER_AVATAR = '/static/base/img/logo.png'
+                    current_user.avatar = '/static/base/img/logo.png'
+                    current_user.save()
 
         except:
             Profile.objects.create(user=current_user, avatar='/static/base/img/logo.png')
