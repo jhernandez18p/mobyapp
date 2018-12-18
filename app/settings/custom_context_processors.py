@@ -19,26 +19,20 @@ def user(request):
     ANONYMUS = False
     USER_FULLNAME = 'Unknow'
     USER_AVATAR = '/static/base/img/logo.png'
-
-    try:
-        current_user = content.user
-        
-        if current_user.is_anonymous:
-            ANONYMUS = True
-        else:
-            ANONYMUS = False
+    
+    if not content.user.is_anonymous:
         
         try:
-            user_profile = current_user.profile
+            current_user = content.user.profile
+            ANONYMUS = True
+
+            if current_user.exists():
+                USER_FULLNAME = current_user.get_fullname
+                USER_AVATAR = current_user.get_avatar
+
         except:
             Profile.objects.create(user=current_user)
-            USER_FULLNAME = user_profile.get_fullname
-            USER_AVATAR = user_profile.get_avatar
         
-    except:
-        ANONYMUS = False
-        USER_FULLNAME = 'Unknow'
-        USER_AVATAR = '/static/base/img/logo.png'
 
     context['ANONYMUS'] = ANONYMUS
     context['USER_FULLNAME'] = USER_FULLNAME
