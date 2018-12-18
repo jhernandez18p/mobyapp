@@ -4,9 +4,12 @@
 {% endblock %}
 
 {% block content %}
-    <div class="text-center">
+<div class="container is-padding-top-30">
+    <div class="has-text-center">
         <h1>Pagina de error {{error_code}}</h1>
+        <p>No pudo ser encontrada la página: {{ request.path }}</p>
     </div>
+</div>
 {% endblock %}
 
 {% block js %}

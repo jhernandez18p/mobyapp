@@ -16,19 +16,30 @@ def user(request):
     """
     context = {}
     content = request
-    current_user = content.user
 
-    if current_user.is_anonymous:
-        context['ANONYMUS'] = True
-    else:
-        context['ANONYMUS'] = False
+    try:
+        current_user = content.user
+        
+        if current_user.is_anonymous:
+            ANONYMUS = True
+        else:
+            ANONYMUS = False
+        
         try:
             user_profile = current_user.profile
         except:
             Profile.objects.create(user=current_user)
-        context['USER_FULLNAME'] = user_profile.get_fullname
-        context['USER_AVATAR'] = user_profile.get_avatar
+            USER_FULLNAME = user_profile.get_fullname
+            USER_AVATAR = user_profile.get_avatar
+        
+    except:
+        ANONYMUS = False
+        USER_FULLNAME = 'Unknow'
+        USER_AVATAR = 'Unknow'
 
+    context['ANONYMUS'] = ANONYMUS
+    context['USER_FULLNAME'] = USER_FULLNAME
+    context['USER_AVATAR'] = USER_AVATAR
     return context
 
 def site(request):
