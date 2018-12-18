@@ -21,6 +21,11 @@
     </header>
     <div class="card-table">
         <div class="content">
+            {% if not object_list %}
+            <tbody>
+                <td class="is-centered"> <h3>No se han encontrado resultados</h3> </td>
+            </tbody>
+            {% else %}
             <table class="table is-fullwidth is-striped">
                 <thead>
                     <td>Autor</td>
@@ -51,6 +56,7 @@
                     </tr>
                     {% endfor %}
                 </tbody>
+                {% endif %}
             </table>
         </div>
     </div>

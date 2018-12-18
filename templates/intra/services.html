@@ -22,6 +22,11 @@
     <div class="card-table">
         <div class="content">
             <table class="table is-fullwidth is-striped">
+                {% if not object_list %}
+                <tbody>
+                    <td class="is-centered"> <h3>No se han encontrado resultados</h3> </td>
+                </tbody>
+                {% else %}
                 <thead>
                     <td>ID</td>
                     <td>Nombre</td>
@@ -43,6 +48,7 @@
                     </tr>
                     {% endfor %}
                 </tbody>
+                {% endif %}
             </table>
         </div>
     </div>
