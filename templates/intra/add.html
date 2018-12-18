@@ -65,10 +65,11 @@
             window.location = next;
         });
         $('input[type=text]').addClass('input');
+        $('input[type=email]').addClass('input');
         $('input[type=number]').addClass('input');
-        $('input[type=file]').wrap('<div class="file"><label class="file-label"></label></div');
-        $('.file-label').append('<span class="file-cta"><span class="file-icon"><i class="fas fa-upload"></i></span><span class="file-label">Seleccionar una imagen…</span></span>');
-        $('input[type=file]').addClass('file-input');
+        // $('input[type=file]').wrap('<div class="file"><label class="file-label"></label></div');
+        // $('.file-label').append('<span class="file-cta"><span class="file-icon"><i class="fas fa-upload"></i></span><span class="file-label">Seleccionar una imagen…</span></span>');
+        // $('input[type=file]').addClass('file-input');
         $('select').wrap('<div class="select is-fullwidth"></div>');
     });
 </script>

@@ -16,6 +16,9 @@ def user(request):
     """
     context = {}
     content = request
+    ANONYMUS = False
+    USER_FULLNAME = 'Unknow'
+    USER_AVATAR = '/static/base/img/logo.png'
 
     try:
         current_user = content.user
@@ -35,7 +38,7 @@ def user(request):
     except:
         ANONYMUS = False
         USER_FULLNAME = 'Unknow'
-        USER_AVATAR = 'Unknow'
+        USER_AVATAR = '/static/base/img/logo.png'
 
     context['ANONYMUS'] = ANONYMUS
     context['USER_FULLNAME'] = USER_FULLNAME
