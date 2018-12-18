@@ -31,7 +31,7 @@ def user(request):
                 USER_AVATAR = current_user.get_avatar
 
         except:
-            Profile.objects.create(user=current_user)
+            Profile.objects.create(user=current_user, avatar='/static/base/img/logo.png')
         
 
     context['ANONYMUS'] = ANONYMUS
