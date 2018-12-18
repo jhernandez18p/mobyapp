@@ -18,7 +18,7 @@ def user(request):
     content = request
     ANONYMUS = False
     USER_FULLNAME = 'Unknow'
-    USER_AVATAR = '/static/base/img/logo.png'
+    USER_AVATAR = 'staticfiles/base/img/avatar.png'
     
     if not content.user.is_anonymous:
         
@@ -30,12 +30,12 @@ def user(request):
                 USER_FULLNAME = current_user.get_fullname
                 USER_AVATAR = current_user.get_avatar
                 if current_user.avatar == '':
-                    USER_AVATAR = '/static/base/img/logo.png'
-                    current_user.avatar = '/static/base/img/logo.png'
+                    USER_AVATAR = 'staticfiles/base/img/avatar.png'
+                    current_user.avatar = 'staticfiles/base/img/avatar.png'
                     current_user.save()
 
         except:
-            Profile.objects.create(user=current_user, avatar='/static/base/img/logo.png')
+            Profile.objects.create(user=current_user, avatar='staticfiles/base/img/avatar.png')
         
 
     context['ANONYMUS'] = ANONYMUS
