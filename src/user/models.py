@@ -349,7 +349,7 @@ class Profile(models.Model):
         upload_to=get_upload_path,
         null=True,
         blank=True,
-        default='/profile/avatar.png',
+        default='/staticfiles/base/img/avatar.png',
     )
     bio = RichTextField( blank=True, verbose_name=_('Biografia'))
     birth_date = models.DateField(null=True, blank=True, verbose_name=_('Fecha de nacimiento'))
@@ -395,7 +395,7 @@ class Profile(models.Model):
         Easy method to get user avatar
         """
         avatar = self.user.profile.avatar
-        img = 'staticfiles/base/img/avatar.png'
+        img = '/staticfiles/base/img/avatar.png'
         if avatar.url:
             img = avatar.url
         return img
